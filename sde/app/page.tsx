@@ -20,7 +20,8 @@ type Problem={
 
 const problems:Problem[] = problemsData as Problem[];
 const difficulties:Difficulty[]=["Easy","Medium","Hard"];
-const companies=["All",...Array.from(new Set(problems.flatMap(p=>p.companies)))].sort((a,b)=>a.localeCompare(b));
+const companyCounts=Array.from(new Set(problems.flatMap(p=>p.companies))).map(name=>({name,count:problems.filter(p=>p.companies.includes(name)).length})).sort((a,b)=>b.count-a.count||a.name.localeCompare(b.name));
+const companies=["All",...companyCounts.slice(0,150).map(x=>x.name)];
 const topicFamilies=["All","Arrays","Hashing","Linked List","Stack","Queue","Heap","Trees","Trie","Graphs","BFS","DFS","Backtracking","Dynamic Programming","Binary Search","Two Pointers","Sliding Window","Greedy","Intervals","Bit Manipulation","Union Find"];
 const rawTopicList=Array.from(new Set(problems.flatMap(p=>p.topics))).sort();
 const topicList=Array.from(new Set([...topicFamilies.slice(1),...rawTopicList])).sort();
