@@ -227,15 +227,19 @@ function Overview({today,solvedToday,streak,weeklySolved,completion,totalTime,se
    <div className="absolute right-0 top-0 w-72 h-72 bg-cyan-300/10 blur-3xl rounded-full"/>
    <div className="relative">
     <div className="flex items-center gap-2 text-[10px] tracking-[.22em] text-cyan-200"><span className="w-2 h-2 rounded-full bg-cyan-300 pulse-dot"/> TODAY'S SYSTEM</div>
-    <div className="mt-4 grid lg:grid-cols-[1fr_340px] gap-8 items-end">
-     <div><h1 className="text-4xl md:text-6xl font-black tracking-tight leading-[.98]">Build skill.<br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 via-white to-violet-300">Measure it.</span></h1><p className="max-w-xl text-sm md:text-base text-[#8998ac] mt-5 leading-7">DACE turns daily coding practice into a feedback loop: mixed problems, real solving time, revisions, company coverage and adaptive selection.</p>
-      <div className="flex flex-wrap gap-2 mt-6"><button onClick={()=>setView("today")} className="px-4 py-2.5 rounded-xl bg-white text-black text-sm font-semibold hover:bg-cyan-100 transition flex items-center gap-2"><Icon name="play" size={15}/> Start today's set</button><button onClick={()=>setView("analytics")} className="px-4 py-2.5 rounded-xl border border-[#2b384a] text-sm hover:bg-white/5 transition flex items-center gap-2"><Icon name="analytics" size={15}/> View analytics</button></div>
+    <div className="mt-4 grid lg:grid-cols-[1fr_420px] gap-8 items-center">
+     <div><h1 className="text-4xl md:text-6xl font-black tracking-tight leading-[.98]">Build skill.<br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-fuchsia-300 to-violet-300">Measure it.</span></h1><p className="max-w-xl text-sm md:text-base text-[#8998ac] mt-5 leading-7">DACE turns daily coding practice into a feedback loop: mixed problems, real solving time, revisions, company coverage and adaptive selection.</p>
+      <div className="flex flex-wrap gap-2 mt-6"><button onClick={()=>setView("today")} className="px-4 py-2.5 rounded-xl bg-white text-black text-sm font-semibold hover:bg-pink-100 transition flex items-center gap-2"><Icon name="play" size={15}/> Start today's set</button><button onClick={()=>setView("analytics")} className="px-4 py-2.5 rounded-xl border border-[#2b384a] text-sm hover:bg-white/5 transition flex items-center gap-2"><Icon name="analytics" size={15}/> View analytics</button></div>
      </div>
-     <div className="grid grid-cols-2 gap-2">
-      <MiniMetric label="Today" value={`${solvedToday}/5`} sub="completed"/>
-      <MiniMetric label="Streak" value={`${streak}d`} sub="current"/>
-      <MiniMetric label="This week" value={String(weeklySolved)} sub="problems"/>
-      <MiniMetric label="Tracked" value={Math.floor(totalTime/60)+"m"} sub="time"/>
+     <div className="relative h-[310px] report-card rounded-[28px] overflow-hidden p-5">
+      <div className="report-orb w-56 h-40 -right-8 -top-8 opacity-95"/>
+      <div className="report-orb two w-44 h-28 -left-10 bottom-8 opacity-90"/>
+      <div className="report-orb three w-28 h-24 right-16 bottom-[-24px] opacity-80"/>
+      <div className="relative z-10 h-full flex flex-col justify-between">
+       <div className="flex items-center justify-between"><span className="text-[9px] tracking-[.22em] text-pink-200">DACE / DAILY REPORT</span><span className="text-[9px] text-[#69778a]">01</span></div>
+       <div><div className="text-5xl font-black tracking-tight">{solvedToday}/5</div><div className="text-xs text-[#8290a3] mt-1">problems completed today</div><div className="mt-5 h-1.5 rounded-full bg-white/10 overflow-hidden"><div className="h-full magenta-line rounded-full transition-all" style={{width:`${solvedToday/5*100}%`}}/></div></div>
+       <div className="grid grid-cols-3 gap-2"><MiniMetric label="Streak" value={`${streak}d`} sub="current"/><MiniMetric label="Week" value={String(weeklySolved)} sub="solved"/><MiniMetric label="Time" value={Math.floor(totalTime/60)+"m"} sub="tracked"/></div>
+      </div>
      </div>
     </div>
    </div>
