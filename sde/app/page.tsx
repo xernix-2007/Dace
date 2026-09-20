@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import {
   Activity, ArrowUpRight, BarChart3, BookOpen, BriefcaseBusiness, CalendarDays,
   Check, CheckCircle2, ChevronRight, CircleHelp, Clock3, Code2, Download,
-  Flame, Gauge, Github, GraduationCap, LayoutDashboard, ListChecks, Menu,
+  Flame, Gauge, GitBranch, GraduationCap, LayoutDashboard, ListChecks, Menu,
   Play, RotateCcw, Search, Settings, ShieldCheck, Sparkles, Target, Timer,
   Trophy, Upload, UserRound, X, Zap
 } from "lucide-react";
@@ -31,7 +31,7 @@ function diffClass(d:Difficulty){return d==="Easy"?"diff-easy":d==="Medium"?"dif
 
 function Icon({name,size=17}:{name:string;size?:number}){
  const common={size,strokeWidth:1.8};
- const icons:any={dashboard:LayoutDashboard,calendar:CalendarDays,list:ListChecks,company:BriefcaseBusiness,analytics:BarChart3,interview:Target,settings:Settings,search:Search,clock:Clock3,play:Play,check:Check,code:Code2,spark:Sparkles,flame:Flame,trophy:Trophy,book:BookOpen,github:Github,upload:Upload,download:Download,menu:Menu,x:X,arrow:ArrowUpRight,reset:RotateCcw,gauge:Gauge,shield:ShieldCheck,user:UserRound,help:CircleHelp,zap:Zap,activity:Activity};
+ const icons:any={dashboard:LayoutDashboard,calendar:CalendarDays,list:ListChecks,company:BriefcaseBusiness,analytics:BarChart3,interview:Target,settings:Settings,search:Search,clock:Clock3,play:Play,check:Check,code:Code2,spark:Sparkles,flame:Flame,trophy:Trophy,book:BookOpen,github:GitBranch,upload:Upload,download:Download,menu:Menu,x:X,arrow:ArrowUpRight,reset:RotateCcw,gauge:Gauge,shield:ShieldCheck,user:UserRound,help:CircleHelp,zap:Zap,activity:Activity};
  const C=icons[name]||Code2;return <C {...common}/>;
 }
 
