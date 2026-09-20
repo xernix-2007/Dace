@@ -342,8 +342,6 @@ function ProblemsPage({problems,solved,status,search,setSearch,difficulty,setDif
  const [problemCompany,setProblemCompany]=useState("All");
  const [problemStatus,setProblemStatus]=useState<"All"|Status>("All");
  const [problemSort,setProblemSort]=useState<"number"|"title"|"difficulty"|"frequency">("number");
- const [problemPage,setProblemPage]=useState(1);
- const pageSize=40;
  const statusFor=(p:Problem):Status=>status[p.id]||"unsolved";
  const filteredProblems=useMemo(()=>{
   const result=problems.filter(p=>
@@ -363,16 +361,12 @@ function ProblemsPage({problems,solved,status,search,setSearch,difficulty,setDif
    return (a.leetcodeNumber??Infinity)-(b.leetcodeNumber??Infinity) || a.title.localeCompare(b.title);
   });
  },[problems,difficulty,topic,problemCompany,problemStatus,search,problemSort,status]);
- const totalPages=Math.max(1,Math.ceil(filteredProblems.length/pageSize));
- const safePage=Math.min(problemPage,totalPages);
- const pageItems=filteredProblems.slice((safePage-1)*pageSize,safePage*pageSize);
  const counts={all:problems.length,solved:problems.filter(p=>statusFor(p)==="solved").length,revision:problems.filter(p=>statusFor(p)==="revision").length,failed:problems.filter(p=>statusFor(p)==="failed").length};
- const reset=()=>{setSearch("");setDifficulty("All");setTopic("All");setProblemCompany("All");setProblemStatus("All");setProblemSort("number");setProblemPage(1)};
- useEffect(()=>{setProblemPage(1)},[search,difficulty,topic,problemCompany,problemStatus,problemSort]);
+ const reset=()=>{setSearch("");setDifficulty("All");setTopic("All");setProblemCompany("All");setProblemStatus("All");setProblemSort("number")};
  return <div className="max-w-7xl mx-auto p-5 md:p-8">
   <div className="fade-up flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
-   <div><div className="text-[10px] tracking-[.2em] text-violet-300">PROBLEM BANK / LIBRARY</div><h1 className="text-3xl md:text-4xl font-black mt-2">Problems</h1><p className="text-sm text-[#748398] mt-2">Search the full bank, filter by interview signal, and launch the timer directly.</p></div>
-   <div className="text-xs text-[#657387]">{filteredProblems.length.toLocaleString()} matching · page {safePage}/{totalPages}</div>
+   <div><div className="text-[10px] tracking-[.2em] text-violet-300">PROBLEM BANK / LIBRARY</div><h1 className="text-3xl md:text-4xl font-black mt-2">Problems</h1><p className="text-sm text-[#748398] mt-2">The complete problem bank. Search, filter, sort, revise and launch the timer directly.</p></div>
+   <div className="text-xs text-[#657387]">{filteredProblems.length.toLocaleString()} matching</div>
   </div>
   <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-6">
    <Stat label="Loaded" value={counts.all.toLocaleString()} icon="list"/><Stat label="Solved" value={String(counts.solved)} icon="check"/><Stat label="Revision" value={String(counts.revision)} icon="reset"/><Stat label="Couldn't solve" value={String(counts.failed)} icon="help"/>
@@ -380,7 +374,7 @@ function ProblemsPage({problems,solved,status,search,setSearch,difficulty,setDif
   <div className="panel rounded-2xl p-3 mt-5">
    <div className="grid lg:grid-cols-[1.5fr_repeat(3,1fr)] gap-2">
     <div className="flex items-center gap-2 bg-[#0b1119] border border-[#243145] rounded-xl px-3"><Icon name="search" size={15}/><input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search problems..." className="bg-transparent outline-none py-2.5 text-sm w-full"/></div>
-    <select value={topic} onChange={e=>setTopic(e.target.value==="All topics"?"All":e.target.value)} className="bg-[#0b1119] border border-[#253245] rounded-xl px-3 py-2.5 text-xs"><option>All topics</option>{topicList.filter(t=>t!=="All").map(t=><option key={t}>{t}</option>)}</select>
+    <select value={topic==="All"?"All topics":topic} onChange={e=>setTopic(e.target.value==="All topics"?"All":e.target.value)} className="bg-[#0b1119] border border-[#253245] rounded-xl px-3 py-2.5 text-xs"><option>All topics</option>{topicList.filter(t=>t!=="All").map(t=><option key={t}>{t}</option>)}</select>
     <select value={problemCompany} onChange={e=>setProblemCompany(e.target.value)} className="bg-[#0b1119] border border-[#253245] rounded-xl px-3 py-2.5 text-xs"><option value="All">All companies</option>{companies.filter(c=>c!=="All").map(c=><option key={c}>{c}</option>)}</select>
     <select value={problemStatus} onChange={e=>setProblemStatus(e.target.value as "All"|Status)} className="bg-[#0b1119] border border-[#253245] rounded-xl px-3 py-2.5 text-xs"><option value="All">All status</option><option value="unsolved">Unsolved</option><option value="solved">Solved</option><option value="revision">Need revision</option><option value="failed">Couldn't solve</option></select>
    </div>
@@ -389,10 +383,9 @@ function ProblemsPage({problems,solved,status,search,setSearch,difficulty,setDif
     <div className="ml-auto flex items-center gap-2"><span className="text-[10px] tracking-[.14em] text-[#5f6d80]">SORT</span><select value={problemSort} onChange={e=>setProblemSort(e.target.value as typeof problemSort)} className="bg-[#0b1119] border border-[#253245] rounded-xl px-3 py-2 text-xs"><option value="number">LeetCode #</option><option value="title">Title</option><option value="difficulty">Difficulty</option><option value="frequency">Frequency</option></select><button onClick={reset} className="px-3 py-2 rounded-xl border border-[#253245] text-xs text-[#8b98aa] hover:text-white flex items-center gap-2"><Icon name="reset" size={13}/> Reset</button></div>
    </div>
   </div>
-  <div className="flex items-center justify-between text-xs text-[#68778c] mt-5 mb-3"><span>Showing {filteredProblems.length?((safePage-1)*pageSize+1).toLocaleString():0}–{Math.min(safePage*pageSize,filteredProblems.length).toLocaleString()} of {filteredProblems.length.toLocaleString()}</span><span>40 per page · LeetCode # default</span></div>
-  <div className="space-y-2">{pageItems.map((p,i)=><DailyCard key={p.id} p={p} index={(safePage-1)*pageSize+i} solved={solved.includes(p.id)} status={statusFor(p)} openTimer={openTimer} mark={mark}/>)}</div>
-  {!pageItems.length&&<div className="panel rounded-2xl p-10 text-center"><div className="text-lg font-semibold">No problems match these filters.</div><button onClick={reset} className="mt-4 px-4 py-2.5 rounded-xl bg-white text-black text-sm font-semibold">Clear filters</button></div>}
-  <div className="flex items-center justify-between mt-5"><button disabled={safePage<=1} onClick={()=>setProblemPage(p=>Math.max(1,p-1))} className="px-4 py-2.5 rounded-xl border border-[#273447] text-xs disabled:opacity-30">← Previous</button><div className="text-xs text-[#718096]">Page {safePage} of {totalPages}</div><button disabled={safePage>=totalPages} onClick={()=>setProblemPage(p=>Math.min(totalPages,p+1))} className="px-4 py-2.5 rounded-xl border border-[#273447] text-xs disabled:opacity-30">Next →</button></div>
+  <div className="flex items-center justify-between text-xs text-[#68778c] mt-5 mb-3"><span>Showing all {filteredProblems.length.toLocaleString()} matching problems</span><span>Sorted by {problemSort==="number"?"LeetCode #":problemSort}</span></div>
+  <div className="space-y-2">{filteredProblems.map((p,i)=><DailyCard key={p.id} p={p} index={i} solved={solved.includes(p.id)} status={statusFor(p)} openTimer={openTimer} mark={mark}/>)}</div>
+  {!filteredProblems.length&&<div className="panel rounded-2xl p-10 text-center"><div className="text-lg font-semibold">No problems match these filters.</div><button onClick={reset} className="mt-4 px-4 py-2.5 rounded-xl bg-white text-black text-sm font-semibold">Clear filters</button></div>}
  </div>
 }
 
