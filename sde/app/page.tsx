@@ -106,9 +106,10 @@ export default function Home(){
   const picked:number[]=[];
   for(const d of difficulties){
    const count=target[d];
-   const pool=available.filter(p=>p.difficulty===d&&(company==="All"||p.companies.includes(company)))
+   const ranked=available.filter(p=>p.difficulty===d&&(company==="All"||p.companies.includes(company)))
      .sort((a,b)=>score(b,todayKey+d)-score(a,todayKey+d));
-   for(const p of shuffle(pool,todayKey+d)){if(picked.length>=5)break;if(picked.filter(id=>problems.find(x=>x.id===id)?.difficulty===d).length<count&&!picked.includes(p.id))picked.push(p.id)}
+   const candidatePool=ranked.slice(0,Math.max(count*4,8));
+   for(const p of shuffle(candidatePool,todayKey+d)){if(picked.length>=5)break;if(picked.filter(id=>problems.find(x=>x.id===id)?.difficulty===d).length<count&&!picked.includes(p.id))picked.push(p.id)}
   }
   if(picked.length<5){
    const fallback=shuffle(available.filter(p=>!picked.includes(p.id)&&(company==="All"||p.companies.includes(company))),todayKey+"fallback");
