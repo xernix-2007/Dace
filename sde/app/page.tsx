@@ -1,5 +1,6 @@
 "use client";
 
+import problemsData from "../data/problems.json";
 import { useEffect, useMemo, useState } from "react";
 import {
   Activity, ArrowUpRight, BarChart3, BookOpen, BriefcaseBusiness, CalendarDays,
@@ -17,7 +18,8 @@ type Problem={
  url:string; estimate:number;
 };
 
-const problems:Problem[] = problemsData as Problem[];\nconst difficulties:Difficulty[]=["Easy","Medium","Hard"];
+const problems:Problem[] = problemsData as Problem[];
+const difficulties:Difficulty[]=["Easy","Medium","Hard"];
 const companies=["All",...Array.from(new Set(problems.flatMap(p=>p.companies)))].sort((a,b)=>a.localeCompare(b));
 const topicList=Array.from(new Set(problems.flatMap(p=>p.topics))).sort();
 
