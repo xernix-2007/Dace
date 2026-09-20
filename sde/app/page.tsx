@@ -289,21 +289,20 @@ function TodayPage({today,solved,status,solvedToday,company,companies,setCompany
  </div>
 }
 function DailyCard({p,index,solved,status,openTimer,mark}:{p:Problem;index:number;solved:boolean;status:Status;openTimer:(p:Problem)=>void;mark:(p:Problem,s:Status)=>void}){
- return <article className={`panel rounded-2xl p-4 md:p-5 transition hover:-translate-y-0.5 ${solved?"border-green-400/20":""}`}>
+ return <article className={`report-card rounded-2xl p-4 md:p-5 transition hover:-translate-y-0.5 ${solved?"border-green-400/25":""}`}>
   <div className="flex gap-4 items-center">
-   <div className="w-10 h-10 rounded-xl border border-[#273447] bg-[#111925] flex items-center justify-center text-xs text-[#738299]">{String(index+1).padStart(2,"0")}</div>
-   <div className="flex-1 min-w-0"><div className="flex items-center gap-2 flex-wrap"><h2 className="font-semibold truncate">{p.title}</h2>{solved&&<CheckCircle2 size={15} className="text-green-400"/>}</div><div className="text-xs text-[#728198] mt-1">{p.topics.slice(0,3).join(" · ")} · {p.companies.slice(0,2).join(" · ")}</div></div>
+   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500/15 to-violet-500/15 border border-pink-300/10 flex items-center justify-center text-xs text-[#aab3c0]">{String(index+1).padStart(2,"0")}</div>
+   <div className="flex-1 min-w-0"><div className="flex items-center gap-2 flex-wrap"><h2 className="font-semibold truncate">{p.title}</h2>{solved&&<CheckCircle2 size={15} className="text-green-400"/>}</div><div className="text-xs text-[#728198] mt-1">{p.topics.slice(0,3).join(" · ")} · {p.companies.slice(0,2).join(" · ")} · ~{p.estimate}m</div></div>
    <span className={`text-[10px] px-2.5 py-1.5 rounded-full border ${diffClass(p.difficulty)}`}>{p.difficulty}</span>
-   <button onClick={()=>openTimer(p)} className="hidden sm:flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-white text-black text-xs font-semibold hover:bg-cyan-100"><Icon name="clock" size={14}/> Timer</button>
+   <button onClick={()=>openTimer(p)} className="hidden sm:flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-pink-500 to-violet-500 text-white text-xs font-semibold hover:brightness-110"><Icon name="clock" size={14}/> Timer</button>
   </div>
-  <div className="mt-3 pt-3 border-t border-[#1d2734] flex flex-wrap items-center gap-2">
-   <select value={status} onChange={e=>mark(p,e.target.value as Status)} className="bg-[#0b1119] border border-[#253245] rounded-lg px-2.5 py-2 text-[11px]"><option value="unsolved">Unsolved</option><option value="solved">Solved</option><option value="revision">Need revision</option><option value="failed">Couldn't solve</option></select>
+  <div className="mt-3 pt-3 border-t border-white/[.06] flex flex-wrap items-center gap-2">
+   <select value={status} onChange={e=>mark(p,e.target.value as Status)} className="bg-[#0b0e13] border border-[#253245] rounded-lg px-2.5 py-2 text-[11px]"><option value="unsolved">Unsolved</option><option value="solved">Solved</option><option value="revision">Need revision</option><option value="failed">Couldn't solve</option></select>
    <a href={p.url} target="_blank" rel="noreferrer" className="ml-auto text-[11px] px-3 py-2 rounded-lg border border-[#253245] text-[#9aa8ba] hover:text-white flex items-center gap-1">LeetCode <Icon name="arrow" size={12}/></a>
    <button onClick={()=>openTimer(p)} className="sm:hidden text-[11px] px-3 py-2 rounded-lg bg-white text-black font-semibold">Timer</button>
   </div>
  </article>
 }
-
 function ProblemsPage({problems,solved,status,search,setSearch,difficulty,setDifficulty,topic,setTopic,openTimer,mark}:{problems:Problem[];solved:number[];status:Record<number,Status>;search:string;setSearch:(s:string)=>void;difficulty:"All"|Difficulty;setDifficulty:(d:"All"|Difficulty)=>void;topic:string;setTopic:(t:string)=>void;openTimer:(p:Problem)=>void;mark:(p:Problem,s:Status)=>void}){
  return <div className="max-w-7xl mx-auto p-5 md:p-8"><div className="fade-up"><div className="text-[10px] tracking-[.2em] text-violet-300">PROBLEM BANK</div><h1 className="text-3xl md:text-4xl font-black mt-2">Problems</h1><p className="text-sm text-[#748398] mt-2 mb-6">Search, filter, revise and launch the timer.</p></div>
   <div className="panel rounded-2xl p-3 mb-4 flex flex-wrap gap-2"><div className="flex-1 min-w-52 flex items-center gap-2 bg-[#0b1119] border border-[#243145] rounded-xl px-3"><Icon name="search" size={15}/><input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search problems..." className="bg-transparent outline-none py-2.5 text-sm w-full"/></div>{["All",...difficulties].map(d=><button key={d} onClick={()=>setDifficulty(d as any)} className={`px-3 py-2 rounded-xl text-xs border ${difficulty===d?"border-cyan-300/30 bg-cyan-300/10 text-cyan-100":"border-[#253245] text-[#8391a5] hover:bg-white/5"}`}>{d}</button>)}<select value={topic} onChange={e=>setTopic(e.target.value)} className="bg-[#0b1119] border border-[#253245] rounded-xl px-3 text-xs"><option>All</option>{topicList.map(t=><option key={t}>{t}</option>)}</select></div>
