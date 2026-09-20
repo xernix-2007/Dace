@@ -177,12 +177,12 @@ export default function Home(){
   <header className="h-16 border-b border-[#202a38] sticky top-0 z-40 glass flex items-center px-4 md:px-6 gap-3">
    <button className="md:hidden p-2 rounded-lg hover:bg-white/5" onClick={()=>setMobileOpen(!mobileOpen)}><Icon name="menu"/></button>
    <button onClick={()=>setView("overview")} className="flex items-center gap-2.5">
-    <span className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-300/20 to-violet-400/20 border border-cyan-300/20 flex items-center justify-center"><Icon name="code" size={19}/></span>
-    <span className="font-black tracking-[.16em] text-sm">DACE</span>
+    <span className="w-9 h-9 rounded-xl bg-gradient-to-br from-pink-500/20 to-violet-500/20 border border-pink-300/20 flex items-center justify-center"><Icon name="code" size={19}/></span>
+    <span className="font-black tracking-[-.03em] text-lg"><span className="text-pink-300">D</span>ACE</span>
    </button>
-   <span className="hidden sm:block text-[10px] tracking-[.2em] text-[#637187]">DAILY ADAPTIVE CODING ENVIRONMENT</span>
+   <span className="hidden sm:block text-[10px] tracking-[.2em] text-[#637187]">DAILY ADAPTIVE CODING</span>
    <div className="ml-auto flex items-center gap-3">
-    <div className="hidden sm:flex items-center gap-2 text-xs text-[#9aa8ba]"><span className="w-2 h-2 rounded-full bg-green-400 pulse-dot"/>LOCAL MODE</div>
+    <div className="hidden sm:flex items-center gap-2 text-xs text-[#9aa8ba]"><span className="w-2 h-2 rounded-full bg-pink-400 pulse-dot"/>LOCAL MODE</div>
     <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#263346] bg-[#0b1017] text-xs"><Icon name="flame" size={14}/><span>{streak}</span></div>
     <div className="w-8 h-8 rounded-full border border-[#334155] bg-[#141c28] flex items-center justify-center"><Icon name="user" size={15}/></div>
    </div>
