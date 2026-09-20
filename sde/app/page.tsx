@@ -15,7 +15,7 @@ type Status="unsolved"|"solved"|"revision"|"failed";
 type View="overview"|"today"|"problems"|"companies"|"analytics"|"interview"|"settings";
 type Problem={
  id:number; title:string; difficulty:Difficulty; topics:string[]; companies:string[];
- url:string; estimate:number;
+ url:string; estimate:number; leetcodeNumber?:number|null;
 };
 
 const problems:Problem[] = problemsData as Problem[];
@@ -327,7 +327,7 @@ function DailyCard({p,index,solved,status,openTimer,mark}:{p:Problem;index:numbe
  return <article className={`report-card rounded-2xl p-4 md:p-5 transition hover:-translate-y-0.5 ${solved?"border-green-400/25":""}`}>
   <div className="flex gap-4 items-center">
    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500/15 to-violet-500/15 border border-pink-300/10 flex items-center justify-center text-xs text-[#aab3c0]">{String(index+1).padStart(2,"0")}</div>
-   <div className="flex-1 min-w-0"><div className="flex items-center gap-2 flex-wrap"><h2 className="font-semibold truncate">{p.title}</h2>{solved&&<CheckCircle2 size={15} className="text-green-400"/>}</div><div className="text-xs text-[#728198] mt-1">{p.topics.slice(0,3).join(" · ")} · {p.companies.slice(0,2).join(" · ")} · ~{p.estimate}m</div></div>
+   <div className="flex-1 min-w-0"><div className="flex items-center gap-2 flex-wrap"><h2 className="font-semibold truncate">{p.leetcodeNumber ? `${p.leetcodeNumber}. ` : ""}{p.title}</h2>{solved&&<CheckCircle2 size={15} className="text-green-400"/>}</div><div className="text-xs text-[#728198] mt-1">{p.topics.slice(0,3).join(" · ")} · {p.companies.slice(0,2).join(" · ")} · ~{p.estimate}m</div></div>
    <span className={`text-[10px] px-2.5 py-1.5 rounded-full border ${diffClass(p.difficulty)}`}>{p.difficulty}</span>
    <button onClick={()=>openTimer(p)} className="hidden sm:flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-pink-500 to-violet-500 text-white text-xs font-semibold hover:brightness-110"><Icon name="clock" size={14}/> Timer</button>
   </div>
@@ -341,8 +341,8 @@ function DailyCard({p,index,solved,status,openTimer,mark}:{p:Problem;index:numbe
 function ProblemsPage({problems,solved,status,search,setSearch,difficulty,setDifficulty,topic,setTopic,openTimer,mark}:{problems:Problem[];solved:number[];status:Record<number,Status>;search:string;setSearch:(s:string)=>void;difficulty:"All"|Difficulty;setDifficulty:(d:"All"|Difficulty)=>void;topic:string;setTopic:(t:string)=>void;openTimer:(p:Problem)=>void;mark:(p:Problem,s:Status)=>void}){
  return <div className="max-w-7xl mx-auto p-5 md:p-8"><div className="fade-up"><div className="text-[10px] tracking-[.2em] text-violet-300">PROBLEM BANK</div><h1 className="text-3xl md:text-4xl font-black mt-2">Problems</h1><p className="text-sm text-[#748398] mt-2 mb-6">Search, filter, revise and launch the timer.</p></div>
   <div className="panel rounded-2xl p-3 mb-4 flex flex-wrap gap-2"><div className="flex-1 min-w-52 flex items-center gap-2 bg-[#0b1119] border border-[#243145] rounded-xl px-3"><Icon name="search" size={15}/><input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search problems..." className="bg-transparent outline-none py-2.5 text-sm w-full"/></div>{["All",...difficulties].map(d=><button key={d} onClick={()=>setDifficulty(d as any)} className={`px-3 py-2 rounded-xl text-xs border ${difficulty===d?"border-cyan-300/30 bg-cyan-300/10 text-cyan-100":"border-[#253245] text-[#8391a5] hover:bg-white/5"}`}>{d}</button>)}<select value={topic} onChange={e=>setTopic(e.target.value)} className="bg-[#0b1119] border border-[#253245] rounded-xl px-3 text-xs"><option>All</option>{topicList.map(t=><option key={t}>{t}</option>)}</select></div>
-  <div className="text-xs text-[#68778c] mb-3">{problems.length} problems shown</div>
-  <div className="space-y-2">{problems.map((p,i)=><DailyCard key={p.id} p={p} index={i} solved={solved.includes(p.id)} status={status[p.id]||"unsolved"} openTimer={openTimer} mark={mark}/>)}</div>
+  <div className="flex items-center justify-between text-xs text-[#68778c] mb-3"><span>{problems.length} problems shown</span><span>Ordered by LeetCode number</span></div>
+  <div className="space-y-2">{[...problems].sort((a,b)=>(a.leetcodeNumber??Infinity)-(b.leetcodeNumber??Infinity)||a.title.localeCompare(b.title)).map((p,i)=><DailyCard key={p.id} p={p} index={i} solved={solved.includes(p.id)} status={status[p.id]||"unsolved"} openTimer={openTimer} mark={mark}/>)}</div>
  </div>
 }
 
