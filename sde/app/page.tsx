@@ -21,7 +21,36 @@ type Problem={
 const problems:Problem[] = problemsData as Problem[];
 const difficulties:Difficulty[]=["Easy","Medium","Hard"];
 const companies=["All",...Array.from(new Set(problems.flatMap(p=>p.companies)))].sort((a,b)=>a.localeCompare(b));
-const topicList=Array.from(new Set(problems.flatMap(p=>p.topics))).sort();
+const topicFamilies=["All","Arrays","Hashing","Linked List","Stack","Queue","Heap","Trees","Trie","Graphs","BFS","DFS","Backtracking","Dynamic Programming","Binary Search","Two Pointers","Sliding Window","Greedy","Intervals","Bit Manipulation","Union Find"];
+const rawTopicList=Array.from(new Set(problems.flatMap(p=>p.topics))).sort();
+const topicList=Array.from(new Set([...topicFamilies.slice(1),...rawTopicList])).sort();
+
+function topicFamily(p:Problem){
+ const t=p.topics.map(x=>x.toLowerCase());
+ if(t.some(x=>x.includes("trie")))return "Trie";
+ if(t.some(x=>x.includes("backtracking")))return "Backtracking";
+ if(t.some(x=>x.includes("heap")||x.includes("priority queue")))return "Heap";
+ if(t.some(x=>x==="queue"||x.includes("monotonic queue")))return "Queue";
+ if(t.some(x=>x.includes("tree")||x.includes("binary tree")||x.includes("lowest common ancestor")))return "Trees";
+ if(t.some(x=>x.includes("graph")||x.includes("shortest path")||x.includes("topological")||x.includes("dijkstra")||x.includes("bipartite")||x.includes("minimum spanning")))return "Graphs";
+ if(t.some(x=>x.includes("breadth-first")))return "BFS";
+ if(t.some(x=>x.includes("depth-first")))return "DFS";
+ if(t.some(x=>x.includes("dynamic programming")||x==="memoization"||x.includes("knapsack")))return "Dynamic Programming";
+ if(t.some(x=>x.includes("hash")))return "Hashing";
+ if(t.some(x=>x.includes("linked list")))return "Linked List";
+ if(t.some(x=>x==="stack"||x.includes("monotonic stack")))return "Stack";
+ if(t.some(x=>x.includes("binary search")))return "Binary Search";
+ if(t.some(x=>x.includes("two pointers")))return "Two Pointers";
+ if(t.some(x=>x.includes("sliding window")))return "Sliding Window";
+ if(t.some(x=>x.includes("greedy")))return "Greedy";
+ if(t.some(x=>x.includes("bit manipulation")))return "Bit Manipulation";
+ if(t.some(x=>x.includes("union-find")))return "Union Find";
+ if(t.some(x=>x.includes("array")||x.includes("matrix")))return "Arrays";
+ return p.topics[0]||"Other";
+}
+function matchesTopic(p:Problem,selected:string){
+ return selected==="All"||p.topics.includes(selected)||topicFamily(p)===selected;
+}
 
 function dateKey(date=new Date()){return date.toLocaleDateString("en-CA");}
 function hashSeed(s:string){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
@@ -104,12 +133,18 @@ export default function Home(){
   if(daily[todayKey])return daily[todayKey];
   const available=problems.filter(p=>!solved.includes(p.id));
   const picked:number[]=[];
+  const usedFamilies=new Set<string>();
   for(const d of difficulties){
    const count=target[d];
    const ranked=available.filter(p=>p.difficulty===d&&(company==="All"||p.companies.includes(company)))
      .sort((a,b)=>score(b,todayKey+d)-score(a,todayKey+d));
-   const candidatePool=ranked.slice(0,Math.max(count*4,8));
-   for(const p of shuffle(candidatePool,todayKey+d)){if(picked.length>=5)break;if(picked.filter(id=>problems.find(x=>x.id===id)?.difficulty===d).length<count&&!picked.includes(p.id))picked.push(p.id)}
+   const candidatePool=shuffle(ranked.slice(0,Math.max(count*10,30)),todayKey+d);
+   const countForDifficulty=()=>picked.filter(id=>problems.find(x=>x.id===id)?.difficulty===d).length;
+   for(const p of candidatePool){
+    if(picked.length>=5||countForDifficulty()>=count)break;
+    const family=topicFamily(p);
+    if(!usedFamilies.has(family)||candidatePool.every(x=>usedFamilies.has(topicFamily(x)))){picked.push(p.id);usedFamilies.add(family);}
+   }
   }
   if(picked.length<5){
    const fallback=shuffle(available.filter(p=>!picked.includes(p.id)&&(company==="All"||p.companies.includes(company))),todayKey+"fallback");
@@ -132,7 +167,7 @@ export default function Home(){
 
  const filtered=useMemo(()=>problems.filter(p=>
   (difficulty==="All"||p.difficulty===difficulty)&&
-  (topic==="All"||p.topics.includes(topic))&&
+  matchesTopic(p,topic)&&
   (company==="All"||p.companies.includes(company))&&
   p.title.toLowerCase().includes(search.toLowerCase())
  ),[difficulty,topic,company,search]);
