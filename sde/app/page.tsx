@@ -1,196 +1,398 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import {
+  Activity, ArrowUpRight, BarChart3, BookOpen, BriefcaseBusiness, CalendarDays,
+  Check, CheckCircle2, ChevronRight, CircleHelp, Clock3, Code2, Download,
+  Flame, Gauge, Github, GraduationCap, LayoutDashboard, ListChecks, Menu,
+  Play, RotateCcw, Search, Settings, ShieldCheck, Sparkles, Target, Timer,
+  Trophy, Upload, UserRound, X, Zap
+} from "lucide-react";
 
-type Difficulty = "Easy" | "Medium" | "Hard";
-type Status = "unsolved" | "solved" | "revision" | "failed";
-type Problem = {
-  id: number;
-  title: string;
-  difficulty: Difficulty;
-  topic: string;
-  company: string;
-  url: string;
-  estimate: number;
+type Difficulty="Easy"|"Medium"|"Hard";
+type Status="unsolved"|"solved"|"revision"|"failed";
+type View="overview"|"today"|"problems"|"companies"|"analytics"|"interview"|"settings";
+type Problem={
+ id:number; title:string; difficulty:Difficulty; topics:string[]; company:string;
+ url:string; estimate:number;
 };
 
-const problems: Problem[] = [
-  {id:1,title:"Two Sum",difficulty:"Easy",topic:"Hashing",company:"Amazon",url:"https://leetcode.com/problems/two-sum/",estimate:15},
-  {id:20,title:"Valid Parentheses",difficulty:"Easy",topic:"Stack",company:"Amazon",url:"https://leetcode.com/problems/valid-parentheses/",estimate:15},
-  {id:121,title:"Best Time to Buy and Sell Stock",difficulty:"Easy",topic:"Arrays",company:"Amazon",url:"https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",estimate:15},
-  {id:206,title:"Reverse Linked List",difficulty:"Easy",topic:"Linked List",company:"Amazon",url:"https://leetcode.com/problems/reverse-linked-list/",estimate:15},
-  {id:704,title:"Binary Search",difficulty:"Easy",topic:"Binary Search",company:"Microsoft",url:"https://leetcode.com/problems/binary-search/",estimate:15},
-  {id:226,title:"Invert Binary Tree",difficulty:"Easy",topic:"Trees",company:"Google",url:"https://leetcode.com/problems/invert-binary-tree/",estimate:20},
-  {id:141,title:"Linked List Cycle",difficulty:"Easy",topic:"Linked List",company:"Amazon",url:"https://leetcode.com/problems/linked-list-cycle/",estimate:20},
-  {id:543,title:"Diameter of Binary Tree",difficulty:"Easy",topic:"Trees",company:"Amazon",url:"https://leetcode.com/problems/diameter-of-binary-tree/",estimate:25},
-  {id:733,title:"Flood Fill",difficulty:"Easy",topic:"Graphs / BFS",company:"Google",url:"https://leetcode.com/problems/flood-fill/",estimate:20},
-  {id:217,title:"Contains Duplicate",difficulty:"Easy",topic:"Hashing",company:"Amazon",url:"https://leetcode.com/problems/contains-duplicate/",estimate:15},
-  {id:53,title:"Maximum Subarray",difficulty:"Medium",topic:"Greedy / DP",company:"Amazon",url:"https://leetcode.com/problems/maximum-subarray/",estimate:25},
-  {id:15,title:"3Sum",difficulty:"Medium",topic:"Two Pointers",company:"Amazon",url:"https://leetcode.com/problems/3sum/",estimate:35},
-  {id:49,title:"Group Anagrams",difficulty:"Medium",topic:"Hashing",company:"Google",url:"https://leetcode.com/problems/group-anagrams/",estimate:25},
-  {id:200,title:"Number of Islands",difficulty:"Medium",topic:"Graphs / BFS",company:"Google",url:"https://leetcode.com/problems/number-of-islands/",estimate:40},
-  {id:322,title:"Coin Change",difficulty:"Medium",topic:"Dynamic Programming",company:"Google",url:"https://leetcode.com/problems/coin-change/",estimate:40},
-  {id:98,title:"Validate Binary Search Tree",difficulty:"Medium",topic:"Trees",company:"Microsoft",url:"https://leetcode.com/problems/validate-binary-search-tree/",estimate:30},
-  {id:39,title:"Combination Sum",difficulty:"Medium",topic:"Backtracking",company:"Adobe",url:"https://leetcode.com/problems/combination-sum/",estimate:35},
-  {id:994,title:"Rotting Oranges",difficulty:"Medium",topic:"Graphs / BFS",company:"Amazon",url:"https://leetcode.com/problems/rotting-oranges/",estimate:30},
-  {id:56,title:"Merge Intervals",difficulty:"Medium",topic:"Intervals",company:"Google",url:"https://leetcode.com/problems/merge-intervals/",estimate:30},
-  {id:347,title:"Top K Frequent Elements",difficulty:"Medium",topic:"Heap / Hashing",company:"Amazon",url:"https://leetcode.com/problems/top-k-frequent-elements/",estimate:30},
-  {id:102,title:"Binary Tree Level Order Traversal",difficulty:"Medium",topic:"Trees / BFS",company:"Microsoft",url:"https://leetcode.com/problems/binary-tree-level-order-traversal/",estimate:25},
-  {id:79,title:"Word Search",difficulty:"Medium",topic:"Backtracking",company:"Microsoft",url:"https://leetcode.com/problems/word-search/",estimate:35},
-  {id:1143,title:"Longest Common Subsequence",difficulty:"Medium",topic:"Dynamic Programming",company:"Google",url:"https://leetcode.com/problems/longest-common-subsequence/",estimate:40},
-  {id:438,title:"Find All Anagrams in a String",difficulty:"Medium",topic:"Sliding Window",company:"Microsoft",url:"https://leetcode.com/problems/find-all-anagrams-in-a-string/",estimate:30},
-  {id:19,title:"Remove Nth Node From End of List",difficulty:"Medium",topic:"Linked List",company:"Amazon",url:"https://leetcode.com/problems/remove-nth-node-from-end-of-list/",estimate:25},
-  {id:152,title:"Maximum Product Subarray",difficulty:"Medium",topic:"Dynamic Programming",company:"Amazon",url:"https://leetcode.com/problems/maximum-product-subarray/",estimate:35},
-  {id:74,title:"Search a 2D Matrix",difficulty:"Medium",topic:"Binary Search",company:"Microsoft",url:"https://leetcode.com/problems/search-a-2d-matrix/",estimate:25},
-  {id:208,title:"Implement Trie",difficulty:"Medium",topic:"Trie",company:"Amazon",url:"https://leetcode.com/problems/implement-trie-prefix-tree/",estimate:35},
-  {id:743,title:"Network Delay Time",difficulty:"Medium",topic:"Graphs / Dijkstra",company:"Amazon",url:"https://leetcode.com/problems/network-delay-time/",estimate:45},
-  {id:127,title:"Word Ladder",difficulty:"Hard",topic:"Graphs / BFS",company:"Meta",url:"https://leetcode.com/problems/word-ladder/",estimate:55},
-  {id:42,title:"Trapping Rain Water",difficulty:"Hard",topic:"Two Pointers",company:"Amazon",url:"https://leetcode.com/problems/trapping-rain-water/",estimate:55},
-  {id:23,title:"Merge k Sorted Lists",difficulty:"Hard",topic:"Heap / Linked List",company:"Microsoft",url:"https://leetcode.com/problems/merge-k-sorted-lists/",estimate:60},
-  {id:124,title:"Binary Tree Maximum Path Sum",difficulty:"Hard",topic:"Trees / DP",company:"Meta",url:"https://leetcode.com/problems/binary-tree-maximum-path-sum/",estimate:55},
-  {id:76,title:"Minimum Window Substring",difficulty:"Hard",topic:"Sliding Window",company:"Google",url:"https://leetcode.com/problems/minimum-window-substring/",estimate:50},
-  {id:4,title:"Median of Two Sorted Arrays",difficulty:"Hard",topic:"Binary Search",company:"Google",url:"https://leetcode.com/problems/median-of-two-sorted-arrays/",estimate:60},
-  {id:10,title:"Regular Expression Matching",difficulty:"Hard",topic:"Dynamic Programming",company:"Google",url:"https://leetcode.com/problems/regular-expression-matching/",estimate:60},
-  {id:51,title:"N-Queens",difficulty:"Hard",topic:"Backtracking",company:"Amazon",url:"https://leetcode.com/problems/n-queens/",estimate:50},
-  {id:295,title:"Find Median from Data Stream",difficulty:"Hard",topic:"Heap",company:"Google",url:"https://leetcode.com/problems/find-median-from-data-stream/",estimate:50},
-  {id:239,title:"Sliding Window Maximum",difficulty:"Hard",topic:"Sliding Window / Deque",company:"Amazon",url:"https://leetcode.com/problems/sliding-window-maximum/",estimate:50},
-  {id:25,title:"Reverse Nodes in k-Group",difficulty:"Hard",topic:"Linked List",company:"Amazon",url:"https://leetcode.com/problems/reverse-nodes-in-k-group/",estimate:55},
-  {id:84,title:"Largest Rectangle in Histogram",difficulty:"Hard",topic:"Stack",company:"Google",url:"https://leetcode.com/problems/largest-rectangle-in-histogram/",estimate:50},
-  {id:72,title:"Edit Distance",difficulty:"Hard",topic:"Dynamic Programming",company:"Google",url:"https://leetcode.com/problems/edit-distance/",estimate:55},
-  {id:312,title:"Burst Balloons",difficulty:"Hard",topic:"Dynamic Programming",company:"Google",url:"https://leetcode.com/problems/burst-balloons/",estimate:60},
-  {id:37,title:"Sudoku Solver",difficulty:"Hard",topic:"Backtracking",company:"Amazon",url:"https://leetcode.com/problems/sudoku-solver/",estimate:60},
-  {id:2951,title:"Minimum Cost to Hire K Workers",difficulty:"Hard",topic:"Heap / Greedy",company:"Google",url:"https://leetcode.com/problems/minimum-cost-to-hire-k-workers/",estimate:55},
-  {id:146,title:"LRU Cache",difficulty:"Medium",topic:"Hashing / Linked List",company:"Amazon",url:"https://leetcode.com/problems/lru-cache/",estimate:40},
-  {id:105,title:"Construct Binary Tree from Preorder and Inorder Traversal",difficulty:"Medium",topic:"Trees",company:"Amazon",url:"https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/",estimate:40},
-  {id:416,title:"Partition Equal Subset Sum",difficulty:"Medium",topic:"Dynamic Programming",company:"Microsoft",url:"https://leetcode.com/problems/partition-equal-subset-sum/",estimate:35},
-  {id:875,title:"Koko Eating Bananas",difficulty:"Medium",topic:"Binary Search",company:"Google",url:"https://leetcode.com/problems/koko-eating-bananas/",estimate:30},
-  {id:155,min:0,title:"Min Stack",difficulty:"Medium",topic:"Stack",company:"Amazon",url:"https://leetcode.com/problems/min-stack/",estimate:25} as Problem
+const problems:Problem[]=[
+{id:1,title:"Two Sum",difficulty:"Easy",topics:["Arrays","Hashing"],company:"Amazon",url:"https://leetcode.com/problems/two-sum/",estimate:15},
+{id:20,title:"Valid Parentheses",difficulty:"Easy",topics:["Stack"],company:"Amazon",url:"https://leetcode.com/problems/valid-parentheses/",estimate:15},
+{id:121,title:"Best Time to Buy and Sell Stock",difficulty:"Easy",topics:["Arrays","Greedy"],company:"Amazon",url:"https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",estimate:15},
+{id:206,title:"Reverse Linked List",difficulty:"Easy",topics:["Linked List"],company:"Amazon",url:"https://leetcode.com/problems/reverse-linked-list/",estimate:15},
+{id:704,title:"Binary Search",difficulty:"Easy",topics:["Binary Search"],company:"Microsoft",url:"https://leetcode.com/problems/binary-search/",estimate:15},
+{id:226,title:"Invert Binary Tree",difficulty:"Easy",topics:["Trees"],company:"Google",url:"https://leetcode.com/problems/invert-binary-tree/",estimate:20},
+{id:141,title:"Linked List Cycle",difficulty:"Easy",topics:["Linked List","Two Pointers"],company:"Amazon",url:"https://leetcode.com/problems/linked-list-cycle/",estimate:20},
+{id:543,title:"Diameter of Binary Tree",difficulty:"Easy",topics:["Trees","DFS"],company:"Amazon",url:"https://leetcode.com/problems/diameter-of-binary-tree/",estimate:25},
+{id:733,title:"Flood Fill",difficulty:"Easy",topics:["Graphs","BFS"],company:"Google",url:"https://leetcode.com/problems/flood-fill/",estimate:20},
+{id:217,title:"Contains Duplicate",difficulty:"Easy",topics:["Arrays","Hashing"],company:"Amazon",url:"https://leetcode.com/problems/contains-duplicate/",estimate:15},
+{id:53,title:"Maximum Subarray",difficulty:"Medium",topics:["Arrays","Dynamic Programming"],company:"Amazon",url:"https://leetcode.com/problems/maximum-subarray/",estimate:25},
+{id:15,title:"3Sum",difficulty:"Medium",topics:["Arrays","Two Pointers"],company:"Amazon",url:"https://leetcode.com/problems/3sum/",estimate:35},
+{id:49,title:"Group Anagrams",difficulty:"Medium",topics:["Arrays","Hashing"],company:"Google",url:"https://leetcode.com/problems/group-anagrams/",estimate:25},
+{id:200,title:"Number of Islands",difficulty:"Medium",topics:["Graphs","BFS","DFS"],company:"Google",url:"https://leetcode.com/problems/number-of-islands/",estimate:40},
+{id:322,title:"Coin Change",difficulty:"Medium",topics:["Dynamic Programming"],company:"Google",url:"https://leetcode.com/problems/coin-change/",estimate:40},
+{id:98,title:"Validate Binary Search Tree",difficulty:"Medium",topics:["Trees","DFS"],company:"Microsoft",url:"https://leetcode.com/problems/validate-binary-search-tree/",estimate:30},
+{id:39,title:"Combination Sum",difficulty:"Medium",topics:["Backtracking"],company:"Adobe",url:"https://leetcode.com/problems/combination-sum/",estimate:35},
+{id:994,title:"Rotting Oranges",difficulty:"Medium",topics:["Graphs","BFS"],company:"Amazon",url:"https://leetcode.com/problems/rotting-oranges/",estimate:30},
+{id:56,title:"Merge Intervals",difficulty:"Medium",topics:["Arrays","Intervals"],company:"Google",url:"https://leetcode.com/problems/merge-intervals/",estimate:30},
+{id:347,title:"Top K Frequent Elements",difficulty:"Medium",topics:["Hashing","Heap"],company:"Amazon",url:"https://leetcode.com/problems/top-k-frequent-elements/",estimate:30},
+{id:102,title:"Binary Tree Level Order Traversal",difficulty:"Medium",topics:["Trees","BFS"],company:"Microsoft",url:"https://leetcode.com/problems/binary-tree-level-order-traversal/",estimate:25},
+{id:79,title:"Word Search",difficulty:"Medium",topics:["Backtracking","DFS"],company:"Microsoft",url:"https://leetcode.com/problems/word-search/",estimate:35},
+{id:1143,title:"Longest Common Subsequence",difficulty:"Medium",topics:["Dynamic Programming"],company:"Google",url:"https://leetcode.com/problems/longest-common-subsequence/",estimate:40},
+{id:438,title:"Find All Anagrams in a String",difficulty:"Medium",topics:["Sliding Window","Hashing"],company:"Microsoft",url:"https://leetcode.com/problems/find-all-anagrams-in-a-string/",estimate:30},
+{id:19,title:"Remove Nth Node From End of List",difficulty:"Medium",topics:["Linked List","Two Pointers"],company:"Amazon",url:"https://leetcode.com/problems/remove-nth-node-from-end-of-list/",estimate:25},
+{id:152,title:"Maximum Product Subarray",difficulty:"Medium",topics:["Arrays","Dynamic Programming"],company:"Amazon",url:"https://leetcode.com/problems/maximum-product-subarray/",estimate:35},
+{id:74,title:"Search a 2D Matrix",difficulty:"Medium",topics:["Binary Search","Arrays"],company:"Microsoft",url:"https://leetcode.com/problems/search-a-2d-matrix/",estimate:25},
+{id:208,title:"Implement Trie",difficulty:"Medium",topics:["Trie"],company:"Amazon",url:"https://leetcode.com/problems/implement-trie-prefix-tree/",estimate:35},
+{id:743,title:"Network Delay Time",difficulty:"Medium",topics:["Graphs","Dijkstra"],company:"Amazon",url:"https://leetcode.com/problems/network-delay-time/",estimate:45},
+{id:146,title:"LRU Cache",difficulty:"Medium",topics:["Hashing","Linked List"],company:"Amazon",url:"https://leetcode.com/problems/lru-cache/",estimate:40},
+{id:105,title:"Construct Binary Tree from Preorder and Inorder Traversal",difficulty:"Medium",topics:["Trees","DFS"],company:"Amazon",url:"https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/",estimate:40},
+{id:416,title:"Partition Equal Subset Sum",difficulty:"Medium",topics:["Dynamic Programming"],company:"Microsoft",url:"https://leetcode.com/problems/partition-equal-subset-sum/",estimate:35},
+{id:875,title:"Koko Eating Bananas",difficulty:"Medium",topics:["Binary Search"],company:"Google",url:"https://leetcode.com/problems/koko-eating-bananas/",estimate:30},
+{id:127,title:"Word Ladder",difficulty:"Hard",topics:["Graphs","BFS"],company:"Meta",url:"https://leetcode.com/problems/word-ladder/",estimate:55},
+{id:42,title:"Trapping Rain Water",difficulty:"Hard",topics:["Arrays","Two Pointers"],company:"Amazon",url:"https://leetcode.com/problems/trapping-rain-water/",estimate:55},
+{id:23,title:"Merge k Sorted Lists",difficulty:"Hard",topics:["Heap","Linked List"],company:"Microsoft",url:"https://leetcode.com/problems/merge-k-sorted-lists/",estimate:60},
+{id:124,title:"Binary Tree Maximum Path Sum",difficulty:"Hard",topics:["Trees","Dynamic Programming"],company:"Meta",url:"https://leetcode.com/problems/binary-tree-maximum-path-sum/",estimate:55},
+{id:76,title:"Minimum Window Substring",difficulty:"Hard",topics:["Sliding Window","Hashing"],company:"Google",url:"https://leetcode.com/problems/minimum-window-substring/",estimate:50},
+{id:4,title:"Median of Two Sorted Arrays",difficulty:"Hard",topics:["Binary Search"],company:"Google",url:"https://leetcode.com/problems/median-of-two-sorted-arrays/",estimate:60},
+{id:10,title:"Regular Expression Matching",difficulty:"Hard",topics:["Dynamic Programming"],company:"Google",url:"https://leetcode.com/problems/regular-expression-matching/",estimate:60},
+{id:51,title:"N-Queens",difficulty:"Hard",topics:["Backtracking"],company:"Amazon",url:"https://leetcode.com/problems/n-queens/",estimate:50},
+{id:295,title:"Find Median from Data Stream",difficulty:"Hard",topics:["Heap"],company:"Google",url:"https://leetcode.com/problems/find-median-from-data-stream/",estimate:50},
+{id:239,title:"Sliding Window Maximum",difficulty:"Hard",topics:["Sliding Window","Deque"],company:"Amazon",url:"https://leetcode.com/problems/sliding-window-maximum/",estimate:50},
+{id:25,title:"Reverse Nodes in k-Group",difficulty:"Hard",topics:["Linked List"],company:"Amazon",url:"https://leetcode.com/problems/reverse-nodes-in-k-group/",estimate:55},
+{id:84,title:"Largest Rectangle in Histogram",difficulty:"Hard",topics:["Stack"],company:"Google",url:"https://leetcode.com/problems/largest-rectangle-in-histogram/",estimate:50},
+{id:72,title:"Edit Distance",difficulty:"Hard",topics:["Dynamic Programming"],company:"Google",url:"https://leetcode.com/problems/edit-distance/",estimate:55},
+{id:312,title:"Burst Balloons",difficulty:"Hard",topics:["Dynamic Programming"],company:"Google",url:"https://leetcode.com/problems/burst-balloons/",estimate:60},
+{id:37,title:"Sudoku Solver",difficulty:"Hard",topics:["Backtracking"],company:"Amazon",url:"https://leetcode.com/problems/sudoku-solver/",estimate:60},
+{id:1353,title:"Maximum Number of Events That Can Be Attended",difficulty:"Medium",topics:["Heap","Greedy"],company:"Amazon",url:"https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/",estimate:40},
+{id:1249,title:"Minimum Remove to Make Valid Parentheses",difficulty:"Medium",topics:["Stack","Greedy"],company:"Amazon",url:"https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/",estimate:30}
 ];
 
-const companies = ["All", ...Array.from(new Set(problems.map(p=>p.company)))];
-const difficulties: Difficulty[] = ["Easy","Medium","Hard"];
+const difficulties:Difficulty[]=["Easy","Medium","Hard"];
+const companies=["All",...Array.from(new Set(problems.map(p=>p.company)))];
+const topicList=Array.from(new Set(problems.flatMap(p=>p.topics))).sort();
 
-function dateKey(d=new Date()){return d.toLocaleDateString("en-CA");}
+function dateKey(date=new Date()){return date.toLocaleDateString("en-CA");}
 function hashSeed(s:string){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
-function seededShuffle<T>(items:T[], seed:string){const a=[...items];let x=hashSeed(seed);for(let i=a.length-1;i>0;i--){x=(Math.imul(x,1664525)+1013904223)>>>0;const j=x%(i+1);[a[i],a[j]]=[a[j],a[i]]}return a}
-function diffClass(d:Difficulty){return d==="Easy"?"easy":d==="Medium"?"medium":"hard"}
-function formatTime(n:number){return String(Math.floor(n/60)).padStart(2,"0")+":"+String(n%60).padStart(2,"0")}
+function shuffle<T>(items:T[],seed:string){const a=[...items];let x=hashSeed(seed);for(let i=a.length-1;i>0;i--){x=(Math.imul(x,1664525)+1013904223)>>>0;const j=x%(i+1);[a[i],a[j]]=[a[j],a[i]]}return a}
+function fmt(sec:number){return `${String(Math.floor(sec/60)).padStart(2,"0")}:${String(sec%60).padStart(2,"0")}`}
+function diffClass(d:Difficulty){return d==="Easy"?"diff-easy":d==="Medium"?"diff-medium":"diff-hard"}
+
+function Icon({name,size=17}:{name:string;size?:number}){
+ const common={size,strokeWidth:1.8};
+ const icons:any={dashboard:LayoutDashboard,calendar:CalendarDays,list:ListChecks,company:BriefcaseBusiness,analytics:BarChart3,interview:Target,settings:Settings,search:Search,clock:Clock3,play:Play,check:Check,code:Code2,spark:Sparkles,flame:Flame,trophy:Trophy,book:BookOpen,github:Github,upload:Upload,download:Download,menu:Menu,x:X,arrow:ArrowUpRight,reset:RotateCcw,gauge:Gauge,shield:ShieldCheck,user:UserRound,help:CircleHelp,zap:Zap,activity:Activity};
+ const C=icons[name]||Code2;return <C {...common}/>;
+}
 
 export default function Home(){
- const [view,setView]=useState<"today"|"problems"|"companies"|"progress"|"settings">("today");
+ const [view,setView]=useState<View>("overview");
+ const [mobileOpen,setMobileOpen]=useState(false);
  const [company,setCompany]=useState("All");
+ const [target,setTarget]=useState({Easy:1,Medium:2,Hard:2});
  const [solved,setSolved]=useState<number[]>([]);
  const [status,setStatus]=useState<Record<number,Status>>({});
  const [daily,setDaily]=useState<Record<string,number[]>>({});
  const [timeSpent,setTimeSpent]=useState<Record<number,number>>({});
+ const [attempts,setAttempts]=useState<Record<number,number>>({});
+ const [hints,setHints]=useState<Record<number,number>>({});
  const [active,setActive]=useState<Problem|null>(null);
  const [seconds,setSeconds]=useState(0);
  const [running,setRunning]=useState(false);
- const [filter,setFilter]=useState("All");
  const [search,setSearch]=useState("");
- const [target,setTarget]=useState({Easy:1,Medium:2,Hard:2});
-
+ const [difficulty,setDifficulty]=useState<"All"|Difficulty>("All");
+ const [topic,setTopic]=useState("All");
+ const [interviewTime,setInterviewTime]=useState(45);
  const todayKey=dateKey();
 
  useEffect(()=>{
-   try{
-    const s=localStorage.getItem("dayflow-solved"); if(s)setSolved(JSON.parse(s));
-    const st=localStorage.getItem("dayflow-status"); if(st)setStatus(JSON.parse(st));
-    const dl=localStorage.getItem("dayflow-daily"); if(dl)setDaily(JSON.parse(dl));
-    const ts=localStorage.getItem("dayflow-time"); if(ts)setTimeSpent(JSON.parse(ts));
-    const tg=localStorage.getItem("dayflow-target"); if(tg)setTarget(JSON.parse(tg));
-   }catch{}
+  try{
+   const load=(k:string)=>localStorage.getItem(k);
+   if(load("dace-solved"))setSolved(JSON.parse(load("dace-solved")!));
+   if(load("dace-status"))setStatus(JSON.parse(load("dace-status")!));
+   if(load("dace-daily"))setDaily(JSON.parse(load("dace-daily")!));
+   if(load("dace-time"))setTimeSpent(JSON.parse(load("dace-time")!));
+   if(load("dace-attempts"))setAttempts(JSON.parse(load("dace-attempts")!));
+   if(load("dace-hints"))setHints(JSON.parse(load("dace-hints")!));
+   if(load("dace-target"))setTarget(JSON.parse(load("dace-target")!));
+   if(load("dace-company"))setCompany(load("dace-company")!);
+  }catch{}
  },[]);
- useEffect(()=>localStorage.setItem("dayflow-solved",JSON.stringify(solved)),[solved]);
- useEffect(()=>localStorage.setItem("dayflow-status",JSON.stringify(status)),[status]);
- useEffect(()=>localStorage.setItem("dayflow-daily",JSON.stringify(daily)),[daily]);
- useEffect(()=>localStorage.setItem("dayflow-time",JSON.stringify(timeSpent)),[timeSpent]);
- useEffect(()=>localStorage.setItem("dayflow-target",JSON.stringify(target)),[target]);
+ useEffect(()=>localStorage.setItem("dace-solved",JSON.stringify(solved)),[solved]);
+ useEffect(()=>localStorage.setItem("dace-status",JSON.stringify(status)),[status]);
+ useEffect(()=>localStorage.setItem("dace-daily",JSON.stringify(daily)),[daily]);
+ useEffect(()=>localStorage.setItem("dace-time",JSON.stringify(timeSpent)),[timeSpent]);
+ useEffect(()=>localStorage.setItem("dace-attempts",JSON.stringify(attempts)),[attempts]);
+ useEffect(()=>localStorage.setItem("dace-hints",JSON.stringify(hints)),[hints]);
+ useEffect(()=>localStorage.setItem("dace-target",JSON.stringify(target)),[target]);
+ useEffect(()=>localStorage.setItem("dace-company",company),[company]);
  useEffect(()=>{if(!running)return;const t=setInterval(()=>setSeconds(s=>s+1),1000);return()=>clearInterval(t)},[running]);
 
- const todayIds=useMemo(()=>{
-   if(daily[todayKey])return daily[todayKey];
-   const available=problems.filter(p=>!solved.includes(p.id));
-   const picked:number[]=[];
-   for(const d of difficulties){
-     const count=target[d];
-     const pool=seededShuffle(available.filter(p=>p.difficulty===d && (company==="All"||p.company===company)),todayKey+d+company);
-     for(const p of pool){if(picked.length>=5)break;if(!picked.includes(p.id)){picked.push(p.id);if(picked.filter(id=>problems.find(x=>x.id===id)?.difficulty===d).length===count)break}}
-   }
-   if(picked.length<5){
-     const fallback=seededShuffle(available.filter(p=>!picked.includes(p.id) && (company==="All"||p.company===company)),todayKey+"fallback");
-     for(const p of fallback){if(picked.length>=5)break;picked.push(p.id)}
-   }
-   setDaily(x=>({...x,[todayKey]:picked}));
-   return picked;
- },[daily,todayKey,solved,company,target]);
+ const topicStats=useMemo(()=>{
+  const all:Record<string,{solved:number;total:number}>= {};
+  for(const p of problems)for(const t of p.topics){all[t]??={solved:0,total:0};all[t].total++;if(solved.includes(p.id))all[t].solved++}
+  return all;
+ },[solved]);
 
- const today=useMemo(()=>todayIds.map(id=>problems.find(p=>p.id===id)).filter(Boolean) as Problem[],[todayIds]);
- const filtered=useMemo(()=>problems.filter(p=>(filter==="All"||p.difficulty===filter)&&(company==="All"||p.company===company)&&p.title.toLowerCase().includes(search.toLowerCase())),[filter,company,search]);
- const solvedToday=today.filter(p=>solved.includes(p.id)).length;
- const totalSolved=solved.length;
- const streak=useMemo(()=>{
-   let n=0;const d=new Date();
-   while(true){const k=dateKey(d);const ids=daily[k]||[];if(!ids.length||!ids.every(id=>solved.includes(id)))break;n++;d.setDate(d.getDate()-1)}
-   return n;
- },[daily,solved]);
- const totalTime=Object.values(timeSpent).reduce((a,b)=>a+b,0);
- const saveAndClose=()=>{
-   if(!active)return;
-   setTimeSpent(x=>({...x,[active.id]:(x[active.id]||0)+seconds}));
-   setRunning(false);setActive(null);setSeconds(0);
+ const recentIds=useMemo(()=>{
+  const ids:number[]=[];
+  for(let i=1;i<=14;i++){const d=new Date();d.setDate(d.getDate()-i);ids.push(...(daily[dateKey(d)]||[]))}
+  return new Set(ids);
+ },[daily]);
+
+ const score=(p:Problem,seed:string)=>{
+  const weak=p.topics.reduce((best,t)=>Math.max(best,1-(topicStats[t]?.solved||0)/Math.max(1,topicStats[t]?.total||1)),.25);
+  const revision=status[p.id]==="revision"?1.5:0;
+  const failed=status[p.id]==="failed"?1.0:0;
+  const fresh=recentIds.has(p.id)?-2:1;
+  const companyBoost=company!=="All"&&p.company===company?1.2:0;
+  const jitter=(hashSeed(seed+p.id)*0.000001)%1;
+  return weak*4+revision+failed+fresh+companyBoost+jitter;
  };
- const mark=(p:Problem,s:Status)=>{setStatus(x=>({...x,[p.id]:s}));if(s==="solved")setSolved(x=>x.includes(p.id)?x:[...x,p.id]);else setSolved(x=>x.filter(id=>id!==p.id));};
 
- return <main className="min-h-screen bg-[#0d0f12] text-[#e8eaed]">
-  <header className="h-14 border-b border-[#2a2d32] flex items-center px-5 gap-5 sticky top-0 bg-[#0d0f12]/95 backdrop-blur z-20">
-   <button onClick={()=>setView("today")} className="font-bold text-lg tracking-tight"><span className="text-[#ffa116]">D</span>ayFlow</button>
-   <div className="text-xs text-[#8b949e] hidden sm:block">SDE DAILY TRACKER</div>
-   <div className="ml-auto flex items-center gap-4 text-xs text-[#9da4ad]"><span>🔥 {streak} day streak</span><span>{solvedToday}/5 today</span></div>
+ const todayIds=useMemo(()=>{
+  if(daily[todayKey])return daily[todayKey];
+  const available=problems.filter(p=>!solved.includes(p.id));
+  const picked:number[]=[];
+  for(const d of difficulties){
+   const count=target[d];
+   const pool=available.filter(p=>p.difficulty===d&&(company==="All"||p.company===company))
+     .sort((a,b)=>score(b,todayKey+d)-score(a,todayKey+d));
+   for(const p of shuffle(pool,todayKey+d)){if(picked.length>=5)break;if(picked.filter(id=>problems.find(x=>x.id===id)?.difficulty===d).length<count&&!picked.includes(p.id))picked.push(p.id)}
+  }
+  if(picked.length<5){
+   const fallback=shuffle(available.filter(p=>!picked.includes(p.id)&&(company==="All"||p.company===company)),todayKey+"fallback");
+   for(const p of fallback){if(picked.length>=5)break;picked.push(p.id)}
+  }
+  setDaily(x=>({...x,[todayKey]:picked}));
+  return picked;
+ },[daily,todayKey,solved,company,target,topicStats,recentIds]);
+
+ const today=todayIds.map(id=>problems.find(p=>p.id===id)).filter(Boolean) as Problem[];
+ const solvedToday=today.filter(p=>solved.includes(p.id)).length;
+ const totalTime=Object.values(timeSpent).reduce((a,b)=>a+b,0);
+ const totalSolved=solved.length;
+ const completion=Math.round(totalSolved/problems.length*100);
+ const streak=useMemo(()=>{
+  let n=0;
+  for(let i=0;i<365;i++){const d=new Date();d.setDate(d.getDate()-i);const ids=daily[dateKey(d)]||[];if(!ids.length||!ids.every(id=>solved.includes(id)))break;n++}
+  return n;
+ },[daily,solved]);
+
+ const filtered=useMemo(()=>problems.filter(p=>
+  (difficulty==="All"||p.difficulty===difficulty)&&
+  (topic==="All"||p.topics.includes(topic))&&
+  (company==="All"||p.company===company)&&
+  p.title.toLowerCase().includes(search.toLowerCase())
+ ),[difficulty,topic,company,search]);
+
+ const weeklySolved=useMemo(()=>{
+  let n=0;for(let i=0;i<7;i++){const d=new Date();d.setDate(d.getDate()-i);n+=(daily[dateKey(d)]||[]).filter(id=>solved.includes(id)).length}return n;
+ },[daily,solved]);
+
+ function regenerateToday(){
+  setDaily(x=>{const y={...x};delete y[todayKey];return y});
+ }
+ function mark(p:Problem,s:Status){
+  setStatus(x=>({...x,[p.id]:s}));
+  setSolved(x=>s==="solved"?(x.includes(p.id)?x:[...x,p.id]):x.filter(id=>id!==p.id));
+ }
+ function openTimer(p:Problem){
+  setActive(p);setSeconds(0);setRunning(false);
+  setAttempts(x=>({...x,[p.id]:(x[p.id]||0)+1}));
+ }
+ function closeTimer(save=true){
+  if(!active)return;
+  if(save)setTimeSpent(x=>({...x,[active.id]:(x[active.id]||0)+seconds}));
+  setRunning(false);setActive(null);setSeconds(0);
+ }
+ function exportData(){
+  const blob=new Blob([JSON.stringify({solved,status,daily,timeSpent,attempts,hints,target,company,exportedAt:new Date().toISOString()},null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="dace-progress.json";a.click();URL.revokeObjectURL(url);
+ }
+ function importData(e:React.ChangeEvent<HTMLInputElement>){
+  const file=e.target.files?.[0];if(!file)return;const r=new FileReader();
+  r.onload=()=>{try{const d=JSON.parse(String(r.result));if(d.solved)setSolved(d.solved);if(d.status)setStatus(d.status);if(d.daily)setDaily(d.daily);if(d.timeSpent)setTimeSpent(d.timeSpent);if(d.attempts)setAttempts(d.attempts);if(d.hints)setHints(d.hints);if(d.target)setTarget(d.target);if(d.company)setCompany(d.company)}catch{alert("Invalid DACE backup file.")}};
+  r.readAsText(file);
+ }
+ function resetAll(){if(confirm("Reset all DACE local progress? This cannot be undone unless you have exported a backup.")){localStorage.clear();location.reload()}}
+
+ const nav=[
+  ["overview","Overview","dashboard"],["today","Today","calendar"],["problems","Problems","list"],
+  ["companies","Companies","company"],["analytics","Analytics","analytics"],["interview","Interview","interview"],["settings","Settings","settings"]
+ ] as [View,string,string][];
+
+ return <main className="min-h-screen dace-grid">
+  <header className="h-16 border-b border-[#202a38] sticky top-0 z-40 glass flex items-center px-4 md:px-6 gap-3">
+   <button className="md:hidden p-2 rounded-lg hover:bg-white/5" onClick={()=>setMobileOpen(!mobileOpen)}><Icon name="menu"/></button>
+   <button onClick={()=>setView("overview")} className="flex items-center gap-2.5">
+    <span className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-300/20 to-violet-400/20 border border-cyan-300/20 flex items-center justify-center"><Icon name="code" size={19}/></span>
+    <span className="font-black tracking-[.16em] text-sm">DACE</span>
+   </button>
+   <span className="hidden sm:block text-[10px] tracking-[.2em] text-[#637187]">DAILY ADAPTIVE CODING ENVIRONMENT</span>
+   <div className="ml-auto flex items-center gap-3">
+    <div className="hidden sm:flex items-center gap-2 text-xs text-[#9aa8ba]"><span className="w-2 h-2 rounded-full bg-green-400 pulse-dot"/>LOCAL MODE</div>
+    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#263346] bg-[#0b1017] text-xs"><Icon name="flame" size={14}/><span>{streak}</span></div>
+    <div className="w-8 h-8 rounded-full border border-[#334155] bg-[#141c28] flex items-center justify-center"><Icon name="user" size={15}/></div>
+   </div>
   </header>
-  <div className="flex min-h-[calc(100vh-56px)]">
-   <aside className="w-56 border-r border-[#2a2d32] p-3 hidden md:block">
-    <div className="text-[11px] uppercase tracking-wider text-[#6e7681] px-3 py-2">Workspace</div>
-    {([["today","Today"],["problems","Problems"],["companies","Companies"],["progress","Progress"],["settings","Settings"]] as const).map(([k,l])=><button key={k} onClick={()=>setView(k)} className={`w-full text-left px-3 py-2.5 rounded-md text-sm mb-1 ${view===k?"bg-[#262a30] text-white":"text-[#9da4ad] hover:bg-[#181b20]"}`}>{l}</button>)}
-    <div className="mt-8 px-3 text-[11px] uppercase tracking-wider text-[#6e7681]">Daily target</div>
-    <div className="px-3 mt-2 text-xs text-[#9da4ad]">{target.Easy} Easy · {target.Medium} Medium · {target.Hard} Hard</div>
+
+  {mobileOpen&&<div className="fixed inset-0 z-50 md:hidden"><div className="absolute inset-0 bg-black/60" onClick={()=>setMobileOpen(false)}/><aside className="absolute left-0 top-0 bottom-0 w-72 bg-[#0a0f16] border-r border-[#202a38] p-4 float-in">{nav.map(([k,l,i])=><NavButton key={k} active={view===k} label={l} icon={i} onClick={()=>{setView(k);setMobileOpen(false)}}/>)}</aside></div>}
+
+  <div className="flex min-h-[calc(100vh-64px)]">
+   <aside className="hidden md:block w-60 border-r border-[#202a38] p-4 shrink-0">
+    <div className="text-[10px] tracking-[.2em] text-[#59687c] px-3 py-3">WORKSPACE</div>
+    {nav.map(([k,l,i])=><NavButton key={k} active={view===k} label={l} icon={i} onClick={()=>setView(k)}/>)}
+    <div className="mt-7 panel rounded-xl p-4 glow-cyan">
+     <div className="flex items-center gap-2 text-xs font-semibold"><Icon name="spark" size={14}/> Adaptive engine</div>
+     <p className="text-[11px] leading-5 text-[#77869a] mt-2">Selection weighs weakness, revisions, freshness and company preference.</p>
+    </div>
+    <div className="mt-4 px-3 text-[10px] tracking-[.18em] text-[#59687c]">DAILY TARGET</div>
+    <div className="px-3 mt-2 text-xs text-[#9aa8ba]">{target.Easy}E · {target.Medium}M · {target.Hard}H</div>
    </aside>
 
    <section className="flex-1 min-w-0">
-    {view==="today"&&<div className="max-w-5xl mx-auto p-5 md:p-8">
-      <div className="flex flex-wrap items-end gap-4 mb-7">
-       <div><div className="text-xs text-[#8b949e] mb-1">SDE PREP · {todayKey}</div><h1 className="text-3xl font-semibold">Today's Problems</h1><p className="text-sm text-[#8b949e] mt-1">Fresh set generated for today. Topics are intentionally mixed.</p></div>
-       <select value={company} onChange={e=>{setCompany(e.target.value);setDaily(x=>{const y={...x};delete y[todayKey];return y})}} className="ml-auto bg-[#16191d] border border-[#343941] rounded-md px-3 py-2 text-sm">{companies.map(c=><option key={c}>{c}</option>)}</select>
-      </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-7"><Stat label="Problems" value={today.length+"/5"}/><Stat label="Estimated" value={today.reduce((a,p)=>a+p.estimate,0)+"m"}/><Stat label="Solved today" value={solvedToday+"/5"}/><Stat label="Lifetime solved" value={String(totalSolved)}/></div>
-      <div className="space-y-2">{today.map((p,i)=><ProblemCard key={p.id} p={p} index={i} status={status[p.id]||"unsolved"} onStart={()=>{setActive(p);setSeconds(0);setRunning(false)}} onMark={s=>mark(p,s)}/>)}</div>
-      {today.length<5&&<div className="mt-5 border border-yellow-900/50 bg-yellow-950/20 rounded-lg p-4 text-sm text-yellow-300">The current demo dataset does not contain enough unused problems for every filter. Add/import more problems and DayFlow will keep generating the daily 1/2/2 set.</div>}
-    </div>}
-
-    {view==="problems"&&<div className="max-w-6xl mx-auto p-5 md:p-8">
-      <h1 className="text-3xl font-semibold">Problems</h1><p className="text-sm text-[#8b949e] mt-1 mb-6">Your complete local problem bank and status history.</p>
-      <div className="flex flex-wrap gap-2 mb-5"><input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search problems..." className="bg-[#16191d] border border-[#343941] rounded-md px-3 py-2 text-sm flex-1 min-w-48"/>{["All",...difficulties].map(x=><button key={x} onClick={()=>setFilter(x)} className={`px-3 py-2 rounded-md text-xs border ${filter===x?"bg-[#262a30] border-[#555] text-white":"border-[#343941] text-[#9da4ad]"}`}>{x}</button>)}</div>
-      <div className="space-y-2">{filtered.map((p,i)=><ProblemCard key={p.id} p={p} index={i} status={status[p.id]||"unsolved"} onStart={()=>{setActive(p);setSeconds(0);setRunning(false)}} onMark={s=>mark(p,s)}/>)}</div>
-    </div>}
-
-    {view==="companies"&&<div className="max-w-5xl mx-auto p-5 md:p-8"><h1 className="text-3xl font-semibold">Companies</h1><p className="text-sm text-[#8b949e] mt-1 mb-7">Filter your daily engine or browse company coverage.</p><div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">{companies.slice(1).map(c=><button key={c} onClick={()=>{setCompany(c);setDaily(x=>{const y={...x};delete y[todayKey];return y});setView("today")}} className="border border-[#2a2d32] rounded-lg p-5 text-left hover:border-[#454b54] bg-[#121519]"><div className="font-medium">{c}</div><div className="text-xs text-[#8b949e] mt-1">{problems.filter(p=>p.company===c).length} local problems</div></button>)}</div></div>}
-
-    {view==="progress"&&<div className="max-w-5xl mx-auto p-5 md:p-8"><h1 className="text-3xl font-semibold mb-7">Progress</h1><div className="grid md:grid-cols-4 gap-3"><Stat label="Solved" value={String(totalSolved)}/><Stat label="Today" value={solvedToday+"/5"}/><Stat label="Streak" value={streak+" days"}/><Stat label="Time tracked" value={Math.floor(totalTime/60)+"m"}/></div><div className="grid md:grid-cols-3 gap-3 mt-5">{difficulties.map(d=><Stat key={d} label={d+" solved"} value={String(problems.filter(p=>p.difficulty===d&&solved.includes(p.id)).length)}/>)}</div><div className="mt-6 border border-[#2a2d32] rounded-lg p-5 bg-[#121519]"><div className="text-sm mb-3">Lifetime completion</div><div className="h-2 bg-[#292d33] rounded-full overflow-hidden"><div className="h-full bg-[#2f81f7]" style={{width:Math.min(100,totalSolved/problems.length*100)+"%"}}/></div><div className="text-xs text-[#8b949e] mt-3">{totalSolved} of {problems.length} loaded problems solved.</div></div></div>}
-
-    {view==="settings"&&<div className="max-w-3xl mx-auto p-5 md:p-8"><h1 className="text-3xl font-semibold">Settings</h1><p className="text-sm text-[#8b949e] mt-1 mb-7">Daily generation settings are stored in your browser.</p><div className="border border-[#2a2d32] rounded-lg bg-[#121519] p-5"><h2 className="font-medium mb-4">Daily target</h2>{difficulties.map(d=><div key={d} className="flex items-center justify-between border-b border-[#25282d] py-4 last:border-0"><span>{d}</span><input type="number" min={0} max={5} value={target[d]} onChange={e=>setTarget(x=>({...x,[d]:Math.max(0,Math.min(5,Number(e.target.value)||0))}))} className="w-20 bg-[#0d0f12] border border-[#343941] rounded px-3 py-2 text-center"/></div>)}<div className="text-xs text-[#8b949e] mt-4">The default target is 1 Easy + 2 Medium + 2 Hard. Keep the total at 5 for the standard daily session.</div></div><button onClick={()=>{localStorage.clear();location.reload()}} className="mt-5 text-sm text-red-400 border border-red-900 rounded-md px-4 py-2">Reset local progress</button></div>}
+    {view==="overview"&&<Overview today={today} solvedToday={solvedToday} streak={streak} weeklySolved={weeklySolved} completion={completion} totalTime={totalTime} setView={setView} openTimer={openTimer}/>}
+    {view==="today"&&<TodayPage today={today} solved={solved} status={status} solvedToday={solvedToday} company={company} companies={companies} setCompany={(c)=>{setCompany(c);regenerateToday()}} openTimer={openTimer} mark={mark} regenerate={regenerateToday}/>}
+    {view==="problems"&&<ProblemsPage problems={filtered} solved={solved} status={status} search={search} setSearch={setSearch} difficulty={difficulty} setDifficulty={setDifficulty} topic={topic} setTopic={setTopic} openTimer={openTimer} mark={mark}/>}
+    {view==="companies"&&<CompaniesPage company={company} companies={companies} setCompany={(c)=>{setCompany(c);regenerateToday();setView("today")}} problems={problems}/>}
+    {view==="analytics"&&<AnalyticsPage problems={problems} solved={solved} status={status} timeSpent={timeSpent} topicStats={topicStats} streak={streak} totalTime={totalTime}/>}
+    {view==="interview"&&<InterviewPage problems={problems} interviewTime={interviewTime} setInterviewTime={setInterviewTime} openTimer={openTimer}/>}
+    {view==="settings"&&<SettingsPage target={target} setTarget={setTarget} company={company} setCompany={c=>{setCompany(c);regenerateToday()}} companies={companies} exportData={exportData} importData={importData} resetAll={resetAll}/>}
    </section>
   </div>
 
-  {active&&<div className="fixed inset-0 bg-black/70 z-50 flex items-end md:items-center justify-center p-4"><div className="w-full max-w-xl bg-[#15181c] border border-[#343941] rounded-xl shadow-2xl">
-    <div className="p-5 border-b border-[#2a2d32] flex items-center"><div><div className="text-xs text-[#8b949e]">{active.difficulty} · {active.topic} · {active.company}</div><h2 className="text-xl font-semibold mt-1">{active.title}</h2></div><button onClick={saveAndClose} className="ml-auto text-[#8b949e] hover:text-white">✕</button></div>
-    <div className="p-8 text-center"><div className="font-mono text-6xl tracking-tight">{formatTime(seconds)}</div><div className="text-xs text-[#6e7681] mt-2">Expected ~{active.estimate} minutes</div><div className="flex justify-center gap-2 mt-7"><button onClick={()=>setRunning(!running)} className="px-6 py-2.5 rounded-md bg-[#2f81f7] text-white">{running?"Pause":"Start"}</button><button onClick={()=>setSeconds(0)} className="px-5 py-2.5 rounded-md border border-[#343941]">Reset</button></div></div>
-    <div className="p-4 border-t border-[#2a2d32] flex gap-2"><a href={active.url} target="_blank" rel="noreferrer" className="flex-1 text-center px-3 py-2 rounded-md bg-[#ffa116] text-black font-semibold text-sm">Open on LeetCode ↗</a><button onClick={()=>{mark(active,"solved");saveAndClose()}} className="px-4 py-2 rounded-md border border-green-700 text-green-400 text-sm">✓ Solved</button></div>
-  </div></div>}
- </main>
+  {active&&<TimerModal active={active} seconds={seconds} running={running} hints={hints[active.id]||0} onToggle={()=>setRunning(!running)} onReset={()=>setSeconds(0)} onHint={()=>setHints(x=>({...x,[active.id]:(x[active.id]||0)+1}))} onClose={()=>closeTimer(true)} onSolved={()=>{mark(active,"solved");closeTimer(true)}}/>}
+ </main>;
 }
 
-function ProblemCard({p,index,status,onStart,onMark}:{p:Problem;index:number;status:Status;onStart:()=>void;onMark:(s:Status)=>void}){
- return <article className="border border-[#2a2d32] bg-[#121519] rounded-lg hover:border-[#454b54] transition"><div className="flex items-center gap-4 p-4"><div className={`w-10 h-10 rounded-md flex items-center justify-center text-xs font-bold diff-${diffClass(p.difficulty)}`}>{index+1}</div><div className="min-w-0 flex-1"><div className="font-medium truncate">{p.title}</div><div className="text-xs text-[#8b949e] mt-1">{p.topic} · {p.company} · ~{p.estimate}m</div></div><span className={`text-xs px-2 py-1 rounded diff-${diffClass(p.difficulty)}`}>{p.difficulty}</span><button onClick={onStart} className="px-3 py-2 text-sm rounded-md bg-[#2f81f7] hover:bg-[#388bfd] text-white">Timer</button></div><div className="px-4 pb-3 flex flex-wrap gap-2 justify-end"><select value={status} onChange={e=>onMark(e.target.value as Status)} className="text-xs bg-[#0d0f12] border border-[#343941] rounded px-2 py-1.5"><option value="unsolved">Unsolved</option><option value="solved">Solved</option><option value="revision">Need revision</option><option value="failed">Couldn't solve</option></select><a href={p.url} target="_blank" rel="noreferrer" className="text-xs px-2.5 py-1.5 rounded border border-[#343941] text-[#9da4ad] hover:text-white">LeetCode ↗</a></div></article>
+function NavButton({active,label,icon,onClick}:{active:boolean;label:string;icon:string;onClick:()=>void}){
+ return <button onClick={onClick} className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm mb-1.5 transition ${active?"bg-gradient-to-r from-cyan-300/10 to-violet-400/10 border border-cyan-300/10 text-white":"text-[#8391a5] hover:text-white hover:bg-white/[.035]"}`}><Icon name={icon} size={17}/><span>{label}</span>{active&&<span className="ml-auto w-1.5 h-1.5 rounded-full bg-cyan-300"/>}</button>
 }
 
-function Stat({label,value}:{label:string;value:string}){return <div className="border border-[#2a2d32] rounded-lg bg-[#121519] p-4"><div className="text-xs text-[#8b949e]">{label}</div><div className="text-xl font-semibold mt-1">{value}</div></div>}
+function Overview({today,solvedToday,streak,weeklySolved,completion,totalTime,setView,openTimer}:{today:Problem[];solvedToday:number;streak:number;weeklySolved:number;completion:number;totalTime:number;setView:(v:View)=>void;openTimer:(p:Problem)=>void}){
+ const focus=today.filter(p=>p.difficulty!=="Easy").slice(0,3);
+ return <div className="max-w-7xl mx-auto p-5 md:p-8">
+  <div className="fade-up panel rounded-3xl p-6 md:p-9 relative overflow-hidden glow-cyan">
+   <div className="absolute right-0 top-0 w-72 h-72 bg-cyan-300/10 blur-3xl rounded-full"/>
+   <div className="relative">
+    <div className="flex items-center gap-2 text-[10px] tracking-[.22em] text-cyan-200"><span className="w-2 h-2 rounded-full bg-cyan-300 pulse-dot"/> TODAY'S SYSTEM</div>
+    <div className="mt-4 grid lg:grid-cols-[1fr_340px] gap-8 items-end">
+     <div><h1 className="text-4xl md:text-6xl font-black tracking-tight leading-[.98]">Build skill.<br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 via-white to-violet-300">Measure it.</span></h1><p className="max-w-xl text-sm md:text-base text-[#8998ac] mt-5 leading-7">DACE turns daily coding practice into a feedback loop: mixed problems, real solving time, revisions, company coverage and adaptive selection.</p>
+      <div className="flex flex-wrap gap-2 mt-6"><button onClick={()=>setView("today")} className="px-4 py-2.5 rounded-xl bg-white text-black text-sm font-semibold hover:bg-cyan-100 transition flex items-center gap-2"><Icon name="play" size={15}/> Start today's set</button><button onClick={()=>setView("analytics")} className="px-4 py-2.5 rounded-xl border border-[#2b384a] text-sm hover:bg-white/5 transition flex items-center gap-2"><Icon name="analytics" size={15}/> View analytics</button></div>
+     </div>
+     <div className="grid grid-cols-2 gap-2">
+      <MiniMetric label="Today" value={`${solvedToday}/5`} sub="completed"/>
+      <MiniMetric label="Streak" value={`${streak}d`} sub="current"/>
+      <MiniMetric label="This week" value={String(weeklySolved)} sub="problems"/>
+      <MiniMetric label="Tracked" value={Math.floor(totalTime/60)+"m"} sub="time"/>
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <div className="grid lg:grid-cols-[1.5fr_1fr] gap-5 mt-5">
+   <div className="panel rounded-2xl p-5 fade-up-2">
+    <SectionTitle title="Today's set" icon="calendar" action="Open daily" onClick={()=>setView("today")}/>
+    <div className="mt-4 space-y-2">{today.map((p,i)=><button key={p.id} onClick={()=>openTimer(p)} className="w-full flex items-center gap-3 p-3 rounded-xl border border-[#202a38] hover:border-cyan-300/20 hover:bg-white/[.025] transition text-left"><span className="w-7 h-7 rounded-lg bg-[#151e2b] text-[10px] text-[#7d8ca1] flex items-center justify-center">{String(i+1).padStart(2,"0")}</span><span className="flex-1 min-w-0"><span className="block text-sm truncate">{p.title}</span><span className="block text-[11px] text-[#69788d] mt-1">{p.topics.join(" · ")}</span></span><span className={`text-[10px] px-2 py-1 rounded-full border ${diffClass(p.difficulty)}`}>{p.difficulty}</span><Icon name="arrow" size={14}/></button>)}</div>
+   </div>
+   <div className="panel rounded-2xl p-5 fade-up-3">
+    <SectionTitle title="Adaptive focus" icon="spark"/>
+    <p className="text-xs text-[#718096] mt-1">The engine watches where your performance is weakest.</p>
+    <div className="mt-5 space-y-4">{focus.map(p=><div key={p.id}><div className="flex justify-between text-xs mb-2"><span>{p.topics[0]}</span><span className="text-[#6d7d92]">{p.difficulty}</span></div><div className="h-1.5 bg-[#1c2633] rounded-full"><div className="h-full rounded-full bg-gradient-to-r from-cyan-300 to-violet-400" style={{width:p.difficulty==="Hard"?"88%":p.difficulty==="Medium"?"64%":"42%"}}/></div></div>)}</div>
+    <button onClick={()=>setView("analytics")} className="mt-6 text-xs text-cyan-200 hover:text-white flex items-center gap-1">See full weakness map <ChevronRight size={14}/></button>
+   </div>
+  </div>
+
+  <div className="mt-5 grid md:grid-cols-3 gap-4">
+   <FeatureCard icon="timer" title="Solve with intent" text="Track actual time, expected time, attempts and hints."/>
+   <FeatureCard icon="shield" title="Own your data" text="Local-first progress with export/import backup."/>
+   <FeatureCard icon="trophy" title="Prepare for interviews" text="Company filters, revision loops and interview mode."/>
+  </div>
+ </div>
+}
+
+function TodayPage({today,solved,status,solvedToday,company,companies,setCompany,openTimer,mark,regenerate}:{today:Problem[];solved:number[];status:Record<number,Status>;solvedToday:number;company:string;companies:string[];setCompany:(c:string)=>void;openTimer:(p:Problem)=>void;mark:(p:Problem,s:Status)=>void;regenerate:()=>void}){
+ return <div className="max-w-6xl mx-auto p-5 md:p-8">
+  <div className="fade-up flex flex-wrap items-end gap-4 mb-6"><div><div className="text-[10px] tracking-[.2em] text-cyan-200">DAILY ADAPTIVE SET</div><h1 className="text-3xl md:text-4xl font-black mt-2">Today's Problems</h1><p className="text-sm text-[#748398] mt-2">{solvedToday}/5 completed · mixed topics · no fixed roadmap</p></div><div className="ml-auto flex gap-2"><select value={company} onChange={e=>setCompany(e.target.value)} className="bg-[#0d141e] border border-[#2a3749] rounded-xl px-3 py-2 text-xs">{companies.map(c=><option key={c}>{c}</option>)}</select><button onClick={regenerate} className="p-2.5 rounded-xl border border-[#2a3749] hover:bg-white/5" title="Regenerate today's set"><Icon name="reset" size={16}/></button></div></div>
+  <div className="panel rounded-2xl p-4 mb-5 flex flex-wrap items-center gap-4"><div className="flex-1 min-w-52"><div className="flex justify-between text-xs mb-2"><span className="text-[#9aa8ba]">Daily completion</span><span>{Math.round(solvedToday/5*100)}%</span></div><div className="h-2 bg-[#18212d] rounded-full overflow-hidden"><div className="h-full bg-gradient-to-r from-cyan-300 to-violet-400 transition-all" style={{width:`${solvedToday/5*100}%`}}/></div></div><div className="text-xs text-[#738298]">Target <b className="text-white">1E · 2M · 2H</b></div></div>
+  <div className="space-y-3">{today.map((p,i)=><DailyCard key={p.id} p={p} index={i} solved={solved.includes(p.id)} status={status[p.id]||"unsolved"} openTimer={openTimer} mark={mark}/>)}</div>
+  {today.length<5&&<div className="mt-5 panel rounded-xl p-4 text-xs text-amber-300">The starter dataset is smaller than a production company-wise bank. The engine falls back gracefully; importing the full dataset will make daily generation much richer.</div>}
+ </div>
+}
+
+function DailyCard({p,index,solved,status,openTimer,mark}:{p:Problem;index:number;solved:boolean;status:Status;openTimer:(p:Problem)=>void;mark:(p:Problem,s:Status)=>void}){
+ return <article className={`panel rounded-2xl p-4 md:p-5 transition hover:-translate-y-0.5 ${solved?"border-green-400/20":""}`}>
+  <div className="flex gap-4 items-center">
+   <div className="w-10 h-10 rounded-xl border border-[#273447] bg-[#111925] flex items-center justify-center text-xs text-[#738299]">{String(index+1).padStart(2,"0")}</div>
+   <div className="flex-1 min-w-0"><div className="flex items-center gap-2 flex-wrap"><h2 className="font-semibold truncate">{p.title}</h2>{solved&&<CheckCircle2 size={15} className="text-green-400"/>}</div><div className="text-xs text-[#728198] mt-1">{p.topics.join(" · ")} · {p.company}</div></div>
+   <span className={`text-[10px] px-2.5 py-1.5 rounded-full border ${diffClass(p.difficulty)}`}>{p.difficulty}</span>
+   <button onClick={()=>openTimer(p)} className="hidden sm:flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-white text-black text-xs font-semibold hover:bg-cyan-100"><Icon name="clock" size={14}/> Timer</button>
+  </div>
+  <div className="mt-3 pt-3 border-t border-[#1d2734] flex flex-wrap items-center gap-2">
+   <select value={status} onChange={e=>mark(p,e.target.value as Status)} className="bg-[#0b1119] border border-[#253245] rounded-lg px-2.5 py-2 text-[11px]"><option value="unsolved">Unsolved</option><option value="solved">Solved</option><option value="revision">Need revision</option><option value="failed">Couldn't solve</option></select>
+   <a href={p.url} target="_blank" rel="noreferrer" className="ml-auto text-[11px] px-3 py-2 rounded-lg border border-[#253245] text-[#9aa8ba] hover:text-white flex items-center gap-1">LeetCode <Icon name="arrow" size={12}/></a>
+   <button onClick={()=>openTimer(p)} className="sm:hidden text-[11px] px-3 py-2 rounded-lg bg-white text-black font-semibold">Timer</button>
+  </div>
+ </article>
+}
+
+function ProblemsPage({problems,solved,status,search,setSearch,difficulty,setDifficulty,topic,setTopic,openTimer,mark}:{problems:Problem[];solved:number[];status:Record<number,Status>;search:string;setSearch:(s:string)=>void;difficulty:"All"|Difficulty;setDifficulty:(d:"All"|Difficulty)=>void;topic:string;setTopic:(t:string)=>void;openTimer:(p:Problem)=>void;mark:(p:Problem,s:Status)=>void}){
+ return <div className="max-w-7xl mx-auto p-5 md:p-8"><div className="fade-up"><div className="text-[10px] tracking-[.2em] text-violet-300">PROBLEM BANK</div><h1 className="text-3xl md:text-4xl font-black mt-2">Problems</h1><p className="text-sm text-[#748398] mt-2 mb-6">Search, filter, revise and launch the timer.</p></div>
+  <div className="panel rounded-2xl p-3 mb-4 flex flex-wrap gap-2"><div className="flex-1 min-w-52 flex items-center gap-2 bg-[#0b1119] border border-[#243145] rounded-xl px-3"><Icon name="search" size={15}/><input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search problems..." className="bg-transparent outline-none py-2.5 text-sm w-full"/></div>{["All",...difficulties].map(d=><button key={d} onClick={()=>setDifficulty(d as any)} className={`px-3 py-2 rounded-xl text-xs border ${difficulty===d?"border-cyan-300/30 bg-cyan-300/10 text-cyan-100":"border-[#253245] text-[#8391a5] hover:bg-white/5"}`}>{d}</button>)}<select value={topic} onChange={e=>setTopic(e.target.value)} className="bg-[#0b1119] border border-[#253245] rounded-xl px-3 text-xs"><option>All</option>{topicList.map(t=><option key={t}>{t}</option>)}</select></div>
+  <div className="text-xs text-[#68778c] mb-3">{problems.length} problems shown</div>
+  <div className="space-y-2">{problems.map((p,i)=><DailyCard key={p.id} p={p} index={i} solved={solved.includes(p.id)} status={status[p.id]||"unsolved"} openTimer={openTimer} mark={mark}/>)}</div>
+ </div>
+}
+
+function CompaniesPage({company,companies,setCompany,problems}:{company:string;companies:string[];setCompany:(c:string)=>void;problems:Problem[]}){
+ return <div className="max-w-6xl mx-auto p-5 md:p-8"><div className="text-[10px] tracking-[.2em] text-cyan-200">COMPANY PREP</div><h1 className="text-3xl md:text-4xl font-black mt-2">Companies</h1><p className="text-sm text-[#748398] mt-2 mb-7">Choose a company focus and DACE will bias future daily sets toward it.</p><div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">{companies.filter(c=>c!=="All").map(c=>{const n=problems.filter(p=>p.company===c).length;const done=problems.filter(p=>p.company===c&&false).length;return <button key={c} onClick={()=>setCompany(c)} className={`panel rounded-2xl p-5 text-left hover:-translate-y-0.5 transition ${company===c?"border-cyan-300/30 glow-cyan":""}`}><div className="flex items-center justify-between"><div className="w-10 h-10 rounded-xl bg-[#151f2c] flex items-center justify-center"><Icon name="company"/></div><Icon name="arrow" size={15}/></div><div className="mt-5 font-semibold">{c}</div><div className="text-xs text-[#748398] mt-1">{n} loaded problems · {done} solved</div></button>})}</div></div>
+}
+
+function AnalyticsPage({problems,solved,status,timeSpent,topicStats,streak,totalTime}:{problems:Problem[];solved:number[];status:Record<number,Status>;timeSpent:Record<number,number>;topicStats:Record<string,{solved:number;total:number}>;streak:number;totalTime:number}){
+ const avgSolved=solved.length?Math.round(solved.reduce((a,id)=>a+(timeSpent[id]||0),0)/solved.length/60):0;
+ const topics=Object.entries(topicStats).sort((a,b)=>(a[1].solved/Math.max(1,a[1].total))-(b[1].solved/Math.max(1,b[1].total)));
+ return <div className="max-w-7xl mx-auto p-5 md:p-8"><div className="text-[10px] tracking-[.2em] text-violet-300">PERFORMANCE LAB</div><h1 className="text-3xl md:text-4xl font-black mt-2">Analytics</h1><p className="text-sm text-[#748398] mt-2 mb-7">A factual view of your current practice data. DACE uses this signal for future selection.</p>
+  <div className="grid grid-cols-2 lg:grid-cols-4 gap-3"><Stat label="Solved" value={String(solved.length)} icon="check"/><Stat label="Streak" value={streak+"d"} icon="flame"/><Stat label="Avg solve" value={avgSolved+"m"} icon="clock"/><Stat label="Tracked" value={Math.floor(totalTime/60)+"m"} icon="activity"/></div>
+  <div className="grid lg:grid-cols-2 gap-5 mt-5">
+   <div className="panel rounded-2xl p-5"><SectionTitle title="Topic weakness map" icon="analytics"/><div className="mt-5 space-y-4">{topics.slice(0,10).map(([t,v])=>{const pct=Math.round(v.solved/Math.max(1,v.total)*100);return <div key={t}><div className="flex justify-between text-xs mb-2"><span>{t}</span><span className="text-[#718096]">{v.solved}/{v.total} · {pct}%</span></div><div className="h-2 rounded-full bg-[#18212d] overflow-hidden"><div className="h-full bg-gradient-to-r from-violet-400 to-cyan-300 rounded-full transition-all" style={{width:pct+"%"}}/></div></div>})}</div></div>
+   <div className="panel rounded-2xl p-5"><SectionTitle title="Difficulty profile" icon="gauge"/><div className="mt-5 space-y-5">{difficulties.map(d=>{const total=problems.filter(p=>p.difficulty===d).length;const done=problems.filter(p=>p.difficulty===d&&solved.includes(p.id)).length;return <div key={d}><div className="flex justify-between text-xs mb-2"><span>{d}</span><span>{done}/{total}</span></div><div className="h-3 rounded-full bg-[#18212d] overflow-hidden"><div className={`h-full rounded-full ${d==="Easy"?"bg-green-400":d==="Medium"?"bg-amber-400":"bg-rose-400"}`} style={{width:Math.min(100,done/Math.max(1,total)*100)+"%"}}/></div></div>})}<div className="mt-7 p-4 rounded-xl bg-[#0b1119] border border-[#202c3c] text-xs text-[#77869a]">Revision queue: <b className="text-white">{Object.values(status).filter(x=>x==="revision").length}</b> problems.</div></div>
+  </div>
+ </div>
+}
+
+function InterviewPage({problems,interviewTime,setInterviewTime,openTimer}:{problems:Problem[];interviewTime:number;setInterviewTime:(n:number)=>void;openTimer:(p:Problem)=>void}){
+ const [started,setStarted]=useState(false);
+ const [set,setSet]=useState<Problem[]>([]);
+ const start=()=>{const pool=shuffle(problems.filter(p=>p.difficulty!=="Easy"),"interview"+Date.now());setSet(pool.slice(0,3));setStarted(true)};
+ return <div className="max-w-5xl mx-auto p-5 md:p-8"><div className="text-[10px] tracking-[.2em] text-cyan-200">INTERVIEW MODE</div><h1 className="text-3xl md:text-4xl font-black mt-2">Simulate the pressure.</h1><p className="text-sm text-[#748398] mt-2 mb-7">A distraction-light session with a fixed time box and mixed interview-style problems.</p>
+  {!started?<div className="panel rounded-3xl p-6 md:p-9 glow-cyan"><div className="w-14 h-14 rounded-2xl bg-cyan-300/10 border border-cyan-300/20 flex items-center justify-center"><Icon name="target" size={25}/></div><h2 className="text-2xl font-bold mt-5">Mock interview</h2><p className="text-sm text-[#77869a] max-w-lg mt-2">Pick a time box. DACE will create a fresh 3-problem set. Use the timer and open each original LeetCode problem.</p><div className="flex gap-2 mt-6">{[45,60,90].map(n=><button key={n} onClick={()=>setInterviewTime(n)} className={`px-4 py-2.5 rounded-xl border text-sm ${interviewTime===n?"border-cyan-300/30 bg-cyan-300/10":"border-[#273447]"}`}>{n} min</button>)}</div><button onClick={start} className="mt-5 px-5 py-3 rounded-xl bg-white text-black font-semibold text-sm">Start interview <ArrowUpRight size={15} className="inline ml-1"/></button></div>:<div><div className="panel rounded-2xl p-5 mb-4 flex items-center"><div><div className="text-xs text-[#718096]">TIME BOX</div><div className="text-3xl font-black">{interviewTime}:00</div></div><button onClick={()=>setStarted(false)} className="ml-auto text-xs text-[#7d8ca1]">End session</button></div><div className="space-y-3">{set.map((p,i)=><DailyCard key={p.id} p={p} index={i} solved={false} status="unsolved" openTimer={()=>openTimer(p)} mark={()=>{}}/>)}</div></div>}
+ </div>
+}
+
+function SettingsPage({target,setTarget,company,setCompany,companies,exportData,importData,resetAll}:{target:{Easy:number;Medium:number;Hard:number};setTarget:React.Dispatch<React.SetStateAction<{Easy:number;Medium:number;Hard:number}>>;company:string;setCompany:(s:string)=>void;companies:string[];exportData:()=>void;importData:(e:React.ChangeEvent<HTMLInputElement>)=>void;resetAll:()=>void}){
+ return <div className="max-w-3xl mx-auto p-5 md:p-8"><div className="text-[10px] tracking-[.2em] text-violet-300">CONTROL ROOM</div><h1 className="text-3xl md:text-4xl font-black mt-2">Settings</h1><p className="text-sm text-[#748398] mt-2 mb-7">Tune the practice system. Everything currently lives in your browser.</p>
+  <div className="panel rounded-2xl p-5"><h2 className="font-semibold">Daily target</h2><div className="text-xs text-[#718096] mt-1">Default: 1 Easy + 2 Medium + 2 Hard.</div><div className="mt-5 space-y-3">{difficulties.map(d=><div key={d} className="flex items-center justify-between border-b border-[#1e2835] py-3 last:border-0"><span className={`text-sm ${d==="Easy"?"text-green-300":d==="Medium"?"text-amber-300":"text-rose-300"}`}>{d}</span><input type="number" min={0} max={5} value={target[d]} onChange={e=>setTarget(x=>({...x,[d]:Math.max(0,Math.min(5,Number(e.target.value)||0))}))} className="w-20 bg-[#0a1017] border border-[#273447] rounded-lg px-3 py-2 text-center"/></div>)}</div></div>
+  <div className="panel rounded-2xl p-5 mt-4"><h2 className="font-semibold">Company focus</h2><p className="text-xs text-[#718096] mt-1">The adaptive engine can bias future sets toward one company.</p><select value={company} onChange={e=>setCompany(e.target.value)} className="mt-4 bg-[#0a1017] border border-[#273447] rounded-xl px-3 py-2.5 text-sm">{companies.map(c=><option key={c}>{c}</option>)}</select></div>
+  <div className="panel rounded-2xl p-5 mt-4"><h2 className="font-semibold">Your data</h2><p className="text-xs text-[#718096] mt-1">Back up your local progress before changing browsers or devices.</p><div className="flex flex-wrap gap-2 mt-4"><button onClick={exportData} className="px-4 py-2.5 rounded-xl border border-[#273447] text-sm flex items-center gap-2"><Icon name="download" size={15}/> Export backup</button><label className="px-4 py-2.5 rounded-xl border border-[#273447] text-sm flex items-center gap-2 cursor-pointer"><Icon name="upload" size={15}/> Import backup<input type="file" accept="application/json" onChange={importData} className="hidden"/></label></div></div>
+  <button onClick={resetAll} className="mt-4 text-xs text-rose-300 border border-rose-400/20 rounded-xl px-4 py-2.5 hover:bg-rose-400/5">Reset local progress</button>
+ </div>
+}
+
+function TimerModal({active,seconds,running,hints,onToggle,onReset,onHint,onClose,onSolved}:{active:Problem;seconds:number;running:boolean;hints:number;onToggle:()=>void;onReset:()=>void;onHint:()=>void;onClose:()=>void;onSolved:()=>void}){
+ return <div className="fixed inset-0 z-[60] bg-black/75 backdrop-blur-sm flex items-end md:items-center justify-center p-4">
+  <div className="w-full max-w-xl panel rounded-3xl overflow-hidden shadow-2xl float-in">
+   <div className="p-5 border-b border-[#202a38] flex items-start gap-4"><div className="w-11 h-11 rounded-xl bg-gradient-to-br from-cyan-300/15 to-violet-400/15 border border-cyan-300/15 flex items-center justify-center"><Icon name="timer" size={20}/></div><div><div className={`text-[10px] tracking-[.16em] ${active.difficulty==="Hard"?"text-rose-300":active.difficulty==="Medium"?"text-amber-300":"text-green-300"}`}>{active.difficulty} · {active.company}</div><h2 className="text-xl font-bold mt-1">{active.title}</h2><div className="text-xs text-[#718096] mt-1">{active.topics.join(" · ")}</div></div><button onClick={onClose} className="ml-auto p-2 rounded-lg hover:bg-white/5"><Icon name="x" size={17}/></button></div>
+   <div className="p-8 md:p-10 text-center"><div className="text-[10px] tracking-[.2em] text-[#627188]">FOCUS TIMER</div><div className="font-mono text-6xl md:text-7xl font-semibold tracking-tight mt-2">{fmt(seconds)}</div><div className="text-xs text-[#69788d] mt-2">Expected ~{active.estimate} min · {hints} hint{hints===1?"":"s"} used</div><div className="flex justify-center gap-2 mt-7"><button onClick={onToggle} className="px-6 py-3 rounded-xl bg-white text-black font-semibold text-sm flex items-center gap-2"><Icon name={running?"clock":"play"} size={15}/>{running?"Pause":"Start"}</button><button onClick={onReset} className="px-5 py-3 rounded-xl border border-[#273447] text-sm">Reset</button><button onClick={onHint} className="px-5 py-3 rounded-xl border border-[#273447] text-sm">+ Hint</button></div></div>
+   <div className="p-4 border-t border-[#202a38] flex gap-2"><a href={active.url} target="_blank" rel="noreferrer" className="flex-1 px-3 py-3 rounded-xl bg-gradient-to-r from-cyan-200 to-violet-300 text-black text-center text-sm font-bold">Open on LeetCode <ArrowUpRight size={14} className="inline"/></a><button onClick={onSolved} className="px-4 py-3 rounded-xl border border-green-400/20 text-green-300 text-sm flex items-center gap-2"><Check size={15}/> Solved</button></div>
+  </div>
+ </div>
+}
+
+function SectionTitle({title,icon,action,onClick}:{title:string;icon:string;action?:string;onClick?:()=>void}){
+ return <div className="flex items-center gap-2"><Icon name={icon} size={15}/><h2 className="text-sm font-semibold">{title}</h2>{action&&<button onClick={onClick} className="ml-auto text-[11px] text-[#8190a5] hover:text-white flex items-center gap-1">{action}<ChevronRight size={13}/></button>}</div>
+}
+function MiniMetric({label,value,sub}:{label:string;value:string;sub:string}){return <div className="panel rounded-xl p-4"><div className="text-[10px] tracking-[.14em] text-[#64748a]">{label.toUpperCase()}</div><div className="text-2xl font-black mt-2">{value}</div><div className="text-[10px] text-[#68778c] mt-1">{sub}</div></div>}
+function Stat({label,value,icon}:{label:string;value:string;icon:string}){return <div className="panel rounded-2xl p-4"><div className="flex items-center justify-between"><span className="text-xs text-[#77869a]">{label}</span><Icon name={icon} size={15}/></div><div className="text-2xl font-black mt-2">{value}</div></div>}
+function FeatureCard({icon,title,text}:{icon:string;title:string;text:string}){return <div className="panel rounded-2xl p-5"><div className="w-9 h-9 rounded-xl bg-white/5 flex items-center justify-center"><Icon name={icon}/></div><div className="font-semibold text-sm mt-4">{title}</div><div className="text-xs text-[#718096] leading-5 mt-1">{text}</div></div>}
