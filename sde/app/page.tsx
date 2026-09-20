@@ -13,65 +13,12 @@ type Difficulty="Easy"|"Medium"|"Hard";
 type Status="unsolved"|"solved"|"revision"|"failed";
 type View="overview"|"today"|"problems"|"companies"|"analytics"|"interview"|"settings";
 type Problem={
- id:number; title:string; difficulty:Difficulty; topics:string[]; company:string;
+ id:number; title:string; difficulty:Difficulty; topics:string[]; companies:string[];
  url:string; estimate:number;
 };
 
-const problems:Problem[]=[
-{id:1,title:"Two Sum",difficulty:"Easy",topics:["Arrays","Hashing"],company:"Amazon",url:"https://leetcode.com/problems/two-sum/",estimate:15},
-{id:20,title:"Valid Parentheses",difficulty:"Easy",topics:["Stack"],company:"Amazon",url:"https://leetcode.com/problems/valid-parentheses/",estimate:15},
-{id:121,title:"Best Time to Buy and Sell Stock",difficulty:"Easy",topics:["Arrays","Greedy"],company:"Amazon",url:"https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",estimate:15},
-{id:206,title:"Reverse Linked List",difficulty:"Easy",topics:["Linked List"],company:"Amazon",url:"https://leetcode.com/problems/reverse-linked-list/",estimate:15},
-{id:704,title:"Binary Search",difficulty:"Easy",topics:["Binary Search"],company:"Microsoft",url:"https://leetcode.com/problems/binary-search/",estimate:15},
-{id:226,title:"Invert Binary Tree",difficulty:"Easy",topics:["Trees"],company:"Google",url:"https://leetcode.com/problems/invert-binary-tree/",estimate:20},
-{id:141,title:"Linked List Cycle",difficulty:"Easy",topics:["Linked List","Two Pointers"],company:"Amazon",url:"https://leetcode.com/problems/linked-list-cycle/",estimate:20},
-{id:543,title:"Diameter of Binary Tree",difficulty:"Easy",topics:["Trees","DFS"],company:"Amazon",url:"https://leetcode.com/problems/diameter-of-binary-tree/",estimate:25},
-{id:733,title:"Flood Fill",difficulty:"Easy",topics:["Graphs","BFS"],company:"Google",url:"https://leetcode.com/problems/flood-fill/",estimate:20},
-{id:217,title:"Contains Duplicate",difficulty:"Easy",topics:["Arrays","Hashing"],company:"Amazon",url:"https://leetcode.com/problems/contains-duplicate/",estimate:15},
-{id:53,title:"Maximum Subarray",difficulty:"Medium",topics:["Arrays","Dynamic Programming"],company:"Amazon",url:"https://leetcode.com/problems/maximum-subarray/",estimate:25},
-{id:15,title:"3Sum",difficulty:"Medium",topics:["Arrays","Two Pointers"],company:"Amazon",url:"https://leetcode.com/problems/3sum/",estimate:35},
-{id:49,title:"Group Anagrams",difficulty:"Medium",topics:["Arrays","Hashing"],company:"Google",url:"https://leetcode.com/problems/group-anagrams/",estimate:25},
-{id:200,title:"Number of Islands",difficulty:"Medium",topics:["Graphs","BFS","DFS"],company:"Google",url:"https://leetcode.com/problems/number-of-islands/",estimate:40},
-{id:322,title:"Coin Change",difficulty:"Medium",topics:["Dynamic Programming"],company:"Google",url:"https://leetcode.com/problems/coin-change/",estimate:40},
-{id:98,title:"Validate Binary Search Tree",difficulty:"Medium",topics:["Trees","DFS"],company:"Microsoft",url:"https://leetcode.com/problems/validate-binary-search-tree/",estimate:30},
-{id:39,title:"Combination Sum",difficulty:"Medium",topics:["Backtracking"],company:"Adobe",url:"https://leetcode.com/problems/combination-sum/",estimate:35},
-{id:994,title:"Rotting Oranges",difficulty:"Medium",topics:["Graphs","BFS"],company:"Amazon",url:"https://leetcode.com/problems/rotting-oranges/",estimate:30},
-{id:56,title:"Merge Intervals",difficulty:"Medium",topics:["Arrays","Intervals"],company:"Google",url:"https://leetcode.com/problems/merge-intervals/",estimate:30},
-{id:347,title:"Top K Frequent Elements",difficulty:"Medium",topics:["Hashing","Heap"],company:"Amazon",url:"https://leetcode.com/problems/top-k-frequent-elements/",estimate:30},
-{id:102,title:"Binary Tree Level Order Traversal",difficulty:"Medium",topics:["Trees","BFS"],company:"Microsoft",url:"https://leetcode.com/problems/binary-tree-level-order-traversal/",estimate:25},
-{id:79,title:"Word Search",difficulty:"Medium",topics:["Backtracking","DFS"],company:"Microsoft",url:"https://leetcode.com/problems/word-search/",estimate:35},
-{id:1143,title:"Longest Common Subsequence",difficulty:"Medium",topics:["Dynamic Programming"],company:"Google",url:"https://leetcode.com/problems/longest-common-subsequence/",estimate:40},
-{id:438,title:"Find All Anagrams in a String",difficulty:"Medium",topics:["Sliding Window","Hashing"],company:"Microsoft",url:"https://leetcode.com/problems/find-all-anagrams-in-a-string/",estimate:30},
-{id:19,title:"Remove Nth Node From End of List",difficulty:"Medium",topics:["Linked List","Two Pointers"],company:"Amazon",url:"https://leetcode.com/problems/remove-nth-node-from-end-of-list/",estimate:25},
-{id:152,title:"Maximum Product Subarray",difficulty:"Medium",topics:["Arrays","Dynamic Programming"],company:"Amazon",url:"https://leetcode.com/problems/maximum-product-subarray/",estimate:35},
-{id:74,title:"Search a 2D Matrix",difficulty:"Medium",topics:["Binary Search","Arrays"],company:"Microsoft",url:"https://leetcode.com/problems/search-a-2d-matrix/",estimate:25},
-{id:208,title:"Implement Trie",difficulty:"Medium",topics:["Trie"],company:"Amazon",url:"https://leetcode.com/problems/implement-trie-prefix-tree/",estimate:35},
-{id:743,title:"Network Delay Time",difficulty:"Medium",topics:["Graphs","Dijkstra"],company:"Amazon",url:"https://leetcode.com/problems/network-delay-time/",estimate:45},
-{id:146,title:"LRU Cache",difficulty:"Medium",topics:["Hashing","Linked List"],company:"Amazon",url:"https://leetcode.com/problems/lru-cache/",estimate:40},
-{id:105,title:"Construct Binary Tree from Preorder and Inorder Traversal",difficulty:"Medium",topics:["Trees","DFS"],company:"Amazon",url:"https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/",estimate:40},
-{id:416,title:"Partition Equal Subset Sum",difficulty:"Medium",topics:["Dynamic Programming"],company:"Microsoft",url:"https://leetcode.com/problems/partition-equal-subset-sum/",estimate:35},
-{id:875,title:"Koko Eating Bananas",difficulty:"Medium",topics:["Binary Search"],company:"Google",url:"https://leetcode.com/problems/koko-eating-bananas/",estimate:30},
-{id:127,title:"Word Ladder",difficulty:"Hard",topics:["Graphs","BFS"],company:"Meta",url:"https://leetcode.com/problems/word-ladder/",estimate:55},
-{id:42,title:"Trapping Rain Water",difficulty:"Hard",topics:["Arrays","Two Pointers"],company:"Amazon",url:"https://leetcode.com/problems/trapping-rain-water/",estimate:55},
-{id:23,title:"Merge k Sorted Lists",difficulty:"Hard",topics:["Heap","Linked List"],company:"Microsoft",url:"https://leetcode.com/problems/merge-k-sorted-lists/",estimate:60},
-{id:124,title:"Binary Tree Maximum Path Sum",difficulty:"Hard",topics:["Trees","Dynamic Programming"],company:"Meta",url:"https://leetcode.com/problems/binary-tree-maximum-path-sum/",estimate:55},
-{id:76,title:"Minimum Window Substring",difficulty:"Hard",topics:["Sliding Window","Hashing"],company:"Google",url:"https://leetcode.com/problems/minimum-window-substring/",estimate:50},
-{id:4,title:"Median of Two Sorted Arrays",difficulty:"Hard",topics:["Binary Search"],company:"Google",url:"https://leetcode.com/problems/median-of-two-sorted-arrays/",estimate:60},
-{id:10,title:"Regular Expression Matching",difficulty:"Hard",topics:["Dynamic Programming"],company:"Google",url:"https://leetcode.com/problems/regular-expression-matching/",estimate:60},
-{id:51,title:"N-Queens",difficulty:"Hard",topics:["Backtracking"],company:"Amazon",url:"https://leetcode.com/problems/n-queens/",estimate:50},
-{id:295,title:"Find Median from Data Stream",difficulty:"Hard",topics:["Heap"],company:"Google",url:"https://leetcode.com/problems/find-median-from-data-stream/",estimate:50},
-{id:239,title:"Sliding Window Maximum",difficulty:"Hard",topics:["Sliding Window","Deque"],company:"Amazon",url:"https://leetcode.com/problems/sliding-window-maximum/",estimate:50},
-{id:25,title:"Reverse Nodes in k-Group",difficulty:"Hard",topics:["Linked List"],company:"Amazon",url:"https://leetcode.com/problems/reverse-nodes-in-k-group/",estimate:55},
-{id:84,title:"Largest Rectangle in Histogram",difficulty:"Hard",topics:["Stack"],company:"Google",url:"https://leetcode.com/problems/largest-rectangle-in-histogram/",estimate:50},
-{id:72,title:"Edit Distance",difficulty:"Hard",topics:["Dynamic Programming"],company:"Google",url:"https://leetcode.com/problems/edit-distance/",estimate:55},
-{id:312,title:"Burst Balloons",difficulty:"Hard",topics:["Dynamic Programming"],company:"Google",url:"https://leetcode.com/problems/burst-balloons/",estimate:60},
-{id:37,title:"Sudoku Solver",difficulty:"Hard",topics:["Backtracking"],company:"Amazon",url:"https://leetcode.com/problems/sudoku-solver/",estimate:60},
-{id:1353,title:"Maximum Number of Events That Can Be Attended",difficulty:"Medium",topics:["Heap","Greedy"],company:"Amazon",url:"https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/",estimate:40},
-{id:1249,title:"Minimum Remove to Make Valid Parentheses",difficulty:"Medium",topics:["Stack","Greedy"],company:"Amazon",url:"https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/",estimate:30}
-];
-
-const difficulties:Difficulty[]=["Easy","Medium","Hard"];
-const companies=["All",...Array.from(new Set(problems.map(p=>p.company)))];
+const problems:Problem[] = problemsData as Problem[];\nconst difficulties:Difficulty[]=["Easy","Medium","Hard"];
+const companies=["All",...Array.from(new Set(problems.flatMap(p=>p.companies)))].sort((a,b)=>a.localeCompare(b));
 const topicList=Array.from(new Set(problems.flatMap(p=>p.topics))).sort();
 
 function dateKey(date=new Date()){return date.toLocaleDateString("en-CA");}
@@ -146,7 +93,7 @@ export default function Home(){
   const revision=status[p.id]==="revision"?1.5:0;
   const failed=status[p.id]==="failed"?1.0:0;
   const fresh=recentIds.has(p.id)?-2:1;
-  const companyBoost=company!=="All"&&p.company===company?1.2:0;
+  const companyBoost=company!=="All"&&p.companies.includes(company)?1.2:0;
   const jitter=(hashSeed(seed+p.id)*0.000001)%1;
   return weak*4+revision+failed+fresh+companyBoost+jitter;
  };
@@ -157,12 +104,12 @@ export default function Home(){
   const picked:number[]=[];
   for(const d of difficulties){
    const count=target[d];
-   const pool=available.filter(p=>p.difficulty===d&&(company==="All"||p.company===company))
+   const pool=available.filter(p=>p.difficulty===d&&(company==="All"||p.companies.includes(company)))
      .sort((a,b)=>score(b,todayKey+d)-score(a,todayKey+d));
    for(const p of shuffle(pool,todayKey+d)){if(picked.length>=5)break;if(picked.filter(id=>problems.find(x=>x.id===id)?.difficulty===d).length<count&&!picked.includes(p.id))picked.push(p.id)}
   }
   if(picked.length<5){
-   const fallback=shuffle(available.filter(p=>!picked.includes(p.id)&&(company==="All"||p.company===company)),todayKey+"fallback");
+   const fallback=shuffle(available.filter(p=>!picked.includes(p.id)&&(company==="All"||p.companies.includes(c)ompany)),todayKey+"fallback");
    for(const p of fallback){if(picked.length>=5)break;picked.push(p.id)}
   }
   setDaily(x=>({...x,[todayKey]:picked}));
@@ -326,7 +273,7 @@ function DailyCard({p,index,solved,status,openTimer,mark}:{p:Problem;index:numbe
  return <article className={`panel rounded-2xl p-4 md:p-5 transition hover:-translate-y-0.5 ${solved?"border-green-400/20":""}`}>
   <div className="flex gap-4 items-center">
    <div className="w-10 h-10 rounded-xl border border-[#273447] bg-[#111925] flex items-center justify-center text-xs text-[#738299]">{String(index+1).padStart(2,"0")}</div>
-   <div className="flex-1 min-w-0"><div className="flex items-center gap-2 flex-wrap"><h2 className="font-semibold truncate">{p.title}</h2>{solved&&<CheckCircle2 size={15} className="text-green-400"/>}</div><div className="text-xs text-[#728198] mt-1">{p.topics.join(" · ")} · {p.company}</div></div>
+   <div className="flex-1 min-w-0"><div className="flex items-center gap-2 flex-wrap"><h2 className="font-semibold truncate">{p.title}</h2>{solved&&<CheckCircle2 size={15} className="text-green-400"/>}</div><div className="text-xs text-[#728198] mt-1">{p.topics.slice(0,3).join(" · ")} · {p.companies.slice(0,2).join(" · ")}</div></div>
    <span className={`text-[10px] px-2.5 py-1.5 rounded-full border ${diffClass(p.difficulty)}`}>{p.difficulty}</span>
    <button onClick={()=>openTimer(p)} className="hidden sm:flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-white text-black text-xs font-semibold hover:bg-cyan-100"><Icon name="clock" size={14}/> Timer</button>
   </div>
@@ -383,7 +330,7 @@ function SettingsPage({target,setTarget,company,setCompany,companies,exportData,
 function TimerModal({active,seconds,running,hints,onToggle,onReset,onHint,onClose,onSolved}:{active:Problem;seconds:number;running:boolean;hints:number;onToggle:()=>void;onReset:()=>void;onHint:()=>void;onClose:()=>void;onSolved:()=>void}){
  return <div className="fixed inset-0 z-[60] bg-black/75 backdrop-blur-sm flex items-end md:items-center justify-center p-4">
   <div className="w-full max-w-xl panel rounded-3xl overflow-hidden shadow-2xl float-in">
-   <div className="p-5 border-b border-[#202a38] flex items-start gap-4"><div className="w-11 h-11 rounded-xl bg-gradient-to-br from-cyan-300/15 to-violet-400/15 border border-cyan-300/15 flex items-center justify-center"><Icon name="timer" size={20}/></div><div><div className={`text-[10px] tracking-[.16em] ${active.difficulty==="Hard"?"text-rose-300":active.difficulty==="Medium"?"text-amber-300":"text-green-300"}`}>{active.difficulty} · {active.company}</div><h2 className="text-xl font-bold mt-1">{active.title}</h2><div className="text-xs text-[#718096] mt-1">{active.topics.join(" · ")}</div></div><button onClick={onClose} className="ml-auto p-2 rounded-lg hover:bg-white/5"><Icon name="x" size={17}/></button></div>
+   <div className="p-5 border-b border-[#202a38] flex items-start gap-4"><div className="w-11 h-11 rounded-xl bg-gradient-to-br from-cyan-300/15 to-violet-400/15 border border-cyan-300/15 flex items-center justify-center"><Icon name="timer" size={20}/></div><div><div className={`text-[10px] tracking-[.16em] ${active.difficulty==="Hard"?"text-rose-300":active.difficulty==="Medium"?"text-amber-300":"text-green-300"}`}>{active.difficulty} · {active.companies.slice(0,2).join(" · ")}</div><h2 className="text-xl font-bold mt-1">{active.title}</h2><div className="text-xs text-[#718096] mt-1">{active.topics.join(" · ")}</div></div><button onClick={onClose} className="ml-auto p-2 rounded-lg hover:bg-white/5"><Icon name="x" size={17}/></button></div>
    <div className="p-8 md:p-10 text-center"><div className="text-[10px] tracking-[.2em] text-[#627188]">FOCUS TIMER</div><div className="font-mono text-6xl md:text-7xl font-semibold tracking-tight mt-2">{fmt(seconds)}</div><div className="text-xs text-[#69788d] mt-2">Expected ~{active.estimate} min · {hints} hint{hints===1?"":"s"} used</div><div className="flex justify-center gap-2 mt-7"><button onClick={onToggle} className="px-6 py-3 rounded-xl bg-white text-black font-semibold text-sm flex items-center gap-2"><Icon name={running?"clock":"play"} size={15}/>{running?"Pause":"Start"}</button><button onClick={onReset} className="px-5 py-3 rounded-xl border border-[#273447] text-sm">Reset</button><button onClick={onHint} className="px-5 py-3 rounded-xl border border-[#273447] text-sm">+ Hint</button></div></div>
    <div className="p-4 border-t border-[#202a38] flex gap-2"><a href={active.url} target="_blank" rel="noreferrer" className="flex-1 px-3 py-3 rounded-xl bg-gradient-to-r from-cyan-200 to-violet-300 text-black text-center text-sm font-bold">Open on LeetCode <ArrowUpRight size={14} className="inline"/></a><button onClick={onSolved} className="px-4 py-3 rounded-xl border border-green-400/20 text-green-300 text-sm flex items-center gap-2"><Check size={15}/> Solved</button></div>
   </div>
