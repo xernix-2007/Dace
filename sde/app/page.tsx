@@ -268,14 +268,26 @@ function Overview({today,solvedToday,streak,weeklySolved,completion,totalTime,se
 }
 
 function TodayPage({today,solved,status,solvedToday,company,companies,setCompany,openTimer,mark,regenerate}:{today:Problem[];solved:number[];status:Record<number,Status>;solvedToday:number;company:string;companies:string[];setCompany:(c:string)=>void;openTimer:(p:Problem)=>void;mark:(p:Problem,s:Status)=>void;regenerate:()=>void}){
- return <div className="max-w-6xl mx-auto p-5 md:p-8">
-  <div className="fade-up flex flex-wrap items-end gap-4 mb-6"><div><div className="text-[10px] tracking-[.2em] text-cyan-200">DAILY ADAPTIVE SET</div><h1 className="text-3xl md:text-4xl font-black mt-2">Today's Problems</h1><p className="text-sm text-[#748398] mt-2">{solvedToday}/5 completed · mixed topics · no fixed roadmap</p></div><div className="ml-auto flex gap-2"><select value={company} onChange={e=>setCompany(e.target.value)} className="bg-[#0d141e] border border-[#2a3749] rounded-xl px-3 py-2 text-xs">{companies.map(c=><option key={c}>{c}</option>)}</select><button onClick={regenerate} className="p-2.5 rounded-xl border border-[#2a3749] hover:bg-white/5" title="Regenerate today's set"><Icon name="reset" size={16}/></button></div></div>
-  <div className="panel rounded-2xl p-4 mb-5 flex flex-wrap items-center gap-4"><div className="flex-1 min-w-52"><div className="flex justify-between text-xs mb-2"><span className="text-[#9aa8ba]">Daily completion</span><span>{Math.round(solvedToday/5*100)}%</span></div><div className="h-2 bg-[#18212d] rounded-full overflow-hidden"><div className="h-full bg-gradient-to-r from-cyan-300 to-violet-400 transition-all" style={{width:`${solvedToday/5*100}%`}}/></div></div><div className="text-xs text-[#738298]">Target <b className="text-white">1E · 2M · 2H</b></div></div>
+ const completion=Math.round(solvedToday/5*100);
+ return <div className="max-w-7xl mx-auto p-5 md:p-8">
+  <div className="fade-up grid xl:grid-cols-[1fr_460px] gap-7 items-stretch mb-7">
+   <div className="min-h-[330px] rounded-[30px] report-card relative overflow-hidden p-7 md:p-9 flex flex-col justify-between">
+    <div className="report-orb w-64 h-48 -right-10 -top-10 opacity-90"/><div className="report-orb two w-52 h-32 -left-16 bottom-2 opacity-80"/>
+    <div className="relative z-10 flex items-center justify-between"><div><div className="text-[10px] tracking-[.24em] text-pink-200">DACE / DAILY CHAPTER</div><div className="text-xs text-[#778398] mt-2">{dateKey()} · adaptive set</div></div><button onClick={regenerate} className="p-2.5 rounded-xl border border-white/10 bg-black/20 hover:bg-white/10" title="Regenerate"><Icon name="reset" size={15}/></button></div>
+    <div className="relative z-10"><h1 className="text-4xl md:text-6xl font-black tracking-tight leading-[.92]">Today's<br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-200 via-fuchsia-300 to-violet-300">Problems.</span></h1><p className="text-sm text-[#9aa5b5] mt-5 max-w-xl">Five mixed interview questions. Your history changes what comes next.</p></div>
+    <div className="relative z-10 grid grid-cols-3 gap-3 mt-7"><MiniMetric label="Complete" value={`${solvedToday}/5`} sub={`${completion}% today`}/><MiniMetric label="Target" value="1E · 2M · 2H" sub="daily mix"/><MiniMetric label="Focus" value={company==="All"?"All":company} sub="company bias"/></div>
+   </div>
+   <div className="rounded-[30px] bg-[#0a0d12] border border-white/8 p-6 md:p-7 flex flex-col justify-between">
+    <div><div className="text-[10px] tracking-[.24em] text-[#78869a]">CHAPTER INDEX</div><div className="text-2xl font-black mt-3">Today's set</div><p className="text-xs text-[#68778c] mt-2">One easy · two medium · two hard</p></div>
+    <div className="space-y-3 my-6">{today.map((p,i)=><div key={p.id} className="flex items-center gap-3"><span className="text-[10px] text-[#5e6b7d] w-5">0{i+1}</span><div className="h-px flex-1 bg-white/10"/><span className="text-xs truncate max-w-[190px]">{p.title}</span><span className={`text-[10px] ${p.difficulty==="Easy"?"text-emerald-300":p.difficulty==="Medium"?"text-amber-300":"text-pink-300"}`}>{p.difficulty}</span></div>)}</div>
+    <select value={company} onChange={e=>{setCompany(e.target.value);regenerate()}} className="w-full bg-[#11151c] border border-white/10 rounded-xl px-3 py-3 text-xs"><option value="All">All companies</option>{companies.filter(c=>c!=="All").map(c=><option key={c}>{c}</option>)}</select>
+   </div>
+  </div>
+  <div className="flex items-center justify-between mb-3"><div><div className="text-[10px] tracking-[.22em] text-pink-200">CHAPTERS / 05</div><h2 className="text-xl font-black mt-1">Solve today's set</h2></div><div className="text-xs text-[#657387]">{solvedToday}/5 complete</div></div>
   <div className="space-y-3">{today.map((p,i)=><DailyCard key={p.id} p={p} index={i} solved={solved.includes(p.id)} status={status[p.id]||"unsolved"} openTimer={openTimer} mark={mark}/>)}</div>
-  {today.length<5&&<div className="mt-5 panel rounded-xl p-4 text-xs text-amber-300">The starter dataset is smaller than a production company-wise bank. The engine falls back gracefully; importing the full dataset will make daily generation much richer.</div>}
+  {today.length<5&&<div className="mt-5 panel rounded-xl p-4 text-xs text-amber-300">Not enough problems matched the current company/difficulty filter. DACE is using the available pool.</div>}
  </div>
 }
-
 function DailyCard({p,index,solved,status,openTimer,mark}:{p:Problem;index:number;solved:boolean;status:Status;openTimer:(p:Problem)=>void;mark:(p:Problem,s:Status)=>void}){
  return <article className={`panel rounded-2xl p-4 md:p-5 transition hover:-translate-y-0.5 ${solved?"border-green-400/20":""}`}>
   <div className="flex gap-4 items-center">
