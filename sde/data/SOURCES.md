@@ -4,11 +4,13 @@ DACE's starter 547-problem library was generated from the public company-wise CS
 
 https://github.com/liquidslr/leetcode-company-wise-problems
 
-Companies included in this snapshot:
+The snapshot covers 67 company directories from the upstream repository, with duplicate LeetCode problems merged across companies.
+
+Companies included in this snapshot include:
 
 Amazon, Google, Microsoft, Meta, Apple, Adobe, Bloomberg, Goldman Sachs, Uber, Oracle, LinkedIn, Salesforce, Walmart Labs.
 
-The app stores the normalized snapshot in `sde/data/problems.json` and does not scrape LeetCode at runtime.
+The app stores a normalized 1,918-problem snapshot in `sde/data/problems.json` and does not scrape LeetCode at runtime.
 
 Source data contains difficulty, title, frequency, LeetCode link and topic metadata. DACE adds normalized company tags and estimated practice time.
 
