@@ -316,17 +316,57 @@ function CompaniesPage({company,companies,setCompany,problems,solved}:{company:s
 }
 
 function AnalyticsPage({problems,solved,status,timeSpent,topicStats,streak,totalTime}:{problems:Problem[];solved:number[];status:Record<number,Status>;timeSpent:Record<number,number>;topicStats:Record<string,{solved:number;total:number}>;streak:number;totalTime:number}){
- const avgSolved=solved.length?Math.round(solved.reduce((a,id)=>a+(timeSpent[id]||0),0)/solved.length/60):0;
+ const avgSolved=solved.length?Math.round(solved.reduce((sum,id)=>sum+(timeSpent[id]||0),0)/solved.length/60):0;
  const topics=Object.entries(topicStats).sort((a,b)=>(a[1].solved/Math.max(1,a[1].total))-(b[1].solved/Math.max(1,b[1].total)));
- return <div className="max-w-7xl mx-auto p-5 md:p-8"><div className="text-[10px] tracking-[.2em] text-violet-300">PERFORMANCE LAB</div><h1 className="text-3xl md:text-4xl font-black mt-2">Analytics</h1><p className="text-sm text-[#748398] mt-2 mb-7">A factual view of your current practice data. DACE uses this signal for future selection.</p>
-  <div className="grid grid-cols-2 lg:grid-cols-4 gap-3"><Stat label="Solved" value={String(solved.length)} icon="check"/><Stat label="Streak" value={streak+"d"} icon="flame"/><Stat label="Avg solve" value={avgSolved+"m"} icon="clock"/><Stat label="Tracked" value={Math.floor(totalTime/60)+"m"} icon="activity"/></div>
-  <div className="grid lg:grid-cols-2 gap-5 mt-5">
-   <div className="panel rounded-2xl p-5"><SectionTitle title="Topic weakness map" icon="analytics"/><div className="mt-5 space-y-4">{topics.slice(0,10).map(([t,v])=>{const pct=Math.round(v.solved/Math.max(1,v.total)*100);return <div key={t}><div className="flex justify-between text-xs mb-2"><span>{t}</span><span className="text-[#718096]">{v.solved}/{v.total} · {pct}%</span></div><div className="h-2 rounded-full bg-[#18212d] overflow-hidden"><div className="h-full bg-gradient-to-r from-violet-400 to-cyan-300 rounded-full transition-all" style={{width:pct+"%"}}/></div></div>})}</div></div>
-   <div className="panel rounded-2xl p-5"><SectionTitle title="Difficulty profile" icon="gauge"/><div className="mt-5 space-y-5">{difficulties.map(d=>{const total=problems.filter(p=>p.difficulty===d).length;const done=problems.filter(p=>p.difficulty===d&&solved.includes(p.id)).length;return <div key={d}><div className="flex justify-between text-xs mb-2"><span>{d}</span><span>{done}/{total}</span></div><div className="h-3 rounded-full bg-[#18212d] overflow-hidden"><div className={`h-full rounded-full ${d==="Easy"?"bg-green-400":d==="Medium"?"bg-amber-400":"bg-rose-400"}`} style={{width:Math.min(100,done/Math.max(1,total)*100)+"%"}}/></div></div>})}<div className="mt-7 p-4 rounded-xl bg-[#0b1119] border border-[#202c3c] text-xs text-[#77869a]">Revision queue: <b className="text-white">{Object.values(status).filter(x=>x==="revision").length}</b> problems.</div></div>
+ return (
+  <div className="max-w-7xl mx-auto p-5 md:p-8">
+   <div className="text-[10px] tracking-[.2em] text-violet-300">PERFORMANCE LAB</div>
+   <h1 className="text-3xl md:text-4xl font-black mt-2">Analytics</h1>
+   <p className="text-sm text-[#748398] mt-2 mb-7">A factual view of your current practice data. DACE uses this signal for future selection.</p>
+   <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+    <Stat label="Solved" value={String(solved.length)} icon="check"/>
+    <Stat label="Streak" value={streak+"d"} icon="flame"/>
+    <Stat label="Avg solve" value={avgSolved+"m"} icon="clock"/>
+    <Stat label="Tracked" value={Math.floor(totalTime/60)+"m"} icon="activity"/>
+   </div>
+   <div className="grid lg:grid-cols-2 gap-5 mt-5">
+    <div className="panel rounded-2xl p-5">
+     <SectionTitle title="Topic weakness map" icon="analytics"/>
+     <div className="mt-5 space-y-4">
+      {topics.slice(0,10).map(([topic,value])=>{
+       const pct=Math.round(value.solved/Math.max(1,value.total)*100);
+       return (
+        <div key={topic}>
+         <div className="flex justify-between text-xs mb-2"><span>{topic}</span><span className="text-[#718096]">{value.solved}/{value.total} · {pct}%</span></div>
+         <div className="h-2 rounded-full bg-[#18212d] overflow-hidden">
+          <div className="h-full bg-gradient-to-r from-violet-400 to-cyan-300 rounded-full transition-all" style={{width:pct+"%"}}/>
+         </div>
+        </div>
+       );
+      })}
+     </div>
+    </div>
+    <div className="panel rounded-2xl p-5">
+     <SectionTitle title="Difficulty profile" icon="gauge"/>
+     <div className="mt-5 space-y-5">
+      {difficulties.map(d=>{
+       const total=problems.filter(p=>p.difficulty===d).length;
+       const done=problems.filter(p=>p.difficulty===d&&solved.includes(p.id)).length;
+       const pct=Math.min(100,done/Math.max(1,total)*100);
+       return (
+        <div key={d}>
+         <div className="flex justify-between text-xs mb-2"><span>{d}</span><span>{done}/{total}</span></div>
+         <div className="h-3 rounded-full bg-[#18212d] overflow-hidden"><div className={`h-full rounded-full ${d==="Easy"?"bg-green-400":d==="Medium"?"bg-amber-400":"bg-rose-400"}`} style={{width:pct+"%"}}/></div>
+        </div>
+       );
+      })}
+     </div>
+     <div className="mt-7 p-4 rounded-xl bg-[#0b1119] border border-[#202c3c] text-xs text-[#77869a]">Revision queue: <b className="text-white">{Object.values(status).filter(x=>x==="revision").length}</b> problems.</div>
+    </div>
+   </div>
   </div>
- </div>
+ );
 }
-
 function InterviewPage({problems,interviewTime,setInterviewTime,openTimer}:{problems:Problem[];interviewTime:number;setInterviewTime:(n:number)=>void;openTimer:(p:Problem)=>void}){
  const [started,setStarted]=useState(false);
  const [set,setSet]=useState<Problem[]>([]);
