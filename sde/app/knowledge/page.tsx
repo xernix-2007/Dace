@@ -9,7 +9,12 @@ type Lesson={id:string;subject:string;order:number;topic:string;level:string;tit
 const items=bank as BankItem[];
 const lessons=curriculum as Lesson[];
 const subjects=["DBMS","OS","CN","OOP","SQL","DSA Fundamentals"];
-const allSubjects=["All",...subjects,"OA & Coding Patterns","Machine Coding","LLD","System Design","Behavioral"];\nfunction simpleText(text:string){return text.replace(/\butilize\b/gi,"use").replace(/\bsubsequent\b/gi,"next").replace(/\bprior to\b/gi,"before").replace(/\btherefore\b/gi,"so").replace(/\badditional\b/gi,"extra").replace(/\bapproximately\b/gi,"about").replace(/\bcommonly\b/gi,"usually").replace(/\bprimarily\b/gi,"mainly").replace(/\bimplement\b/gi,"build").replace(/\bencapsulates\b/gi,"contains").replace(/\bfacilitates\b/gi,"helps").replace(/\bcomprises\b/gi,"contains").replace(/\bensure\b/gi,"make sure").replace(/\bwhereas\b/gi,"while");}\n
+const allSubjects=["All",...subjects,"OA & Coding Patterns","Machine Coding","LLD","System Design","Behavioral"];
+
+function simpleText(text:string){
+ return text.replace(/\butilize\b/gi,"use").replace(/\bsubsequent\b/gi,"next").replace(/\bprior to\b/gi,"before").replace(/\btherefore\b/gi,"so").replace(/\badditional\b/gi,"extra").replace(/\bapproximately\b/gi,"about").replace(/\bcommonly\b/gi,"usually").replace(/\bprimarily\b/gi,"mainly").replace(/\bimplement\b/gi,"build").replace(/\bencapsulates\b/gi,"contains").replace(/\bfacilitates\b/gi,"helps").replace(/\bcomprises\b/gi,"contains").replace(/\bensure\b/gi,"make sure").replace(/\bwhereas\b/gi,"while");
+}
+
 const levelOf=(x:BankItem)=>x.level||(["DBMS","OS","CN","OOP","SQL","DSA Fundamentals"].includes(x.category)&&x.subCategory==="Fundamentals"?"Beginner":"Interview");
 
 export default function KnowledgeHub(){
