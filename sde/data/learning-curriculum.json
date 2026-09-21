@@ -2230,5 +2230,1865 @@
       ],
       "answer": 0
     }
+  },
+  {
+    "id": "dbms-13",
+    "subject": "DBMS",
+    "order": 13,
+    "topic": "Database Architecture",
+    "level": "Interview",
+    "title": "Explain three-schema architecture: external, conceptual, and internal levels, plus data independence.",
+    "learn": "Changing physical storage or indexes should ideally not require changing application-level schemas.",
+    "example": "Physical data independence is the ability to change internal storage without changing the conceptual schema.",
+    "keyPoints": [
+      "What are the three schema levels?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "External views, a conceptual logical schema, and an internal physical storage schema."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dbms-14",
+    "subject": "DBMS",
+    "order": 14,
+    "topic": "Relational Algebra",
+    "level": "Interview",
+    "title": "Relational algebra provides operations such as selection, projection, join, union, difference, and Cartesian product that form a mathematical basis for relational queries.",
+    "learn": "Selection filters rows while projection chooses columns; a join combines related tuples.",
+    "example": "SQL is declarative, while relational algebra helps reason about what relational operations are required.",
+    "keyPoints": [
+      "Selection vs projection?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Selection filters rows; projection selects attributes/columns."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dbms-15",
+    "subject": "DBMS",
+    "order": 15,
+    "topic": "Functional Dependency and Attribute Closure",
+    "level": "Interview",
+    "title": "Attribute closure finds all attributes functionally determined by a set of attributes and helps test whether a set is a superkey.",
+    "learn": "For FDs A→B and B→C, closure of A contains A,B,C, so A determines C transitively.",
+    "example": "Closure is useful for finding candidate keys and reasoning about normalization.",
+    "keyPoints": [
+      "Why calculate attribute closure?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "To determine what attributes a set determines, including whether it is a superkey."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dbms-16",
+    "subject": "DBMS",
+    "order": 16,
+    "topic": "Candidate Keys and Prime Attributes",
+    "level": "Interview",
+    "title": "A candidate key is a minimal attribute set that uniquely identifies tuples. A prime attribute belongs to at least one candidate key.",
+    "learn": "If AB and AC are candidate keys, A, B, and C are prime attributes.",
+    "example": "Key derivation often combines closure with functional dependencies.",
+    "keyPoints": [
+      "Candidate key vs primary key?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "A candidate key is any minimal superkey; the primary key is the candidate key selected as the main identifier."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dbms-17",
+    "subject": "DBMS",
+    "order": 17,
+    "topic": "BCNF vs 3NF",
+    "level": "Interview",
+    "title": "3NF allows a dependency X→A when X is a superkey or A is prime; BCNF requires every determinant X to be a superkey.",
+    "learn": "A relation can satisfy 3NF but violate BCNF when a non-superkey determines a prime attribute.",
+    "example": "BCNF is stricter and can sacrifice dependency preservation in some decompositions.",
+    "keyPoints": [
+      "Why is BCNF stricter?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Every determinant must be a candidate/superkey, whereas 3NF has an additional prime-attribute allowance."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dbms-18",
+    "subject": "DBMS",
+    "order": 18,
+    "topic": "Serializability",
+    "level": "Interview",
+    "title": "A schedule is serial if transactions execute one after another. Conflict serializability asks whether a concurrent schedule is equivalent to a serial order based on conflicting operations.",
+    "learn": "Build a precedence graph: transactions are nodes and conflicting ordered operations create edges. A cycle means the schedule is not conflict-serializable.",
+    "example": "Serializability is a core correctness goal for concurrent transactions.",
+    "keyPoints": [
+      "How detect conflict serializability?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Construct the precedence graph; it is conflict-serializable exactly when the graph is acyclic."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dbms-19",
+    "subject": "DBMS",
+    "order": 19,
+    "topic": "Two-Phase Locking",
+    "level": "Interview",
+    "title": "2PL has a growing phase where locks are acquired and a shrinking phase where locks are released. Strict 2PL commonly holds write locks until commit/abort.",
+    "learn": "A transaction acquires S(X), later X(Y), then releases locks only after the shrinking phase begins.",
+    "example": "2PL can ensure conflict serializability, while strict variants simplify recovery.",
+    "keyPoints": [
+      "What is the two-phase rule?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "A transaction cannot acquire new locks after it has started releasing locks."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dbms-20",
+    "subject": "DBMS",
+    "order": 20,
+    "topic": "Deadlock Detection and Recovery",
+    "level": "Interview",
+    "title": "Lock-based concurrency can deadlock. A wait-for graph represents which transaction waits for another; a cycle indicates deadlock.",
+    "learn": "If T1 waits for T2 and T2 waits for T1, the wait-for graph has a cycle and the DBMS can abort one transaction.",
+    "example": "Detection is different from prevention and avoidance.",
+    "keyPoints": [
+      "How can a DB recover from deadlock?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Abort or roll back one or more victim transactions to break the cycle, then retry work when appropriate."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dbms-21",
+    "subject": "DBMS",
+    "order": 21,
+    "topic": "Views and Materialized Views",
+    "level": "Interview",
+    "title": "A view is a stored query definition that presents derived data. A materialized view stores the result physically and must be refreshed.",
+    "learn": "A reporting view can hide sensitive columns and simplify joins. A materialized aggregate can speed repeated reports.",
+    "example": "Views improve abstraction; materialized views trade freshness and maintenance for read performance.",
+    "keyPoints": [
+      "View vs materialized view?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "A normal view stores the query definition; a materialized view stores query results and needs refresh/update maintenance."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dbms-22",
+    "subject": "DBMS",
+    "order": 22,
+    "topic": "Partitioning",
+    "level": "Interview",
+    "title": "Partitioning divides a large table into smaller physical partitions while retaining one logical table interface. Common approaches include range, list, and hash partitioning.",
+    "learn": "Orders can be range-partitioned by month so recent queries touch fewer partitions.",
+    "example": "Partitioning can improve maintenance and locality but does not replace appropriate indexes or schema design.",
+    "keyPoints": [
+      "Partitioning vs sharding?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Partitioning usually divides data within a database system; sharding distributes partitions across separate nodes or database instances."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "os-13",
+    "subject": "OS",
+    "order": 13,
+    "topic": "Operating System Services",
+    "level": "Interview",
+    "title": "An OS provides services such as program execution, I/O, file management, communication, resource allocation, protection, and accounting.",
+    "learn": "A program requests file access through system calls rather than directly controlling disk hardware.",
+    "example": "Think of the OS as a resource manager and protection layer.",
+    "keyPoints": [
+      "Name core OS services.",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Program execution, I/O, file management, communication, resource allocation, protection, and error handling are common examples."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "os-14",
+    "subject": "OS",
+    "order": 14,
+    "topic": "Multiprogramming and Multitasking",
+    "level": "Interview",
+    "title": "Multiprogramming keeps multiple jobs in memory so the CPU can stay busy when one waits for I/O. Multitasking emphasizes responsive sharing of CPU time among tasks.",
+    "learn": "While one process waits for disk I/O, another can run.",
+    "example": "The goal is efficient resource use and responsiveness, not simply running everything simultaneously.",
+    "keyPoints": [
+      "Why does multiprogramming improve CPU utilization?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Another ready process can use the CPU while one process is blocked on I/O."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "os-15",
+    "subject": "OS",
+    "order": 15,
+    "topic": "Kernel Architecture",
+    "level": "Interview",
+    "title": "Monolithic kernels put many services in kernel space; microkernels keep a smaller core and move more services to user space. Hybrid designs combine ideas.",
+    "learn": "Linux is generally described as a monolithic but modular kernel; microkernel systems emphasize smaller privileged cores.",
+    "example": "Architecture affects performance, isolation, complexity, and maintainability.",
+    "keyPoints": [
+      "Monolithic vs microkernel?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Monolithic kernels keep more services in privileged space; microkernels minimize the kernel and move more services outside it."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "os-16",
+    "subject": "OS",
+    "order": 16,
+    "topic": "IPC",
+    "level": "Interview",
+    "title": "Inter-process communication mechanisms include pipes, message queues, shared memory, sockets, and signals. Shared memory is fast but requires synchronization.",
+    "learn": "A parent and child process can communicate through a pipe; unrelated machines can communicate through sockets.",
+    "example": "IPC choice depends on locality, throughput, synchronization, and message semantics.",
+    "keyPoints": [
+      "Which IPC is often fastest for large local shared data?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Shared memory can avoid repeated copying, but synchronization is required."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "os-17",
+    "subject": "OS",
+    "order": 17,
+    "topic": "Process Creation and fork/exec",
+    "level": "Interview",
+    "title": "Unix-like systems commonly separate creating a process from replacing its program image. fork creates a new process; exec replaces the current process image with another program.",
+    "learn": "A shell can fork, then the child execs the requested command while the parent waits or continues.",
+    "example": "This distinction is frequently asked in OS interviews.",
+    "keyPoints": [
+      "fork vs exec?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "fork creates a new process; exec replaces a process's program image with a new program."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "os-18",
+    "subject": "OS",
+    "order": 18,
+    "topic": "Scheduling Metrics",
+    "level": "Interview",
+    "title": "Important CPU scheduling metrics include turnaround time, waiting time, response time, throughput, and CPU utilization.",
+    "learn": "Turnaround is completion time minus arrival time; response is first-run time minus arrival time.",
+    "example": "Different algorithms optimize different metrics.",
+    "keyPoints": [
+      "Waiting vs turnaround time?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Waiting is time spent in the ready queue; turnaround is total time from arrival to completion."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "os-19",
+    "subject": "OS",
+    "order": 19,
+    "topic": "Priority Inversion",
+    "level": "Interview",
+    "title": "Priority inversion occurs when a high-priority task waits for a resource held by a lower-priority task, potentially while medium-priority work runs.",
+    "learn": "Priority inheritance temporarily raises the holder's priority so it can finish and release the resource.",
+    "example": "It is a synchronization and real-time scheduling issue.",
+    "keyPoints": [
+      "How can priority inheritance help?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "It temporarily boosts the resource holder so the high-priority task is not blocked unnecessarily."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "os-20",
+    "subject": "OS",
+    "order": 20,
+    "topic": "Condition Variables and Monitors",
+    "level": "Interview",
+    "title": "A monitor combines shared state, mutual exclusion, and condition-based waiting. Condition variables let threads sleep until a condition may have become true.",
+    "learn": "A consumer waits while the buffer is empty, then wakes when a producer signals after adding an item.",
+    "example": "Always recheck the condition after waking because another thread may change it.",
+    "keyPoints": [
+      "Why use a while loop around condition-variable waits?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Wakeups do not guarantee the condition is still true when the thread reacquires the lock."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "os-21",
+    "subject": "OS",
+    "order": 21,
+    "topic": "Page Tables and Multi-Level Paging",
+    "level": "Interview",
+    "title": "A page table maps virtual pages to physical frames. Multi-level page tables reduce memory wasted on unused portions of a large address space.",
+    "learn": "A 64-bit process can have a huge virtual address space without allocating one giant flat page table.",
+    "example": "TLBs cache frequently used translations to reduce translation cost.",
+    "keyPoints": [
+      "Why multi-level page tables?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "They allocate page-table portions only for used regions, reducing memory overhead."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "os-22",
+    "subject": "OS",
+    "order": 22,
+    "topic": "Disk Scheduling",
+    "level": "Interview",
+    "title": "Disk scheduling algorithms such as FCFS, SSTF, SCAN, and C-SCAN decide the order of disk requests to reduce movement or improve fairness.",
+    "learn": "SCAN services requests while moving the disk head in one direction, then reverses like an elevator.",
+    "example": "Modern SSDs have different physical characteristics, so classic seek optimization is more relevant to magnetic disks.",
+    "keyPoints": [
+      "What is SCAN?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "A disk head services requests in one direction and then reverses direction, reducing excessive back-and-forth movement."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "cn-13",
+    "subject": "CN",
+    "order": 13,
+    "topic": "Network Topologies and Devices",
+    "level": "Interview",
+    "title": "Common topologies include star, bus, ring, mesh, and tree. Hubs repeat signals; switches forward frames using MAC addresses; routers forward packets between networks.",
+    "learn": "Most modern Ethernet LANs use a star-like physical layout centered around switches.",
+    "example": "Topology affects fault tolerance, cost, and scalability.",
+    "keyPoints": [
+      "Switch vs hub?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "A hub broadly repeats traffic; a switch learns MAC addresses and forwards frames selectively."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "cn-14",
+    "subject": "CN",
+    "order": 14,
+    "topic": "Ethernet and Frames",
+    "level": "Interview",
+    "title": "Ethernet is a common LAN technology. It sends link-layer frames containing source/destination MAC addresses and payload information.",
+    "learn": "A host encapsulates an IP packet inside an Ethernet frame before transmitting on a LAN.",
+    "example": "Frames are link-local; routers create new link-layer frames at each hop.",
+    "keyPoints": [
+      "Packet vs frame?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "A packet is commonly associated with the network layer; a frame is the link-layer unit carrying it across a local link."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "cn-15",
+    "subject": "CN",
+    "order": 15,
+    "topic": "Routing Tables",
+    "level": "Interview",
+    "title": "Routers use routing tables containing destination prefixes and next-hop/interface information. Longest-prefix matching chooses the most specific matching route.",
+    "learn": "A router may have a default route for destinations without a more specific entry.",
+    "example": "Routing is about choosing the next hop, not necessarily the complete end-to-end path at once.",
+    "keyPoints": [
+      "What is longest-prefix match?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "When multiple routes match, the route with the most specific/longest network prefix is preferred."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "cn-16",
+    "subject": "CN",
+    "order": 16,
+    "topic": "ICMP and Troubleshooting",
+    "level": "Interview",
+    "title": "ICMP carries network-layer control and diagnostic messages. Tools such as ping and traceroute use ICMP or related mechanisms to diagnose reachability and paths.",
+    "learn": "ping can test whether an endpoint responds to echo requests; traceroute reveals hops using TTL/hop-limit behavior.",
+    "example": "A blocked ICMP response does not always prove a host is down.",
+    "keyPoints": [
+      "What is ICMP used for?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Error reporting, diagnostics, and network control messages at the IP layer."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "cn-17",
+    "subject": "CN",
+    "order": 17,
+    "topic": "IPv6",
+    "level": "Interview",
+    "title": "IPv6 expands address space to 128 bits and uses Neighbor Discovery rather than ARP. It also changes addressing and header behavior compared with IPv4.",
+    "learn": "A host can have a globally unique IPv6 address without relying on IPv4-style NAT for address conservation.",
+    "example": "IPv6 transition mechanisms include dual stack and tunneling.",
+    "keyPoints": [
+      "Why was IPv6 introduced?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Primarily to provide a vastly larger address space and improve the ability to scale internet addressing."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "cn-18",
+    "subject": "CN",
+    "order": 18,
+    "topic": "TLS Handshake",
+    "level": "Interview",
+    "title": "TLS negotiates cryptographic parameters, authenticates the server using certificates, and establishes shared session keys before protected application data is exchanged.",
+    "learn": "The browser verifies certificate validity and hostname, performs the handshake, then sends HTTP over the encrypted channel.",
+    "example": "TLS provides a secure channel; application authorization still belongs to the application.",
+    "keyPoints": [
+      "What does a certificate prove?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Under the trust model, it binds an identity such as a hostname to a public key, subject to validation and CA trust."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "cn-19",
+    "subject": "CN",
+    "order": 19,
+    "topic": "HTTP Caching",
+    "level": "Interview",
+    "title": "HTTP caching uses headers such as Cache-Control, ETag, and Last-Modified to reduce repeated transfers and improve latency.",
+    "learn": "A browser sends If-None-Match with an ETag; the server can return 304 Not Modified when the cached representation is still valid.",
+    "example": "Caching requires correct freshness and invalidation semantics.",
+    "keyPoints": [
+      "Why use ETag?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "It lets a client validate whether its cached representation matches the server's current representation."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "cn-20",
+    "subject": "CN",
+    "order": 20,
+    "topic": "WebSockets",
+    "level": "Interview",
+    "title": "WebSockets provide a long-lived bidirectional communication channel between client and server, useful for interactive real-time applications.",
+    "learn": "A chat application can keep one connection open and receive messages without polling repeatedly.",
+    "example": "WebSockets differ from ordinary request-response HTTP communication.",
+    "keyPoints": [
+      "When use WebSockets?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "When the application needs frequent low-latency bidirectional updates such as chat, live dashboards, or multiplayer interactions."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "cn-21",
+    "subject": "CN",
+    "order": 21,
+    "topic": "Proxies and Reverse Proxies",
+    "level": "Interview",
+    "title": "A forward proxy represents clients; a reverse proxy represents servers. Reverse proxies commonly handle TLS termination, routing, caching, compression, and protection.",
+    "learn": "A public API can sit behind Nginx, which routes requests to multiple application instances.",
+    "example": "The proxy changes where network responsibilities are implemented.",
+    "keyPoints": [
+      "Forward vs reverse proxy?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "A forward proxy is on behalf of clients; a reverse proxy is on behalf of servers."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "cn-22",
+    "subject": "CN",
+    "order": 22,
+    "topic": "Network Security Basics",
+    "level": "Interview",
+    "title": "Security concepts include authentication, authorization, confidentiality, integrity, availability, and least privilege. Common threats include spoofing, eavesdropping, replay, and denial of service.",
+    "learn": "HTTPS protects traffic in transit, while application authorization decides whether a logged-in user may access a resource.",
+    "example": "Network encryption alone does not solve authorization bugs.",
+    "keyPoints": [
+      "Authentication vs authorization?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Authentication establishes who a subject is; authorization decides what that subject is allowed to do."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "oop-13",
+    "subject": "OOP",
+    "order": 13,
+    "topic": "Access Modifiers",
+    "level": "Interview",
+    "title": "Access control determines where classes, methods, and fields can be used. Java commonly uses public, protected, package-private, and private.",
+    "learn": "A private field can only be accessed directly within its class, encouraging controlled methods for state changes.",
+    "example": "Visibility is part of API design, not just syntax.",
+    "keyPoints": [
+      "Why make fields private?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "To preserve invariants and hide implementation details behind controlled operations."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "oop-14",
+    "subject": "OOP",
+    "order": 14,
+    "topic": "Object Lifecycle",
+    "level": "Interview",
+    "title": "Objects are created, initialized, used, and eventually become unreachable or are explicitly destroyed depending on the language's memory model. Java and Python rely primarily on garbage collection/reference management.",
+    "learn": "A constructor establishes valid initial state before methods are called.",
+    "example": "Resource cleanup can require explicit constructs such as try-with-resources in Java or context managers in Python.",
+    "keyPoints": [
+      "Constructor purpose?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "To establish a valid initial object state and initialize required resources/data."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "oop-15",
+    "subject": "OOP",
+    "order": 15,
+    "topic": "Method Resolution",
+    "level": "Interview",
+    "title": "When multiple inherited methods or interfaces are involved, a language follows defined method-resolution rules to select the implementation.",
+    "learn": "Python's MRO determines lookup order for multiple inheritance; Java uses class inheritance plus interface rules.",
+    "example": "Understanding lookup prevents surprising overrides.",
+    "keyPoints": [
+      "Why does method resolution matter?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "It determines which implementation runs when multiple inherited members could match."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "oop-16",
+    "subject": "OOP",
+    "order": 16,
+    "topic": "Equality and Hashing",
+    "level": "Interview",
+    "title": "Value equality asks whether two objects represent the same value; identity asks whether they are the same object. Hash-based collections require compatible equality and hashing contracts.",
+    "learn": "If two Java objects are equal according to equals, they must return the same hashCode.",
+    "example": "Violating the contract can make HashMap/HashSet behavior incorrect.",
+    "keyPoints": [
+      "equals/hashCode rule?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Equal objects must have equal hash codes; unequal objects may still collide."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "oop-17",
+    "subject": "OOP",
+    "order": 17,
+    "topic": "Generics",
+    "level": "Interview",
+    "title": "Generics provide type parameters so collections and APIs can be reused while preserving compile-time type safety.",
+    "learn": "List<String> prevents adding an Integer through that reference in Java.",
+    "example": "Generics reduce casts and make APIs clearer.",
+    "keyPoints": [
+      "Why use generics?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "For reusable abstractions with stronger compile-time type checking."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "oop-18",
+    "subject": "OOP",
+    "order": 18,
+    "topic": "Interfaces and Dependency Inversion",
+    "level": "Interview",
+    "title": "Interfaces separate a consumer from a concrete implementation. Dependency inversion applies this separation to architectural boundaries.",
+    "learn": "A NotificationService can depend on a Notifier interface implemented by EmailNotifier and SmsNotifier.",
+    "example": "The interface should represent a meaningful capability rather than mirror every concrete method.",
+    "keyPoints": [
+      "What should an abstraction contain?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "The stable behavior clients actually need, not every implementation detail."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "oop-19",
+    "subject": "OOP",
+    "order": 19,
+    "topic": "Liskov Substitution in Practice",
+    "level": "Interview",
+    "title": "A subtype should preserve the behavioral expectations of the abstraction it replaces, including valid inputs, outputs, and important invariants.",
+    "learn": "If a subtype throws for an operation the base contract says is valid, it may violate substitutability.",
+    "example": "LSP is about behavior, not merely inheritance syntax.",
+    "keyPoints": [
+      "How detect an LSP violation?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Ask whether client code written for the base type still behaves correctly when given the subtype."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "oop-20",
+    "subject": "OOP",
+    "order": 20,
+    "topic": "Factory and Builder",
+    "level": "Interview",
+    "title": "Factory centralizes selection/creation of related objects. Builder constructs complex objects step by step, often making optional configuration readable.",
+    "learn": "HttpClientBuilder can configure timeouts, headers, and retries before building an immutable client.",
+    "example": "Use patterns when construction complexity justifies them.",
+    "keyPoints": [
+      "Factory vs Builder?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Factory chooses/creates an object; Builder assembles a complex object's configuration."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "oop-21",
+    "subject": "OOP",
+    "order": 21,
+    "topic": "Observer and Event-Driven Design",
+    "level": "Interview",
+    "title": "Observer decouples a publisher from subscribers that react to events. Event-driven systems extend the idea through message brokers and asynchronous consumers.",
+    "learn": "OrderPlaced can notify email, analytics, and inventory handlers without OrderService knowing their internal details.",
+    "example": "Asynchronous delivery introduces retries, ordering, duplication, and failure concerns.",
+    "keyPoints": [
+      "What is the main benefit of Observer?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "It reduces coupling between the event producer and consumers."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "oop-22",
+    "subject": "OOP",
+    "order": 22,
+    "topic": "Refactoring and Code Smells",
+    "level": "Interview",
+    "title": "Refactoring changes internal structure without changing intended behavior. Smells include giant classes, duplicated logic, long parameter lists, deep conditionals, and inappropriate coupling.",
+    "learn": "Extracting a large pricing method into focused components can make rules easier to test.",
+    "example": "Refactor toward clearer responsibilities, not toward maximum abstraction.",
+    "keyPoints": [
+      "Why refactor?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "To improve maintainability, readability, testability, and change safety without intentionally changing behavior."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "sql-13",
+    "subject": "SQL",
+    "order": 13,
+    "topic": "DDL DML DCL TCL",
+    "level": "Interview",
+    "title": "SQL statements can be grouped conceptually into DDL for schema definition, DML for data manipulation, DCL for access control, and transaction-control commands.",
+    "learn": "CREATE TABLE is DDL; INSERT/UPDATE/DELETE are DML; GRANT/REVOKE are DCL; COMMIT/ROLLBACK control transactions.",
+    "example": "Exact classifications can vary by vendor terminology.",
+    "keyPoints": [
+      "What is DDL?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Commands that define or modify database structures, such as CREATE, ALTER, and DROP."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "sql-14",
+    "subject": "SQL",
+    "order": 14,
+    "topic": "CASE and Conditional Logic",
+    "level": "Interview",
+    "title": "CASE expressions implement conditional logic inside SQL queries and can be used in SELECT, ORDER BY, aggregation, and other expressions.",
+    "learn": "SUM(CASE WHEN status='paid' THEN amount ELSE 0 END) calculates conditional totals.",
+    "example": "Conditional aggregation is a powerful reporting pattern.",
+    "keyPoints": [
+      "Why use CASE in aggregation?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "It lets one grouped query calculate different conditional metrics efficiently."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "sql-15",
+    "subject": "SQL",
+    "order": 15,
+    "topic": "Date and Time SQL",
+    "level": "Interview",
+    "title": "SQL databases provide date/time types and functions for filtering ranges, extracting parts, and calculating intervals. Vendor syntax differs.",
+    "learn": "Filter with created_at >= start AND created_at < next_day rather than relying on ambiguous string comparisons.",
+    "example": "Time zones and boundaries must be handled deliberately.",
+    "keyPoints": [
+      "Why prefer half-open time ranges?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "They avoid overlap between adjacent periods and handle timestamps with precision cleanly."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "sql-16",
+    "subject": "SQL",
+    "order": 16,
+    "topic": "Set Operations",
+    "level": "Interview",
+    "title": "UNION combines compatible result sets and removes duplicates; UNION ALL keeps duplicates. INTERSECT returns common rows and EXCEPT/MINUS returns differences depending on the DBMS.",
+    "learn": "UNION ALL is often preferable when duplicate rows are meaningful or already known to be distinct because it avoids duplicate elimination.",
+    "example": "Columns must be type-compatible in corresponding positions.",
+    "keyPoints": [
+      "UNION vs UNION ALL?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "UNION removes duplicate rows; UNION ALL preserves them and usually avoids the extra duplicate-elimination work."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "sql-17",
+    "subject": "SQL",
+    "order": 17,
+    "topic": "Recursive Queries",
+    "level": "Interview",
+    "title": "Recursive CTEs contain an anchor query and a recursive query, allowing traversal of hierarchies or graphs represented in relational tables.",
+    "learn": "An employee-manager table can be traversed from a CEO down through descendants.",
+    "example": "Guard against cycles or excessive recursion.",
+    "keyPoints": [
+      "What are the two parts of a recursive CTE?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "An anchor member that starts the result and a recursive member that expands it."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "sql-18",
+    "subject": "SQL",
+    "order": 18,
+    "topic": "Stored Procedures and Functions",
+    "level": "Interview",
+    "title": "Stored procedures package database-side operations; functions return values or table-like results depending on the DBMS. They can centralize logic but increase database-side coupling.",
+    "learn": "A procedure can perform a controlled batch update within a transaction.",
+    "example": "Choose them based on operational and architectural needs.",
+    "keyPoints": [
+      "Why might stored procedures be avoided?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "They can increase vendor lock-in and split business logic across application and database layers."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "sql-19",
+    "subject": "SQL",
+    "order": 19,
+    "topic": "Triggers",
+    "level": "Interview",
+    "title": "A trigger runs automatically in response to database events such as INSERT, UPDATE, or DELETE. It can enforce or automate certain rules but can also make writes harder to reason about.",
+    "learn": "An audit trigger records changes to a sensitive table.",
+    "example": "Hidden side effects can surprise application developers.",
+    "keyPoints": [
+      "Why use triggers carefully?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "They execute implicitly and can create unexpected coupling, performance costs, or complex debugging."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "sql-20",
+    "subject": "SQL",
+    "order": 20,
+    "topic": "Transactions and Deadlocks in SQL",
+    "level": "Interview",
+    "title": "Two concurrent SQL transactions can wait on each other's locks. Consistent lock ordering, short transactions, and appropriate isolation can reduce deadlock risk.",
+    "learn": "If two transactions update the same pair of rows in opposite orders, they can deadlock.",
+    "example": "Applications should be prepared to retry transactions when the DBMS reports a deadlock.",
+    "keyPoints": [
+      "How should an application respond to a deadlock?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Rollback the affected transaction and retry when the operation is safe and idempotent."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "sql-21",
+    "subject": "SQL",
+    "order": 21,
+    "topic": "Pagination",
+    "level": "Interview",
+    "title": "OFFSET/LIMIT pagination is simple but can become expensive and unstable for large changing datasets. Keyset/cursor pagination uses a stable ordering key to continue from the last row.",
+    "learn": "WHERE (created_at,id) < (?,?) ORDER BY created_at DESC,id DESC LIMIT 20 can efficiently fetch the next page with a matching index.",
+    "example": "Always define deterministic ordering.",
+    "keyPoints": [
+      "Why use keyset pagination?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "It avoids scanning/skipping large offsets and is usually more stable for changing datasets."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "sql-22",
+    "subject": "SQL",
+    "order": 22,
+    "topic": "SQL Injection and Parameterization",
+    "level": "Interview",
+    "title": "SQL injection occurs when untrusted input changes SQL syntax. Parameterized queries keep values separate from the SQL statement structure.",
+    "learn": "Use prepared statements rather than concatenating a username directly into a SQL string.",
+    "example": "Input validation is useful but does not replace parameterization.",
+    "keyPoints": [
+      "How prevent SQL injection?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Use parameterized/prepared queries and avoid constructing SQL by concatenating untrusted values."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dsa fundamentals-13",
+    "subject": "DSA Fundamentals",
+    "order": 13,
+    "topic": "Recursion",
+    "level": "Interview",
+    "title": "Recursion solves a problem by reducing it to smaller instances and requires a base case plus progress toward that base case.",
+    "learn": "Factorial and tree traversal naturally map to recursive definitions.",
+    "example": "Every recursive call consumes stack space unless optimized or transformed.",
+    "keyPoints": [
+      "What makes recursion terminate?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "A reachable base case plus recursive progress that eventually reaches it."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dsa fundamentals-14",
+    "subject": "DSA Fundamentals",
+    "order": 14,
+    "topic": "Merge Sort and Quick Sort",
+    "level": "Interview",
+    "title": "Merge sort guarantees O(n log n) time and uses additional memory for arrays; quicksort has average O(n log n) but worst-case O(n²) with poor pivots.",
+    "learn": "Merge sort divides, recursively sorts, and merges. Quicksort partitions around a pivot and recursively sorts partitions.",
+    "example": "Stable sorting and memory constraints influence choice.",
+    "keyPoints": [
+      "Why is merge sort predictable?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Its divide-and-merge structure gives O(n log n) comparisons regardless of input arrangement."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dsa fundamentals-15",
+    "subject": "DSA Fundamentals",
+    "order": 15,
+    "topic": "Hashing and Collision Handling",
+    "level": "Interview",
+    "title": "Hash tables map keys to buckets using a hash function. Collisions can be handled with chaining or open addressing.",
+    "learn": "Two keys may hash to the same bucket; chaining stores multiple entries there while open addressing searches for another slot.",
+    "example": "Load factor strongly affects performance.",
+    "keyPoints": [
+      "Why do collisions happen?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "The key space is usually larger than the finite table index space, so multiple keys can map to the same bucket."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dsa fundamentals-16",
+    "subject": "DSA Fundamentals",
+    "order": 16,
+    "topic": "Linked List Patterns",
+    "level": "Interview",
+    "title": "Common linked-list techniques include fast/slow pointers, reversal, dummy nodes, and merging sorted lists.",
+    "learn": "Fast and slow pointers can detect cycles and find a midpoint; a dummy head simplifies insertion/deletion at the front.",
+    "example": "Pointer invariants are more important than memorizing code.",
+    "keyPoints": [
+      "Why use a dummy node?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "It removes special cases around the head and makes pointer manipulation uniform."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dsa fundamentals-17",
+    "subject": "DSA Fundamentals",
+    "order": 17,
+    "topic": "Tree Height and Diameter",
+    "level": "Interview",
+    "title": "Tree height is the longest root-to-leaf path under a chosen edge/node convention. Diameter is the longest path between any two nodes.",
+    "learn": "For each node, diameter can combine the heights of its left and right subtrees.",
+    "example": "State definitions must be consistent about edges vs nodes.",
+    "keyPoints": [
+      "How compute diameter efficiently?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Use one DFS returning subtree height while updating a global/local maximum diameter from child heights."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dsa fundamentals-18",
+    "subject": "DSA Fundamentals",
+    "order": 18,
+    "topic": "BST Invariants",
+    "level": "Interview",
+    "title": "A binary search tree maintains an ordering invariant: keys in the left subtree are less and keys in the right are greater under the chosen duplicate policy.",
+    "learn": "Searching follows one branch at each comparison when the invariant holds.",
+    "example": "Balanced trees keep operations near O(log n); an unbalanced BST can degrade to O(n).",
+    "keyPoints": [
+      "Why can a BST become O(n)?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "An insertion order can create a chain-like tree, making each search traverse nearly every node."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dsa fundamentals-19",
+    "subject": "DSA Fundamentals",
+    "order": 19,
+    "topic": "Heap Construction",
+    "level": "Interview",
+    "title": "A binary heap supports min/max priority operations. Bottom-up heapify constructs a heap in O(n), which is better than inserting n elements one by one in O(n log n).",
+    "learn": "Start from the last internal node and sift down toward the root.",
+    "example": "Heap order is parent-relative, not globally sorted.",
+    "keyPoints": [
+      "Why is build-heap O(n)?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Most nodes are near the leaves and move only a small distance during bottom-up heapification."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dsa fundamentals-20",
+    "subject": "DSA Fundamentals",
+    "order": 20,
+    "topic": "Topological Sort",
+    "level": "Interview",
+    "title": "A topological ordering exists for a directed acyclic graph and places every prerequisite before the dependent node.",
+    "learn": "Kahn's algorithm repeatedly removes zero-indegree nodes; DFS can also build an order while detecting cycles.",
+    "example": "A directed cycle means no topological ordering exists.",
+    "keyPoints": [
+      "Where is topological sort used?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Dependency scheduling, build systems, course prerequisites, and task ordering."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dsa fundamentals-21",
+    "subject": "DSA Fundamentals",
+    "order": 21,
+    "topic": "MST: Kruskal and Prim",
+    "level": "Interview",
+    "title": "A minimum spanning tree connects all vertices of a connected weighted undirected graph with minimum total edge weight. Kruskal grows components by sorted edges; Prim grows one tree using the cheapest outgoing edge.",
+    "learn": "Kruskal uses DSU to reject cycle-forming edges; Prim commonly uses a priority queue.",
+    "example": "MST is different from shortest paths from one source.",
+    "keyPoints": [
+      "MST vs shortest path?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "MST minimizes total tree weight; shortest path minimizes distance from a source or between specified vertices."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dsa fundamentals-22",
+    "subject": "DSA Fundamentals",
+    "order": 22,
+    "topic": "0-1 BFS",
+    "level": "Interview",
+    "title": "When graph edge weights are only 0 or 1, 0-1 BFS uses a deque and runs in O(V+E), improving over generic Dijkstra for this special case.",
+    "learn": "Push a zero-weight relaxation to the front and a one-weight relaxation to the back.",
+    "example": "The deque order maintains vertices by nondecreasing tentative distance.",
+    "keyPoints": [
+      "When use 0-1 BFS?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "For shortest paths in graphs whose edge weights are exclusively 0 or 1."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dsa fundamentals-23",
+    "subject": "DSA Fundamentals",
+    "order": 23,
+    "topic": "LIS and Knapsack Patterns",
+    "level": "Interview",
+    "title": "LIS asks for the longest increasing subsequence; classic DP can be O(n²), while a patience-sorting-style method reaches O(n log n). Knapsack models choices under capacity/value constraints.",
+    "learn": "For 0/1 knapsack, dp[c] can represent the best value for capacity c and iterate capacities backward when using a one-dimensional array.",
+    "example": "State and iteration order prevent accidentally reusing an item.",
+    "keyPoints": [
+      "Why iterate capacity backward in 0/1 knapsack?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "It prevents the current item from being selected multiple times in the same iteration."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dsa fundamentals-24",
+    "subject": "DSA Fundamentals",
+    "order": 24,
+    "topic": "Trie",
+    "level": "Interview",
+    "title": "A trie stores strings by characters along root-to-node paths and supports prefix operations efficiently relative to string length.",
+    "learn": "Insert 'cat' and 'car' shares the c-a path and branches at the final character.",
+    "example": "Tries trade memory for fast prefix lookup.",
+    "keyPoints": [
+      "When is a trie useful?",
+      "Understand the reasoning and be able to explain it without memorizing.",
+      "Connect this concept to the next topic in the learning path."
+    ],
+    "interview": [
+      {
+        "q": "Autocomplete, dictionary prefix queries, and problems requiring efficient prefix matching."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is correct?",
+      "options": [
+        null,
+        "It is only useful for exams.",
+        "It removes all trade-offs.",
+        "It always has O(1) complexity."
+      ],
+      "answer": 0
+    }
   }
 ]
