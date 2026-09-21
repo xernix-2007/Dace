@@ -113,6 +113,7 @@ export default function Home(){
  useEffect(()=>{if(hydrated)localStorage.setItem("dace-target",JSON.stringify(target))},[target,hydrated]);
  useEffect(()=>{if(hydrated)localStorage.setItem("dace-company",company)},[company,hydrated]);
  useEffect(()=>{if(!running)return;const t=setInterval(()=>setSeconds(s=>s+1),1000);return()=>clearInterval(t)},[running]);
+ useEffect(()=>{const routes:Record<string,string>={dbms:"DBMS",os:"OS",cn:"CN",oop:"OOP",sql:"SQL",dsa:"DSA%20Fundamentals"};if(routes[view])window.location.href="/knowledge?subject="+routes[view]},[view]);
 
  const topicStats=useMemo(()=>{
   const all:Record<string,{solved:number;total:number}>= {};
