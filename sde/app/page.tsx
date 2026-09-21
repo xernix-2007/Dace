@@ -2,7 +2,6 @@
 
 import problemsData from "../data/problems.json";
 import { useEffect, useMemo, useState } from "react";
-import { createClient, User } from "@supabase/supabase-js";
 import {
   Activity, ArrowUpRight, BarChart3, BookOpen, BriefcaseBusiness, CalendarDays,
   Check, CheckCircle2, ChevronRight, CircleHelp, Clock3, Code2, Download,
@@ -20,7 +19,6 @@ type Problem={
 };
 
 const problems:Problem[] = problemsData as Problem[];
-function getSupabase(){ return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!); }
 const difficulties:Difficulty[]=["Easy","Medium","Hard"];
 const companyCounts=Array.from(new Set(problems.flatMap(p=>p.companies))).map(name=>({name,count:problems.filter(p=>p.companies.includes(name)).length})).sort((a,b)=>b.count-a.count||a.name.localeCompare(b.name));
 const companies=["All",...companyCounts.map(x=>x.name)];
@@ -90,53 +88,38 @@ export default function Home(){
  const [prepDays,setPrepDays]=useState(14);
  const [prepCompany,setPrepCompany]=useState("Amazon");
  const [hydrated,setHydrated]=useState(false);
- const [authUser,setAuthUser]=useState<User|null>(null);
- const [authReady,setAuthReady]=useState(false);
  const todayKey=dateKey();
+ function updateTarget(next:React.SetStateAction<{Easy:number;Medium:number;Hard:number}>){
+  setTarget(prev=>{
+   const value=typeof next==="function"?next(prev):next;
+   if(hydrated){setDaily({});localStorage.removeItem("dace-daily");}
+   return value;
+  });
+ }
 
  useEffect(()=>{
-  const supabase=getSupabase();
-  supabase.auth.getUser().then(({data})=>{
-   if(!data.user) window.location.href="/login";
-   else setAuthUser(data.user);
-  }).finally(()=>setAuthReady(true));
-  const {data:listener}=supabase.auth.onAuthStateChange((_event,session)=>setAuthUser(session?.user??null));
-  return ()=>listener.subscription.unsubscribe();
+  try{
+   const load=(k:string)=>localStorage.getItem(k);
+   if(load("dace-solved"))setSolved(JSON.parse(load("dace-solved")!));
+   if(load("dace-solved-at"))setSolvedAt(JSON.parse(load("dace-solved-at")!));
+   if(load("dace-status"))setStatus(JSON.parse(load("dace-status")!));
+   if(load("dace-daily"))setDaily(JSON.parse(load("dace-daily")!));
+   if(load("dace-time"))setTimeSpent(JSON.parse(load("dace-time")!));
+   if(load("dace-attempts"))setAttempts(JSON.parse(load("dace-attempts")!));
+   if(load("dace-hints"))setHints(JSON.parse(load("dace-hints")!));
+   if(load("dace-target"))setTarget(JSON.parse(load("dace-target")!));
+   if(load("dace-company"))setCompany(load("dace-company")!);
+  }catch{} finally { setHydrated(true); }
  },[]);
-
- useEffect(()=>{
-  if(!authUser)return;
-  let cancelled=false;
-  async function loadProgress(){
-    const {data,error}=await getSupabase().from("user_progress").select("progress").eq("user_id",authUser.id).maybeSingle();
-    if(cancelled)return;
-    if(!error && data?.progress){
-      const d=data.progress as any;
-      if(d.solved)setSolved(d.solved);
-      if(d.solvedAt)setSolvedAt(d.solvedAt);
-      if(d.status)setStatus(d.status);
-      if(d.daily)setDaily(d.daily);
-      if(d.timeSpent)setTimeSpent(d.timeSpent);
-      if(d.attempts)setAttempts(d.attempts);
-      if(d.hints)setHints(d.hints);
-      if(d.target)setTarget(d.target);
-      if(d.company)setCompany(d.company);
-    }
-    setHydrated(true);
-  }
-  loadProgress();
-  return ()=>{cancelled=true};
- },[authUser]);
-
- useEffect(()=>{
-  if(!hydrated || !authUser)return;
-  const timer=setTimeout(async()=>{
-    const progress={solved,solvedAt,status,daily,timeSpent,attempts,hints,target,company,updatedAt:new Date().toISOString()};
-    await getSupabase().from("user_progress").upsert({user_id:authUser.id,progress,updated_at:new Date().toISOString()},{onConflict:"user_id"});
-  },500);
-  return ()=>clearTimeout(timer);
- },[hydrated,authUser,solved,solvedAt,status,daily,timeSpent,attempts,hints,target,company]);
-
+ useEffect(()=>{if(hydrated)localStorage.setItem("dace-solved",JSON.stringify(solved))},[solved,hydrated]);
+ useEffect(()=>{if(hydrated)localStorage.setItem("dace-solved-at",JSON.stringify(solvedAt))},[solvedAt,hydrated]);
+ useEffect(()=>{if(hydrated)localStorage.setItem("dace-status",JSON.stringify(status))},[status,hydrated]);
+ useEffect(()=>{if(hydrated)localStorage.setItem("dace-daily",JSON.stringify(daily))},[daily,hydrated]);
+ useEffect(()=>{if(hydrated)localStorage.setItem("dace-time",JSON.stringify(timeSpent))},[timeSpent,hydrated]);
+ useEffect(()=>{if(hydrated)localStorage.setItem("dace-attempts",JSON.stringify(attempts))},[attempts,hydrated]);
+ useEffect(()=>{if(hydrated)localStorage.setItem("dace-hints",JSON.stringify(hints))},[hints,hydrated]);
+ useEffect(()=>{if(hydrated)localStorage.setItem("dace-target",JSON.stringify(target))},[target,hydrated]);
+ useEffect(()=>{if(hydrated)localStorage.setItem("dace-company",company)},[company,hydrated]);
  useEffect(()=>{if(!running)return;const t=setInterval(()=>setSeconds(s=>s+1),1000);return()=>clearInterval(t)},[running]);
  useEffect(()=>{const routes:Record<string,string>={dbms:"DBMS",os:"OS",cn:"CN",oop:"OOP",sql:"SQL",dsa:"DSA%20Fundamentals"};if(routes[view])window.location.href="/knowledge?subject="+routes[view]},[view]);
 
@@ -167,6 +150,7 @@ export default function Home(){
   if(daily[todayKey])return daily[todayKey];
   const available=problems.filter(p=>!solved.includes(p.id));
   const picked:number[]=[];
+  const totalTarget=target.Easy+target.Medium+target.Hard;
   const usedFamilies=new Set<string>();
   for(const d of difficulties){
    const count=target[d];
@@ -175,14 +159,14 @@ export default function Home(){
    const candidatePool=shuffle(ranked.slice(0,Math.max(count*10,30)),todayKey+d);
    const countForDifficulty=()=>picked.filter(id=>problems.find(x=>x.id===id)?.difficulty===d).length;
    for(const p of candidatePool){
-    if(picked.length>=5||countForDifficulty()>=count)break;
+    if(picked.length>=totalTarget||countForDifficulty()>=count)break;
     const family=topicFamily(p);
     if(!usedFamilies.has(family)||candidatePool.every(x=>usedFamilies.has(topicFamily(x)))){picked.push(p.id);usedFamilies.add(family);}
    }
   }
-  if(picked.length<5){
+  if(picked.length<totalTarget){
    const fallback=shuffle(available.filter(p=>!picked.includes(p.id)&&(company==="All"||p.companies.includes(company))),todayKey+"fallback");
-   for(const p of fallback){if(picked.length>=5)break;picked.push(p.id)}
+   for(const p of fallback){if(picked.length>=totalTarget)break;picked.push(p.id)}
   }
   setDaily(x=>({...x,[todayKey]:picked}));
   return picked;
@@ -241,23 +225,12 @@ export default function Home(){
   r.onload=()=>{try{const d=JSON.parse(String(r.result));if(d.solved)setSolved(d.solved);if(d.status)setStatus(d.status);if(d.daily)setDaily(d.daily);if(d.timeSpent)setTimeSpent(d.timeSpent);if(d.attempts)setAttempts(d.attempts);if(d.hints)setHints(d.hints);if(d.target)setTarget(d.target);if(d.company)setCompany(d.company)}catch{alert("Invalid DACE backup file.")}};
   r.readAsText(file);
  }
- async function resetAll(){
-  if(!confirm("Reset all DACE progress? Export a backup first if you want to keep it."))return;
-  await getSupabase().from("user_progress").delete().eq("user_id",authUser?.id||"");
-  setSolved([]);setSolvedAt({});setStatus({});setDaily({});setTimeSpent({});setAttempts({});setHints({});
-  setTarget({Easy:1,Medium:2,Hard:2});setCompany("All");
-  setHydrated(true);
-}
+ function resetAll(){if(confirm("Reset all DACE local progress? This cannot be undone unless you have exported a backup.")){localStorage.clear();location.reload()}}
 
  const nav=[
   ["overview","Overview","dashboard"],["today","Today","calendar"],["problems","Problems","list"],
   ["companies","Companies","company"],["analytics","Analytics","analytics"],["interview","Interview","interview"],["prep","Prep Plan","target"],["knowledge","Study Centre","book"],["dbms","DBMS","book"],["os","OS","settings"],["cn","CN","github"],["oop","OOP","code"],["sql","SQL","list"],["dsa","DSA Fundamentals","zap"],["settings","Settings","settings"]
  ] as [View,string,string][];
-
- if(!authReady || !authUser) return <main className="min-h-screen dace-grid flex items-center justify-center text-slate-400">Loading DACE…</main>;
- const displayName=(authUser.user_metadata?.full_name||authUser.user_metadata?.name||authUser.email?.split("@")[0]||"User") as string;
- const username=(authUser.user_metadata?.username||"") as string;
- async function logout(){ await getSupabase().auth.signOut(); window.location.href="/login"; }
 
  return <main className="min-h-screen dace-grid">
   <header className="h-16 border-b border-[#202a38] sticky top-0 z-40 glass flex items-center px-4 md:px-6 gap-3">
@@ -270,7 +243,7 @@ export default function Home(){
    <div className="ml-auto flex items-center gap-3">
     <div className="hidden sm:flex items-center gap-2 text-xs text-[#9aa8ba]"><span className="w-2 h-2 rounded-full bg-pink-400 pulse-dot"/>LOCAL MODE</div>
     <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#263346] bg-[#0b1017] text-xs"><Icon name="flame" size={14}/><span>{streak}</span></div>
-    <button onClick={()=>setView("settings")} title={username?`@${username}`:displayName} className="w-8 h-8 rounded-full border border-[#334155] bg-[#141c28] flex items-center justify-center hover:border-cyan-300/50"><Icon name="user" size={15}/></button>
+    <div className="w-8 h-8 rounded-full border border-[#334155] bg-[#141c28] flex items-center justify-center"><Icon name="user" size={15}/></div>
    </div>
   </header>
 
@@ -296,7 +269,7 @@ export default function Home(){
     {view==="analytics"&&<AnalyticsPage problems={problems} solved={solved} status={status} timeSpent={timeSpent} topicStats={topicStats} streak={streak} totalTime={totalTime}/>}
     {view==="interview"&&<InterviewPage problems={problems} interviewTime={interviewTime} setInterviewTime={setInterviewTime} openTimer={openTimer} mark={mark} attempts={attempts} hints={hints} timeSpent={timeSpent}/>}
     {view==="prep"&&<PrepPage problems={problems} solved={solved} status={status} company={prepCompany} setCompany={setPrepCompany} days={prepDays} setDays={setPrepDays} topicStats={topicStats} openTimer={openTimer}/>}
-    {view==="settings"&&<SettingsPage target={target} setTarget={setTarget} company={company} setCompany={setCompany} companies={companies} exportData={exportData} importData={importData} resetAll={resetAll} displayName={displayName} username={username} email={authUser.email||""} logout={logout}/>}
+    {view==="settings"&&<SettingsPage target={target} setTarget={updateTarget} company={company} setCompany={setCompany} companies={companies} exportData={exportData} importData={importData} resetAll={resetAll}/>}
    </section>
   </div>
 
@@ -684,18 +657,11 @@ function PrepPage({problems,solved,status,company,setCompany,days,setDays,topicS
   </div>
  </div>
 }
-function SettingsPage({target,setTarget,company,setCompany,companies,exportData,importData,resetAll,displayName,username,email,logout}:{target:{Easy:number;Medium:number;Hard:number};setTarget:React.Dispatch<React.SetStateAction<{Easy:number;Medium:number;Hard:number}>>;company:string;setCompany:(s:string)=>void;companies:string[];exportData:()=>void;importData:(e:React.ChangeEvent<HTMLInputElement>)=>void;resetAll:()=>void;displayName:string;username:string;email:string;logout:()=>void}){
- return <div className="max-w-4xl mx-auto p-5 md:p-8">
-  <div className="panel rounded-3xl p-6">
-   <div className="flex items-start justify-between gap-4">
-    <div><div className="text-xs uppercase tracking-[.2em] text-cyan-300">ACCOUNT</div><h2 className="text-2xl font-bold mt-2">{displayName}</h2><p className="text-sm text-slate-400 mt-1">{email}{username&&<> · @{username}</>}</p></div>
-    <button onClick={logout} className="rounded-xl border border-rose-400/30 px-4 py-2 text-sm text-rose-300 hover:bg-rose-400/10">Log out</button>
-   </div>
-  </div>
-  <div className="text-[10px] tracking-[.2em] text-violet-300 mt-8">CONTROL ROOM</div><h1 className="text-3xl md:text-4xl font-black mt-2">Settings</h1><p className="text-sm text-[#748398] mt-2 mb-7">Tune the practice system. Your account stores your DACE progress securely so you can continue on another device.</p>
-  <div className="panel rounded-2xl p-5"><h2 className="font-semibold">Daily target</h2><div className="text-xs text-[#718096] mt-1">Default: 1 Easy + 2 Medium + 2 Hard.</div><div className="mt-5 space-y-3">{difficulties.map(d=>{const color=d==="Easy"?"text-green-300":d==="Medium"?"text-amber-300":"text-rose-300";const value=target[d];const change=(delta:number)=>setTarget(x=>({...x,[d]:Math.max(0,Math.min(5,(x[d]??0)+delta))}));return <div key={d} className="flex items-center justify-between border-b border-[#1e2835] py-3 last:border-0"><span className={`text-sm ${color}`}>{d}</span><div className="flex items-center gap-2"><button type="button" onClick={()=>change(-1)} disabled={value<=0} aria-label={`Decrease ${d} target`} className="w-9 h-9 rounded-lg border border-[#273447] text-lg leading-none hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed">−</button><input type="number" min={0} max={5} step={1} value={value} onChange={e=>{const next=e.target.value===""?0:Number(e.target.value);setTarget(x=>({...x,[d]:Number.isFinite(next)?Math.max(0,Math.min(5,next)):x[d]}));}} className="w-16 bg-[#0a1017] border border-[#273447] rounded-lg px-2 py-2 text-center"/><button type="button" onClick={()=>change(1)} disabled={value>=5} aria-label={`Increase ${d} target`} className="w-9 h-9 rounded-lg border border-[#273447] text-lg leading-none hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed">+</button></div></div>})}</div></div>
+function SettingsPage({target,setTarget,company,setCompany,companies,exportData,importData,resetAll}:{target:{Easy:number;Medium:number;Hard:number};setTarget:React.Dispatch<React.SetStateAction<{Easy:number;Medium:number;Hard:number}>>;company:string;setCompany:(s:string)=>void;companies:string[];exportData:()=>void;importData:(e:React.ChangeEvent<HTMLInputElement>)=>void;resetAll:()=>void}){
+ return <div className="max-w-3xl mx-auto p-5 md:p-8"><div className="text-[10px] tracking-[.2em] text-violet-300">CONTROL ROOM</div><h1 className="text-3xl md:text-4xl font-black mt-2">Settings</h1><p className="text-sm text-[#748398] mt-2 mb-7">Tune the practice system. Everything currently lives in your browser.</p>
+  <div className="panel rounded-2xl p-5"><h2 className="font-semibold">Daily target</h2><div className="text-xs text-[#718096] mt-1">Set how many Easy, Medium and Hard questions you want each day.</div><div className="mt-5 space-y-3">{difficulties.map(d=>{const color=d==="Easy"?"text-green-300":d==="Medium"?"text-amber-300":"text-rose-300";const value=target[d];const change=(delta:number)=>setTarget(x=>({...x,[d]:Math.max(0,Math.min(5,(x[d]??0)+delta))}));return <div key={d} className={"flex items-center justify-between border-b border-[#1e2835] py-3 last:border-0"}><span className={"text-sm "+color}>{d}</span><div className="flex items-center gap-2"><button type="button" onClick={()=>change(-1)} disabled={value<=0} aria-label={"Decrease "+d+" target"} className="w-9 h-9 rounded-lg border border-[#273447] text-lg leading-none hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed">−</button><input type="number" min={0} max={5} step={1} value={value} onChange={e=>{const next=e.target.value===""?0:Number(e.target.value);setTarget(x=>({...x,[d]:Number.isFinite(next)?Math.max(0,Math.min(5,next)):x[d]}));}} className="w-16 bg-[#0a1017] border border-[#273447] rounded-lg px-2 py-2 text-center"/><button type="button" onClick={()=>change(1)} disabled={value>=5} aria-label={"Increase "+d+" target"} className="w-9 h-9 rounded-lg border border-[#273447] text-lg leading-none hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed">+</button></div></div>})}</div><div className="text-[11px] text-[#69788d] mt-4">Today: {target.Easy + target.Medium + target.Hard} questions</div></div>
   <div className="panel rounded-2xl p-5 mt-4"><h2 className="font-semibold">Company focus</h2><p className="text-xs text-[#718096] mt-1">The adaptive engine can bias future sets toward one company.</p><select value={company} onChange={e=>setCompany(e.target.value)} className="mt-4 bg-[#0a1017] border border-[#273447] rounded-xl px-3 py-2.5 text-sm">{companies.map(c=><option key={c}>{c}</option>)}</select></div>
-  <div className="panel rounded-2xl p-5 mt-4"><h2 className="font-semibold">Your data</h2><p className="text-xs text-[#718096] mt-1">Back up local progress before changing browsers or devices.</p><div className="flex flex-wrap gap-2 mt-4"><button onClick={exportData} className="px-4 py-2.5 rounded-xl border border-[#273447] text-sm flex items-center gap-2"><Icon name="download" size={15}/> Export backup</button><label className="px-4 py-2.5 rounded-xl border border-[#273447] text-sm flex items-center gap-2 cursor-pointer"><Icon name="upload" size={15}/> Import backup<input type="file" accept="application/json" onChange={importData} className="hidden"/></label></div></div>
+  <div className="panel rounded-2xl p-5 mt-4"><h2 className="font-semibold">Your data</h2><p className="text-xs text-[#718096] mt-1">Back up your local progress before changing browsers or devices.</p><div className="flex flex-wrap gap-2 mt-4"><button onClick={exportData} className="px-4 py-2.5 rounded-xl border border-[#273447] text-sm flex items-center gap-2"><Icon name="download" size={15}/> Export backup</button><label className="px-4 py-2.5 rounded-xl border border-[#273447] text-sm flex items-center gap-2 cursor-pointer"><Icon name="upload" size={15}/> Import backup<input type="file" accept="application/json" onChange={importData} className="hidden"/></label></div></div>
   <button onClick={resetAll} className="mt-4 text-xs text-rose-300 border border-rose-400/20 rounded-xl px-4 py-2.5 hover:bg-rose-400/5">Reset local progress</button>
  </div>
 }
