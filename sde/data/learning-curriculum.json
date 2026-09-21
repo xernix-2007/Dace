@@ -1,331 +1,2234 @@
 [
   {
-    "id":"dbms-01","subject":"DBMS","order":1,"topic":"Database Fundamentals","level":"Beginner",
-    "title":"What is a DBMS?",
-    "learn":"A database is organized data; a DBMS is software that stores, retrieves, updates, secures, and manages that data. Examples include PostgreSQL, MySQL, Oracle, and SQL Server. A DBMS gives applications a consistent interface instead of making every program manage files itself.",
-    "example":"A college app stores students, courses, and marks. The application sends SQL such as SELECT * FROM students WHERE id=10. The DBMS finds the rows, checks permissions, executes the query, and returns the result.",
-    "keyPoints":["Data is persistent and shared.","DBMS provides querying, concurrency, security, recovery, and integrity.","RDBMS stores data in related tables and commonly uses SQL."],
-    "interview":[{"q":"DBMS vs file system?","a":"A DBMS provides structured querying, constraints, transactions, concurrency control, recovery, indexing, and access control. A basic file system leaves much of this to application code."}],
-    "mcq":{"q":"Which is primarily a DBMS responsibility?","options":["Rendering a web page","Transaction and concurrency management","Compiling Java code","Managing CPU registers"],"answer":1,"why":"The DBMS coordinates concurrent operations and transactions."}
+    "id": "dbms-01",
+    "subject": "DBMS",
+    "order": 1,
+    "topic": "Database Fundamentals",
+    "level": "Beginner",
+    "title": "What is a DBMS?",
+    "learn": "A database is organized data; a DBMS is software that stores, retrieves, updates, secures, and manages that data. Examples include PostgreSQL, MySQL, Oracle, and SQL Server. A DBMS gives applications a consistent interface instead of making every program manage files itself.",
+    "example": "A college app stores students, courses, and marks. The application sends SQL such as SELECT * FROM students WHERE id=10. The DBMS finds the rows, checks permissions, executes the query, and returns the result.",
+    "keyPoints": [
+      "Data is persistent and shared.",
+      "DBMS provides querying, concurrency, security, recovery, and integrity.",
+      "RDBMS stores data in related tables and commonly uses SQL."
+    ],
+    "interview": [
+      {
+        "q": "DBMS vs file system?",
+        "a": "A DBMS provides structured querying, constraints, transactions, concurrency control, recovery, indexing, and access control. A basic file system leaves much of this to application code."
+      }
+    ],
+    "mcq": {
+      "q": "Which is primarily a DBMS responsibility?",
+      "options": [
+        "Rendering a web page",
+        "Transaction and concurrency management",
+        "Compiling Java code",
+        "Managing CPU registers"
+      ],
+      "answer": 1,
+      "why": "The DBMS coordinates concurrent operations and transactions."
+    }
   },
   {
-    "id":"dbms-02","subject":"DBMS","order":2,"topic":"Keys and Relationships","level":"Beginner",
-    "title":"Primary, candidate, foreign and composite keys",
-    "learn":"A super key uniquely identifies a row. A candidate key is a minimal super key. The primary key is the candidate key chosen as the main identifier. A foreign key references a key in another table and enforces referential integrity. A composite key uses multiple columns together.",
-    "example":"STUDENT(student_id, email, name) can have candidate keys student_id and email. If ENROLLMENT(student_id, course_id) identifies one enrollment, its primary key can be the composite pair (student_id, course_id).",
-    "keyPoints":["Primary keys should identify rows uniquely.","Foreign keys model relationships between tables.","Candidate keys are minimal; super keys need not be minimal."],
-    "interview":[{"q":"Can a table have multiple candidate keys?","a":"Yes. It can have several candidate keys but normally one primary key. The other candidate keys can be declared UNIQUE."}],
-    "mcq":{"q":"What does a foreign key primarily enforce?","options":["Uniqueness inside the child table","Referential integrity","Sorting","Encryption"],"answer":1,"why":"It restricts references to valid parent-key values, subject to the constraint definition."}
+    "id": "dbms-02",
+    "subject": "DBMS",
+    "order": 2,
+    "topic": "Keys and Relationships",
+    "level": "Beginner",
+    "title": "Primary, candidate, foreign and composite keys",
+    "learn": "A super key uniquely identifies a row. A candidate key is a minimal super key. The primary key is the candidate key chosen as the main identifier. A foreign key references a key in another table and enforces referential integrity. A composite key uses multiple columns together.",
+    "example": "STUDENT(student_id, email, name) can have candidate keys student_id and email. If ENROLLMENT(student_id, course_id) identifies one enrollment, its primary key can be the composite pair (student_id, course_id).",
+    "keyPoints": [
+      "Primary keys should identify rows uniquely.",
+      "Foreign keys model relationships between tables.",
+      "Candidate keys are minimal; super keys need not be minimal."
+    ],
+    "interview": [
+      {
+        "q": "Can a table have multiple candidate keys?",
+        "a": "Yes. It can have several candidate keys but normally one primary key. The other candidate keys can be declared UNIQUE."
+      }
+    ],
+    "mcq": {
+      "q": "What does a foreign key primarily enforce?",
+      "options": [
+        "Uniqueness inside the child table",
+        "Referential integrity",
+        "Sorting",
+        "Encryption"
+      ],
+      "answer": 1,
+      "why": "It restricts references to valid parent-key values, subject to the constraint definition."
+    }
   },
   {
-    "id":"dbms-03","subject":"DBMS","order":3,"topic":"ER Modeling","level":"Beginner",
-    "title":"Entities, attributes and cardinality",
-    "learn":"An entity is a real-world object represented by data. Attributes describe it. Relationships connect entities. Cardinality describes how many instances can participate: one-to-one, one-to-many, or many-to-many.",
-    "example":"One department can have many employees, while each employee belongs to one department: Department 1:N Employee. A student can take many courses and a course can have many students: Student M:N Course, usually represented with an Enrollment table.",
-    "keyPoints":["M:N relationships normally need a junction/associative table in a relational design.","Optionality answers whether participation is required.","Good modeling prevents duplicated and contradictory data."],
-    "interview":[{"q":"How do you convert M:N to tables?","a":"Create a junction table containing foreign keys to both entities. The pair often forms its primary key, with relationship attributes stored there."}],
-    "mcq":{"q":"Student-Course is usually what relationship?","options":["1:1","1:N","M:N","No relationship"],"answer":2,"why":"A student can take many courses and a course can have many students."}
+    "id": "dbms-03",
+    "subject": "DBMS",
+    "order": 3,
+    "topic": "ER Modeling",
+    "level": "Beginner",
+    "title": "Entities, attributes and cardinality",
+    "learn": "An entity is a real-world object represented by data. Attributes describe it. Relationships connect entities. Cardinality describes how many instances can participate: one-to-one, one-to-many, or many-to-many.",
+    "example": "One department can have many employees, while each employee belongs to one department: Department 1:N Employee. A student can take many courses and a course can have many students: Student M:N Course, usually represented with an Enrollment table.",
+    "keyPoints": [
+      "M:N relationships normally need a junction/associative table in a relational design.",
+      "Optionality answers whether participation is required.",
+      "Good modeling prevents duplicated and contradictory data."
+    ],
+    "interview": [
+      {
+        "q": "How do you convert M:N to tables?",
+        "a": "Create a junction table containing foreign keys to both entities. The pair often forms its primary key, with relationship attributes stored there."
+      }
+    ],
+    "mcq": {
+      "q": "Student-Course is usually what relationship?",
+      "options": [
+        "1:1",
+        "1:N",
+        "M:N",
+        "No relationship"
+      ],
+      "answer": 2,
+      "why": "A student can take many courses and a course can have many students."
+    }
   },
   {
-    "id":"dbms-04","subject":"DBMS","order":4,"topic":"Normalization","level":"Beginner",
-    "title":"1NF, 2NF, 3NF and BCNF",
-    "learn":"Normalization reduces redundancy and update anomalies by decomposing relations using dependencies. 1NF requires atomic values. 2NF means 1NF plus no partial dependency on part of a composite candidate key. 3NF means 2NF plus no problematic transitive dependency of non-key attributes on a key. BCNF requires every determinant to be a candidate key.",
-    "example":"If ENROLL(student_id, course_id, student_name, course_name, grade) has key (student_id, course_id), student_name depends only on student_id and course_name only on course_id. Those are partial dependencies, so split student and course data into separate tables.",
-    "keyPoints":["Normalization is about dependencies, not simply 'more tables'.","Denormalization can intentionally add redundancy for read performance.","Always consider functional dependencies before decomposing."],
-    "interview":[{"q":"Why normalize?","a":"To reduce redundancy and prevent insertion, update, and deletion anomalies while keeping dependencies clear."}],
-    "mcq":{"q":"Which normal form removes partial dependency on a composite key?","options":["1NF","2NF","3NF","BCNF"],"answer":1,"why":"2NF specifically removes partial dependencies of non-key attributes on part of a candidate key."}
+    "id": "dbms-04",
+    "subject": "DBMS",
+    "order": 4,
+    "topic": "Normalization",
+    "level": "Beginner",
+    "title": "1NF, 2NF, 3NF and BCNF",
+    "learn": "Normalization reduces redundancy and update anomalies by decomposing relations using dependencies. 1NF requires atomic values. 2NF means 1NF plus no partial dependency on part of a composite candidate key. 3NF means 2NF plus no problematic transitive dependency of non-key attributes on a key. BCNF requires every determinant to be a candidate key.",
+    "example": "If ENROLL(student_id, course_id, student_name, course_name, grade) has key (student_id, course_id), student_name depends only on student_id and course_name only on course_id. Those are partial dependencies, so split student and course data into separate tables.",
+    "keyPoints": [
+      "Normalization is about dependencies, not simply 'more tables'.",
+      "Denormalization can intentionally add redundancy for read performance.",
+      "Always consider functional dependencies before decomposing."
+    ],
+    "interview": [
+      {
+        "q": "Why normalize?",
+        "a": "To reduce redundancy and prevent insertion, update, and deletion anomalies while keeping dependencies clear."
+      }
+    ],
+    "mcq": {
+      "q": "Which normal form removes partial dependency on a composite key?",
+      "options": [
+        "1NF",
+        "2NF",
+        "3NF",
+        "BCNF"
+      ],
+      "answer": 1,
+      "why": "2NF specifically removes partial dependencies of non-key attributes on part of a candidate key."
+    }
   },
   {
-    "id":"dbms-05","subject":"DBMS","order":5,"topic":"Transactions","level":"Interview",
-    "title":"ACID and transaction basics",
-    "learn":"A transaction is a logical unit of work. Atomicity means all-or-nothing. Consistency means committed transactions preserve declared rules. Isolation controls how concurrent transactions interact. Durability means committed changes survive failures.",
-    "example":"Bank transfer: subtract 500 from A and add 500 to B in one transaction. If the second update fails, the first must be rolled back so money is not lost.",
-    "keyPoints":["ACID properties work together.","Isolation is about concurrency; durability is about persistence after commit.","Constraints are part of database consistency but consistency is broader than constraints alone."],
-    "interview":[{"q":"What happens on rollback?","a":"The DBMS uses its transaction/recovery mechanisms to undo the transaction's uncommitted effects and restore the database to a valid prior state."}],
-    "mcq":{"q":"Which ACID property means committed data survives a crash?","options":["Atomicity","Consistency","Isolation","Durability"],"answer":3,"why":"Durability is the persistence guarantee after commit."}
+    "id": "dbms-05",
+    "subject": "DBMS",
+    "order": 5,
+    "topic": "Transactions",
+    "level": "Interview",
+    "title": "ACID and transaction basics",
+    "learn": "A transaction is a logical unit of work. Atomicity means all-or-nothing. Consistency means committed transactions preserve declared rules. Isolation controls how concurrent transactions interact. Durability means committed changes survive failures.",
+    "example": "Bank transfer: subtract 500 from A and add 500 to B in one transaction. If the second update fails, the first must be rolled back so money is not lost.",
+    "keyPoints": [
+      "ACID properties work together.",
+      "Isolation is about concurrency; durability is about persistence after commit.",
+      "Constraints are part of database consistency but consistency is broader than constraints alone."
+    ],
+    "interview": [
+      {
+        "q": "What happens on rollback?",
+        "a": "The DBMS uses its transaction/recovery mechanisms to undo the transaction's uncommitted effects and restore the database to a valid prior state."
+      }
+    ],
+    "mcq": {
+      "q": "Which ACID property means committed data survives a crash?",
+      "options": [
+        "Atomicity",
+        "Consistency",
+        "Isolation",
+        "Durability"
+      ],
+      "answer": 3,
+      "why": "Durability is the persistence guarantee after commit."
+    }
   },
   {
-    "id":"dbms-06","subject":"DBMS","order":6,"topic":"Concurrency and Isolation","level":"Interview",
-    "title":"Isolation levels and common anomalies",
-    "learn":"Concurrent transactions can cause dirty reads, non-repeatable reads, and phantom reads. Isolation levels trade concurrency against stronger guarantees. Common SQL isolation levels are Read Uncommitted, Read Committed, Repeatable Read, and Serializable. Exact behavior can vary by DBMS implementation.",
-    "example":"T1 updates a balance but has not committed. If T2 reads that temporary value, T2 performed a dirty read. Read Committed prevents this class of read.",
-    "keyPoints":["Serializable provides the strongest standard isolation level.","Locks, MVCC, or a combination can implement isolation.","Do not memorize only names; understand the anomaly each level permits/prevents."],
-    "interview":[{"q":"Why not always use Serializable?","a":"It can reduce concurrency and increase contention or retries. Applications choose an isolation level based on correctness requirements and workload."}],
-    "mcq":{"q":"Reading another transaction's uncommitted change is called?","options":["Phantom read","Dirty read","Lost index","Deadlock"],"answer":1,"why":"A dirty read observes data that may later be rolled back."}
-  },
-
-  {
-    "id":"os-01","subject":"OS","order":1,"topic":"Processes","level":"Beginner",
-    "title":"Program vs process vs thread",
-    "learn":"A program is passive code stored on disk. A process is a running program with its own execution context and resources. A thread is an execution path within a process. Threads in one process generally share its address space and resources, while each thread has its own stack and execution state.",
-    "example":"Chrome is made of processes and many threads. Two threads in one process can share heap data, so communication is cheap but synchronization becomes important.",
-    "keyPoints":["Process isolation is stronger than thread isolation.","Threads can improve responsiveness and parallelism.","Shared memory creates race-condition risks."],
-    "interview":[{"q":"Why are threads cheaper than processes?","a":"Threads usually share an existing process address space and resources, so creation and context switching can require less setup than a separate process."}],
-    "mcq":{"q":"Which is normally private to a thread?","options":["Process heap","Thread stack","Code segment","Shared address space"],"answer":1,"why":"Each thread has its own stack while threads normally share the process address space."}
-  },
-  {
-    "id":"os-02","subject":"OS","order":2,"topic":"Process States","level":"Beginner",
-    "title":"Process states and PCB",
-    "learn":"A process commonly moves through New, Ready, Running, Waiting/Blocked, and Terminated states. The Process Control Block stores information the OS needs to manage it, such as process state, program counter, CPU registers, scheduling information, and memory information.",
-    "example":"A running process requests disk I/O. It becomes blocked because it cannot continue until I/O completes. After completion it returns to the ready queue.",
-    "keyPoints":["Ready means waiting for CPU; blocked means waiting for an event/resource.","A context switch saves one execution context and restores another.","PCB is OS bookkeeping for the process."],
-    "interview":[{"q":"Ready vs waiting?","a":"Ready means the process can run but is waiting for CPU scheduling. Waiting/blocked means it is waiting for an event such as I/O completion."}],
-    "mcq":{"q":"A process waiting for CPU is in which state?","options":["Ready","Blocked","Terminated","New"],"answer":0,"why":"Ready processes are eligible to be scheduled."}
-  },
-  {
-    "id":"os-03","subject":"OS","order":3,"topic":"CPU Scheduling","level":"Beginner",
-    "title":"FCFS, SJF, SRTF, Round Robin and priority",
-    "learn":"FCFS schedules in arrival order. SJF chooses the shortest estimated CPU burst and is optimal for average waiting time when burst lengths are known and the workload assumptions hold. SRTF is its preemptive version. Round Robin gives each process a time quantum. Priority scheduling chooses highest priority first and may need aging to reduce starvation.",
-    "example":"With Round Robin and quantum 4 ms, a process that needs 10 ms runs for 4 ms, goes to the back of the queue, and later receives another slice.",
-    "keyPoints":["Preemption can improve responsiveness.","Very small Round Robin quantum increases context-switch overhead.","Aging gradually increases priority of waiting processes."],
-    "interview":[{"q":"What is starvation?","a":"A process waits indefinitely because other processes keep getting scheduled first. Aging is a common mitigation."}],
-    "mcq":{"q":"Which scheduling algorithm is designed around a time quantum?","options":["FCFS","SJF","Round Robin","FIFO paging"],"answer":2,"why":"Round Robin repeatedly gives runnable processes a fixed time slice."}
+    "id": "dbms-06",
+    "subject": "DBMS",
+    "order": 6,
+    "topic": "Concurrency and Isolation",
+    "level": "Interview",
+    "title": "Isolation levels and common anomalies",
+    "learn": "Concurrent transactions can cause dirty reads, non-repeatable reads, and phantom reads. Isolation levels trade concurrency against stronger guarantees. Common SQL isolation levels are Read Uncommitted, Read Committed, Repeatable Read, and Serializable. Exact behavior can vary by DBMS implementation.",
+    "example": "T1 updates a balance but has not committed. If T2 reads that temporary value, T2 performed a dirty read. Read Committed prevents this class of read.",
+    "keyPoints": [
+      "Serializable provides the strongest standard isolation level.",
+      "Locks, MVCC, or a combination can implement isolation.",
+      "Do not memorize only names; understand the anomaly each level permits/prevents."
+    ],
+    "interview": [
+      {
+        "q": "Why not always use Serializable?",
+        "a": "It can reduce concurrency and increase contention or retries. Applications choose an isolation level based on correctness requirements and workload."
+      }
+    ],
+    "mcq": {
+      "q": "Reading another transaction's uncommitted change is called?",
+      "options": [
+        "Phantom read",
+        "Dirty read",
+        "Lost index",
+        "Deadlock"
+      ],
+      "answer": 1,
+      "why": "A dirty read observes data that may later be rolled back."
+    }
   },
   {
-    "id":"os-04","subject":"OS","order":4,"topic":"Synchronization","level":"Interview",
-    "title":"Race condition, mutex and semaphore",
-    "learn":"A race condition occurs when the result depends on timing between concurrent operations on shared state. A mutex provides mutual exclusion for a critical section. A semaphore is a synchronization primitive with a counter and can coordinate access to one or more units of a resource.",
-    "example":"Two threads execute counter = counter + 1. The read-modify-write sequence can interleave and lose an update. Protecting it with a mutex makes the critical section mutually exclusive.",
-    "keyPoints":["Critical section is code accessing shared state that needs protection.","A binary semaphore can resemble a mutex but the ownership semantics differ.","Synchronization should protect correctness without unnecessarily serializing all work."],
-    "interview":[{"q":"Mutex vs semaphore?","a":"A mutex is primarily ownership-based mutual exclusion: the locker unlocks it. A semaphore represents permits/signals and can coordinate access to a pool or event."}],
-    "mcq":{"q":"What directly describes a race condition?","options":["Only one thread exists","Outcome depends on concurrent timing","CPU is idle","Memory is read-only"],"answer":1,"why":"The defining problem is timing-dependent access to shared state."}
+    "id": "os-01",
+    "subject": "OS",
+    "order": 1,
+    "topic": "Processes",
+    "level": "Beginner",
+    "title": "Program vs process vs thread",
+    "learn": "A program is passive code stored on disk. A process is a running program with its own execution context and resources. A thread is an execution path within a process. Threads in one process generally share its address space and resources, while each thread has its own stack and execution state.",
+    "example": "Chrome is made of processes and many threads. Two threads in one process can share heap data, so communication is cheap but synchronization becomes important.",
+    "keyPoints": [
+      "Process isolation is stronger than thread isolation.",
+      "Threads can improve responsiveness and parallelism.",
+      "Shared memory creates race-condition risks."
+    ],
+    "interview": [
+      {
+        "q": "Why are threads cheaper than processes?",
+        "a": "Threads usually share an existing process address space and resources, so creation and context switching can require less setup than a separate process."
+      }
+    ],
+    "mcq": {
+      "q": "Which is normally private to a thread?",
+      "options": [
+        "Process heap",
+        "Thread stack",
+        "Code segment",
+        "Shared address space"
+      ],
+      "answer": 1,
+      "why": "Each thread has its own stack while threads normally share the process address space."
+    }
   },
   {
-    "id":"os-05","subject":"OS","order":5,"topic":"Deadlocks","level":"Interview",
-    "title":"Deadlock and the four necessary conditions",
-    "learn":"Deadlock is a state where processes wait forever for resources held by one another. The four Coffman conditions are mutual exclusion, hold and wait, no preemption, and circular wait. Breaking any one condition can prevent deadlock.",
-    "example":"P1 holds lock A and waits for B while P2 holds B and waits for A. Neither can proceed. Enforcing a global lock order A then B prevents this cycle.",
-    "keyPoints":["Deadlock prevention, avoidance, detection, and recovery are different strategies.","Banker's algorithm is an avoidance approach using available-resource information.","Lock ordering is a practical engineering technique."],
-    "interview":[{"q":"How can lock ordering prevent deadlock?","a":"Give locks a global order and require threads to acquire multiple locks in that order, eliminating circular wait."}],
-    "mcq":{"q":"Which is NOT a Coffman condition?","options":["Circular wait","Hold and wait","Preemption always available","Mutual exclusion"],"answer":2,"why":"No preemption, not preemption always available, is one of the four conditions."}
+    "id": "os-02",
+    "subject": "OS",
+    "order": 2,
+    "topic": "Process States",
+    "level": "Beginner",
+    "title": "Process states and PCB",
+    "learn": "A process commonly moves through New, Ready, Running, Waiting/Blocked, and Terminated states. The Process Control Block stores information the OS needs to manage it, such as process state, program counter, CPU registers, scheduling information, and memory information.",
+    "example": "A running process requests disk I/O. It becomes blocked because it cannot continue until I/O completes. After completion it returns to the ready queue.",
+    "keyPoints": [
+      "Ready means waiting for CPU; blocked means waiting for an event/resource.",
+      "A context switch saves one execution context and restores another.",
+      "PCB is OS bookkeeping for the process."
+    ],
+    "interview": [
+      {
+        "q": "Ready vs waiting?",
+        "a": "Ready means the process can run but is waiting for CPU scheduling. Waiting/blocked means it is waiting for an event such as I/O completion."
+      }
+    ],
+    "mcq": {
+      "q": "A process waiting for CPU is in which state?",
+      "options": [
+        "Ready",
+        "Blocked",
+        "Terminated",
+        "New"
+      ],
+      "answer": 0,
+      "why": "Ready processes are eligible to be scheduled."
+    }
   },
   {
-    "id":"os-06","subject":"OS","order":6,"topic":"Memory Management","level":"Interview",
-    "title":"Paging, page faults and TLB",
-    "learn":"Virtual memory lets processes use virtual addresses mapped to physical frames. Paging divides virtual memory into fixed-size pages and physical memory into frames. A page fault occurs when a needed page is not currently in the required physical memory location. A TLB caches recent virtual-to-physical translations.",
-    "example":"If page 7 is not present and the CPU accesses it, a page fault traps into the OS. The OS obtains the page from backing storage, possibly evicts another page, updates the page table, and retries the instruction.",
-    "keyPoints":["A TLB hit avoids a page-table walk in the common case.","Page faults are much slower than ordinary memory access.","Thrashing occurs when excessive paging leaves little useful CPU work."],
-    "interview":[{"q":"Why is TLB useful?","a":"Address translation itself can require memory accesses. A TLB caches recent translations so many accesses avoid a full page-table lookup."}],
-    "mcq":{"q":"What does a TLB cache?","options":["CPU instructions","Virtual-to-physical translations","Disk files","TCP packets"],"answer":1,"why":"The Translation Lookaside Buffer caches address-translation entries."}
-  },
-
-  {
-    "id":"cn-01","subject":"CN","order":1,"topic":"Networking Basics","level":"Beginner",
-    "title":"What is a computer network?",
-    "learn":"A computer network connects devices so they can exchange data using agreed protocols. Key performance terms include bandwidth (capacity), throughput (achieved transfer rate), latency (delay), and packet loss. Protocols define how data is formatted, addressed, transmitted, and interpreted.",
-    "example":"When your laptop requests a web page, it creates data that is encapsulated into network messages and packets, addressed to the destination, routed through intermediate devices, and reconstructed at the receiver.",
-    "keyPoints":["Bandwidth and latency are different.","A protocol is a set of communication rules.","Packets can travel through multiple networks before reaching the destination."],
-    "interview":[{"q":"Bandwidth vs latency?","a":"Bandwidth describes how much data a link can carry per unit time; latency describes how long it takes data to travel or a request to receive a response."}],
-    "mcq":{"q":"What primarily describes delay?","options":["Latency","Bandwidth","MAC address","Port number"],"answer":0,"why":"Latency measures communication delay."}
-  },
-  {
-    "id":"cn-02","subject":"CN","order":2,"topic":"OSI and TCP/IP","level":"Beginner",
-    "title":"OSI layers and practical protocol mapping",
-    "learn":"OSI is a seven-layer conceptual model: Physical, Data Link, Network, Transport, Session, Presentation, Application. The practical TCP/IP stack is commonly described with fewer layers. Think in terms of responsibilities rather than memorizing labels.",
-    "example":"Ethernet handles link-layer framing, IP handles network-layer addressing/routing, TCP handles reliable transport, and HTTP operates at the application layer.",
-    "keyPoints":["Switches primarily operate at the data-link layer.","Routers forward packets using network-layer information.","Applications usually use transport protocols such as TCP or UDP."],
-    "interview":[{"q":"Why do layers exist?","a":"Layering separates responsibilities, lets protocols evolve independently, and makes systems easier to reason about and troubleshoot."}],
-    "mcq":{"q":"IP is primarily associated with which layer?","options":["Physical","Data Link","Network","Application"],"answer":2,"why":"IP provides logical addressing and routing at the network layer."}
-  },
-  {
-    "id":"cn-03","subject":"CN","order":3,"topic":"IP, MAC, ARP and Routing","level":"Beginner",
-    "title":"MAC address vs IP address and ARP",
-    "learn":"A MAC address identifies a network interface at the local link layer. An IP address provides logical addressing used for routing between networks. ARP maps an IPv4 address to a MAC address on a local network segment.",
-    "example":"Your laptop knows the server's IP but needs a local next-hop MAC to send an Ethernet frame. If that mapping is missing, it can use ARP to discover the MAC for the local destination or gateway.",
-    "keyPoints":["MAC addresses are local-link identifiers; IP supports internetwork routing.","A router separates broadcast domains.","ARP is for IPv4; IPv6 uses Neighbor Discovery instead."],
-    "interview":[{"q":"Does the MAC address normally route traffic across the internet?","a":"No. Ethernet MAC addressing is hop-local. At each routed hop, the link-layer frame can change while the IP packet is forwarded toward its destination."}],
-    "mcq":{"q":"ARP resolves what?","options":["Domain to URL","IPv4 address to MAC address","MAC to port","TCP to UDP"],"answer":1,"why":"ARP discovers the link-layer address associated with a local IPv4 address."}
+    "id": "os-03",
+    "subject": "OS",
+    "order": 3,
+    "topic": "CPU Scheduling",
+    "level": "Beginner",
+    "title": "FCFS, SJF, SRTF, Round Robin and priority",
+    "learn": "FCFS schedules in arrival order. SJF chooses the shortest estimated CPU burst and is optimal for average waiting time when burst lengths are known and the workload assumptions hold. SRTF is its preemptive version. Round Robin gives each process a time quantum. Priority scheduling chooses highest priority first and may need aging to reduce starvation.",
+    "example": "With Round Robin and quantum 4 ms, a process that needs 10 ms runs for 4 ms, goes to the back of the queue, and later receives another slice.",
+    "keyPoints": [
+      "Preemption can improve responsiveness.",
+      "Very small Round Robin quantum increases context-switch overhead.",
+      "Aging gradually increases priority of waiting processes."
+    ],
+    "interview": [
+      {
+        "q": "What is starvation?",
+        "a": "A process waits indefinitely because other processes keep getting scheduled first. Aging is a common mitigation."
+      }
+    ],
+    "mcq": {
+      "q": "Which scheduling algorithm is designed around a time quantum?",
+      "options": [
+        "FCFS",
+        "SJF",
+        "Round Robin",
+        "FIFO paging"
+      ],
+      "answer": 2,
+      "why": "Round Robin repeatedly gives runnable processes a fixed time slice."
+    }
   },
   {
-    "id":"cn-04","subject":"CN","order":4,"topic":"TCP and UDP","level":"Interview",
-    "title":"TCP vs UDP and the TCP handshake",
-    "learn":"TCP is connection-oriented and provides reliable ordered byte-stream delivery with mechanisms for retransmission, flow control, and congestion control. UDP is connectionless and provides datagrams without TCP's built-in reliability and ordering guarantees.",
-    "example":"A web request using HTTP/1.1 or HTTP/2 commonly runs over TCP. Real-time applications may choose UDP when application-level handling and lower protocol overhead are useful.",
-    "keyPoints":["TCP reliability does not mean zero delay or zero packet loss; it hides loss through retransmission.","UDP does not mean 'unreliable application'—applications can add their own reliability.","The classic TCP connection setup uses SYN, SYN-ACK, ACK."],
-    "interview":[{"q":"Why three-way handshake?","a":"It lets both sides establish and confirm initial sequence-number state and bidirectional reachability before normal data exchange."}],
-    "mcq":{"q":"Which provides an ordered byte stream?","options":["UDP","TCP","ARP","DNS"],"answer":1,"why":"TCP provides an ordered reliable byte-stream abstraction."}
+    "id": "os-04",
+    "subject": "OS",
+    "order": 4,
+    "topic": "Synchronization",
+    "level": "Interview",
+    "title": "Race condition, mutex and semaphore",
+    "learn": "A race condition occurs when the result depends on timing between concurrent operations on shared state. A mutex provides mutual exclusion for a critical section. A semaphore is a synchronization primitive with a counter and can coordinate access to one or more units of a resource.",
+    "example": "Two threads execute counter = counter + 1. The read-modify-write sequence can interleave and lose an update. Protecting it with a mutex makes the critical section mutually exclusive.",
+    "keyPoints": [
+      "Critical section is code accessing shared state that needs protection.",
+      "A binary semaphore can resemble a mutex but the ownership semantics differ.",
+      "Synchronization should protect correctness without unnecessarily serializing all work."
+    ],
+    "interview": [
+      {
+        "q": "Mutex vs semaphore?",
+        "a": "A mutex is primarily ownership-based mutual exclusion: the locker unlocks it. A semaphore represents permits/signals and can coordinate access to a pool or event."
+      }
+    ],
+    "mcq": {
+      "q": "What directly describes a race condition?",
+      "options": [
+        "Only one thread exists",
+        "Outcome depends on concurrent timing",
+        "CPU is idle",
+        "Memory is read-only"
+      ],
+      "answer": 1,
+      "why": "The defining problem is timing-dependent access to shared state."
+    }
   },
   {
-    "id":"cn-05","subject":"CN","order":5,"topic":"DNS and HTTP","level":"Interview",
-    "title":"DNS, HTTP methods and status codes",
-    "learn":"DNS translates names such as example.com into resource records including IP addresses. HTTP is an application protocol for request-response communication. Common methods include GET, POST, PUT, PATCH, and DELETE. Status codes are grouped into 2xx success, 3xx redirection, 4xx client-side errors, and 5xx server-side errors.",
-    "example":"Typing a URL can trigger DNS resolution, a TCP/TLS connection when applicable, then an HTTP request such as GET /, followed by an HTTP response containing headers and content.",
-    "keyPoints":["DNS can be cached at multiple levels.","GET is intended to retrieve a resource and is generally safe/idempotent.","POST is commonly used to create or trigger processing and is not generally idempotent."],
-    "interview":[{"q":"What is 404 vs 500?","a":"404 means the requested resource was not found. 500 indicates an unexpected server-side error."}],
-    "mcq":{"q":"Which status family represents server errors?","options":["2xx","3xx","4xx","5xx"],"answer":3,"why":"HTTP 5xx codes indicate server-side errors."}
+    "id": "os-05",
+    "subject": "OS",
+    "order": 5,
+    "topic": "Deadlocks",
+    "level": "Interview",
+    "title": "Deadlock and the four necessary conditions",
+    "learn": "Deadlock is a state where processes wait forever for resources held by one another. The four Coffman conditions are mutual exclusion, hold and wait, no preemption, and circular wait. Breaking any one condition can prevent deadlock.",
+    "example": "P1 holds lock A and waits for B while P2 holds B and waits for A. Neither can proceed. Enforcing a global lock order A then B prevents this cycle.",
+    "keyPoints": [
+      "Deadlock prevention, avoidance, detection, and recovery are different strategies.",
+      "Banker's algorithm is an avoidance approach using available-resource information.",
+      "Lock ordering is a practical engineering technique."
+    ],
+    "interview": [
+      {
+        "q": "How can lock ordering prevent deadlock?",
+        "a": "Give locks a global order and require threads to acquire multiple locks in that order, eliminating circular wait."
+      }
+    ],
+    "mcq": {
+      "q": "Which is NOT a Coffman condition?",
+      "options": [
+        "Circular wait",
+        "Hold and wait",
+        "Preemption always available",
+        "Mutual exclusion"
+      ],
+      "answer": 2,
+      "why": "No preemption, not preemption always available, is one of the four conditions."
+    }
   },
   {
-    "id":"cn-06","subject":"CN","order":6,"topic":"HTTPS and Web Security","level":"Interview",
-    "title":"TLS, HTTPS and certificates",
-    "learn":"HTTPS is HTTP protected by TLS. TLS provides confidentiality, integrity, and authentication of the server through certificates and a trust chain. Modern TLS handshakes establish shared cryptographic keys; asymmetric cryptography is used for authentication/key establishment while symmetric cryptography efficiently protects application data.",
-    "example":"A browser validates a site's certificate, performs a TLS handshake, derives session keys, and then sends HTTP data encrypted with symmetric cryptography.",
-    "keyPoints":["A certificate binds a public key to an identity under a certificate authority trust model.","Encryption protects confidentiality; integrity/authentication are separate security goals.","HTTPS does not automatically make an application secure against every bug."],
-    "interview":[{"q":"Why use symmetric encryption after the handshake?","a":"Symmetric encryption is much faster for bulk data. Public-key operations are comparatively expensive and are mainly useful for authentication and key establishment."}],
-    "mcq":{"q":"HTTPS primarily adds what to HTTP?","options":["CPU scheduling","TLS protection","SQL parsing","DNS hosting"],"answer":1,"why":"HTTPS uses HTTP over TLS."}
-  },
-
-  {
-    "id":"oop-01","subject":"OOP","order":1,"topic":"Classes and Objects","level":"Beginner",
-    "title":"Class, object, state and behavior",
-    "learn":"A class defines a type's structure and behavior. An object is an instance of that class. State is represented by data/fields; behavior is represented by methods. OOP groups related state and behavior behind an abstraction.",
-    "example":"A BankAccount class may contain balance and accountId plus deposit() and withdraw() methods. A particular user's account is an object with its own state.",
-    "keyPoints":["A class is not itself a runtime object instance.","Encapsulation controls how state is accessed or changed.","Good objects expose meaningful behavior instead of exposing every field."],
-    "interview":[{"q":"Why encapsulate balance?","a":"To prevent arbitrary invalid updates and force changes through operations that can enforce business rules such as sufficient funds."}],
-    "mcq":{"q":"An object is best described as?","options":["A compiler","An instance of a class","A database table","A network packet"],"answer":1,"why":"An object is a runtime instance of a class/type."}
-  },
-  {
-    "id":"oop-02","subject":"OOP","order":2,"topic":"Four Pillars","level":"Beginner",
-    "title":"Encapsulation, abstraction, inheritance and polymorphism",
-    "learn":"Encapsulation bundles data and operations while controlling access. Abstraction exposes essential behavior while hiding unnecessary implementation detail. Inheritance lets a type derive from another type. Polymorphism lets one interface be used with different implementations, such as method overriding through a base reference.",
-    "example":"A PaymentProcessor can expose pay(amount). CardPayment and UpiPayment implement different payment behavior. Client code depends on the common abstraction rather than every implementation detail.",
-    "keyPoints":["Inheritance is a reuse mechanism, not a reason to create deep hierarchies.","Runtime polymorphism commonly relies on overriding and dynamic dispatch.","Abstraction reduces coupling between callers and implementations."],
-    "interview":[{"q":"Encapsulation vs abstraction?","a":"Encapsulation is about bundling and controlling access to state/behavior; abstraction is about exposing the important interface while hiding implementation complexity."}],
-    "mcq":{"q":"Which best describes polymorphism?","options":["One interface, multiple implementations","Storing data in RAM","Creating a database index","Sorting an array"],"answer":0,"why":"Polymorphism allows common interfaces to work with different concrete types."}
-  },
-  {
-    "id":"oop-03","subject":"OOP","order":3,"topic":"Relationships","level":"Beginner",
-    "title":"Association, aggregation and composition",
-    "learn":"Association is a general relationship between objects. Aggregation is a weaker whole-part relationship where parts can exist independently. Composition is stronger ownership: the part's lifecycle is closely tied to the whole.",
-    "example":"A Teacher and Student can be associated. A Team may aggregate Players if players can exist independently. A House can compose Rooms in a model where rooms belong to that house's lifecycle.",
-    "keyPoints":["These are modeling concepts; exact implementation depends on the language and design.","Composition often reduces coupling compared with inheritance.","Do not use terminology without considering object lifetimes and ownership."],
-    "interview":[{"q":"Why prefer composition over inheritance sometimes?","a":"Composition allows behavior to be assembled from interchangeable components and usually avoids rigid hierarchies and fragile base-class dependencies."}],
-    "mcq":{"q":"Which relationship implies stronger ownership/lifecycle dependency?","options":["Association","Composition","Unrelated","Overloading"],"answer":1,"why":"Composition models strong whole-part ownership."}
+    "id": "os-06",
+    "subject": "OS",
+    "order": 6,
+    "topic": "Memory Management",
+    "level": "Interview",
+    "title": "Paging, page faults and TLB",
+    "learn": "Virtual memory lets processes use virtual addresses mapped to physical frames. Paging divides virtual memory into fixed-size pages and physical memory into frames. A page fault occurs when a needed page is not currently in the required physical memory location. A TLB caches recent virtual-to-physical translations.",
+    "example": "If page 7 is not present and the CPU accesses it, a page fault traps into the OS. The OS obtains the page from backing storage, possibly evicts another page, updates the page table, and retries the instruction.",
+    "keyPoints": [
+      "A TLB hit avoids a page-table walk in the common case.",
+      "Page faults are much slower than ordinary memory access.",
+      "Thrashing occurs when excessive paging leaves little useful CPU work."
+    ],
+    "interview": [
+      {
+        "q": "Why is TLB useful?",
+        "a": "Address translation itself can require memory accesses. A TLB caches recent translations so many accesses avoid a full page-table lookup."
+      }
+    ],
+    "mcq": {
+      "q": "What does a TLB cache?",
+      "options": [
+        "CPU instructions",
+        "Virtual-to-physical translations",
+        "Disk files",
+        "TCP packets"
+      ],
+      "answer": 1,
+      "why": "The Translation Lookaside Buffer caches address-translation entries."
+    }
   },
   {
-    "id":"oop-04","subject":"OOP","order":4,"topic":"Overloading and Overriding","level":"Interview",
-    "title":"Compile-time vs runtime polymorphism",
-    "learn":"Overloading means multiple methods share a name but have different parameter lists; the call is selected based on compile-time information in languages such as Java. Overriding means a subclass provides a new implementation of an inherited method; dynamic dispatch can select it at runtime.",
-    "example":"Java add(int,int) and add(double,double) are overloads. If Animal a = new Dog(); and Dog overrides speak(), a.speak() invokes Dog's implementation at runtime.",
-    "keyPoints":["Changing only return type does not create a valid Java overload.","Overriding follows language rules for visibility, final methods, static methods, and exceptions.","Python handles these ideas differently because method resolution is dynamic."],
-    "interview":[{"q":"Can static methods be overridden in Java?","a":"Static methods are hidden rather than dynamically overridden because static dispatch is associated with the class."}],
-    "mcq":{"q":"Which is usually resolved through dynamic dispatch?","options":["Overriding","Variable declaration","Method overloading only","Import statements"],"answer":0,"why":"Overridden instance methods can be selected at runtime based on the actual object."}
+    "id": "cn-01",
+    "subject": "CN",
+    "order": 1,
+    "topic": "Networking Basics",
+    "level": "Beginner",
+    "title": "What is a computer network?",
+    "learn": "A computer network connects devices so they can exchange data using agreed protocols. Key performance terms include bandwidth (capacity), throughput (achieved transfer rate), latency (delay), and packet loss. Protocols define how data is formatted, addressed, transmitted, and interpreted.",
+    "example": "When your laptop requests a web page, it creates data that is encapsulated into network messages and packets, addressed to the destination, routed through intermediate devices, and reconstructed at the receiver.",
+    "keyPoints": [
+      "Bandwidth and latency are different.",
+      "A protocol is a set of communication rules.",
+      "Packets can travel through multiple networks before reaching the destination."
+    ],
+    "interview": [
+      {
+        "q": "Bandwidth vs latency?",
+        "a": "Bandwidth describes how much data a link can carry per unit time; latency describes how long it takes data to travel or a request to receive a response."
+      }
+    ],
+    "mcq": {
+      "q": "What primarily describes delay?",
+      "options": [
+        "Latency",
+        "Bandwidth",
+        "MAC address",
+        "Port number"
+      ],
+      "answer": 0,
+      "why": "Latency measures communication delay."
+    }
   },
   {
-    "id":"oop-05","subject":"OOP","order":5,"topic":"SOLID","level":"Interview",
-    "title":"SOLID principles with practical meaning",
-    "learn":"S: Single Responsibility—one reason to change. O: Open/Closed—extend behavior without modifying stable code unnecessarily. L: Liskov Substitution—subtypes should honor the expectations of the base abstraction. I: Interface Segregation—clients should not depend on methods they do not need. D: Dependency Inversion—high-level policy should depend on abstractions rather than concrete low-level details.",
-    "example":"Instead of OrderService directly constructing StripePaymentGateway, depend on a PaymentGateway interface and inject the implementation. Testing becomes easier and payment providers can be swapped.",
-    "keyPoints":["SOLID is guidance, not a checklist to force abstractions everywhere.","Over-abstraction can make small codebases harder to understand.","The goal is lower coupling and clearer change boundaries."],
-    "interview":[{"q":"What does dependency inversion buy you?","a":"It lets business logic depend on stable abstractions, making implementations replaceable and testing easier."}],
-    "mcq":{"q":"Which SOLID principle concerns clients depending on smaller interfaces?","options":["SRP","ISP","LSP","DIP"],"answer":1,"why":"Interface Segregation Principle says clients should not be forced to depend on unused methods."}
+    "id": "cn-02",
+    "subject": "CN",
+    "order": 2,
+    "topic": "OSI and TCP/IP",
+    "level": "Beginner",
+    "title": "OSI layers and practical protocol mapping",
+    "learn": "OSI is a seven-layer conceptual model: Physical, Data Link, Network, Transport, Session, Presentation, Application. The practical TCP/IP stack is commonly described with fewer layers. Think in terms of responsibilities rather than memorizing labels.",
+    "example": "Ethernet handles link-layer framing, IP handles network-layer addressing/routing, TCP handles reliable transport, and HTTP operates at the application layer.",
+    "keyPoints": [
+      "Switches primarily operate at the data-link layer.",
+      "Routers forward packets using network-layer information.",
+      "Applications usually use transport protocols such as TCP or UDP."
+    ],
+    "interview": [
+      {
+        "q": "Why do layers exist?",
+        "a": "Layering separates responsibilities, lets protocols evolve independently, and makes systems easier to reason about and troubleshoot."
+      }
+    ],
+    "mcq": {
+      "q": "IP is primarily associated with which layer?",
+      "options": [
+        "Physical",
+        "Data Link",
+        "Network",
+        "Application"
+      ],
+      "answer": 2,
+      "why": "IP provides logical addressing and routing at the network layer."
+    }
   },
   {
-    "id":"oop-06","subject":"OOP","order":6,"topic":"Design Patterns","level":"Interview",
-    "title":"Strategy, Factory and Observer",
-    "learn":"Strategy encapsulates interchangeable algorithms behind a common interface. Factory centralizes object creation decisions. Observer lets subscribers react when a subject publishes an event or state change.",
-    "example":"A checkout system can use a PaymentStrategy for card, UPI, or wallet payments. A Factory chooses the correct strategy from configuration. An OrderPlaced event can notify email and analytics observers.",
-    "keyPoints":["Patterns solve recurring design problems; they are not mandatory templates.","Prefer simple code when a pattern adds no real flexibility.","Patterns become useful when variation or decoupling is actually present."],
-    "interview":[{"q":"When would Strategy be better than a large if-else?","a":"When algorithms vary independently and may grow or be selected dynamically. Each strategy isolates one behavior and the caller depends on a common interface."}],
-    "mcq":{"q":"Which pattern is mainly about interchangeable algorithms?","options":["Strategy","Observer","Factory","Adapter"],"answer":0,"why":"Strategy packages alternative algorithms behind a common interface."}
-  },
-
-  {
-    "id":"sql-01","subject":"SQL","order":1,"topic":"SELECT and Filtering","level":"Beginner",
-    "title":"SELECT, WHERE, ORDER BY and LIMIT",
-    "learn":"SELECT chooses columns or expressions. FROM chooses the source tables. WHERE filters rows before grouping. ORDER BY sorts the result. LIMIT restricts the number of returned rows in systems that support it.",
-    "example":"SELECT name, salary FROM employees WHERE salary > 50000 ORDER BY salary DESC LIMIT 10; returns the ten highest-paid matching employees.",
-    "keyPoints":["WHERE filters rows; HAVING filters groups after aggregation.","Never rely on implicit row order without ORDER BY.","Use explicit columns instead of SELECT * in production queries when practical."],
-    "interview":[{"q":"Why is ORDER BY needed for a guaranteed order?","a":"SQL result sets are unordered unless an ORDER BY clause specifies the desired ordering."}],
-    "mcq":{"q":"Which clause filters individual rows?","options":["WHERE","HAVING","ORDER BY","GROUP BY"],"answer":0,"why":"WHERE filters rows before grouping."}
-  },
-  {
-    "id":"sql-02","subject":"SQL","order":2,"topic":"Joins","level":"Beginner",
-    "title":"INNER, LEFT, RIGHT and FULL joins",
-    "learn":"An INNER JOIN keeps matching rows from both sides. LEFT JOIN keeps every left row and matching right rows, using NULLs when there is no match. RIGHT is the mirror image. FULL OUTER JOIN keeps rows from both sides where supported.",
-    "example":"SELECT u.name,o.id FROM users u LEFT JOIN orders o ON o.user_id=u.id; includes users who have never placed an order.",
-    "keyPoints":["Put the relationship condition in ON.","A WHERE condition on a nullable right-table column can accidentally turn a LEFT JOIN into an effective INNER JOIN.","Choose joins based on the desired row preservation semantics."],
-    "interview":[{"q":"How do you find customers with no orders?","a":"LEFT JOIN customers to orders and filter WHERE orders.id IS NULL, assuming orders.id is non-null for real orders."}],
-    "mcq":{"q":"Which join preserves all rows from the left table?","options":["INNER","LEFT","CROSS","None"],"answer":1,"why":"LEFT JOIN preserves every left-side row."}
-  },
-  {
-    "id":"sql-03","subject":"SQL","order":3,"topic":"Aggregation","level":"Beginner",
-    "title":"GROUP BY, aggregate functions and HAVING",
-    "learn":"COUNT, SUM, AVG, MIN and MAX aggregate rows into group-level values. GROUP BY defines grouping keys. HAVING filters groups after aggregation. NULL handling differs by aggregate; for example COUNT(column) ignores NULL while COUNT(*) counts rows.",
-    "example":"SELECT department, AVG(salary) FROM employees GROUP BY department HAVING AVG(salary)>70000; returns departments whose average salary exceeds 70,000.",
-    "keyPoints":["WHERE happens before GROUP BY; HAVING happens after grouping.","Every selected non-aggregated expression generally needs to be represented in GROUP BY, subject to DBMS-specific functional-dependency rules.","Be explicit about NULL semantics."],
-    "interview":[{"q":"WHERE vs HAVING?","a":"WHERE filters rows before aggregation; HAVING filters groups after aggregation."}],
-    "mcq":{"q":"Which clause filters aggregated groups?","options":["WHERE","HAVING","FROM","ORDER BY"],"answer":1,"why":"HAVING is evaluated against grouped/aggregated results."}
+    "id": "cn-03",
+    "subject": "CN",
+    "order": 3,
+    "topic": "IP, MAC, ARP and Routing",
+    "level": "Beginner",
+    "title": "MAC address vs IP address and ARP",
+    "learn": "A MAC address identifies a network interface at the local link layer. An IP address provides logical addressing used for routing between networks. ARP maps an IPv4 address to a MAC address on a local network segment.",
+    "example": "Your laptop knows the server's IP but needs a local next-hop MAC to send an Ethernet frame. If that mapping is missing, it can use ARP to discover the MAC for the local destination or gateway.",
+    "keyPoints": [
+      "MAC addresses are local-link identifiers; IP supports internetwork routing.",
+      "A router separates broadcast domains.",
+      "ARP is for IPv4; IPv6 uses Neighbor Discovery instead."
+    ],
+    "interview": [
+      {
+        "q": "Does the MAC address normally route traffic across the internet?",
+        "a": "No. Ethernet MAC addressing is hop-local. At each routed hop, the link-layer frame can change while the IP packet is forwarded toward its destination."
+      }
+    ],
+    "mcq": {
+      "q": "ARP resolves what?",
+      "options": [
+        "Domain to URL",
+        "IPv4 address to MAC address",
+        "MAC to port",
+        "TCP to UDP"
+      ],
+      "answer": 1,
+      "why": "ARP discovers the link-layer address associated with a local IPv4 address."
+    }
   },
   {
-    "id":"sql-04","subject":"SQL","order":4,"topic":"Subqueries and CTEs","level":"Interview",
-    "title":"Subqueries, EXISTS and CTEs",
-    "learn":"A subquery is a query nested inside another query. EXISTS tests whether a subquery returns at least one row. A CTE (WITH clause) names a query result for readability and reuse within a statement. Recursive CTEs can traverse hierarchical data in systems that support them.",
-    "example":"SELECT u.id FROM users u WHERE EXISTS (SELECT 1 FROM orders o WHERE o.user_id=u.id); finds users with at least one order.",
-    "keyPoints":["EXISTS communicates an existence test clearly.","A CTE improves organization but is not automatically faster.","Correlated subqueries can execute conceptually per outer row; inspect the actual plan before assuming performance."],
-    "interview":[{"q":"EXISTS vs IN?","a":"Both can express membership/existence, but NULL semantics and optimizer behavior can differ. EXISTS is often natural when you only care whether a matching row exists."}],
-    "mcq":{"q":"What is a CTE introduced with?","options":["WITH","GROUP","USING","WINDOW"],"answer":0,"why":"Common table expressions use the WITH clause."}
+    "id": "cn-04",
+    "subject": "CN",
+    "order": 4,
+    "topic": "TCP and UDP",
+    "level": "Interview",
+    "title": "TCP vs UDP and the TCP handshake",
+    "learn": "TCP is connection-oriented and provides reliable ordered byte-stream delivery with mechanisms for retransmission, flow control, and congestion control. UDP is connectionless and provides datagrams without TCP's built-in reliability and ordering guarantees.",
+    "example": "A web request using HTTP/1.1 or HTTP/2 commonly runs over TCP. Real-time applications may choose UDP when application-level handling and lower protocol overhead are useful.",
+    "keyPoints": [
+      "TCP reliability does not mean zero delay or zero packet loss; it hides loss through retransmission.",
+      "UDP does not mean 'unreliable application'—applications can add their own reliability.",
+      "The classic TCP connection setup uses SYN, SYN-ACK, ACK."
+    ],
+    "interview": [
+      {
+        "q": "Why three-way handshake?",
+        "a": "It lets both sides establish and confirm initial sequence-number state and bidirectional reachability before normal data exchange."
+      }
+    ],
+    "mcq": {
+      "q": "Which provides an ordered byte stream?",
+      "options": [
+        "UDP",
+        "TCP",
+        "ARP",
+        "DNS"
+      ],
+      "answer": 1,
+      "why": "TCP provides an ordered reliable byte-stream abstraction."
+    }
   },
   {
-    "id":"sql-05","subject":"SQL","order":5,"topic":"Window Functions","level":"Interview",
-    "title":"ROW_NUMBER, RANK and running totals",
-    "learn":"Window functions calculate values across related rows without collapsing them into one row per group. PARTITION BY defines independent groups; ORDER BY defines the window order. ROW_NUMBER assigns unique sequence numbers. RANK gives equal values the same rank with gaps after ties.",
-    "example":"ROW_NUMBER() OVER(PARTITION BY department ORDER BY salary DESC) can identify the highest-paid employee in each department by filtering row_number=1 in an outer query.",
-    "keyPoints":["Window functions keep row detail unlike GROUP BY.","Use ROW_NUMBER for exactly one row per partition when ties must be broken deterministically.","Use RANK/DENSE_RANK when tie semantics matter."],
-    "interview":[{"q":"Top 3 salaries per department?","a":"Use ROW_NUMBER or RANK over PARTITION BY department ORDER BY salary DESC, then filter the computed rank in an outer query/CTE."}],
-    "mcq":{"q":"What does PARTITION BY do in a window function?","options":["Deletes rows","Splits rows into independent window groups","Creates an index","Sorts the entire database"],"answer":1,"why":"Each partition gets its own window calculation."}
+    "id": "cn-05",
+    "subject": "CN",
+    "order": 5,
+    "topic": "DNS and HTTP",
+    "level": "Interview",
+    "title": "DNS, HTTP methods and status codes",
+    "learn": "DNS translates names such as example.com into resource records including IP addresses. HTTP is an application protocol for request-response communication. Common methods include GET, POST, PUT, PATCH, and DELETE. Status codes are grouped into 2xx success, 3xx redirection, 4xx client-side errors, and 5xx server-side errors.",
+    "example": "Typing a URL can trigger DNS resolution, a TCP/TLS connection when applicable, then an HTTP request such as GET /, followed by an HTTP response containing headers and content.",
+    "keyPoints": [
+      "DNS can be cached at multiple levels.",
+      "GET is intended to retrieve a resource and is generally safe/idempotent.",
+      "POST is commonly used to create or trigger processing and is not generally idempotent."
+    ],
+    "interview": [
+      {
+        "q": "What is 404 vs 500?",
+        "a": "404 means the requested resource was not found. 500 indicates an unexpected server-side error."
+      }
+    ],
+    "mcq": {
+      "q": "Which status family represents server errors?",
+      "options": [
+        "2xx",
+        "3xx",
+        "4xx",
+        "5xx"
+      ],
+      "answer": 3,
+      "why": "HTTP 5xx codes indicate server-side errors."
+    }
   },
   {
-    "id":"sql-06","subject":"SQL","order":6,"topic":"Indexes and Performance","level":"Interview",
-    "title":"Indexes, composite indexes and EXPLAIN",
-    "learn":"An index is an auxiliary data structure that helps the DBMS find rows without scanning the entire table for every query. B-tree-style indexes support many equality and range searches. Composite indexes contain multiple columns, and column order matters. EXPLAIN/EXPLAIN ANALYZE can reveal scans, joins, estimates, and actual work depending on the DBMS.",
-    "example":"If queries frequently filter WHERE user_id=? AND created_at>=?, an index beginning with (user_id, created_at) may support that access pattern well.",
-    "keyPoints":["Indexes speed reads but consume storage and add write/maintenance cost.","An index is not automatically used just because it exists.","Use query plans and real workload measurements rather than guessing."],
-    "interview":[{"q":"Why can too many indexes hurt?","a":"Every insert/update/delete may need index maintenance, and indexes consume storage and memory/cache capacity."}],
-    "mcq":{"q":"What is EXPLAIN primarily used for?","options":["Encrypting SQL","Inspecting a query execution plan","Creating tables","Starting a transaction"],"answer":1,"why":"EXPLAIN exposes how the DBMS plans to execute a query."}
-  },
-
-  {
-    "id":"dsa-01","subject":"DSA Fundamentals","order":1,"topic":"Complexity","level":"Beginner",
-    "title":"Big-O, Big-Theta and space complexity",
-    "learn":"Big-O gives an asymptotic upper bound, Big-Theta gives a tight asymptotic bound, and Big-Omega gives a lower bound. Ignore constant factors and lower-order terms when describing asymptotic growth. Space complexity includes additional memory used by the algorithm; clarify whether input storage is counted.",
-    "example":"A loop that visits n elements is O(n). Two nested loops each running n times are O(n²). Binary search halves the search space each step, giving O(log n) time.",
-    "keyPoints":["Complexity describes growth as input size increases.","Worst-case, average-case, and amortized complexity are different claims.","Amortized O(1) means the average cost over a sequence is constant even if individual operations can be expensive."],
-    "interview":[{"q":"Why is 2n+10 O(n)?","a":"As n grows, the linear term dominates and constant factors do not change the asymptotic growth class."}],
-    "mcq":{"q":"Binary search on a sorted array takes what time?","options":["O(1)","O(log n)","O(n)","O(n²)"],"answer":1,"why":"Each comparison roughly halves the remaining search interval."}
-  },
-  {
-    "id":"dsa-02","subject":"DSA Fundamentals","order":2,"topic":"Arrays and Hashing","level":"Beginner",
-    "title":"Arrays, hashing and prefix sums",
-    "learn":"Arrays provide O(1) indexed access but inserting in the middle can require shifting elements. Hash tables provide expected O(1) lookup/insert/delete under good hashing and controlled load, though worst-case behavior can be worse. Prefix sums turn repeated range-sum queries into O(1) after O(n) preprocessing.",
-    "example":"For prefix[i+1]=prefix[i]+a[i], sum(l..r)=prefix[r+1]-prefix[l]. A hash map can count frequencies or remember a value's previous index.",
-    "keyPoints":["Hashing trades ordered structure for fast expected lookup.","Prefix sums are a preprocessing technique.","Always account for collision handling and worst-case complexity when explaining hashing."],
-    "interview":[{"q":"Two Sum approach?","a":"Scan once while storing previously seen values in a hash map. For each x, check whether target-x exists. This gives expected O(n) time and O(n) space."}],
-    "mcq":{"q":"Prefix sums mainly optimize repeated?","options":["Range queries","Sorting","Tree rotations","TCP handshakes"],"answer":0,"why":"A prefix array answers static range sums in constant time."}
-  },
-  {
-    "id":"dsa-03","subject":"DSA Fundamentals","order":3,"topic":"Two Pointers and Sliding Window","level":"Beginner",
-    "title":"Two pointers vs sliding window",
-    "learn":"Two pointers uses two indices whose movement is justified by the structure of the problem. Sliding window is a specialized two-pointer pattern for maintaining a contiguous range and updating its state as the window expands or shrinks.",
-    "example":"In a sorted array, move left/right inward for Two Sum. For longest substring without repeating characters, expand the right pointer and move left until the window is valid again.",
-    "keyPoints":["Do not move pointers arbitrarily; explain the invariant.","Sliding window often reduces O(n²) substring/subarray enumeration to O(n).","Frequency maps are common window state."],
-    "interview":[{"q":"When can sliding window work?","a":"When the problem concerns a contiguous interval and you can update the maintained state efficiently as the left/right boundaries move."}],
-    "mcq":{"q":"Sliding window usually maintains what?","options":["A contiguous range","A random tree","A compiler","A database schema"],"answer":0,"why":"The window represents a contiguous subarray or substring."}
+    "id": "cn-06",
+    "subject": "CN",
+    "order": 6,
+    "topic": "HTTPS and Web Security",
+    "level": "Interview",
+    "title": "TLS, HTTPS and certificates",
+    "learn": "HTTPS is HTTP protected by TLS. TLS provides confidentiality, integrity, and authentication of the server through certificates and a trust chain. Modern TLS handshakes establish shared cryptographic keys; asymmetric cryptography is used for authentication/key establishment while symmetric cryptography efficiently protects application data.",
+    "example": "A browser validates a site's certificate, performs a TLS handshake, derives session keys, and then sends HTTP data encrypted with symmetric cryptography.",
+    "keyPoints": [
+      "A certificate binds a public key to an identity under a certificate authority trust model.",
+      "Encryption protects confidentiality; integrity/authentication are separate security goals.",
+      "HTTPS does not automatically make an application secure against every bug."
+    ],
+    "interview": [
+      {
+        "q": "Why use symmetric encryption after the handshake?",
+        "a": "Symmetric encryption is much faster for bulk data. Public-key operations are comparatively expensive and are mainly useful for authentication and key establishment."
+      }
+    ],
+    "mcq": {
+      "q": "HTTPS primarily adds what to HTTP?",
+      "options": [
+        "CPU scheduling",
+        "TLS protection",
+        "SQL parsing",
+        "DNS hosting"
+      ],
+      "answer": 1,
+      "why": "HTTPS uses HTTP over TLS."
+    }
   },
   {
-    "id":"dsa-04","subject":"DSA Fundamentals","order":4,"topic":"Stack, Queue and Heap","level":"Beginner",
-    "title":"Choosing stack, queue or heap",
-    "learn":"A stack is LIFO and is useful for nested structure, undo operations, and monotonic-stack problems. A queue is FIFO and is central to BFS. A heap supports efficient access to a minimum or maximum element, useful for priority scheduling and top-K problems.",
-    "example":"Valid parentheses uses a stack. Level-order tree traversal uses a queue. Kth largest elements can be handled with a min-heap of size k.",
-    "keyPoints":["Heap insertion/removal is typically O(log n).","A binary heap is not fully sorted.","Monotonic stacks solve next-greater/next-smaller style problems."],
-    "interview":[{"q":"Why keep a heap of size k for top-k?","a":"It limits memory to O(k) and each relevant insertion/removal costs O(log k), often giving O(n log k) overall."}],
-    "mcq":{"q":"BFS primarily uses which structure?","options":["Stack","Queue","Heap only","Hash set only"],"answer":1,"why":"BFS processes vertices in increasing distance using a queue."}
+    "id": "oop-01",
+    "subject": "OOP",
+    "order": 1,
+    "topic": "Classes and Objects",
+    "level": "Beginner",
+    "title": "Class, object, state and behavior",
+    "learn": "A class defines a type's structure and behavior. An object is an instance of that class. State is represented by data/fields; behavior is represented by methods. OOP groups related state and behavior behind an abstraction.",
+    "example": "A BankAccount class may contain balance and accountId plus deposit() and withdraw() methods. A particular user's account is an object with its own state.",
+    "keyPoints": [
+      "A class is not itself a runtime object instance.",
+      "Encapsulation controls how state is accessed or changed.",
+      "Good objects expose meaningful behavior instead of exposing every field."
+    ],
+    "interview": [
+      {
+        "q": "Why encapsulate balance?",
+        "a": "To prevent arbitrary invalid updates and force changes through operations that can enforce business rules such as sufficient funds."
+      }
+    ],
+    "mcq": {
+      "q": "An object is best described as?",
+      "options": [
+        "A compiler",
+        "An instance of a class",
+        "A database table",
+        "A network packet"
+      ],
+      "answer": 1,
+      "why": "An object is a runtime instance of a class/type."
+    }
   },
   {
-    "id":"dsa-05","subject":"DSA Fundamentals","order":5,"topic":"Trees and Graphs","level":"Interview",
-    "title":"Tree traversal, graph traversal and visited state",
-    "learn":"Trees are connected acyclic graphs. DFS traversals of a binary tree include preorder, inorder, and postorder. BFS visits level by level. General graph traversal needs a visited structure to avoid revisiting nodes and infinite loops in cyclic graphs.",
-    "example":"For a binary search tree, inorder traversal visits values in sorted order. In an unweighted graph, BFS from a source gives shortest edge-count distance to reachable vertices.",
-    "keyPoints":["DFS can be recursive or iterative.","For graphs, distinguish directed vs undirected edges.","A visited set prevents repeated exploration; for some problems, state needs more than a boolean."],
-    "interview":[{"q":"Why does BFS give shortest path in an unweighted graph?","a":"It explores vertices by increasing number of edges from the source, so the first time a vertex is reached is via a shortest edge-count path."}],
-    "mcq":{"q":"Which traversal gives sorted order for a BST?","options":["Preorder","Inorder","Postorder","Level order always"],"answer":1,"why":"BST inorder traversal visits left subtree, node, then right subtree."}
+    "id": "oop-02",
+    "subject": "OOP",
+    "order": 2,
+    "topic": "Four Pillars",
+    "level": "Beginner",
+    "title": "Encapsulation, abstraction, inheritance and polymorphism",
+    "learn": "Encapsulation bundles data and operations while controlling access. Abstraction exposes essential behavior while hiding unnecessary implementation detail. Inheritance lets a type derive from another type. Polymorphism lets one interface be used with different implementations, such as method overriding through a base reference.",
+    "example": "A PaymentProcessor can expose pay(amount). CardPayment and UpiPayment implement different payment behavior. Client code depends on the common abstraction rather than every implementation detail.",
+    "keyPoints": [
+      "Inheritance is a reuse mechanism, not a reason to create deep hierarchies.",
+      "Runtime polymorphism commonly relies on overriding and dynamic dispatch.",
+      "Abstraction reduces coupling between callers and implementations."
+    ],
+    "interview": [
+      {
+        "q": "Encapsulation vs abstraction?",
+        "a": "Encapsulation is about bundling and controlling access to state/behavior; abstraction is about exposing the important interface while hiding implementation complexity."
+      }
+    ],
+    "mcq": {
+      "q": "Which best describes polymorphism?",
+      "options": [
+        "One interface, multiple implementations",
+        "Storing data in RAM",
+        "Creating a database index",
+        "Sorting an array"
+      ],
+      "answer": 0,
+      "why": "Polymorphism allows common interfaces to work with different concrete types."
+    }
   },
   {
-    "id":"dsa-06","subject":"DSA Fundamentals","order":6,"topic":"Dynamic Programming","level":"Interview",
-    "title":"How to recognize and build DP",
-    "learn":"Dynamic programming applies when a problem has overlapping subproblems and an optimal-substructure style recurrence. Define the state, write the transition, set base cases, choose memoization or tabulation, and analyze complexity. The hard part is usually choosing the correct state.",
-    "example":"Climbing stairs: dp[i] = dp[i-1] + dp[i-2], with dp[0]=1 and dp[1]=1 when counting ways to reach step i. Each state depends on smaller states.",
-    "keyPoints":["State must contain enough information to make future decisions.","Memoization is top-down; tabulation is bottom-up.","Optimize memory only after the recurrence is correct."],
-    "interview":[{"q":"How do you start a DP problem?","a":"Ask what information completely describes a subproblem, define dp(state), derive the transition from smaller states, establish base cases, then choose an evaluation order."}],
-    "mcq":{"q":"The two core signals for DP are?","options":["Sorted input and recursion","Overlapping subproblems and optimal substructure","Only negative numbers","A graph with no edges"],"answer":1,"why":"These are the classic structural clues for dynamic programming."}
+    "id": "oop-03",
+    "subject": "OOP",
+    "order": 3,
+    "topic": "Relationships",
+    "level": "Beginner",
+    "title": "Association, aggregation and composition",
+    "learn": "Association is a general relationship between objects. Aggregation is a weaker whole-part relationship where parts can exist independently. Composition is stronger ownership: the part's lifecycle is closely tied to the whole.",
+    "example": "A Teacher and Student can be associated. A Team may aggregate Players if players can exist independently. A House can compose Rooms in a model where rooms belong to that house's lifecycle.",
+    "keyPoints": [
+      "These are modeling concepts; exact implementation depends on the language and design.",
+      "Composition often reduces coupling compared with inheritance.",
+      "Do not use terminology without considering object lifetimes and ownership."
+    ],
+    "interview": [
+      {
+        "q": "Why prefer composition over inheritance sometimes?",
+        "a": "Composition allows behavior to be assembled from interchangeable components and usually avoids rigid hierarchies and fragile base-class dependencies."
+      }
+    ],
+    "mcq": {
+      "q": "Which relationship implies stronger ownership/lifecycle dependency?",
+      "options": [
+        "Association",
+        "Composition",
+        "Unrelated",
+        "Overloading"
+      ],
+      "answer": 1,
+      "why": "Composition models strong whole-part ownership."
+    }
+  },
+  {
+    "id": "oop-04",
+    "subject": "OOP",
+    "order": 4,
+    "topic": "Overloading and Overriding",
+    "level": "Interview",
+    "title": "Compile-time vs runtime polymorphism",
+    "learn": "Overloading means multiple methods share a name but have different parameter lists; the call is selected based on compile-time information in languages such as Java. Overriding means a subclass provides a new implementation of an inherited method; dynamic dispatch can select it at runtime.",
+    "example": "Java add(int,int) and add(double,double) are overloads. If Animal a = new Dog(); and Dog overrides speak(), a.speak() invokes Dog's implementation at runtime.",
+    "keyPoints": [
+      "Changing only return type does not create a valid Java overload.",
+      "Overriding follows language rules for visibility, final methods, static methods, and exceptions.",
+      "Python handles these ideas differently because method resolution is dynamic."
+    ],
+    "interview": [
+      {
+        "q": "Can static methods be overridden in Java?",
+        "a": "Static methods are hidden rather than dynamically overridden because static dispatch is associated with the class."
+      }
+    ],
+    "mcq": {
+      "q": "Which is usually resolved through dynamic dispatch?",
+      "options": [
+        "Overriding",
+        "Variable declaration",
+        "Method overloading only",
+        "Import statements"
+      ],
+      "answer": 0,
+      "why": "Overridden instance methods can be selected at runtime based on the actual object."
+    }
+  },
+  {
+    "id": "oop-05",
+    "subject": "OOP",
+    "order": 5,
+    "topic": "SOLID",
+    "level": "Interview",
+    "title": "SOLID principles with practical meaning",
+    "learn": "S: Single Responsibility—one reason to change. O: Open/Closed—extend behavior without modifying stable code unnecessarily. L: Liskov Substitution—subtypes should honor the expectations of the base abstraction. I: Interface Segregation—clients should not depend on methods they do not need. D: Dependency Inversion—high-level policy should depend on abstractions rather than concrete low-level details.",
+    "example": "Instead of OrderService directly constructing StripePaymentGateway, depend on a PaymentGateway interface and inject the implementation. Testing becomes easier and payment providers can be swapped.",
+    "keyPoints": [
+      "SOLID is guidance, not a checklist to force abstractions everywhere.",
+      "Over-abstraction can make small codebases harder to understand.",
+      "The goal is lower coupling and clearer change boundaries."
+    ],
+    "interview": [
+      {
+        "q": "What does dependency inversion buy you?",
+        "a": "It lets business logic depend on stable abstractions, making implementations replaceable and testing easier."
+      }
+    ],
+    "mcq": {
+      "q": "Which SOLID principle concerns clients depending on smaller interfaces?",
+      "options": [
+        "SRP",
+        "ISP",
+        "LSP",
+        "DIP"
+      ],
+      "answer": 1,
+      "why": "Interface Segregation Principle says clients should not be forced to depend on unused methods."
+    }
+  },
+  {
+    "id": "oop-06",
+    "subject": "OOP",
+    "order": 6,
+    "topic": "Design Patterns",
+    "level": "Interview",
+    "title": "Strategy, Factory and Observer",
+    "learn": "Strategy encapsulates interchangeable algorithms behind a common interface. Factory centralizes object creation decisions. Observer lets subscribers react when a subject publishes an event or state change.",
+    "example": "A checkout system can use a PaymentStrategy for card, UPI, or wallet payments. A Factory chooses the correct strategy from configuration. An OrderPlaced event can notify email and analytics observers.",
+    "keyPoints": [
+      "Patterns solve recurring design problems; they are not mandatory templates.",
+      "Prefer simple code when a pattern adds no real flexibility.",
+      "Patterns become useful when variation or decoupling is actually present."
+    ],
+    "interview": [
+      {
+        "q": "When would Strategy be better than a large if-else?",
+        "a": "When algorithms vary independently and may grow or be selected dynamically. Each strategy isolates one behavior and the caller depends on a common interface."
+      }
+    ],
+    "mcq": {
+      "q": "Which pattern is mainly about interchangeable algorithms?",
+      "options": [
+        "Strategy",
+        "Observer",
+        "Factory",
+        "Adapter"
+      ],
+      "answer": 0,
+      "why": "Strategy packages alternative algorithms behind a common interface."
+    }
+  },
+  {
+    "id": "sql-01",
+    "subject": "SQL",
+    "order": 1,
+    "topic": "SELECT and Filtering",
+    "level": "Beginner",
+    "title": "SELECT, WHERE, ORDER BY and LIMIT",
+    "learn": "SELECT chooses columns or expressions. FROM chooses the source tables. WHERE filters rows before grouping. ORDER BY sorts the result. LIMIT restricts the number of returned rows in systems that support it.",
+    "example": "SELECT name, salary FROM employees WHERE salary > 50000 ORDER BY salary DESC LIMIT 10; returns the ten highest-paid matching employees.",
+    "keyPoints": [
+      "WHERE filters rows; HAVING filters groups after aggregation.",
+      "Never rely on implicit row order without ORDER BY.",
+      "Use explicit columns instead of SELECT * in production queries when practical."
+    ],
+    "interview": [
+      {
+        "q": "Why is ORDER BY needed for a guaranteed order?",
+        "a": "SQL result sets are unordered unless an ORDER BY clause specifies the desired ordering."
+      }
+    ],
+    "mcq": {
+      "q": "Which clause filters individual rows?",
+      "options": [
+        "WHERE",
+        "HAVING",
+        "ORDER BY",
+        "GROUP BY"
+      ],
+      "answer": 0,
+      "why": "WHERE filters rows before grouping."
+    }
+  },
+  {
+    "id": "sql-02",
+    "subject": "SQL",
+    "order": 2,
+    "topic": "Joins",
+    "level": "Beginner",
+    "title": "INNER, LEFT, RIGHT and FULL joins",
+    "learn": "An INNER JOIN keeps matching rows from both sides. LEFT JOIN keeps every left row and matching right rows, using NULLs when there is no match. RIGHT is the mirror image. FULL OUTER JOIN keeps rows from both sides where supported.",
+    "example": "SELECT u.name,o.id FROM users u LEFT JOIN orders o ON o.user_id=u.id; includes users who have never placed an order.",
+    "keyPoints": [
+      "Put the relationship condition in ON.",
+      "A WHERE condition on a nullable right-table column can accidentally turn a LEFT JOIN into an effective INNER JOIN.",
+      "Choose joins based on the desired row preservation semantics."
+    ],
+    "interview": [
+      {
+        "q": "How do you find customers with no orders?",
+        "a": "LEFT JOIN customers to orders and filter WHERE orders.id IS NULL, assuming orders.id is non-null for real orders."
+      }
+    ],
+    "mcq": {
+      "q": "Which join preserves all rows from the left table?",
+      "options": [
+        "INNER",
+        "LEFT",
+        "CROSS",
+        "None"
+      ],
+      "answer": 1,
+      "why": "LEFT JOIN preserves every left-side row."
+    }
+  },
+  {
+    "id": "sql-03",
+    "subject": "SQL",
+    "order": 3,
+    "topic": "Aggregation",
+    "level": "Beginner",
+    "title": "GROUP BY, aggregate functions and HAVING",
+    "learn": "COUNT, SUM, AVG, MIN and MAX aggregate rows into group-level values. GROUP BY defines grouping keys. HAVING filters groups after aggregation. NULL handling differs by aggregate; for example COUNT(column) ignores NULL while COUNT(*) counts rows.",
+    "example": "SELECT department, AVG(salary) FROM employees GROUP BY department HAVING AVG(salary)>70000; returns departments whose average salary exceeds 70,000.",
+    "keyPoints": [
+      "WHERE happens before GROUP BY; HAVING happens after grouping.",
+      "Every selected non-aggregated expression generally needs to be represented in GROUP BY, subject to DBMS-specific functional-dependency rules.",
+      "Be explicit about NULL semantics."
+    ],
+    "interview": [
+      {
+        "q": "WHERE vs HAVING?",
+        "a": "WHERE filters rows before aggregation; HAVING filters groups after aggregation."
+      }
+    ],
+    "mcq": {
+      "q": "Which clause filters aggregated groups?",
+      "options": [
+        "WHERE",
+        "HAVING",
+        "FROM",
+        "ORDER BY"
+      ],
+      "answer": 1,
+      "why": "HAVING is evaluated against grouped/aggregated results."
+    }
+  },
+  {
+    "id": "sql-04",
+    "subject": "SQL",
+    "order": 4,
+    "topic": "Subqueries and CTEs",
+    "level": "Interview",
+    "title": "Subqueries, EXISTS and CTEs",
+    "learn": "A subquery is a query nested inside another query. EXISTS tests whether a subquery returns at least one row. A CTE (WITH clause) names a query result for readability and reuse within a statement. Recursive CTEs can traverse hierarchical data in systems that support them.",
+    "example": "SELECT u.id FROM users u WHERE EXISTS (SELECT 1 FROM orders o WHERE o.user_id=u.id); finds users with at least one order.",
+    "keyPoints": [
+      "EXISTS communicates an existence test clearly.",
+      "A CTE improves organization but is not automatically faster.",
+      "Correlated subqueries can execute conceptually per outer row; inspect the actual plan before assuming performance."
+    ],
+    "interview": [
+      {
+        "q": "EXISTS vs IN?",
+        "a": "Both can express membership/existence, but NULL semantics and optimizer behavior can differ. EXISTS is often natural when you only care whether a matching row exists."
+      }
+    ],
+    "mcq": {
+      "q": "What is a CTE introduced with?",
+      "options": [
+        "WITH",
+        "GROUP",
+        "USING",
+        "WINDOW"
+      ],
+      "answer": 0,
+      "why": "Common table expressions use the WITH clause."
+    }
+  },
+  {
+    "id": "sql-05",
+    "subject": "SQL",
+    "order": 5,
+    "topic": "Window Functions",
+    "level": "Interview",
+    "title": "ROW_NUMBER, RANK and running totals",
+    "learn": "Window functions calculate values across related rows without collapsing them into one row per group. PARTITION BY defines independent groups; ORDER BY defines the window order. ROW_NUMBER assigns unique sequence numbers. RANK gives equal values the same rank with gaps after ties.",
+    "example": "ROW_NUMBER() OVER(PARTITION BY department ORDER BY salary DESC) can identify the highest-paid employee in each department by filtering row_number=1 in an outer query.",
+    "keyPoints": [
+      "Window functions keep row detail unlike GROUP BY.",
+      "Use ROW_NUMBER for exactly one row per partition when ties must be broken deterministically.",
+      "Use RANK/DENSE_RANK when tie semantics matter."
+    ],
+    "interview": [
+      {
+        "q": "Top 3 salaries per department?",
+        "a": "Use ROW_NUMBER or RANK over PARTITION BY department ORDER BY salary DESC, then filter the computed rank in an outer query/CTE."
+      }
+    ],
+    "mcq": {
+      "q": "What does PARTITION BY do in a window function?",
+      "options": [
+        "Deletes rows",
+        "Splits rows into independent window groups",
+        "Creates an index",
+        "Sorts the entire database"
+      ],
+      "answer": 1,
+      "why": "Each partition gets its own window calculation."
+    }
+  },
+  {
+    "id": "sql-06",
+    "subject": "SQL",
+    "order": 6,
+    "topic": "Indexes and Performance",
+    "level": "Interview",
+    "title": "Indexes, composite indexes and EXPLAIN",
+    "learn": "An index is an auxiliary data structure that helps the DBMS find rows without scanning the entire table for every query. B-tree-style indexes support many equality and range searches. Composite indexes contain multiple columns, and column order matters. EXPLAIN/EXPLAIN ANALYZE can reveal scans, joins, estimates, and actual work depending on the DBMS.",
+    "example": "If queries frequently filter WHERE user_id=? AND created_at>=?, an index beginning with (user_id, created_at) may support that access pattern well.",
+    "keyPoints": [
+      "Indexes speed reads but consume storage and add write/maintenance cost.",
+      "An index is not automatically used just because it exists.",
+      "Use query plans and real workload measurements rather than guessing."
+    ],
+    "interview": [
+      {
+        "q": "Why can too many indexes hurt?",
+        "a": "Every insert/update/delete may need index maintenance, and indexes consume storage and memory/cache capacity."
+      }
+    ],
+    "mcq": {
+      "q": "What is EXPLAIN primarily used for?",
+      "options": [
+        "Encrypting SQL",
+        "Inspecting a query execution plan",
+        "Creating tables",
+        "Starting a transaction"
+      ],
+      "answer": 1,
+      "why": "EXPLAIN exposes how the DBMS plans to execute a query."
+    }
+  },
+  {
+    "id": "dsa-01",
+    "subject": "DSA Fundamentals",
+    "order": 1,
+    "topic": "Complexity",
+    "level": "Beginner",
+    "title": "Big-O, Big-Theta and space complexity",
+    "learn": "Big-O gives an asymptotic upper bound, Big-Theta gives a tight asymptotic bound, and Big-Omega gives a lower bound. Ignore constant factors and lower-order terms when describing asymptotic growth. Space complexity includes additional memory used by the algorithm; clarify whether input storage is counted.",
+    "example": "A loop that visits n elements is O(n). Two nested loops each running n times are O(n²). Binary search halves the search space each step, giving O(log n) time.",
+    "keyPoints": [
+      "Complexity describes growth as input size increases.",
+      "Worst-case, average-case, and amortized complexity are different claims.",
+      "Amortized O(1) means the average cost over a sequence is constant even if individual operations can be expensive."
+    ],
+    "interview": [
+      {
+        "q": "Why is 2n+10 O(n)?",
+        "a": "As n grows, the linear term dominates and constant factors do not change the asymptotic growth class."
+      }
+    ],
+    "mcq": {
+      "q": "Binary search on a sorted array takes what time?",
+      "options": [
+        "O(1)",
+        "O(log n)",
+        "O(n)",
+        "O(n²)"
+      ],
+      "answer": 1,
+      "why": "Each comparison roughly halves the remaining search interval."
+    }
+  },
+  {
+    "id": "dsa-02",
+    "subject": "DSA Fundamentals",
+    "order": 2,
+    "topic": "Arrays and Hashing",
+    "level": "Beginner",
+    "title": "Arrays, hashing and prefix sums",
+    "learn": "Arrays provide O(1) indexed access but inserting in the middle can require shifting elements. Hash tables provide expected O(1) lookup/insert/delete under good hashing and controlled load, though worst-case behavior can be worse. Prefix sums turn repeated range-sum queries into O(1) after O(n) preprocessing.",
+    "example": "For prefix[i+1]=prefix[i]+a[i], sum(l..r)=prefix[r+1]-prefix[l]. A hash map can count frequencies or remember a value's previous index.",
+    "keyPoints": [
+      "Hashing trades ordered structure for fast expected lookup.",
+      "Prefix sums are a preprocessing technique.",
+      "Always account for collision handling and worst-case complexity when explaining hashing."
+    ],
+    "interview": [
+      {
+        "q": "Two Sum approach?",
+        "a": "Scan once while storing previously seen values in a hash map. For each x, check whether target-x exists. This gives expected O(n) time and O(n) space."
+      }
+    ],
+    "mcq": {
+      "q": "Prefix sums mainly optimize repeated?",
+      "options": [
+        "Range queries",
+        "Sorting",
+        "Tree rotations",
+        "TCP handshakes"
+      ],
+      "answer": 0,
+      "why": "A prefix array answers static range sums in constant time."
+    }
+  },
+  {
+    "id": "dsa-03",
+    "subject": "DSA Fundamentals",
+    "order": 3,
+    "topic": "Two Pointers and Sliding Window",
+    "level": "Beginner",
+    "title": "Two pointers vs sliding window",
+    "learn": "Two pointers uses two indices whose movement is justified by the structure of the problem. Sliding window is a specialized two-pointer pattern for maintaining a contiguous range and updating its state as the window expands or shrinks.",
+    "example": "In a sorted array, move left/right inward for Two Sum. For longest substring without repeating characters, expand the right pointer and move left until the window is valid again.",
+    "keyPoints": [
+      "Do not move pointers arbitrarily; explain the invariant.",
+      "Sliding window often reduces O(n²) substring/subarray enumeration to O(n).",
+      "Frequency maps are common window state."
+    ],
+    "interview": [
+      {
+        "q": "When can sliding window work?",
+        "a": "When the problem concerns a contiguous interval and you can update the maintained state efficiently as the left/right boundaries move."
+      }
+    ],
+    "mcq": {
+      "q": "Sliding window usually maintains what?",
+      "options": [
+        "A contiguous range",
+        "A random tree",
+        "A compiler",
+        "A database schema"
+      ],
+      "answer": 0,
+      "why": "The window represents a contiguous subarray or substring."
+    }
+  },
+  {
+    "id": "dsa-04",
+    "subject": "DSA Fundamentals",
+    "order": 4,
+    "topic": "Stack, Queue and Heap",
+    "level": "Beginner",
+    "title": "Choosing stack, queue or heap",
+    "learn": "A stack is LIFO and is useful for nested structure, undo operations, and monotonic-stack problems. A queue is FIFO and is central to BFS. A heap supports efficient access to a minimum or maximum element, useful for priority scheduling and top-K problems.",
+    "example": "Valid parentheses uses a stack. Level-order tree traversal uses a queue. Kth largest elements can be handled with a min-heap of size k.",
+    "keyPoints": [
+      "Heap insertion/removal is typically O(log n).",
+      "A binary heap is not fully sorted.",
+      "Monotonic stacks solve next-greater/next-smaller style problems."
+    ],
+    "interview": [
+      {
+        "q": "Why keep a heap of size k for top-k?",
+        "a": "It limits memory to O(k) and each relevant insertion/removal costs O(log k), often giving O(n log k) overall."
+      }
+    ],
+    "mcq": {
+      "q": "BFS primarily uses which structure?",
+      "options": [
+        "Stack",
+        "Queue",
+        "Heap only",
+        "Hash set only"
+      ],
+      "answer": 1,
+      "why": "BFS processes vertices in increasing distance using a queue."
+    }
+  },
+  {
+    "id": "dsa-05",
+    "subject": "DSA Fundamentals",
+    "order": 5,
+    "topic": "Trees and Graphs",
+    "level": "Interview",
+    "title": "Tree traversal, graph traversal and visited state",
+    "learn": "Trees are connected acyclic graphs. DFS traversals of a binary tree include preorder, inorder, and postorder. BFS visits level by level. General graph traversal needs a visited structure to avoid revisiting nodes and infinite loops in cyclic graphs.",
+    "example": "For a binary search tree, inorder traversal visits values in sorted order. In an unweighted graph, BFS from a source gives shortest edge-count distance to reachable vertices.",
+    "keyPoints": [
+      "DFS can be recursive or iterative.",
+      "For graphs, distinguish directed vs undirected edges.",
+      "A visited set prevents repeated exploration; for some problems, state needs more than a boolean."
+    ],
+    "interview": [
+      {
+        "q": "Why does BFS give shortest path in an unweighted graph?",
+        "a": "It explores vertices by increasing number of edges from the source, so the first time a vertex is reached is via a shortest edge-count path."
+      }
+    ],
+    "mcq": {
+      "q": "Which traversal gives sorted order for a BST?",
+      "options": [
+        "Preorder",
+        "Inorder",
+        "Postorder",
+        "Level order always"
+      ],
+      "answer": 1,
+      "why": "BST inorder traversal visits left subtree, node, then right subtree."
+    }
+  },
+  {
+    "id": "dsa-06",
+    "subject": "DSA Fundamentals",
+    "order": 6,
+    "topic": "Dynamic Programming",
+    "level": "Interview",
+    "title": "How to recognize and build DP",
+    "learn": "Dynamic programming applies when a problem has overlapping subproblems and an optimal-substructure style recurrence. Define the state, write the transition, set base cases, choose memoization or tabulation, and analyze complexity. The hard part is usually choosing the correct state.",
+    "example": "Climbing stairs: dp[i] = dp[i-1] + dp[i-2], with dp[0]=1 and dp[1]=1 when counting ways to reach step i. Each state depends on smaller states.",
+    "keyPoints": [
+      "State must contain enough information to make future decisions.",
+      "Memoization is top-down; tabulation is bottom-up.",
+      "Optimize memory only after the recurrence is correct."
+    ],
+    "interview": [
+      {
+        "q": "How do you start a DP problem?",
+        "a": "Ask what information completely describes a subproblem, define dp(state), derive the transition from smaller states, establish base cases, then choose an evaluation order."
+      }
+    ],
+    "mcq": {
+      "q": "The two core signals for DP are?",
+      "options": [
+        "Sorted input and recursion",
+        "Overlapping subproblems and optimal substructure",
+        "Only negative numbers",
+        "A graph with no edges"
+      ],
+      "answer": 1,
+      "why": "These are the classic structural clues for dynamic programming."
+    }
+  },
+  {
+    "id": "dbms-07",
+    "subject": "DBMS",
+    "order": 7,
+    "topic": "Functional Dependencies",
+    "level": "Beginner",
+    "title": "Functional dependencies express that one set of attributes determines another. X→Y means two rows agreeing on X must agree on Y.",
+    "learn": "If student_id→student_name, knowing student_id determines the student's name.",
+    "example": "Use dependencies to reason about keys and normalization.",
+    "keyPoints": [
+      "What is a functional dependency?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "It is a constraint describing which attribute values determine other attribute values."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dbms-08",
+    "subject": "DBMS",
+    "order": 8,
+    "topic": "Lossless Decomposition",
+    "level": "Beginner",
+    "title": "A decomposition is lossless if joining the decomposed relations recreates the original information without spurious tuples. Dependency preservation is a separate property.",
+    "learn": "Splitting Employee(emp_id, dept_id, dept_name) into Employee(emp_id,dept_id) and Department(dept_id,dept_name) is naturally lossless when dept_id identifies the department.",
+    "example": "Lossless and dependency-preserving are different goals.",
+    "keyPoints": [
+      "Why does lossless decomposition matter?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "It prevents decomposition from inventing false combinations when tables are joined."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dbms-09",
+    "subject": "DBMS",
+    "order": 9,
+    "topic": "Indexes: B-tree and B+ tree",
+    "level": "Interview",
+    "title": "B-tree-family indexes keep keys ordered and support efficient equality and range access. Database B+ trees commonly keep data pointers/records at leaves and link leaves for ordered scans.",
+    "learn": "An index on created_at can efficiently find rows in a date range without scanning every row.",
+    "example": "Indexes trade write cost and storage for faster reads.",
+    "keyPoints": [
+      "Why are B+ trees common in databases?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "They have high fan-out, shallow height, and efficient ordered/range traversal."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dbms-10",
+    "subject": "DBMS",
+    "order": 10,
+    "topic": "Query Execution",
+    "level": "Interview",
+    "title": "A query is parsed, validated, optimized, and executed using operators such as scans, filters, joins, and sorts. The optimizer chooses a physical plan based on statistics and cost estimates.",
+    "learn": "A SELECT with a selective indexed predicate may use an index scan, while a large result may favor a sequential scan.",
+    "example": "Logical SQL describes what; the execution plan describes how.",
+    "keyPoints": [
+      "What does an optimizer do?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "It chooses an efficient physical execution plan for the requested result."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dbms-11",
+    "subject": "DBMS",
+    "order": 11,
+    "topic": "Recovery and WAL",
+    "level": "Interview",
+    "title": "Write-ahead logging records enough information before durable data pages are changed so committed work can be recovered and incomplete work undone after failure.",
+    "learn": "After a crash, the DBMS can inspect log records to redo committed changes and undo incomplete transactions according to its recovery protocol.",
+    "example": "WAL is central to crash recovery and durability.",
+    "keyPoints": [
+      "Why write the log before the data page?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "So recovery has a durable record of the change before the corresponding data modification is considered durable."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dbms-12",
+    "subject": "DBMS",
+    "order": 12,
+    "topic": "Replication and Sharding",
+    "level": "Interview",
+    "title": "Replication keeps copies of data across nodes; sharding partitions data across nodes. Replication can improve availability/read scale, while sharding distributes storage and write workload.",
+    "learn": "Users can be partitioned by user_id across shards while each shard has replicas.",
+    "example": "Distributed designs introduce consistency, routing, failure, and rebalancing trade-offs.",
+    "keyPoints": [
+      "Replication vs sharding?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "Replication copies data; sharding divides data across nodes. A system can use both."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "os-07",
+    "subject": "OS",
+    "order": 7,
+    "topic": "System Calls and User/Kernel Mode",
+    "level": "Beginner",
+    "title": "Applications normally run in user mode and request privileged OS services through system calls. Kernel mode allows privileged operations such as managing memory and devices.",
+    "learn": "A program calling read() transitions through the system-call interface so the kernel can access the file/device safely.",
+    "example": "The boundary protects the system from arbitrary application access.",
+    "keyPoints": [
+      "Why can't normal applications directly execute every privileged instruction?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "The OS uses privilege levels to protect hardware, memory, and other processes."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "os-08",
+    "subject": "OS",
+    "order": 8,
+    "topic": "Context Switching",
+    "level": "Beginner",
+    "title": "A context switch saves the execution state of one runnable context and restores another. It enables multitasking but costs CPU time and can disturb caches and TLB state.",
+    "learn": "When a timer interrupt causes the scheduler to choose another process, registers and execution state are saved and restored.",
+    "example": "Switching too often can reduce useful CPU work.",
+    "keyPoints": [
+      "Process switch vs thread switch?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "The exact cost depends on the OS, but switching between processes can require more address-space-related work than threads sharing one process."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "os-09",
+    "subject": "OS",
+    "order": 9,
+    "topic": "Producer Consumer and Bounded Buffers",
+    "level": "Interview",
+    "title": "The producer-consumer problem coordinates producers adding items to a finite buffer and consumers removing them. Synchronization must prevent overflow, underflow, and races.",
+    "learn": "A semaphore can count empty slots and full slots while a mutex protects the buffer's shared structure.",
+    "example": "Correctness requires both mutual exclusion and coordination.",
+    "keyPoints": [
+      "What can go wrong without synchronization?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "Producers can overwrite data, consumers can read unavailable data, and concurrent updates can corrupt shared state."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "os-10",
+    "subject": "OS",
+    "order": 10,
+    "topic": "Page Replacement",
+    "level": "Interview",
+    "title": "When memory is full and a needed page is absent, the OS may evict a page. FIFO, LRU, and Optimal are classic replacement strategies with different behavior.",
+    "learn": "LRU tries to evict the page that has not been used for the longest recent interval.",
+    "example": "Replacement policy affects page-fault rate and performance.",
+    "keyPoints": [
+      "Why is Optimal mainly theoretical?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "It requires knowing future memory references, which a real OS cannot know exactly."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "os-11",
+    "subject": "OS",
+    "order": 11,
+    "topic": "Virtual Memory and Thrashing",
+    "level": "Interview",
+    "title": "Virtual memory gives processes a large logical address space and loads pages on demand. Thrashing occurs when page faults become so frequent that the system spends much of its time paging instead of doing useful work.",
+    "learn": "If too many active processes compete for too few frames, each can repeatedly evict pages needed by another.",
+    "example": "Working-set and admission-control ideas can reduce thrashing.",
+    "keyPoints": [
+      "What is thrashing?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "Excessive paging that causes very low useful CPU utilization."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "os-12",
+    "subject": "OS",
+    "order": 12,
+    "topic": "File Systems and Inodes",
+    "level": "Interview",
+    "title": "A file system organizes persistent data into files/directories and tracks metadata such as ownership, permissions, size, and block locations. Unix-like systems commonly represent file metadata through inodes.",
+    "learn": "A directory maps names to file identifiers; the inode stores metadata and references to file data blocks.",
+    "example": "Hard links and symbolic links have different semantics.",
+    "keyPoints": [
+      "What does an inode contain?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "Metadata and references needed to locate a file's data; the filename itself is typically stored in a directory entry."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "cn-07",
+    "subject": "CN",
+    "order": 7,
+    "topic": "Subnetting and CIDR",
+    "level": "Beginner",
+    "title": "CIDR represents an IP network using a prefix length such as /24. The prefix identifies the network portion and the remaining bits identify addresses within it.",
+    "learn": "192.168.1.0/24 contains 256 IPv4 addresses in the mathematical address range, subject to subnet-use conventions.",
+    "example": "Subnetting lets organizations divide address space and control routing boundaries.",
+    "keyPoints": [
+      "What does /24 mean?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "The first 24 bits are the network prefix and 8 bits remain for host addressing."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "cn-08",
+    "subject": "CN",
+    "order": 8,
+    "topic": "NAT and Private IPs",
+    "level": "Beginner",
+    "title": "Private IPv4 ranges are not globally routed on the public internet. NAT translates addresses/ports between private networks and public addresses.",
+    "learn": "Many home devices use private addresses behind one public IPv4 address using port translation.",
+    "example": "NAT conserves IPv4 addresses but complicates end-to-end connectivity.",
+    "keyPoints": [
+      "Why is NAT used?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "It allows many private hosts to share public addresses and provides a boundary between private and public addressing."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "cn-09",
+    "subject": "CN",
+    "order": 9,
+    "topic": "TCP Flow and Congestion Control",
+    "level": "Interview",
+    "title": "Flow control prevents a sender from overwhelming a receiver; congestion control responds to network congestion. TCP uses sequence numbers, acknowledgments, windows, and retransmission mechanisms.",
+    "learn": "A receiver advertises how much data it can accept, while the sender adjusts transmission based on network conditions.",
+    "example": "Flow and congestion windows solve different bottlenecks.",
+    "keyPoints": [
+      "Flow control vs congestion control?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "Flow control protects the receiver; congestion control protects the network from overload."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "cn-10",
+    "subject": "CN",
+    "order": 10,
+    "topic": "DNS Resolution",
+    "level": "Interview",
+    "title": "A DNS resolver finds records by consulting cache and, when needed, the DNS hierarchy. Common record types include A, AAAA, CNAME, MX, and TXT.",
+    "learn": "A browser may ask a recursive resolver for example.com; the resolver can obtain the answer from authoritative DNS servers if it is not cached.",
+    "example": "DNS caching reduces latency and query load.",
+    "keyPoints": [
+      "What is an authoritative DNS server?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "A server responsible for providing authoritative records for a DNS zone."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "cn-11",
+    "subject": "CN",
+    "order": 11,
+    "topic": "HTTP Cookies Sessions and Tokens",
+    "level": "Interview",
+    "title": "HTTP is stateless at the protocol level. Applications add state using cookies, server-side sessions, or tokens. Cookies are sent with matching requests and can carry a session identifier.",
+    "learn": "A login can create a server-side session and send its identifier in a secure cookie; subsequent requests use that identifier to associate the user with the session.",
+    "example": "Secure, HttpOnly, SameSite, expiry, and scope settings matter for cookie security.",
+    "keyPoints": [
+      "Cookie vs session?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "A cookie is client-side request state; a session commonly means server-side state referenced by an identifier stored in a cookie or other credential."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "cn-12",
+    "subject": "CN",
+    "order": 12,
+    "topic": "Load Balancers and CDNs",
+    "level": "Interview",
+    "title": "A load balancer distributes traffic across backend servers. A CDN caches and serves content from geographically distributed edge locations.",
+    "learn": "A web service can put a load balancer in front of application servers and a CDN in front of static assets.",
+    "example": "Health checks, routing, caching, and TLS termination are common responsibilities.",
+    "keyPoints": [
+      "Why use a load balancer?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "To distribute load, improve availability, and route traffic away from unhealthy instances."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "oop-07",
+    "subject": "OOP",
+    "order": 7,
+    "topic": "Interfaces vs Abstract Classes",
+    "level": "Beginner",
+    "title": "An interface defines a contract for behavior; an abstract class can combine abstract behavior with shared implementation/state. Exact capabilities depend on the language.",
+    "learn": "Java interfaces can define contracts and default methods; an abstract class can contain fields, constructors, and implemented methods.",
+    "example": "Choose based on the abstraction and reuse needed, not by memorizing a rule.",
+    "keyPoints": [
+      "When is an interface useful?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "When unrelated implementations should conform to a common capability without sharing a concrete class hierarchy."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "oop-08",
+    "subject": "OOP",
+    "order": 8,
+    "topic": "Composition Over Inheritance",
+    "level": "Beginner",
+    "title": "Composition builds an object from collaborators instead of inheriting implementation. It often makes behavior easier to replace and reduces coupling to a base class.",
+    "learn": "CheckoutService can receive a PaymentGateway rather than extending a particular payment provider.",
+    "example": "Dependency injection is a common way to implement composition.",
+    "keyPoints": [
+      "Why can composition be safer?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "Components can change independently and the object can choose collaborators without being locked into an inheritance hierarchy."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "oop-09",
+    "subject": "OOP",
+    "order": 9,
+    "topic": "Dependency Injection",
+    "level": "Interview",
+    "title": "Dependency injection supplies an object's collaborators from outside instead of having the object construct them internally.",
+    "learn": "OrderService receives PaymentGateway and EmailSender through its constructor, making both replaceable in tests.",
+    "example": "Constructor injection makes required dependencies explicit.",
+    "keyPoints": [
+      "Why does DI help testing?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "A test can inject a fake or mock collaborator without changing the business logic."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "oop-10",
+    "subject": "OOP",
+    "order": 10,
+    "topic": "Immutability",
+    "level": "Interview",
+    "title": "An immutable object cannot change its observable state after construction. Immutability simplifies reasoning and reduces accidental shared-state mutation.",
+    "learn": "A Money value object with final amount/currency fields can safely be shared between threads when its contents are immutable.",
+    "example": "Immutable objects are especially useful for value-like data and concurrent code.",
+    "keyPoints": [
+      "Why is immutability useful?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "There are fewer state transitions to reason about, making code safer to share and test."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "oop-11",
+    "subject": "OOP",
+    "order": 11,
+    "topic": "Exception Handling",
+    "level": "Interview",
+    "title": "Exceptions represent abnormal conditions that a program may handle at an appropriate boundary. Good design separates expected business outcomes from genuinely exceptional failures.",
+    "learn": "A repository can throw a persistence exception; a service can translate it into a meaningful application error.",
+    "example": "Do not silently catch errors or use exceptions as normal loop control.",
+    "keyPoints": [
+      "What makes exception handling good?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "Catch errors where you can recover or add context, preserve useful information, and avoid swallowing failures."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "oop-12",
+    "subject": "OOP",
+    "order": 12,
+    "topic": "Designing a Small Payment System",
+    "level": "Interview",
+    "title": "A payment design should separate order/business logic from provider-specific integrations. Use an abstraction for payment, isolate provider adapters, and make retries/idempotency explicit.",
+    "learn": "PaymentService can call PaymentGateway. StripeGateway and UpiGateway implement it; an idempotency key prevents duplicate charges on retries.",
+    "example": "Good OOP design starts from responsibilities and failure modes, not patterns.",
+    "keyPoints": [
+      "What should be protected from provider changes?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "Core business logic should depend on a stable payment abstraction, while provider-specific code stays behind adapters."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "sql-07",
+    "subject": "SQL",
+    "order": 7,
+    "topic": "NULL and Three-Valued Logic",
+    "level": "Beginner",
+    "title": "SQL NULL means unknown or missing, not ordinary zero or empty text. Comparisons involving NULL produce UNKNOWN, so IS NULL and IS NOT NULL are used for null checks.",
+    "learn": "WHERE salary = NULL does not match null salaries; WHERE salary IS NULL does.",
+    "example": "NULL can affect NOT IN and joins, so always reason about three-valued logic.",
+    "keyPoints": [
+      "Why doesn't = NULL work?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "NULL represents an unknown value, so equality with NULL is UNKNOWN rather than TRUE."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "sql-08",
+    "subject": "SQL",
+    "order": 8,
+    "topic": "Constraints and Schema Design",
+    "level": "Beginner",
+    "title": "Primary key, foreign key, UNIQUE, NOT NULL, CHECK, and appropriate data types encode data rules in the database.",
+    "learn": "An orders table can require user_id to reference users(id), amount to be non-negative, and created_at to be non-null.",
+    "example": "Constraints protect integrity even when multiple applications write to the same database.",
+    "keyPoints": [
+      "Why enforce rules in the DB?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "The database is the final shared integrity boundary; application-only validation can be bypassed by another writer."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "sql-09",
+    "subject": "SQL",
+    "order": 9,
+    "topic": "Transactions and Isolation in SQL",
+    "level": "Interview",
+    "title": "SQL transactions group statements into a unit and commonly use BEGIN/START TRANSACTION, COMMIT, and ROLLBACK. Isolation controls concurrent visibility.",
+    "learn": "An inventory update can reserve stock and create an order in one transaction so partial work does not remain committed.",
+    "example": "Isolation and locking/MVCC behavior depend on the DBMS.",
+    "keyPoints": [
+      "When should you use a transaction?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "When multiple changes must satisfy one atomic business operation or must be observed consistently."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "sql-10",
+    "subject": "SQL",
+    "order": 10,
+    "topic": "Duplicate Rows and DISTINCT",
+    "level": "Interview",
+    "title": "Duplicates can arise from joins, data modeling, or repeated source rows. DISTINCT removes duplicate result rows but should not be used blindly to hide a wrong join.",
+    "learn": "Joining users to orders returns one user row per matching order, so a user may appear multiple times.",
+    "example": "Fix the relational logic first; use DISTINCT only when duplicate results are semantically unwanted.",
+    "keyPoints": [
+      "Why can DISTINCT be dangerous as a quick fix?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "It can mask an incorrect join and add sorting/hash work while hiding the underlying data issue."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "sql-11",
+    "subject": "SQL",
+    "order": 11,
+    "topic": "Top N Per Group",
+    "level": "Interview",
+    "title": "Top-N-per-group asks for the highest-ranked rows independently within each group. Window functions are a clear general solution.",
+    "learn": "ROW_NUMBER() OVER(PARTITION BY department ORDER BY salary DESC) lets you filter rows where the row number is <= 3.",
+    "example": "Tie requirements determine whether ROW_NUMBER, RANK, or DENSE_RANK is appropriate.",
+    "keyPoints": [
+      "How do you get top 3 salaries per department?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "Rank rows within each department using a window function and filter the rank to the desired range."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "sql-12",
+    "subject": "SQL",
+    "order": 12,
+    "topic": "Reading Query Plans",
+    "level": "Interview",
+    "title": "A query plan shows operators the database intends to use, such as scans, joins, sorts, and aggregates. EXPLAIN ANALYZE in supported systems can compare estimates with actual execution.",
+    "learn": "If a query unexpectedly scans millions of rows, inspect predicates, indexes, statistics, and join strategy.",
+    "example": "Performance work should be evidence-driven.",
+    "keyPoints": [
+      "What do you inspect first in a slow query?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "The actual execution plan, row counts, expensive operators, predicates, indexes, and whether estimates differ significantly from reality."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dsa fundamentals-07",
+    "subject": "DSA Fundamentals",
+    "order": 7,
+    "topic": "Binary Search Variants",
+    "level": "Beginner",
+    "title": "Binary search is a family of algorithms that repeatedly eliminates half the search space using a monotonic condition. Variants find first/last occurrence or the first value satisfying a predicate.",
+    "learn": "To find the first position with a[i]>=x, keep a candidate answer and move left after a valid midpoint.",
+    "example": "The key is maintaining an invariant for the search interval.",
+    "keyPoints": [
+      "What is binary search on answer?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "Instead of searching an array, search a numeric answer range when feasibility is monotonic."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dsa fundamentals-08",
+    "subject": "DSA Fundamentals",
+    "order": 8,
+    "topic": "Monotonic Stack",
+    "level": "Beginner",
+    "title": "A monotonic stack maintains increasing or decreasing values so dominated elements can be discarded once their answer is known.",
+    "learn": "For Next Greater Element, while the current value is greater than the stack top, the current value is the answer for that popped index.",
+    "example": "Each element is pushed and popped at most once, giving O(n) total stack operations.",
+    "keyPoints": [
+      "Why is it O(n) despite a while loop?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "Every element can enter and leave the stack at most once, so total stack operations are linear."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dsa fundamentals-09",
+    "subject": "DSA Fundamentals",
+    "order": 9,
+    "topic": "Greedy Algorithms",
+    "level": "Interview",
+    "title": "Greedy algorithms make a locally best choice and rely on a proof that this choice can be part of an optimal solution. Not every optimization problem is greedy.",
+    "learn": "Interval scheduling chooses the activity with the earliest finishing time, which can be proved optimal for maximizing the number of non-overlapping intervals.",
+    "example": "A greedy solution needs a correctness argument, not just good-looking examples.",
+    "keyPoints": [
+      "How do you validate a greedy idea?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "Look for an exchange argument, cut property, or another proof that replacing an optimal choice with the greedy choice does not hurt optimality."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dsa fundamentals-10",
+    "subject": "DSA Fundamentals",
+    "order": 10,
+    "topic": "Graph Shortest Paths",
+    "level": "Interview",
+    "title": "For unweighted graphs, BFS gives shortest edge-count paths. Dijkstra handles non-negative edge weights. Bellman-Ford can handle negative edges and detect reachable negative cycles.",
+    "learn": "If all edges have weight 1, BFS is simpler than Dijkstra. With varying non-negative weights, Dijkstra uses a priority queue.",
+    "example": "Choosing the algorithm depends on edge weights and graph properties.",
+    "keyPoints": [
+      "When can Dijkstra fail?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "With negative edge weights, its usual greedy correctness assumption fails."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dsa fundamentals-11",
+    "subject": "DSA Fundamentals",
+    "order": 11,
+    "topic": "Disjoint Set Union",
+    "level": "Interview",
+    "title": "DSU maintains disjoint sets with find and union operations. Path compression and union by size/rank make operations nearly constant amortized time.",
+    "learn": "For Kruskal's MST, union endpoints of each chosen edge and reject an edge if both endpoints are already in the same set.",
+    "example": "DSU is excellent for connectivity under merges.",
+    "keyPoints": [
+      "Why does DSU help Kruskal?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "It quickly tells whether adding an edge would connect vertices already in the same component, preventing cycles."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
+  },
+  {
+    "id": "dsa fundamentals-12",
+    "subject": "DSA Fundamentals",
+    "order": 12,
+    "topic": "Backtracking",
+    "level": "Interview",
+    "title": "Backtracking explores a decision tree, recursively choosing options and undoing choices when a branch cannot produce a solution.",
+    "learn": "For subsets, choose to include or exclude each element. For N-Queens, place a queen only when the current partial board remains valid.",
+    "example": "Pruning reduces the search tree but worst-case complexity can remain exponential.",
+    "keyPoints": [
+      "What is the core backtracking pattern?",
+      "Understand the reason, not just the definition.",
+      "Be able to explain the concept with a small example."
+    ],
+    "interview": [
+      {
+        "q": "Choose → recurse → undo, while pruning states that cannot lead to a valid solution."
+      }
+    ],
+    "mcq": {
+      "q": "Which statement is most accurate?",
+      "options": [
+        null,
+        "It is only useful in theory.",
+        "It removes the need for testing.",
+        "It always gives the fastest solution."
+      ],
+      "answer": 0
+    }
   }
 ]
