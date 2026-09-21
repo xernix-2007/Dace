@@ -4,10 +4,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { Github, Chrome, ArrowRight, Loader2, UserRound } from "lucide-react";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+function getSupabase(){ return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!); }
 
 export default function LoginPage(){
   const [mode,setMode]=useState<"login"|"signup">("login");
@@ -19,13 +16,13 @@ export default function LoginPage(){
   const [loading,setLoading]=useState(false);
 
   useEffect(()=>{
-    supabase.auth.getUser().then(({data})=>{ if(data.user) window.location.href="/"; });
+    getSupabase().auth.getUser().then(({data})=>{ if(data.user) window.location.href="/"; });
   },[]);
 
   async function submit(e:FormEvent){
     e.preventDefault(); setLoading(true); setMessage("");
     if(mode==="signup"){
-      const {data,error}=await supabase.auth.signUp({
+      const {data,error}=await getSupabase().auth.signUp({
         email,password,
         options:{data:{full_name:name.trim(),username:username.trim()}}
       });
@@ -33,7 +30,7 @@ export default function LoginPage(){
       else if(data.session) window.location.href="/";
       else setMessage("Account created. Check your email to confirm your account.");
     }else{
-      const {error}=await supabase.auth.signInWithPassword({email,password});
+      const {error}=await getSupabase().auth.signInWithPassword({email,password});
       if(error) setMessage(error.message);
       else window.location.href="/";
     }
@@ -42,7 +39,7 @@ export default function LoginPage(){
 
   async function oauth(provider:"github"|"google"){
     setLoading(true); setMessage("");
-    const {error}=await supabase.auth.signInWithOAuth({
+    const {error}=await getSupabase().auth.signInWithOAuth({
       provider,
       options:{redirectTo:window.location.origin+"/auth/callback"}
     });
