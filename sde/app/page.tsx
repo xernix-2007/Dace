@@ -307,6 +307,16 @@ function Overview({today,solvedToday,streak,weeklySolved,completion,totalTime,so
    </div>
   </div>
 
+  <CodingCalendar solvedAt={solvedAt}/>
+
+  <div className="mt-5 grid md:grid-cols-3 gap-4">
+   <FeatureCard icon="timer" title="Solve with intent" text="Track actual time, expected time, attempts and hints."/>
+   <FeatureCard icon="shield" title="Own your data" text="Local-first progress with export/import backup."/>
+   <FeatureCard icon="trophy" title="Prepare for interviews" text="Company filters, revision loops and interview mode."/>
+  </div>
+ </div>
+}
+
 
 function CodingCalendar({solvedAt}:{solvedAt:Record<number,string>}){
  const year=new Date().getFullYear();
@@ -318,15 +328,6 @@ function CodingCalendar({solvedAt}:{solvedAt:Record<number,string>}){
  return <div className="panel rounded-2xl p-5 mt-5"><div className="flex flex-wrap items-end justify-between gap-3"><div><div className="text-[10px] tracking-[.2em] text-pink-200">CODING HEATMAP</div><h2 className="text-xl font-black mt-1">{year} consistency</h2></div><div className="text-right"><div className="text-2xl font-black">{Object.values(counts).reduce((a,b)=>a+b,0)}</div><div className="text-[10px] uppercase tracking-wider text-[#657387]">solved</div></div></div><div className="mt-5 overflow-x-auto"><div className="grid grid-cols-7 gap-1 min-w-[760px]">{days.map(d=>{const n=counts[d]||0;return <button key={d} title={d+' · '+n+' solved'} onClick={()=>{}} className={'h-5 rounded-[5px] border transition hover:scale-110 '+level(n)} aria-label={d+' '+n+' solved'}/>})}</div></div><div className="mt-3 flex justify-end gap-2 items-center text-[10px] text-[#657387]"><span>Less</span>{[0,1,2,4].map(n=><span key={n} className={'h-3 w-3 rounded-[3px] border '+level(n)}/>)}<span>More</span></div></div>
 }
 
-  <CodingCalendar solvedAt={solvedAt}/>
-
-  <div className="mt-5 grid md:grid-cols-3 gap-4">
-   <FeatureCard icon="timer" title="Solve with intent" text="Track actual time, expected time, attempts and hints."/>
-   <FeatureCard icon="shield" title="Own your data" text="Local-first progress with export/import backup."/>
-   <FeatureCard icon="trophy" title="Prepare for interviews" text="Company filters, revision loops and interview mode."/>
-  </div>
- </div>
-}
 
 function TodayPage({today,solved,status,solvedToday,company,companies,setCompany,openTimer,mark,regenerate}:{today:Problem[];solved:number[];status:Record<number,Status>;solvedToday:number;company:string;companies:string[];setCompany:(c:string)=>void;openTimer:(p:Problem)=>void;mark:(p:Problem,s:Status)=>void;regenerate:()=>void}){
  const completion=Math.round(solvedToday/5*100);
