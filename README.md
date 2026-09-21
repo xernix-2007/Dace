@@ -1,10 +1,10 @@
-# DayFlow AI
+# Dace
 
 A personal productivity system that learns how you work.
 
 ## Vision
 
-DayFlow AI is not just a to-do list. It combines:
+Dace is not just a to-do list. It combines:
 
 - Time-blocked daily planning
 - Local task and focus tracking
