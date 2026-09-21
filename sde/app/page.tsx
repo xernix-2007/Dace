@@ -71,6 +71,7 @@ export default function Home(){
  const [company,setCompany]=useState("All");
  const [target,setTarget]=useState({Easy:1,Medium:2,Hard:2});
  const [solved,setSolved]=useState<number[]>([]);
+ const [solvedAt,setSolvedAt]=useState<Record<number,string>>({});
  const [status,setStatus]=useState<Record<number,Status>>({});
  const [daily,setDaily]=useState<Record<string,number[]>>({});
  const [timeSpent,setTimeSpent]=useState<Record<number,number>>({});
@@ -83,12 +84,14 @@ export default function Home(){
  const [difficulty,setDifficulty]=useState<"All"|Difficulty>("All");
  const [topic,setTopic]=useState("All");
  const [interviewTime,setInterviewTime]=useState(45);
+ const [hydrated,setHydrated]=useState(false);
  const todayKey=dateKey();
 
  useEffect(()=>{
   try{
    const load=(k:string)=>localStorage.getItem(k);
    if(load("dace-solved"))setSolved(JSON.parse(load("dace-solved")!));
+   if(load("dace-solved-at"))setSolvedAt(JSON.parse(load("dace-solved-at")!));
    if(load("dace-status"))setStatus(JSON.parse(load("dace-status")!));
    if(load("dace-daily"))setDaily(JSON.parse(load("dace-daily")!));
    if(load("dace-time"))setTimeSpent(JSON.parse(load("dace-time")!));
@@ -96,16 +99,17 @@ export default function Home(){
    if(load("dace-hints"))setHints(JSON.parse(load("dace-hints")!));
    if(load("dace-target"))setTarget(JSON.parse(load("dace-target")!));
    if(load("dace-company"))setCompany(load("dace-company")!);
-  }catch{}
+  }catch{} finally { setHydrated(true); }
  },[]);
- useEffect(()=>localStorage.setItem("dace-solved",JSON.stringify(solved)),[solved]);
- useEffect(()=>localStorage.setItem("dace-status",JSON.stringify(status)),[status]);
- useEffect(()=>localStorage.setItem("dace-daily",JSON.stringify(daily)),[daily]);
- useEffect(()=>localStorage.setItem("dace-time",JSON.stringify(timeSpent)),[timeSpent]);
- useEffect(()=>localStorage.setItem("dace-attempts",JSON.stringify(attempts)),[attempts]);
- useEffect(()=>localStorage.setItem("dace-hints",JSON.stringify(hints)),[hints]);
- useEffect(()=>localStorage.setItem("dace-target",JSON.stringify(target)),[target]);
- useEffect(()=>localStorage.setItem("dace-company",company),[company]);
+ useEffect(()=>{if(hydrated)localStorage.setItem("dace-solved",JSON.stringify(solved))},[solved,hydrated]);
+ useEffect(()=>{if(hydrated)localStorage.setItem("dace-solved-at",JSON.stringify(solvedAt))},[solvedAt,hydrated]);
+ useEffect(()=>{if(hydrated)localStorage.setItem("dace-status",JSON.stringify(status))},[status,hydrated]);
+ useEffect(()=>{if(hydrated)localStorage.setItem("dace-daily",JSON.stringify(daily))},[daily,hydrated]);
+ useEffect(()=>{if(hydrated)localStorage.setItem("dace-time",JSON.stringify(timeSpent))},[timeSpent,hydrated]);
+ useEffect(()=>{if(hydrated)localStorage.setItem("dace-attempts",JSON.stringify(attempts))},[attempts,hydrated]);
+ useEffect(()=>{if(hydrated)localStorage.setItem("dace-hints",JSON.stringify(hints))},[hints,hydrated]);
+ useEffect(()=>{if(hydrated)localStorage.setItem("dace-target",JSON.stringify(target))},[target,hydrated]);
+ useEffect(()=>{if(hydrated)localStorage.setItem("dace-company",company)},[company,hydrated]);
  useEffect(()=>{if(!running)return;const t=setInterval(()=>setSeconds(s=>s+1),1000);return()=>clearInterval(t)},[running]);
 
  const topicStats=useMemo(()=>{
@@ -131,6 +135,7 @@ export default function Home(){
  };
 
  const todayIds=useMemo(()=>{
+  if(!hydrated)return [];
   if(daily[todayKey])return daily[todayKey];
   const available=problems.filter(p=>!solved.includes(p.id));
   const picked:number[]=[];
@@ -153,18 +158,19 @@ export default function Home(){
   }
   setDaily(x=>({...x,[todayKey]:picked}));
   return picked;
- },[daily,todayKey,solved,company,target,topicStats,recentIds]);
+ },[daily,todayKey,solved,company,target,topicStats,recentIds,hydrated]);
 
  const today=todayIds.map(id=>problems.find(p=>p.id===id)).filter(Boolean) as Problem[];
  const solvedToday=today.filter(p=>solved.includes(p.id)).length;
  const totalTime=Object.values(timeSpent).reduce((a,b)=>a+b,0);
  const totalSolved=solved.length;
  const completion=Math.round(totalSolved/problems.length*100);
+ const solvedDateSet=useMemo(()=>new Set(Object.values(solvedAt)),[solvedAt]);
  const streak=useMemo(()=>{
   let n=0;
-  for(let i=0;i<365;i++){const d=new Date();d.setDate(d.getDate()-i);const ids=daily[dateKey(d)]||[];if(!ids.length||!ids.every(id=>solved.includes(id)))break;n++}
+  for(let i=0;i<365;i++){const d=new Date();d.setDate(d.getDate()-i);if(!solvedDateSet.has(dateKey(d)))break;n++}
   return n;
- },[daily,solved]);
+ },[solvedDateSet]);
 
  const filtered=useMemo(()=>problems.filter(p=>
   (difficulty==="All"||p.difficulty===difficulty)&&
@@ -174,15 +180,21 @@ export default function Home(){
  ),[difficulty,topic,company,search]);
 
  const weeklySolved=useMemo(()=>{
-  let n=0;for(let i=0;i<7;i++){const d=new Date();d.setDate(d.getDate()-i);n+=(daily[dateKey(d)]||[]).filter(id=>solved.includes(id)).length}return n;
- },[daily,solved]);
+  let n=0;for(let i=0;i<7;i++){const d=new Date();d.setDate(d.getDate()-i);const k=dateKey(d);n+=Object.values(solvedAt).filter(v=>v===k).length}return n;
+ },[solvedAt]);
 
  function regenerateToday(){
   setDaily(x=>{const y={...x};delete y[todayKey];return y});
  }
  function mark(p:Problem,s:Status){
   setStatus(x=>({...x,[p.id]:s}));
-  setSolved(x=>s==="solved"?(x.includes(p.id)?x:[...x,p.id]):x.filter(id=>id!==p.id));
+  if(s==="solved"){
+   setSolved(x=>x.includes(p.id)?x:[...x,p.id]);
+   setSolvedAt(x=>({...x,[p.id]:x[p.id]||new Date().toISOString().slice(0,10)}));
+  }else{
+   setSolved(x=>x.filter(id=>id!==p.id));
+   setSolvedAt(x=>{const y={...x};delete y[p.id];return y});
+  }
  }
  function openTimer(p:Problem){
   setActive(p);setSeconds(0);setRunning(false);
@@ -239,13 +251,13 @@ export default function Home(){
    </aside>
 
    <section className="flex-1 min-w-0">
-    {view==="overview"&&<Overview today={today} solvedToday={solvedToday} streak={streak} weeklySolved={weeklySolved} completion={completion} totalTime={totalTime} setView={setView} openTimer={openTimer}/>}
-    {view==="today"&&<TodayPage today={today} solved={solved} status={status} solvedToday={solvedToday} company={company} companies={companies} setCompany={(c)=>{setCompany(c);regenerateToday()}} openTimer={openTimer} mark={mark} regenerate={regenerateToday}/>}
+    {view==="overview"&&<Overview today={today} solvedToday={solvedToday} streak={streak} weeklySolved={weeklySolved} completion={completion} totalTime={totalTime} solvedAt={solvedAt} setView={setView} openTimer={openTimer}/>}
+    {view==="today"&&<TodayPage today={today} solved={solved} status={status} solvedToday={solvedToday} company={company} companies={companies} setCompany={setCompany} openTimer={openTimer} mark={mark} regenerate={regenerateToday}/>}
     {view==="problems"&&<ProblemsPage problems={filtered} solved={solved} status={status} search={search} setSearch={setSearch} difficulty={difficulty} setDifficulty={setDifficulty} topic={topic} setTopic={setTopic} openTimer={openTimer} mark={mark}/>}
-    {view==="companies"&&<CompaniesPage company={company} companies={companies} setCompany={(c)=>{setCompany(c);regenerateToday()}} problems={problems} solved={solved} status={status} openTimer={openTimer} mark={mark}/>}
+    {view==="companies"&&<CompaniesPage company={company} companies={companies} setCompany={setCompany} problems={problems} solved={solved} status={status} openTimer={openTimer} mark={mark}/>}
     {view==="analytics"&&<AnalyticsPage problems={problems} solved={solved} status={status} timeSpent={timeSpent} topicStats={topicStats} streak={streak} totalTime={totalTime}/>}
     {view==="interview"&&<InterviewPage problems={problems} interviewTime={interviewTime} setInterviewTime={setInterviewTime} openTimer={openTimer}/>}
-    {view==="settings"&&<SettingsPage target={target} setTarget={setTarget} company={company} setCompany={c=>{setCompany(c);regenerateToday()}} companies={companies} exportData={exportData} importData={importData} resetAll={resetAll}/>}
+    {view==="settings"&&<SettingsPage target={target} setTarget={setTarget} company={company} setCompany={setCompany} companies={companies} exportData={exportData} importData={importData} resetAll={resetAll}/>}
    </section>
   </div>
 
@@ -257,7 +269,7 @@ function NavButton({active,label,icon,onClick}:{active:boolean;label:string;icon
  return <button onClick={onClick} className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm mb-1.5 transition ${active?"bg-gradient-to-r from-cyan-300/10 to-violet-400/10 border border-cyan-300/10 text-white":"text-[#8391a5] hover:text-white hover:bg-white/[.035]"}`}><Icon name={icon} size={17}/><span>{label}</span>{active&&<span className="ml-auto w-1.5 h-1.5 rounded-full bg-cyan-300"/>}</button>
 }
 
-function Overview({today,solvedToday,streak,weeklySolved,completion,totalTime,setView,openTimer}:{today:Problem[];solvedToday:number;streak:number;weeklySolved:number;completion:number;totalTime:number;setView:(v:View)=>void;openTimer:(p:Problem)=>void}){
+function Overview({today,solvedToday,streak,weeklySolved,completion,totalTime,solvedAt,setView,openTimer}:{today:Problem[];solvedToday:number;streak:number;weeklySolved:number;completion:number;totalTime:number;solvedAt:Record<number,string>;setView:(v:View)=>void;openTimer:(p:Problem)=>void}){
  const focus=today.filter(p=>p.difficulty!=="Easy").slice(0,3);
  return <div className="max-w-7xl mx-auto p-5 md:p-8">
   <div className="fade-up panel rounded-3xl p-6 md:p-9 relative overflow-hidden glow-cyan">
@@ -294,6 +306,17 @@ function Overview({today,solvedToday,streak,weeklySolved,completion,totalTime,se
     <button onClick={()=>setView("analytics")} className="mt-6 text-xs text-cyan-200 hover:text-white flex items-center gap-1">See full weakness map <ChevronRight size={14}/></button>
    </div>
   </div>
+
+
+function CodingCalendar({solvedAt}:{solvedAt:Record<number,string>}){
+ const year=new Date().getFullYear();
+ const counts:Record<string,number>={};
+ for(const d of Object.values(solvedAt))counts[d]=(counts[d]||0)+1;
+ const start=new Date(year,0,1);const end=new Date(year,11,31);
+ const days:string[]=[];for(let d=new Date(start);d<=end;d.setDate(d.getDate()+1))days.push(dateKey(d));
+ const level=(n:number)=>n===0?'bg-white/[.04] border-white/[.04]':n===1?'bg-fuchsia-500/25 border-fuchsia-400/20':n<=3?'bg-fuchsia-500/55 border-fuchsia-400/30':'bg-fuchsia-400 border-fuchsia-300/60';
+ return <div className="panel rounded-2xl p-5 mt-5"><div className="flex flex-wrap items-end justify-between gap-3"><div><div className="text-[10px] tracking-[.2em] text-pink-200">CODING HEATMAP</div><h2 className="text-xl font-black mt-1">{year} consistency</h2></div><div className="text-right"><div className="text-2xl font-black">{Object.values(counts).reduce((a,b)=>a+b,0)}</div><div className="text-[10px] uppercase tracking-wider text-[#657387]">solved</div></div></div><div className="mt-5 overflow-x-auto"><div className="grid grid-cols-7 gap-1 min-w-[760px]">{days.map(d=>{const n=counts[d]||0;return <button key={d} title={d+' · '+n+' solved'} onClick={()=>{}} className={'h-5 rounded-[5px] border transition hover:scale-110 '+level(n)} aria-label={d+' '+n+' solved'}/>})}</div></div><div className="mt-3 flex justify-end gap-2 items-center text-[10px] text-[#657387]"><span>Less</span>{[0,1,2,4].map(n=><span key={n} className={'h-3 w-3 rounded-[3px] border '+level(n)}/>)}<span>More</span></div></div>
+}
 
   <div className="mt-5 grid md:grid-cols-3 gap-4">
    <FeatureCard icon="timer" title="Solve with intent" text="Track actual time, expected time, attempts and hints."/>
