@@ -1,0 +1,1474 @@
+[
+  {
+    "id": "Core CS-DBMS-1",
+    "category": "Core CS",
+    "subCategory": "DBMS",
+    "title": "Explain primary key vs candidate key vs super key.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-DBMS-2",
+    "category": "Core CS",
+    "subCategory": "DBMS",
+    "title": "Explain normalization from 1NF through BCNF with a practical example.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-DBMS-3",
+    "category": "Core CS",
+    "subCategory": "DBMS",
+    "title": "When would denormalization be useful? What trade-off does it introduce?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-DBMS-4",
+    "category": "Core CS",
+    "subCategory": "DBMS",
+    "title": "Explain clustered vs non-clustered indexes.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-DBMS-5",
+    "category": "Core CS",
+    "subCategory": "DBMS",
+    "title": "How does a B+ tree index support range queries?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-DBMS-6",
+    "category": "Core CS",
+    "subCategory": "DBMS",
+    "title": "Explain ACID properties using a bank transfer.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-DBMS-7",
+    "category": "Core CS",
+    "subCategory": "DBMS",
+    "title": "What are dirty read, non-repeatable read and phantom read?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-DBMS-8",
+    "category": "Core CS",
+    "subCategory": "DBMS",
+    "title": "Compare read committed, repeatable read and serializable isolation.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-DBMS-9",
+    "category": "Core CS",
+    "subCategory": "DBMS",
+    "title": "Explain optimistic vs pessimistic concurrency control.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-DBMS-10",
+    "category": "Core CS",
+    "subCategory": "DBMS",
+    "title": "What is a deadlock in a database and how can it be handled?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-DBMS-11",
+    "category": "Core CS",
+    "subCategory": "DBMS",
+    "title": "Explain two-phase locking.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-DBMS-12",
+    "category": "Core CS",
+    "subCategory": "DBMS",
+    "title": "What is a transaction schedule and when is it serializable?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-DBMS-13",
+    "category": "Core CS",
+    "subCategory": "DBMS",
+    "title": "Explain SQL query execution at a high level.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-DBMS-14",
+    "category": "Core CS",
+    "subCategory": "DBMS",
+    "title": "What is a composite index and how does column order matter?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-DBMS-15",
+    "category": "Core CS",
+    "subCategory": "DBMS",
+    "title": "Explain database sharding and its trade-offs.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-DBMS-16",
+    "category": "Core CS",
+    "subCategory": "DBMS",
+    "title": "Replication vs partitioning: what problem does each solve?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-DBMS-17",
+    "category": "Core CS",
+    "subCategory": "DBMS",
+    "title": "What is write-ahead logging?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-DBMS-18",
+    "category": "Core CS",
+    "subCategory": "DBMS",
+    "title": "Explain database checkpoints and crash recovery.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-DBMS-19",
+    "category": "Core CS",
+    "subCategory": "DBMS",
+    "title": "Why can an index make writes slower?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-DBMS-20",
+    "category": "Core CS",
+    "subCategory": "DBMS",
+    "title": "Design a schema for a student-course-enrollment system and justify keys.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OS-21",
+    "category": "Core CS",
+    "subCategory": "OS",
+    "title": "Explain process vs program vs thread.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OS-22",
+    "category": "Core CS",
+    "subCategory": "OS",
+    "title": "Explain the process lifecycle and PCB.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OS-23",
+    "category": "Core CS",
+    "subCategory": "OS",
+    "title": "Context switch: what happens and why is it expensive?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OS-24",
+    "category": "Core CS",
+    "subCategory": "OS",
+    "title": "Compare FCFS, SJF, SRTF and Round Robin.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OS-25",
+    "category": "Core CS",
+    "subCategory": "OS",
+    "title": "What is starvation and how is aging used?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OS-26",
+    "category": "Core CS",
+    "subCategory": "OS",
+    "title": "Explain preemptive vs non-preemptive scheduling.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OS-27",
+    "category": "Core CS",
+    "subCategory": "OS",
+    "title": "Process vs thread: when would you choose each?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OS-28",
+    "category": "Core CS",
+    "subCategory": "OS",
+    "title": "Explain user mode and kernel mode.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OS-29",
+    "category": "Core CS",
+    "subCategory": "OS",
+    "title": "What happens during a system call?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OS-30",
+    "category": "Core CS",
+    "subCategory": "OS",
+    "title": "Explain virtual memory and address translation.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OS-31",
+    "category": "Core CS",
+    "subCategory": "OS",
+    "title": "What is a page fault? Walk through handling one.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OS-32",
+    "category": "Core CS",
+    "subCategory": "OS",
+    "title": "Paging vs segmentation.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OS-33",
+    "category": "Core CS",
+    "subCategory": "OS",
+    "title": "Explain TLB and why it improves memory access.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OS-34",
+    "category": "Core CS",
+    "subCategory": "OS",
+    "title": "What causes thrashing?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OS-35",
+    "category": "Core CS",
+    "subCategory": "OS",
+    "title": "Explain deadlock and the four Coffman conditions.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OS-36",
+    "category": "Core CS",
+    "subCategory": "OS",
+    "title": "Deadlock prevention vs avoidance vs detection.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OS-37",
+    "category": "Core CS",
+    "subCategory": "OS",
+    "title": "What is a semaphore? Compare binary and counting semaphores.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OS-38",
+    "category": "Core CS",
+    "subCategory": "OS",
+    "title": "Mutex vs semaphore.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OS-39",
+    "category": "Core CS",
+    "subCategory": "OS",
+    "title": "Explain producer-consumer using synchronization primitives.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OS-40",
+    "category": "Core CS",
+    "subCategory": "OS",
+    "title": "What is copy-on-write and where is it useful?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-CN-41",
+    "category": "Core CS",
+    "subCategory": "CN",
+    "title": "Explain the OSI and TCP/IP models.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-CN-42",
+    "category": "Core CS",
+    "subCategory": "CN",
+    "title": "MAC address vs IP address.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-CN-43",
+    "category": "Core CS",
+    "subCategory": "CN",
+    "title": "Hub vs switch vs router.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-CN-44",
+    "category": "Core CS",
+    "subCategory": "CN",
+    "title": "What happens when you enter a URL in a browser?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-CN-45",
+    "category": "Core CS",
+    "subCategory": "CN",
+    "title": "Explain DNS resolution.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-CN-46",
+    "category": "Core CS",
+    "subCategory": "CN",
+    "title": "TCP vs UDP and practical use cases.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-CN-47",
+    "category": "Core CS",
+    "subCategory": "CN",
+    "title": "Explain the TCP three-way handshake.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-CN-48",
+    "category": "Core CS",
+    "subCategory": "CN",
+    "title": "What happens during TCP connection termination?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-CN-49",
+    "category": "Core CS",
+    "subCategory": "CN",
+    "title": "Flow control vs congestion control.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-CN-50",
+    "category": "Core CS",
+    "subCategory": "CN",
+    "title": "Explain TCP retransmission and acknowledgements.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-CN-51",
+    "category": "Core CS",
+    "subCategory": "CN",
+    "title": "What is an IP subnet and why is CIDR useful?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-CN-52",
+    "category": "Core CS",
+    "subCategory": "CN",
+    "title": "Explain ARP.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-CN-53",
+    "category": "Core CS",
+    "subCategory": "CN",
+    "title": "What is NAT and why is it used?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-CN-54",
+    "category": "Core CS",
+    "subCategory": "CN",
+    "title": "HTTP vs HTTPS.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-CN-55",
+    "category": "Core CS",
+    "subCategory": "CN",
+    "title": "What happens during a TLS handshake at a high level?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-CN-56",
+    "category": "Core CS",
+    "subCategory": "CN",
+    "title": "Explain HTTP methods and idempotency.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-CN-57",
+    "category": "Core CS",
+    "subCategory": "CN",
+    "title": "What are cookies, sessions and tokens?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-CN-58",
+    "category": "Core CS",
+    "subCategory": "CN",
+    "title": "What is a reverse proxy?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-CN-59",
+    "category": "Core CS",
+    "subCategory": "CN",
+    "title": "Load balancer: why and how is it used?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OOP-60",
+    "category": "Core CS",
+    "subCategory": "OOP",
+    "title": "Explain class, object, state and behavior.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OOP-61",
+    "category": "Core CS",
+    "subCategory": "OOP",
+    "title": "Encapsulation vs abstraction.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OOP-62",
+    "category": "Core CS",
+    "subCategory": "OOP",
+    "title": "Inheritance vs composition.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OOP-63",
+    "category": "Core CS",
+    "subCategory": "OOP",
+    "title": "Explain polymorphism with a real example.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OOP-64",
+    "category": "Core CS",
+    "subCategory": "OOP",
+    "title": "Compile-time vs runtime polymorphism.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OOP-65",
+    "category": "Core CS",
+    "subCategory": "OOP",
+    "title": "Interface vs abstract class.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OOP-66",
+    "category": "Core CS",
+    "subCategory": "OOP",
+    "title": "What is method overriding?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OOP-67",
+    "category": "Core CS",
+    "subCategory": "OOP",
+    "title": "What is method overloading?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OOP-68",
+    "category": "Core CS",
+    "subCategory": "OOP",
+    "title": "Explain constructor chaining.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OOP-69",
+    "category": "Core CS",
+    "subCategory": "OOP",
+    "title": "What is the Liskov Substitution Principle?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OOP-70",
+    "category": "Core CS",
+    "subCategory": "OOP",
+    "title": "Explain SOLID with one practical example per principle.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OOP-71",
+    "category": "Core CS",
+    "subCategory": "OOP",
+    "title": "When can inheritance create tight coupling?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OOP-72",
+    "category": "Core CS",
+    "subCategory": "OOP",
+    "title": "Design a notification system using interfaces.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OOP-73",
+    "category": "Core CS",
+    "subCategory": "OOP",
+    "title": "Design a parking-lot model using OOP.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OOP-74",
+    "category": "Core CS",
+    "subCategory": "OOP",
+    "title": "Design a library management model and identify entities.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OOP-75",
+    "category": "Core CS",
+    "subCategory": "OOP",
+    "title": "Explain dependency inversion with a service/repository example.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OOP-76",
+    "category": "Core CS",
+    "subCategory": "OOP",
+    "title": "What is immutability and why is it useful?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OOP-77",
+    "category": "Core CS",
+    "subCategory": "OOP",
+    "title": "Composition vs aggregation.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OOP-78",
+    "category": "Core CS",
+    "subCategory": "OOP",
+    "title": "What is an association between objects?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-OOP-79",
+    "category": "Core CS",
+    "subCategory": "OOP",
+    "title": "How would you make a class thread-safe?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-SQL-80",
+    "category": "Core CS",
+    "subCategory": "SQL",
+    "title": "Find the second-highest salary without using LIMIT/OFFSET.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-SQL-81",
+    "category": "Core CS",
+    "subCategory": "SQL",
+    "title": "Find duplicate rows based on a set of columns.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-SQL-82",
+    "category": "Core CS",
+    "subCategory": "SQL",
+    "title": "Find employees earning more than their department average.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-SQL-83",
+    "category": "Core CS",
+    "subCategory": "SQL",
+    "title": "Return the top 3 salaries per department.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-SQL-84",
+    "category": "Core CS",
+    "subCategory": "SQL",
+    "title": "Explain INNER, LEFT, RIGHT and FULL joins.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-SQL-85",
+    "category": "Core CS",
+    "subCategory": "SQL",
+    "title": "WHERE vs HAVING.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-SQL-86",
+    "category": "Core CS",
+    "subCategory": "SQL",
+    "title": "GROUP BY: what happens conceptually?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-SQL-87",
+    "category": "Core CS",
+    "subCategory": "SQL",
+    "title": "COUNT(*) vs COUNT(column).",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-SQL-88",
+    "category": "Core CS",
+    "subCategory": "SQL",
+    "title": "Write a query for customers with no orders.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-SQL-89",
+    "category": "Core CS",
+    "subCategory": "SQL",
+    "title": "Find consecutive login days for each user.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-SQL-90",
+    "category": "Core CS",
+    "subCategory": "SQL",
+    "title": "Find each user's latest order.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-SQL-91",
+    "category": "Core CS",
+    "subCategory": "SQL",
+    "title": "Use a window function to rank employees by salary.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-SQL-92",
+    "category": "Core CS",
+    "subCategory": "SQL",
+    "title": "RANK vs DENSE_RANK vs ROW_NUMBER.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-SQL-93",
+    "category": "Core CS",
+    "subCategory": "SQL",
+    "title": "Find a running total of sales by date.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-SQL-94",
+    "category": "Core CS",
+    "subCategory": "SQL",
+    "title": "Find the percentage contribution of each product to total sales.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-SQL-95",
+    "category": "Core CS",
+    "subCategory": "SQL",
+    "title": "CTE vs subquery.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-SQL-96",
+    "category": "Core CS",
+    "subCategory": "SQL",
+    "title": "Correlated vs non-correlated subquery.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-SQL-97",
+    "category": "Core CS",
+    "subCategory": "SQL",
+    "title": "UNION vs UNION ALL.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-SQL-98",
+    "category": "Core CS",
+    "subCategory": "SQL",
+    "title": "How would you debug a slow SQL query?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Core CS-SQL-99",
+    "category": "Core CS",
+    "subCategory": "SQL",
+    "title": "Write a transaction that transfers money safely between two accounts.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-Machine Coding-100",
+    "category": "Interview Engineering",
+    "subCategory": "Machine Coding",
+    "title": "Build an in-memory parking lot with vehicle types and slot allocation.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-Machine Coding-101",
+    "category": "Interview Engineering",
+    "subCategory": "Machine Coding",
+    "title": "Build a rate limiter supporting per-user limits.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-Machine Coding-102",
+    "category": "Interview Engineering",
+    "subCategory": "Machine Coding",
+    "title": "Build an LRU cache with O(1) get and put.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-Machine Coding-103",
+    "category": "Interview Engineering",
+    "subCategory": "Machine Coding",
+    "title": "Build a thread-safe task queue.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-Machine Coding-104",
+    "category": "Interview Engineering",
+    "subCategory": "Machine Coding",
+    "title": "Build a notification dispatcher with multiple channels.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-Machine Coding-105",
+    "category": "Interview Engineering",
+    "subCategory": "Machine Coding",
+    "title": "Build a splitwise-style expense settlement engine.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-Machine Coding-106",
+    "category": "Interview Engineering",
+    "subCategory": "Machine Coding",
+    "title": "Build a simple elevator controller.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-Machine Coding-107",
+    "category": "Interview Engineering",
+    "subCategory": "Machine Coding",
+    "title": "Build a vending machine state machine.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-Machine Coding-108",
+    "category": "Interview Engineering",
+    "subCategory": "Machine Coding",
+    "title": "Build a file-system tree with create, read and list operations.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-Machine Coding-109",
+    "category": "Interview Engineering",
+    "subCategory": "Machine Coding",
+    "title": "Build a movie-ticket booking service with seat locking.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-LLD-110",
+    "category": "Interview Engineering",
+    "subCategory": "LLD",
+    "title": "Design a parking lot using SOLID principles.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-LLD-111",
+    "category": "Interview Engineering",
+    "subCategory": "LLD",
+    "title": "Design an elevator system.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-LLD-112",
+    "category": "Interview Engineering",
+    "subCategory": "LLD",
+    "title": "Design a chess game model.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-LLD-113",
+    "category": "Interview Engineering",
+    "subCategory": "LLD",
+    "title": "Design a vending machine.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-LLD-114",
+    "category": "Interview Engineering",
+    "subCategory": "LLD",
+    "title": "Design a food-delivery order lifecycle.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-LLD-115",
+    "category": "Interview Engineering",
+    "subCategory": "LLD",
+    "title": "Design a ride-booking matching service.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-LLD-116",
+    "category": "Interview Engineering",
+    "subCategory": "LLD",
+    "title": "Design a logging framework.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-LLD-117",
+    "category": "Interview Engineering",
+    "subCategory": "LLD",
+    "title": "Design a cache abstraction supporting multiple eviction policies.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-LLD-118",
+    "category": "Interview Engineering",
+    "subCategory": "LLD",
+    "title": "Design a payment processing abstraction with multiple gateways.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-LLD-119",
+    "category": "Interview Engineering",
+    "subCategory": "LLD",
+    "title": "Design a file-storage abstraction for local and cloud storage.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-LLD-120",
+    "category": "Interview Engineering",
+    "subCategory": "LLD",
+    "title": "When would you use Strategy, Factory, Observer and State patterns?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-LLD-121",
+    "category": "Interview Engineering",
+    "subCategory": "LLD",
+    "title": "Refactor a large switch statement into extensible polymorphic code.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-LLD-122",
+    "category": "Interview Engineering",
+    "subCategory": "LLD",
+    "title": "How would you make an LLD design testable?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-LLD-123",
+    "category": "Interview Engineering",
+    "subCategory": "LLD",
+    "title": "How do you handle concurrency in an in-memory booking system?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-LLD-124",
+    "category": "Interview Engineering",
+    "subCategory": "LLD",
+    "title": "Design a retry policy with exponential backoff.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-System Design-125",
+    "category": "Interview Engineering",
+    "subCategory": "System Design",
+    "title": "Design a URL shortener.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-System Design-126",
+    "category": "Interview Engineering",
+    "subCategory": "System Design",
+    "title": "Design a URL redirect service that handles high read traffic.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-System Design-127",
+    "category": "Interview Engineering",
+    "subCategory": "System Design",
+    "title": "Design a notification system.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-System Design-128",
+    "category": "Interview Engineering",
+    "subCategory": "System Design",
+    "title": "Design a chat application.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-System Design-129",
+    "category": "Interview Engineering",
+    "subCategory": "System Design",
+    "title": "Design a news feed.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-System Design-130",
+    "category": "Interview Engineering",
+    "subCategory": "System Design",
+    "title": "Design a file upload and sharing service.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-System Design-131",
+    "category": "Interview Engineering",
+    "subCategory": "System Design",
+    "title": "Design a video streaming platform at a high level.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-System Design-132",
+    "category": "Interview Engineering",
+    "subCategory": "System Design",
+    "title": "Design a ride-hailing backend.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-System Design-133",
+    "category": "Interview Engineering",
+    "subCategory": "System Design",
+    "title": "Design a distributed rate limiter.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-System Design-134",
+    "category": "Interview Engineering",
+    "subCategory": "System Design",
+    "title": "Design a distributed job scheduler.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-System Design-135",
+    "category": "Interview Engineering",
+    "subCategory": "System Design",
+    "title": "Design a search autocomplete service.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-System Design-136",
+    "category": "Interview Engineering",
+    "subCategory": "System Design",
+    "title": "Design an API gateway.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-System Design-137",
+    "category": "Interview Engineering",
+    "subCategory": "System Design",
+    "title": "Design a metrics and monitoring platform.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-System Design-138",
+    "category": "Interview Engineering",
+    "subCategory": "System Design",
+    "title": "Design a payment service with idempotency.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-System Design-139",
+    "category": "Interview Engineering",
+    "subCategory": "System Design",
+    "title": "Design a scalable leaderboard.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-System Design-140",
+    "category": "Interview Engineering",
+    "subCategory": "System Design",
+    "title": "Design a web crawler.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-System Design-141",
+    "category": "Interview Engineering",
+    "subCategory": "System Design",
+    "title": "Design a distributed cache.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-System Design-142",
+    "category": "Interview Engineering",
+    "subCategory": "System Design",
+    "title": "Explain when to use SQL vs NoSQL for a new service.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-System Design-143",
+    "category": "Interview Engineering",
+    "subCategory": "System Design",
+    "title": "Explain horizontal vs vertical scaling with a concrete architecture.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-System Design-144",
+    "category": "Interview Engineering",
+    "subCategory": "System Design",
+    "title": "Explain cache-aside, write-through and write-back caching.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-System Design-145",
+    "category": "Interview Engineering",
+    "subCategory": "System Design",
+    "title": "Explain eventual consistency and where it is acceptable.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-System Design-146",
+    "category": "Interview Engineering",
+    "subCategory": "System Design",
+    "title": "Explain message queues and when to use Kafka-like systems.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-System Design-147",
+    "category": "Interview Engineering",
+    "subCategory": "System Design",
+    "title": "Explain database replication and read replicas.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-System Design-148",
+    "category": "Interview Engineering",
+    "subCategory": "System Design",
+    "title": "Explain sharding strategies and hot partitions.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Interview Engineering-System Design-149",
+    "category": "Interview Engineering",
+    "subCategory": "System Design",
+    "title": "Design an architecture for a service with strict request idempotency.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Behavioral-Behavioral-150",
+    "category": "Behavioral",
+    "subCategory": "Behavioral",
+    "title": "Tell me about yourself in 90 seconds for an SDE interview.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Behavioral-Behavioral-151",
+    "category": "Behavioral",
+    "subCategory": "Behavioral",
+    "title": "Explain your strongest technical project and your exact contribution.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Behavioral-Behavioral-152",
+    "category": "Behavioral",
+    "subCategory": "Behavioral",
+    "title": "Describe a difficult bug you solved and how you debugged it.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Behavioral-Behavioral-153",
+    "category": "Behavioral",
+    "subCategory": "Behavioral",
+    "title": "Tell me about a time you disagreed with a teammate.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Behavioral-Behavioral-154",
+    "category": "Behavioral",
+    "subCategory": "Behavioral",
+    "title": "Tell me about a time you received critical feedback.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Behavioral-Behavioral-155",
+    "category": "Behavioral",
+    "subCategory": "Behavioral",
+    "title": "Tell me about a technical mistake and what changed afterward.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Behavioral-Behavioral-156",
+    "category": "Behavioral",
+    "subCategory": "Behavioral",
+    "title": "Describe a project where requirements changed midway.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Behavioral-Behavioral-157",
+    "category": "Behavioral",
+    "subCategory": "Behavioral",
+    "title": "Tell me about a time you had to learn something quickly.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Behavioral-Behavioral-158",
+    "category": "Behavioral",
+    "subCategory": "Behavioral",
+    "title": "Describe a time you had competing deadlines.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Behavioral-Behavioral-159",
+    "category": "Behavioral",
+    "subCategory": "Behavioral",
+    "title": "Tell me about a time you improved a process.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Behavioral-Behavioral-160",
+    "category": "Behavioral",
+    "subCategory": "Behavioral",
+    "title": "Describe a time you took ownership without being asked.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Behavioral-Behavioral-161",
+    "category": "Behavioral",
+    "subCategory": "Behavioral",
+    "title": "Tell me about a time you helped a teammate.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Behavioral-Behavioral-162",
+    "category": "Behavioral",
+    "subCategory": "Behavioral",
+    "title": "Describe a failure and what you learned from it.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Behavioral-Behavioral-163",
+    "category": "Behavioral",
+    "subCategory": "Behavioral",
+    "title": "Why software engineering?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Behavioral-Behavioral-164",
+    "category": "Behavioral",
+    "subCategory": "Behavioral",
+    "title": "Why this role? Answer without generic company praise.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Behavioral-Behavioral-165",
+    "category": "Behavioral",
+    "subCategory": "Behavioral",
+    "title": "Why should we hire you? Give evidence, not adjectives.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Behavioral-Behavioral-166",
+    "category": "Behavioral",
+    "subCategory": "Behavioral",
+    "title": "What is one technical area you are actively improving?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Behavioral-Behavioral-167",
+    "category": "Behavioral",
+    "subCategory": "Behavioral",
+    "title": "What kind of engineering environment helps you do your best work?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Behavioral-Behavioral-168",
+    "category": "Behavioral",
+    "subCategory": "Behavioral",
+    "title": "How do you prioritize when everything looks urgent?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "Behavioral-Behavioral-169",
+    "category": "Behavioral",
+    "subCategory": "Behavioral",
+    "title": "What would you do if you were asked to ship code you believed was unsafe?",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "OA & Coding Patterns-OA-170",
+    "category": "OA & Coding Patterns",
+    "subCategory": "OA",
+    "title": "Solve an array problem under O(n) time and O(1) extra space.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "OA & Coding Patterns-OA-171",
+    "category": "OA & Coding Patterns",
+    "subCategory": "OA",
+    "title": "Solve a frequency-counting problem using hashing, then discuss memory trade-offs.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "OA & Coding Patterns-OA-172",
+    "category": "OA & Coding Patterns",
+    "subCategory": "OA",
+    "title": "Recognize when sorting can simplify a pair/triplet problem.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "OA & Coding Patterns-OA-173",
+    "category": "OA & Coding Patterns",
+    "subCategory": "OA",
+    "title": "Convert a brute-force substring solution into a sliding-window solution.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "OA & Coding Patterns-OA-174",
+    "category": "OA & Coding Patterns",
+    "subCategory": "OA",
+    "title": "Use prefix sums to answer many range-sum queries.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "OA & Coding Patterns-OA-175",
+    "category": "OA & Coding Patterns",
+    "subCategory": "OA",
+    "title": "Use binary search on the answer rather than on an array.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "OA & Coding Patterns-OA-176",
+    "category": "OA & Coding Patterns",
+    "subCategory": "OA",
+    "title": "Identify a monotonic-stack pattern from next-greater-element wording.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "OA & Coding Patterns-OA-177",
+    "category": "OA & Coding Patterns",
+    "subCategory": "OA",
+    "title": "Solve an interval scheduling problem using a greedy invariant.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "OA & Coding Patterns-OA-178",
+    "category": "OA & Coding Patterns",
+    "subCategory": "OA",
+    "title": "Detect whether a graph problem needs BFS, DFS or Union-Find.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "OA & Coding Patterns-OA-179",
+    "category": "OA & Coding Patterns",
+    "subCategory": "OA",
+    "title": "Recognize a shortest-path problem and choose an appropriate algorithm.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "OA & Coding Patterns-OA-180",
+    "category": "OA & Coding Patterns",
+    "subCategory": "OA",
+    "title": "Turn recursive search into memoized dynamic programming.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "OA & Coding Patterns-OA-181",
+    "category": "OA & Coding Patterns",
+    "subCategory": "OA",
+    "title": "Identify state, transition and base cases in a DP problem.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "OA & Coding Patterns-OA-182",
+    "category": "OA & Coding Patterns",
+    "subCategory": "OA",
+    "title": "Solve a topological-order problem from dependency constraints.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "OA & Coding Patterns-OA-183",
+    "category": "OA & Coding Patterns",
+    "subCategory": "OA",
+    "title": "Handle large input safely: complexity, integer overflow and I/O.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  },
+  {
+    "id": "OA & Coding Patterns-OA-184",
+    "category": "OA & Coding Patterns",
+    "subCategory": "OA",
+    "title": "Given a solution, identify its time and space complexity and find a bottleneck.",
+    "source": "DACE original study bank",
+    "type": "prompt"
+  }
+]
