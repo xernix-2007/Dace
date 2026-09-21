@@ -341,7 +341,7 @@ function CodingCalendar({solvedAt}:{solvedAt:Record<number,string>}){
  const weeks:string[][]=[];
  for(let i=0;i<raw.length;i+=7)weeks.push(raw.slice(i,i+7));
 
- // Put each month label only above the week where that month begins.
+ // Label a month once, above the week that contains its first day.
  const monthLabels=weeks.map(week=>{
   const first=week.find(d=>d&&new Date(d+"T00:00:00").getDate()===1);
   return first?new Date(first+"T00:00:00").toLocaleDateString("en-US",{month:"short"}):"";
@@ -369,13 +369,16 @@ function CodingCalendar({solvedAt}:{solvedAt:Record<number,string>}){
     </div>
 
     <div className="grid gap-[3px] mt-1" style={{gridTemplateColumns:`30px repeat(${weekCount}, 12px)`}}>
-     <div className="grid grid-rows-7 gap-[3px] text-[9px] text-[#657387]">
+     <div className="grid grid-rows-7 gap-[3px] text-[9px] text-[#657387] leading-3">
       <span></span><span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span>
      </div>
-     {weeks.flatMap((week,wi)=>week.map((d,di)=>{
-      const n=d?(counts[d]||0):0;
-      return <span key={wi+"-"+di} title={d?(d+" · "+n+" solved"):""} aria-label={d?(d+" "+n+" solved"):""} className={"w-3 h-3 rounded-[3px] border "+(d?level(n):"border-transparent bg-transparent")}/>;
-     }))}
+
+     {weeks.map((week,wi)=><div key={wi} className="grid grid-rows-7 gap-[3px]">
+      {week.map((d,di)=>{
+       const n=d?(counts[d]||0):0;
+       return <span key={di} title={d?(d+" · "+n+" solved"):""} aria-label={d?(d+" "+n+" solved"):""} className={"w-3 h-3 rounded-[3px] border "+(d?level(n):"border-transparent bg-transparent")}/>;
+      })}
+     </div>)}
     </div>
    </div>
   </div>
