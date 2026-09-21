@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import bank from "../../data/interview-bank.json";
 import curriculum from "../../data/learning-curriculum.json";
 
@@ -18,10 +18,15 @@ function simpleText(text:string){
 const levelOf=(x:BankItem)=>x.level||(["DBMS","OS","CN","OOP","SQL","DSA Fundamentals"].includes(x.category)&&x.subCategory==="Fundamentals"?"Beginner":"Interview");
 
 export default function KnowledgeHub(){
- const initial=typeof window!=="undefined"?new URLSearchParams(window.location.search).get("subject")||"All":"All";
- const [subject,setSubject]=useState(initial);
+ const [subject,setSubject]=useState("All");
  const [lessonIndex,setLessonIndex]=useState(0);
- const [done,setDone]=useState<string[]>(()=>{try{return JSON.parse(localStorage.getItem("dace-lessons")||"[]")}catch{return[]}});
+ const [done,setDone]=useState<string[]>([]);
+ useEffect(()=>{
+  const params=new URLSearchParams(window.location.search);
+  const requested=params.get("subject");
+  if(requested && allSubjects.includes(requested)) setSubject(requested);
+  try{setDone(JSON.parse(localStorage.getItem("dace-lessons")||"[]"));}catch{}
+ },[]);
  const [search,setSearch]=useState("");
  const [topic,setTopic]=useState("All");
  const [level,setLevel]=useState("All");
