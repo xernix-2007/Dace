@@ -1470,5 +1470,2723 @@
     "title": "Given a solution, identify its time and space complexity and find a bottleneck.",
     "source": "DACE original study bank",
     "type": "prompt"
+  },
+  {
+    "id": "fund-DBMS-184",
+    "category": "DBMS",
+    "subCategory": "Fundamentals",
+    "title": "What is a database and why use a DBMS instead of files?",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-DBMS-185",
+    "category": "DBMS",
+    "subCategory": "Fundamentals",
+    "title": "Explain table, row, column, schema and instance.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-DBMS-186",
+    "category": "DBMS",
+    "subCategory": "Fundamentals",
+    "title": "Primary key, candidate key, super key and alternate key.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-DBMS-187",
+    "category": "DBMS",
+    "subCategory": "Fundamentals",
+    "title": "Foreign key and referential integrity.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-DBMS-188",
+    "category": "DBMS",
+    "subCategory": "Fundamentals",
+    "title": "Natural key vs surrogate key.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-DBMS-189",
+    "category": "DBMS",
+    "subCategory": "Fundamentals",
+    "title": "What is a composite key and when is it useful?",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-DBMS-190",
+    "category": "DBMS",
+    "subCategory": "ER Modeling",
+    "title": "Entity, attribute, relationship and cardinality.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-191",
+    "category": "DBMS",
+    "subCategory": "ER Modeling",
+    "title": "One-to-one, one-to-many and many-to-many relationships.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-192",
+    "category": "DBMS",
+    "subCategory": "ER Modeling",
+    "title": "Convert an ER model into relational tables.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-193",
+    "category": "DBMS",
+    "subCategory": "Normalization",
+    "title": "Why do update, insert and delete anomalies happen?",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-194",
+    "category": "DBMS",
+    "subCategory": "Normalization",
+    "title": "Normalize a relation to 1NF.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-195",
+    "category": "DBMS",
+    "subCategory": "Normalization",
+    "title": "Normalize a relation to 2NF.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-196",
+    "category": "DBMS",
+    "subCategory": "Normalization",
+    "title": "Normalize a relation to 3NF.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-197",
+    "category": "DBMS",
+    "subCategory": "Normalization",
+    "title": "BCNF vs 3NF.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-198",
+    "category": "DBMS",
+    "subCategory": "Normalization",
+    "title": "Functional dependency and closure of attributes.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-199",
+    "category": "DBMS",
+    "subCategory": "Normalization",
+    "title": "Candidate key derivation using functional dependencies.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-200",
+    "category": "DBMS",
+    "subCategory": "Normalization",
+    "title": "Lossless decomposition and dependency preservation.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-201",
+    "category": "DBMS",
+    "subCategory": "Transactions",
+    "title": "Transaction states.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-202",
+    "category": "DBMS",
+    "subCategory": "Transactions",
+    "title": "Atomicity, consistency, isolation and durability.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-203",
+    "category": "DBMS",
+    "subCategory": "Transactions",
+    "title": "Serial vs concurrent schedules.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-204",
+    "category": "DBMS",
+    "subCategory": "Transactions",
+    "title": "Conflict serializability.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-205",
+    "category": "DBMS",
+    "subCategory": "Transactions",
+    "title": "View serializability.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-206",
+    "category": "DBMS",
+    "subCategory": "Transactions",
+    "title": "Recoverable, cascadeless and strict schedules.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-207",
+    "category": "DBMS",
+    "subCategory": "Transactions",
+    "title": "Dirty read, lost update, non-repeatable read and phantom read.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-208",
+    "category": "DBMS",
+    "subCategory": "Transactions",
+    "title": "Explain isolation levels with examples.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-209",
+    "category": "DBMS",
+    "subCategory": "Transactions",
+    "title": "Two-phase locking and its growing/shrinking phases.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-210",
+    "category": "DBMS",
+    "subCategory": "Transactions",
+    "title": "Strict 2PL and why it helps recovery.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-211",
+    "category": "DBMS",
+    "subCategory": "Transactions",
+    "title": "Deadlock detection and prevention in DBMS.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-212",
+    "category": "DBMS",
+    "subCategory": "Transactions",
+    "title": "Timestamp ordering protocol.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-213",
+    "category": "DBMS",
+    "subCategory": "Recovery",
+    "title": "Write-ahead logging.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-214",
+    "category": "DBMS",
+    "subCategory": "Recovery",
+    "title": "Undo and redo logging.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-215",
+    "category": "DBMS",
+    "subCategory": "Recovery",
+    "title": "Checkpointing.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-216",
+    "category": "DBMS",
+    "subCategory": "Recovery",
+    "title": "Crash recovery after a transaction failure.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-217",
+    "category": "DBMS",
+    "subCategory": "Indexing",
+    "title": "Why indexes improve reads but can hurt writes.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-218",
+    "category": "DBMS",
+    "subCategory": "Indexing",
+    "title": "Dense vs sparse indexes.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-219",
+    "category": "DBMS",
+    "subCategory": "Indexing",
+    "title": "Primary vs secondary index.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-220",
+    "category": "DBMS",
+    "subCategory": "Indexing",
+    "title": "Clustered vs non-clustered index.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-221",
+    "category": "DBMS",
+    "subCategory": "Indexing",
+    "title": "B-tree vs B+ tree.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-222",
+    "category": "DBMS",
+    "subCategory": "Indexing",
+    "title": "Why B+ trees are useful for range queries.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-223",
+    "category": "DBMS",
+    "subCategory": "Indexing",
+    "title": "Hash indexing and its limitations.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-224",
+    "category": "DBMS",
+    "subCategory": "SQL Execution",
+    "title": "Logical order of SQL query processing.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-225",
+    "category": "DBMS",
+    "subCategory": "SQL Execution",
+    "title": "How a DBMS chooses an execution plan.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-226",
+    "category": "DBMS",
+    "subCategory": "SQL Execution",
+    "title": "What is a query optimizer?",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-227",
+    "category": "DBMS",
+    "subCategory": "SQL Execution",
+    "title": "Why can SELECT * be problematic?",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-228",
+    "category": "DBMS",
+    "subCategory": "Distributed DB",
+    "title": "Replication vs partitioning.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-229",
+    "category": "DBMS",
+    "subCategory": "Distributed DB",
+    "title": "Horizontal vs vertical partitioning.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-230",
+    "category": "DBMS",
+    "subCategory": "Distributed DB",
+    "title": "What is sharding?",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-231",
+    "category": "DBMS",
+    "subCategory": "Distributed DB",
+    "title": "What makes a shard key good or bad?",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-232",
+    "category": "DBMS",
+    "subCategory": "Distributed DB",
+    "title": "Consistency, availability and partition tolerance in distributed databases.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-233",
+    "category": "DBMS",
+    "subCategory": "Design",
+    "title": "Design a schema for an e-commerce platform.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-234",
+    "category": "DBMS",
+    "subCategory": "Design",
+    "title": "Design a schema for college courses, students and enrollments.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-235",
+    "category": "DBMS",
+    "subCategory": "Design",
+    "title": "Design a schema for a food-delivery system.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-236",
+    "category": "DBMS",
+    "subCategory": "Interview",
+    "title": "How would you investigate a slow query?",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-237",
+    "category": "DBMS",
+    "subCategory": "Interview",
+    "title": "How would you decide which columns to index?",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DBMS-238",
+    "category": "DBMS",
+    "subCategory": "Interview",
+    "title": "Why might an index not be used?",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-239",
+    "category": "OS",
+    "subCategory": "Fundamentals",
+    "title": "Program vs process vs thread.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-OS-240",
+    "category": "OS",
+    "subCategory": "Fundamentals",
+    "title": "Process states and state transitions.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-OS-241",
+    "category": "OS",
+    "subCategory": "Fundamentals",
+    "title": "What is a PCB?",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-OS-242",
+    "category": "OS",
+    "subCategory": "Fundamentals",
+    "title": "What information does a PCB store?",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-OS-243",
+    "category": "OS",
+    "subCategory": "Fundamentals",
+    "title": "User mode vs kernel mode.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-OS-244",
+    "category": "OS",
+    "subCategory": "Fundamentals",
+    "title": "System calls and why they are needed.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-OS-245",
+    "category": "OS",
+    "subCategory": "Fundamentals",
+    "title": "Process creation and termination.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-OS-246",
+    "category": "OS",
+    "subCategory": "Threads",
+    "title": "User-level vs kernel-level threads.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-247",
+    "category": "OS",
+    "subCategory": "Threads",
+    "title": "Benefits and costs of multithreading.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-248",
+    "category": "OS",
+    "subCategory": "Threads",
+    "title": "Thread safety and race conditions.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-249",
+    "category": "OS",
+    "subCategory": "Threads",
+    "title": "Concurrency vs parallelism.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-250",
+    "category": "OS",
+    "subCategory": "Scheduling",
+    "title": "FCFS scheduling with waiting-time calculation.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-251",
+    "category": "OS",
+    "subCategory": "Scheduling",
+    "title": "SJF scheduling and its limitation.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-252",
+    "category": "OS",
+    "subCategory": "Scheduling",
+    "title": "SRTF scheduling.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-253",
+    "category": "OS",
+    "subCategory": "Scheduling",
+    "title": "Round Robin and time quantum.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-254",
+    "category": "OS",
+    "subCategory": "Scheduling",
+    "title": "Priority scheduling and starvation.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-255",
+    "category": "OS",
+    "subCategory": "Scheduling",
+    "title": "Aging and starvation prevention.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-256",
+    "category": "OS",
+    "subCategory": "Scheduling",
+    "title": "Multilevel queue scheduling.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-257",
+    "category": "OS",
+    "subCategory": "Scheduling",
+    "title": "Multilevel feedback queue.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-258",
+    "category": "OS",
+    "subCategory": "Synchronization",
+    "title": "Race condition with a concrete example.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-259",
+    "category": "OS",
+    "subCategory": "Synchronization",
+    "title": "Critical section requirements.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-260",
+    "category": "OS",
+    "subCategory": "Synchronization",
+    "title": "Mutex vs semaphore.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-261",
+    "category": "OS",
+    "subCategory": "Synchronization",
+    "title": "Binary vs counting semaphore.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-262",
+    "category": "OS",
+    "subCategory": "Synchronization",
+    "title": "Producer-consumer problem.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-263",
+    "category": "OS",
+    "subCategory": "Synchronization",
+    "title": "Readers-writers problem.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-264",
+    "category": "OS",
+    "subCategory": "Synchronization",
+    "title": "Dining philosophers problem.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-265",
+    "category": "OS",
+    "subCategory": "Synchronization",
+    "title": "Monitor and condition variable.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-266",
+    "category": "OS",
+    "subCategory": "Deadlocks",
+    "title": "Four Coffman conditions.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-267",
+    "category": "OS",
+    "subCategory": "Deadlocks",
+    "title": "Deadlock prevention.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-268",
+    "category": "OS",
+    "subCategory": "Deadlocks",
+    "title": "Deadlock avoidance.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-269",
+    "category": "OS",
+    "subCategory": "Deadlocks",
+    "title": "Banker's algorithm.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-270",
+    "category": "OS",
+    "subCategory": "Deadlocks",
+    "title": "Deadlock detection and recovery.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-271",
+    "category": "OS",
+    "subCategory": "Memory",
+    "title": "Logical vs physical address.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-272",
+    "category": "OS",
+    "subCategory": "Memory",
+    "title": "Contiguous memory allocation.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-273",
+    "category": "OS",
+    "subCategory": "Memory",
+    "title": "Internal vs external fragmentation.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-274",
+    "category": "OS",
+    "subCategory": "Memory",
+    "title": "Paging.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-275",
+    "category": "OS",
+    "subCategory": "Memory",
+    "title": "Page table.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-276",
+    "category": "OS",
+    "subCategory": "Memory",
+    "title": "Multi-level page tables.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-277",
+    "category": "OS",
+    "subCategory": "Memory",
+    "title": "TLB and effective memory access time.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-278",
+    "category": "OS",
+    "subCategory": "Memory",
+    "title": "Page fault handling.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-279",
+    "category": "OS",
+    "subCategory": "Memory",
+    "title": "Demand paging.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-280",
+    "category": "OS",
+    "subCategory": "Memory",
+    "title": "FIFO page replacement.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-281",
+    "category": "OS",
+    "subCategory": "Memory",
+    "title": "LRU page replacement.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-282",
+    "category": "OS",
+    "subCategory": "Memory",
+    "title": "Optimal page replacement.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-283",
+    "category": "OS",
+    "subCategory": "Memory",
+    "title": "Belady's anomaly.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-284",
+    "category": "OS",
+    "subCategory": "Memory",
+    "title": "Thrashing and working set.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-285",
+    "category": "OS",
+    "subCategory": "Memory",
+    "title": "Virtual memory.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-286",
+    "category": "OS",
+    "subCategory": "File Systems",
+    "title": "File allocation methods.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-287",
+    "category": "OS",
+    "subCategory": "File Systems",
+    "title": "Inode concept.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-288",
+    "category": "OS",
+    "subCategory": "File Systems",
+    "title": "Directory structures.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-289",
+    "category": "OS",
+    "subCategory": "File Systems",
+    "title": "Hard link vs symbolic link.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-290",
+    "category": "OS",
+    "subCategory": "I/O",
+    "title": "Polling vs interrupts.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-291",
+    "category": "OS",
+    "subCategory": "I/O",
+    "title": "DMA and why it improves I/O.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-292",
+    "category": "OS",
+    "subCategory": "I/O",
+    "title": "Buffering, caching and spooling.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-293",
+    "category": "OS",
+    "subCategory": "Interview",
+    "title": "What happens during a context switch?",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OS-294",
+    "category": "OS",
+    "subCategory": "Interview",
+    "title": "Why are system calls slower than ordinary function calls?",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-295",
+    "category": "CN",
+    "subCategory": "Fundamentals",
+    "title": "What is a computer network?",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-CN-296",
+    "category": "CN",
+    "subCategory": "Fundamentals",
+    "title": "LAN vs MAN vs WAN.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-CN-297",
+    "category": "CN",
+    "subCategory": "Fundamentals",
+    "title": "Bandwidth vs throughput vs latency.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-CN-298",
+    "category": "CN",
+    "subCategory": "Fundamentals",
+    "title": "Packet switching vs circuit switching.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-CN-299",
+    "category": "CN",
+    "subCategory": "Models",
+    "title": "OSI seven layers and their responsibilities.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-300",
+    "category": "CN",
+    "subCategory": "Models",
+    "title": "TCP/IP model.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-301",
+    "category": "CN",
+    "subCategory": "Models",
+    "title": "Map common protocols to layers.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-302",
+    "category": "CN",
+    "subCategory": "Data Link",
+    "title": "MAC address and its purpose.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-303",
+    "category": "CN",
+    "subCategory": "Data Link",
+    "title": "Ethernet frame basics.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-304",
+    "category": "CN",
+    "subCategory": "Data Link",
+    "title": "Hub vs switch.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-305",
+    "category": "CN",
+    "subCategory": "Data Link",
+    "title": "Collision domain vs broadcast domain.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-306",
+    "category": "CN",
+    "subCategory": "Data Link",
+    "title": "ARP and address resolution.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-307",
+    "category": "CN",
+    "subCategory": "Network",
+    "title": "IPv4 addressing.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-308",
+    "category": "CN",
+    "subCategory": "Network",
+    "title": "Private vs public IP addresses.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-309",
+    "category": "CN",
+    "subCategory": "Network",
+    "title": "Subnet mask and CIDR.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-310",
+    "category": "CN",
+    "subCategory": "Network",
+    "title": "Calculate usable hosts in a subnet.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-311",
+    "category": "CN",
+    "subCategory": "Network",
+    "title": "Routing table basics.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-312",
+    "category": "CN",
+    "subCategory": "Network",
+    "title": "Static vs dynamic routing.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-313",
+    "category": "CN",
+    "subCategory": "Network",
+    "title": "NAT and why it exists.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-314",
+    "category": "CN",
+    "subCategory": "Network",
+    "title": "ICMP and ping.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-315",
+    "category": "CN",
+    "subCategory": "Network",
+    "title": "IPv4 vs IPv6.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-316",
+    "category": "CN",
+    "subCategory": "Transport",
+    "title": "TCP vs UDP.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-317",
+    "category": "CN",
+    "subCategory": "Transport",
+    "title": "TCP three-way handshake.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-318",
+    "category": "CN",
+    "subCategory": "Transport",
+    "title": "TCP connection termination.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-319",
+    "category": "CN",
+    "subCategory": "Transport",
+    "title": "Sequence numbers and acknowledgements.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-320",
+    "category": "CN",
+    "subCategory": "Transport",
+    "title": "TCP flow control.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-321",
+    "category": "CN",
+    "subCategory": "Transport",
+    "title": "TCP congestion control.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-322",
+    "category": "CN",
+    "subCategory": "Transport",
+    "title": "Retransmission and timeout.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-323",
+    "category": "CN",
+    "subCategory": "Transport",
+    "title": "Sliding window concept.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-324",
+    "category": "CN",
+    "subCategory": "Application",
+    "title": "DNS resolution step by step.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-325",
+    "category": "CN",
+    "subCategory": "Application",
+    "title": "DNS records: A, AAAA, CNAME, MX.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-326",
+    "category": "CN",
+    "subCategory": "Application",
+    "title": "HTTP request and response.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-327",
+    "category": "CN",
+    "subCategory": "Application",
+    "title": "HTTP methods and idempotency.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-328",
+    "category": "CN",
+    "subCategory": "Application",
+    "title": "HTTP status-code classes.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-329",
+    "category": "CN",
+    "subCategory": "Application",
+    "title": "HTTP/1.1 vs HTTP/2 at a high level.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-330",
+    "category": "CN",
+    "subCategory": "Application",
+    "title": "HTTPS vs HTTP.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-331",
+    "category": "CN",
+    "subCategory": "Security",
+    "title": "TLS handshake at a high level.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-332",
+    "category": "CN",
+    "subCategory": "Security",
+    "title": "Certificate and certificate authority.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-333",
+    "category": "CN",
+    "subCategory": "Security",
+    "title": "Symmetric vs asymmetric encryption.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-334",
+    "category": "CN",
+    "subCategory": "Web",
+    "title": "Cookie vs session vs token.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-335",
+    "category": "CN",
+    "subCategory": "Web",
+    "title": "WebSocket vs HTTP polling.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-336",
+    "category": "CN",
+    "subCategory": "Web",
+    "title": "Reverse proxy.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-337",
+    "category": "CN",
+    "subCategory": "Web",
+    "title": "CDN and why it reduces latency.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-338",
+    "category": "CN",
+    "subCategory": "Web",
+    "title": "Load balancer.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-339",
+    "category": "CN",
+    "subCategory": "Troubleshooting",
+    "title": "How would you debug a website that cannot be reached?",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-340",
+    "category": "CN",
+    "subCategory": "Troubleshooting",
+    "title": "How would you diagnose high network latency?",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-341",
+    "category": "CN",
+    "subCategory": "Interview",
+    "title": "What happens after entering google.com in a browser?",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-CN-342",
+    "category": "CN",
+    "subCategory": "Interview",
+    "title": "Explain DNS, TCP, TLS and HTTP in one end-to-end flow.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-343",
+    "category": "OOP",
+    "subCategory": "Fundamentals",
+    "title": "Class vs object.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-OOP-344",
+    "category": "OOP",
+    "subCategory": "Fundamentals",
+    "title": "State vs behavior.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-OOP-345",
+    "category": "OOP",
+    "subCategory": "Fundamentals",
+    "title": "Encapsulation.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-OOP-346",
+    "category": "OOP",
+    "subCategory": "Fundamentals",
+    "title": "Abstraction.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-OOP-347",
+    "category": "OOP",
+    "subCategory": "Fundamentals",
+    "title": "Inheritance.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-OOP-348",
+    "category": "OOP",
+    "subCategory": "Fundamentals",
+    "title": "Polymorphism.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-OOP-349",
+    "category": "OOP",
+    "subCategory": "Fundamentals",
+    "title": "Association, aggregation and composition.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-OOP-350",
+    "category": "OOP",
+    "subCategory": "Constructors",
+    "title": "Constructor purpose.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-351",
+    "category": "OOP",
+    "subCategory": "Constructors",
+    "title": "Default vs parameterized constructor.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-352",
+    "category": "OOP",
+    "subCategory": "Constructors",
+    "title": "Constructor chaining.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-353",
+    "category": "OOP",
+    "subCategory": "Polymorphism",
+    "title": "Method overloading.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-354",
+    "category": "OOP",
+    "subCategory": "Polymorphism",
+    "title": "Method overriding.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-355",
+    "category": "OOP",
+    "subCategory": "Polymorphism",
+    "title": "Static vs dynamic binding.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-356",
+    "category": "OOP",
+    "subCategory": "Interfaces",
+    "title": "Interface vs abstract class.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-357",
+    "category": "OOP",
+    "subCategory": "Interfaces",
+    "title": "When should an interface be preferred?",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-358",
+    "category": "OOP",
+    "subCategory": "Design",
+    "title": "Composition over inheritance.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-359",
+    "category": "OOP",
+    "subCategory": "Design",
+    "title": "Dependency inversion with an example.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-360",
+    "category": "OOP",
+    "subCategory": "Design",
+    "title": "Open/closed principle.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-361",
+    "category": "OOP",
+    "subCategory": "Design",
+    "title": "Single responsibility principle.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-362",
+    "category": "OOP",
+    "subCategory": "Design",
+    "title": "Liskov substitution principle.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-363",
+    "category": "OOP",
+    "subCategory": "Design",
+    "title": "Interface segregation principle.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-364",
+    "category": "OOP",
+    "subCategory": "Design",
+    "title": "SOLID example using a payment system.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-365",
+    "category": "OOP",
+    "subCategory": "Patterns",
+    "title": "Factory pattern and when it helps.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-366",
+    "category": "OOP",
+    "subCategory": "Patterns",
+    "title": "Strategy pattern and when it helps.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-367",
+    "category": "OOP",
+    "subCategory": "Patterns",
+    "title": "Observer pattern and when it helps.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-368",
+    "category": "OOP",
+    "subCategory": "Patterns",
+    "title": "State pattern and when it helps.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-369",
+    "category": "OOP",
+    "subCategory": "Patterns",
+    "title": "Adapter pattern and when it helps.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-370",
+    "category": "OOP",
+    "subCategory": "Patterns",
+    "title": "Decorator pattern and when it helps.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-371",
+    "category": "OOP",
+    "subCategory": "Patterns",
+    "title": "Singleton drawbacks.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-372",
+    "category": "OOP",
+    "subCategory": "Python",
+    "title": "Class variables vs instance variables.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-373",
+    "category": "OOP",
+    "subCategory": "Python",
+    "title": "Instance method vs class method vs static method.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-374",
+    "category": "OOP",
+    "subCategory": "Python",
+    "title": "Dunder methods and operator overloading.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-375",
+    "category": "OOP",
+    "subCategory": "Java",
+    "title": "Interface default methods.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-376",
+    "category": "OOP",
+    "subCategory": "Java",
+    "title": "equals and hashCode contract.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-377",
+    "category": "OOP",
+    "subCategory": "Java",
+    "title": "Exception hierarchy and checked vs unchecked exceptions.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-378",
+    "category": "OOP",
+    "subCategory": "Design",
+    "title": "Design a notification service using interfaces.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-379",
+    "category": "OOP",
+    "subCategory": "Design",
+    "title": "Design a parking lot using composition.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-380",
+    "category": "OOP",
+    "subCategory": "Design",
+    "title": "Design a library management system.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-381",
+    "category": "OOP",
+    "subCategory": "Design",
+    "title": "Design a ride-booking domain model.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-382",
+    "category": "OOP",
+    "subCategory": "Interview",
+    "title": "How does OOP reduce coupling?",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-383",
+    "category": "OOP",
+    "subCategory": "Interview",
+    "title": "When is inheritance a bad choice?",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-OOP-384",
+    "category": "OOP",
+    "subCategory": "Interview",
+    "title": "How would you make an object immutable?",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-385",
+    "category": "SQL",
+    "subCategory": "Fundamentals",
+    "title": "SELECT, FROM and WHERE.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-SQL-386",
+    "category": "SQL",
+    "subCategory": "Fundamentals",
+    "title": "ORDER BY and LIMIT.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-SQL-387",
+    "category": "SQL",
+    "subCategory": "Fundamentals",
+    "title": "DISTINCT.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-SQL-388",
+    "category": "SQL",
+    "subCategory": "Fundamentals",
+    "title": "NULL and three-valued logic.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-SQL-389",
+    "category": "SQL",
+    "subCategory": "Joins",
+    "title": "INNER JOIN.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-390",
+    "category": "SQL",
+    "subCategory": "Joins",
+    "title": "LEFT JOIN.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-391",
+    "category": "SQL",
+    "subCategory": "Joins",
+    "title": "FULL OUTER JOIN.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-392",
+    "category": "SQL",
+    "subCategory": "Joins",
+    "title": "SELF JOIN.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-393",
+    "category": "SQL",
+    "subCategory": "Joins",
+    "title": "CROSS JOIN and practical use.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-394",
+    "category": "SQL",
+    "subCategory": "Aggregation",
+    "title": "COUNT, SUM, AVG, MIN and MAX.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-395",
+    "category": "SQL",
+    "subCategory": "Aggregation",
+    "title": "GROUP BY.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-396",
+    "category": "SQL",
+    "subCategory": "Aggregation",
+    "title": "HAVING vs WHERE.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-397",
+    "category": "SQL",
+    "subCategory": "Subqueries",
+    "title": "Scalar subquery.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-398",
+    "category": "SQL",
+    "subCategory": "Subqueries",
+    "title": "Correlated subquery.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-399",
+    "category": "SQL",
+    "subCategory": "Subqueries",
+    "title": "EXISTS vs IN.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-400",
+    "category": "SQL",
+    "subCategory": "Set Operations",
+    "title": "UNION vs UNION ALL.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-401",
+    "category": "SQL",
+    "subCategory": "Set Operations",
+    "title": "INTERSECT and EXCEPT.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-402",
+    "category": "SQL",
+    "subCategory": "Window Functions",
+    "title": "ROW_NUMBER.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-403",
+    "category": "SQL",
+    "subCategory": "Window Functions",
+    "title": "RANK vs DENSE_RANK.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-404",
+    "category": "SQL",
+    "subCategory": "Window Functions",
+    "title": "Running total.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-405",
+    "category": "SQL",
+    "subCategory": "Window Functions",
+    "title": "Moving average.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-406",
+    "category": "SQL",
+    "subCategory": "Window Functions",
+    "title": "Top N per group.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-407",
+    "category": "SQL",
+    "subCategory": "CTE",
+    "title": "What is a CTE?",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-408",
+    "category": "SQL",
+    "subCategory": "CTE",
+    "title": "Recursive CTE use cases.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-409",
+    "category": "SQL",
+    "subCategory": "Data Modification",
+    "title": "INSERT, UPDATE and DELETE safely.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-410",
+    "category": "SQL",
+    "subCategory": "Transactions",
+    "title": "BEGIN, COMMIT and ROLLBACK.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-411",
+    "category": "SQL",
+    "subCategory": "Transactions",
+    "title": "Transaction isolation from an SQL perspective.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-412",
+    "category": "SQL",
+    "subCategory": "Constraints",
+    "title": "PRIMARY KEY, FOREIGN KEY and UNIQUE.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-413",
+    "category": "SQL",
+    "subCategory": "Constraints",
+    "title": "CHECK and NOT NULL.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-414",
+    "category": "SQL",
+    "subCategory": "Indexes",
+    "title": "Create an index and explain its trade-offs.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-415",
+    "category": "SQL",
+    "subCategory": "Indexes",
+    "title": "Composite index column order.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-416",
+    "category": "SQL",
+    "subCategory": "Indexes",
+    "title": "Covering index concept.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-417",
+    "category": "SQL",
+    "subCategory": "Queries",
+    "title": "Find duplicate records.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-418",
+    "category": "SQL",
+    "subCategory": "Queries",
+    "title": "Find the second-highest salary.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-419",
+    "category": "SQL",
+    "subCategory": "Queries",
+    "title": "Find the nth-highest salary.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-420",
+    "category": "SQL",
+    "subCategory": "Queries",
+    "title": "Find employees above department average.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-421",
+    "category": "SQL",
+    "subCategory": "Queries",
+    "title": "Find customers with no orders.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-422",
+    "category": "SQL",
+    "subCategory": "Queries",
+    "title": "Find latest row per user.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-423",
+    "category": "SQL",
+    "subCategory": "Queries",
+    "title": "Find consecutive login days.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-424",
+    "category": "SQL",
+    "subCategory": "Queries",
+    "title": "Find gaps in a sequence.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-425",
+    "category": "SQL",
+    "subCategory": "Queries",
+    "title": "Calculate percentage of total.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-426",
+    "category": "SQL",
+    "subCategory": "Queries",
+    "title": "Find top 3 products per category.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-427",
+    "category": "SQL",
+    "subCategory": "Performance",
+    "title": "How to read an EXPLAIN plan.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-428",
+    "category": "SQL",
+    "subCategory": "Performance",
+    "title": "Common causes of slow SQL.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-429",
+    "category": "SQL",
+    "subCategory": "Performance",
+    "title": "When indexes can make performance worse.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-430",
+    "category": "SQL",
+    "subCategory": "Interview",
+    "title": "Design tables for an e-commerce system.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-431",
+    "category": "SQL",
+    "subCategory": "Interview",
+    "title": "Write SQL for a student-course database.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-SQL-432",
+    "category": "SQL",
+    "subCategory": "Interview",
+    "title": "How would you safely migrate a large table?",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-433",
+    "category": "DSA Fundamentals",
+    "subCategory": "Complexity",
+    "title": "Big-O, Big-Theta and Big-Omega.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-DSA Fundamentals-434",
+    "category": "DSA Fundamentals",
+    "subCategory": "Complexity",
+    "title": "Amortized complexity with dynamic arrays.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-DSA Fundamentals-435",
+    "category": "DSA Fundamentals",
+    "subCategory": "Complexity",
+    "title": "How to estimate complexity from nested loops.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-DSA Fundamentals-436",
+    "category": "DSA Fundamentals",
+    "subCategory": "Complexity",
+    "title": "Recursion tree intuition.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Beginner"
+  },
+  {
+    "id": "fund-DSA Fundamentals-437",
+    "category": "DSA Fundamentals",
+    "subCategory": "Arrays",
+    "title": "Array vs linked list trade-offs.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-438",
+    "category": "DSA Fundamentals",
+    "subCategory": "Arrays",
+    "title": "Prefix sum and range queries.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-439",
+    "category": "DSA Fundamentals",
+    "subCategory": "Arrays",
+    "title": "Difference arrays.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-440",
+    "category": "DSA Fundamentals",
+    "subCategory": "Arrays",
+    "title": "Kadane's algorithm.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-441",
+    "category": "DSA Fundamentals",
+    "subCategory": "Hashing",
+    "title": "Hash table operations and average complexity.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-442",
+    "category": "DSA Fundamentals",
+    "subCategory": "Hashing",
+    "title": "Collision handling.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-443",
+    "category": "DSA Fundamentals",
+    "subCategory": "Hashing",
+    "title": "When hashing fails to give worst-case O(1).",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-444",
+    "category": "DSA Fundamentals",
+    "subCategory": "Two Pointers",
+    "title": "Recognize two-pointer patterns.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-445",
+    "category": "DSA Fundamentals",
+    "subCategory": "Sliding Window",
+    "title": "Fixed-size sliding window.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-446",
+    "category": "DSA Fundamentals",
+    "subCategory": "Sliding Window",
+    "title": "Variable-size sliding window.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-447",
+    "category": "DSA Fundamentals",
+    "subCategory": "Binary Search",
+    "title": "Classic binary search invariant.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-448",
+    "category": "DSA Fundamentals",
+    "subCategory": "Binary Search",
+    "title": "First/last occurrence.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-449",
+    "category": "DSA Fundamentals",
+    "subCategory": "Binary Search",
+    "title": "Binary search on the answer.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-450",
+    "category": "DSA Fundamentals",
+    "subCategory": "Stack",
+    "title": "Balanced parentheses.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-451",
+    "category": "DSA Fundamentals",
+    "subCategory": "Stack",
+    "title": "Monotonic stack.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-452",
+    "category": "DSA Fundamentals",
+    "subCategory": "Queue",
+    "title": "BFS with a queue.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-453",
+    "category": "DSA Fundamentals",
+    "subCategory": "Heap",
+    "title": "Top K using a heap.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-454",
+    "category": "DSA Fundamentals",
+    "subCategory": "Heap",
+    "title": "Min heap vs max heap.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-455",
+    "category": "DSA Fundamentals",
+    "subCategory": "Trees",
+    "title": "DFS traversals.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-456",
+    "category": "DSA Fundamentals",
+    "subCategory": "Trees",
+    "title": "BFS level-order traversal.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-457",
+    "category": "DSA Fundamentals",
+    "subCategory": "Trees",
+    "title": "Height and diameter of a tree.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-458",
+    "category": "DSA Fundamentals",
+    "subCategory": "BST",
+    "title": "BST invariant.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-459",
+    "category": "DSA Fundamentals",
+    "subCategory": "BST",
+    "title": "Search, insert and delete in BST.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-460",
+    "category": "DSA Fundamentals",
+    "subCategory": "Graph",
+    "title": "Adjacency list vs matrix.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-461",
+    "category": "DSA Fundamentals",
+    "subCategory": "Graph",
+    "title": "BFS vs DFS.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-462",
+    "category": "DSA Fundamentals",
+    "subCategory": "Graph",
+    "title": "Cycle detection in undirected graphs.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-463",
+    "category": "DSA Fundamentals",
+    "subCategory": "Graph",
+    "title": "Cycle detection in directed graphs.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-464",
+    "category": "DSA Fundamentals",
+    "subCategory": "Graph",
+    "title": "Topological sort.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-465",
+    "category": "DSA Fundamentals",
+    "subCategory": "Graph",
+    "title": "Dijkstra's algorithm.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-466",
+    "category": "DSA Fundamentals",
+    "subCategory": "Graph",
+    "title": "0-1 BFS.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-467",
+    "category": "DSA Fundamentals",
+    "subCategory": "Graph",
+    "title": "Union-Find and path compression.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-468",
+    "category": "DSA Fundamentals",
+    "subCategory": "Graph",
+    "title": "Minimum spanning tree.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-469",
+    "category": "DSA Fundamentals",
+    "subCategory": "DP",
+    "title": "How to identify a DP problem.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-470",
+    "category": "DSA Fundamentals",
+    "subCategory": "DP",
+    "title": "State, transition and base case.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-471",
+    "category": "DSA Fundamentals",
+    "subCategory": "DP",
+    "title": "Memoization vs tabulation.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-472",
+    "category": "DSA Fundamentals",
+    "subCategory": "DP",
+    "title": "0/1 knapsack pattern.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-473",
+    "category": "DSA Fundamentals",
+    "subCategory": "DP",
+    "title": "Unbounded knapsack pattern.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-474",
+    "category": "DSA Fundamentals",
+    "subCategory": "DP",
+    "title": "LIS pattern.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-475",
+    "category": "DSA Fundamentals",
+    "subCategory": "DP",
+    "title": "Grid DP.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-476",
+    "category": "DSA Fundamentals",
+    "subCategory": "Greedy",
+    "title": "How to prove a greedy choice.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-477",
+    "category": "DSA Fundamentals",
+    "subCategory": "Intervals",
+    "title": "Merge intervals.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-478",
+    "category": "DSA Fundamentals",
+    "subCategory": "Intervals",
+    "title": "Interval scheduling.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-479",
+    "category": "DSA Fundamentals",
+    "subCategory": "Backtracking",
+    "title": "Choose/explore/unchoose template.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-480",
+    "category": "DSA Fundamentals",
+    "subCategory": "Backtracking",
+    "title": "Subsets and permutations.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-481",
+    "category": "DSA Fundamentals",
+    "subCategory": "Strings",
+    "title": "Frequency and hashing patterns.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-482",
+    "category": "DSA Fundamentals",
+    "subCategory": "Strings",
+    "title": "Prefix function/KMP intuition.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-483",
+    "category": "DSA Fundamentals",
+    "subCategory": "Advanced",
+    "title": "Segment tree fundamentals.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-484",
+    "category": "DSA Fundamentals",
+    "subCategory": "Advanced",
+    "title": "Fenwick tree fundamentals.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
+  },
+  {
+    "id": "fund-DSA Fundamentals-485",
+    "category": "DSA Fundamentals",
+    "subCategory": "Advanced",
+    "title": "Trie fundamentals.",
+    "source": "DACE original study bank",
+    "type": "fundamental",
+    "level": "Interview"
   }
 ]
