@@ -503,41 +503,80 @@ function PrepPage({problems,solved,status,company,setCompany,days,setDays,topicS
  const [difficulty,setDifficulty]=useState("All");
  const [onlyUnsolved,setOnlyUnsolved]=useState(false);
  const pool=useMemo(()=>problems.filter(p=>p.companies.includes(company)),[problems,company]);
- const familyStats=useMemo(()=>{const m:Record<string,{total:number;solved:number}>={};for(const p of pool){const f=topicFamily(p);m[f]??={total:0,solved:0};m[f].total++;if(solved.includes(p.id))m[f].solved++;}return Object.entries(m).sort((a,b)=>(a[1].solved/Math.max(1,a[1].total))-(b[1].solved/Math.max(1,b[1].total)));},[pool,solved]);
- const plan=useMemo(()=>{const unseen=pool.filter(p=>!solved.includes(p.id));const weak=familyStats.map(([f])=>f);const chosen:Problem[]=[];for(const f of weak){for(const p of unseen.filter(x=>topicFamily(x)===f)){if(chosen.length>=Math.min(30,days*3))break;if(!chosen.some(x=>x.id===p.id))chosen.push(p);}}for(const p of unseen){if(chosen.length>=Math.min(30,days*3))break;if(!chosen.some(x=>x.id===p.id))chosen.push(p);}return chosen;},[pool,solved,familyStats,days]);
+ const familyStats=useMemo(()=>{const m:Record<string,{total:number;solved:number;items:Problem[]}>={};for(const p of pool){const f=topicFamily(p);m[f]??={total:0,solved:0,items:[]};m[f].total++;m[f].items.push(p);if(solved.includes(p.id))m[f].solved++;}return Object.entries(m).sort((a,b)=>(a[1].solved/Math.max(1,a[1].total))-(b[1].solved/Math.max(1,b[1].total)));},[pool,solved]);
+
+ // Source-derived 30-day style shortlist: coverage first, then repeated/strongly represented source problems,
+ // while favoring Medium, then Easy, then Hard and avoiding duplicate-pattern overloading.
+ const ranked=useMemo(()=>pool.map(p=>{
+   const family=topicFamily(p);
+   const solvedPenalty=solved.includes(p.id)?-1000:0;
+   const difficultyScore=p.difficulty==="Medium"?18:p.difficulty==="Easy"?10:7;
+   const familyNeed=(familyStats.find(([f])=>f===family)?.[1].solved===0?16:0);
+   const statusBonus=status[p.id]==="revision"?8:0;
+   const companyDepth=familyStats.find(([f])=>f===family)?.[1].total||0;
+   const depthBonus=Math.min(12,Math.log2(companyDepth+1)*2);
+   return {p,score:solvedPenalty+difficultyScore+familyNeed+statusBonus+depthBonus};
+ }).sort((a,b)=>b.score-a.score),[pool,solved,status,familyStats]);
+
+ const target=useMemo(()=>Math.min(pool.length,Math.max(12,Math.min(90,Math.ceil(days*2.5)))),[pool.length,days]);
+ const shortlist=useMemo(()=>{
+   const chosen:Problem[]=[];const used=new Set<string>();
+   // First pass guarantees broad pattern coverage.
+   for(const [family] of familyStats){const x=ranked.find(r=>topicFamily(r.p)===family&&!used.has(String(r.p.id))&&!solved.includes(r.p.id));if(x){chosen.push(x.p);used.add(String(x.p.id));}}
+   // Second pass fills remaining slots by ranking.
+   for(const r of ranked){if(chosen.length>=target)break;if(used.has(String(r.p.id))||solved.includes(r.p.id))continue;chosen.push(r.p);used.add(String(r.p.id));}
+   return chosen.slice(0,target);
+ },[familyStats,ranked,target,solved]);
+
+ const dayPlan=useMemo(()=>{const out:Problem[][]=Array.from({length:days},()=>[]);shortlist.forEach((p,i)=>out[i%days].push(p));return out;},[shortlist,days]);
  const companyQuestions=useMemo(()=>{const q=query.trim().toLowerCase();return pool.filter(p=>(difficulty==="All"||p.difficulty===difficulty)&&(!onlyUnsolved||!solved.includes(p.id))&&(!q||[p.title,...p.topics].join(" ").toLowerCase().includes(q)));},[pool,query,difficulty,onlyUnsolved,solved]);
  const easy=pool.filter(p=>p.difficulty==="Easy").length, medium=pool.filter(p=>p.difficulty==="Medium").length, hard=pool.filter(p=>p.difficulty==="Hard").length;
  const solvedCount=pool.filter(p=>solved.includes(p.id)).length;
+ const shortEasy=shortlist.filter(p=>p.difficulty==="Easy").length,shortMed=shortlist.filter(p=>p.difficulty==="Medium").length,shortHard=shortlist.filter(p=>p.difficulty==="Hard").length;
+
  return <div className="max-w-7xl mx-auto p-5 md:p-8">
   <div className="text-[10px] tracking-[.2em] text-cyan-200">PREPARATION ENGINE</div>
-  <h1 className="text-3xl md:text-4xl font-black mt-2">Company Prep Plan</h1>
-  <p className="text-sm text-[#748398] mt-2">The company question pool below is generated directly from DACE's imported company-wise dataset. Counts are the unique DACE problems tagged to that company.</p>
+  <h1 className="text-3xl md:text-4xl font-black mt-2">{company} — {days}-Day Focus Plan</h1>
+  <p className="text-sm text-[#748398] mt-2">DACE selects a focused preparation set from this company's actual source-tagged questions. It is a preparation heuristic, not a prediction of future interview questions.</p>
   <div className="panel rounded-2xl p-5 mt-6">
    <div className="grid md:grid-cols-4 gap-3">
     <div><label className="text-[10px] text-[#69788d]">COMPANY</label><select value={company} onChange={e=>setCompany(e.target.value)} className="mt-2 w-full bg-[#0b1119] border border-[#253245] rounded-xl px-3 py-3 text-sm">{companies.filter(c=>c!=="All").map(c=><option key={c}>{c}</option>)}</select></div>
     <div><label className="text-[10px] text-[#69788d]">DAYS</label><input type="number" min={3} max={60} value={days} onChange={e=>setDays(Math.max(3,Math.min(60,Number(e.target.value)||14)))} className="mt-2 w-full bg-[#0b1119] border border-[#253245] rounded-xl px-3 py-3 text-sm"/></div>
-    <div className="panel rounded-xl p-4"><div className="text-[10px] text-[#69788d]">SOURCE POOL</div><div className="text-2xl font-black mt-1">{pool.length}</div><div className="text-[10px] text-[#69788d]">unique company-tagged problems</div></div>
-    <div className="panel rounded-xl p-4"><div className="text-[10px] text-[#69788d]">YOUR COVERAGE</div><div className="text-2xl font-black mt-1">{solvedCount}/{pool.length}</div><div className="text-[10px] text-[#69788d]">{Math.round(solvedCount/Math.max(1,pool.length)*100)}% solved</div></div>
+    <div className="panel rounded-xl p-4"><div className="text-[10px] text-[#69788d]">SOURCE POOL</div><div className="text-2xl font-black mt-1">{pool.length}</div><div className="text-[10px] text-[#69788d]">actual company-tagged questions</div></div>
+    <div className="panel rounded-xl p-4"><div className="text-[10px] text-[#69788d]">FOCUS SET</div><div className="text-2xl font-black mt-1">{shortlist.length}</div><div className="text-[10px] text-[#69788d]">selected for {days} days</div></div>
    </div>
-   <div className="grid grid-cols-3 gap-2 mt-3"><div className="rounded-xl border border-green-300/10 p-3"><div className="text-[10px] text-green-300">EASY</div><div className="text-xl font-black">{easy}</div></div><div className="rounded-xl border border-amber-300/10 p-3"><div className="text-[10px] text-amber-300">MEDIUM</div><div className="text-xl font-black">{medium}</div></div><div className="rounded-xl border border-rose-300/10 p-3"><div className="text-[10px] text-rose-300">HARD</div><div className="text-xl font-black">{hard}</div></div></div>
+   <div className="grid grid-cols-2 md:grid-cols-5 gap-2 mt-3">
+    <div className="rounded-xl border border-green-300/10 p-3"><div className="text-[10px] text-green-300">EASY</div><div className="text-xl font-black">{shortEasy}</div></div>
+    <div className="rounded-xl border border-amber-300/10 p-3"><div className="text-[10px] text-amber-300">MEDIUM</div><div className="text-xl font-black">{shortMed}</div></div>
+    <div className="rounded-xl border border-rose-300/10 p-3"><div className="text-[10px] text-rose-300">HARD</div><div className="text-xl font-black">{shortHard}</div></div>
+    <div className="rounded-xl border border-cyan-300/10 p-3"><div className="text-[10px] text-cyan-200">SOLVED</div><div className="text-xl font-black">{solvedCount}/{pool.length}</div></div>
+    <div className="rounded-xl border border-violet-300/10 p-3"><div className="text-[10px] text-violet-200">REMAINING</div><div className="text-xl font-black">{Math.max(0,shortlist.filter(p=>!solved.includes(p.id)).length)}</div></div>
+   </div>
   </div>
-  <div className="grid lg:grid-cols-[1fr_1fr] gap-5 mt-5">
-   <div className="panel rounded-2xl p-5"><h2 className="font-semibold">Company × pattern coverage</h2><div className="mt-4 space-y-3">{familyStats.slice(0,12).map(([f,v])=>{const pct=Math.round(v.solved/Math.max(1,v.total)*100);return <div key={f}><div className="flex justify-between text-xs"><span>{f}</span><span>{v.solved}/{v.total} · {pct}%</span></div><div className="h-2 bg-[#18212d] rounded-full mt-2"><div className="h-full bg-gradient-to-r from-cyan-300 to-violet-400 rounded-full" style={{width:pct+"%"}}/></div></div>})}</div></div>
-   <div className="panel rounded-2xl p-5"><h2 className="font-semibold">Plan for the next {days} days</h2><p className="text-xs text-[#718096] mt-1">Prioritizes uncovered patterns before the general pool.</p><div className="mt-4 space-y-2">{plan.slice(0,10).map((p,i)=><button key={p.id} onClick={()=>openTimer(p)} className="w-full text-left p-3 rounded-xl border border-[#202a38] hover:border-cyan-300/20"><div className="flex gap-2"><span className="text-[10px] text-[#627188]">{String(i+1).padStart(2,"0")}</span><span className="text-sm flex-1">{p.title}</span><span className="text-[10px]">{p.difficulty}</span></div><div className="text-[10px] text-[#69788d] mt-1">{topicFamily(p)} · {p.companies.slice(0,3).join(" · ")}</div></button>)}</div></div>
+
+  <div className="grid lg:grid-cols-[.85fr_1.15fr] gap-5 mt-5">
+   <div className="panel rounded-2xl p-5">
+    <h2 className="font-semibold">Why these questions?</h2>
+    <p className="text-xs text-[#718096] mt-2 leading-5">The selector first covers the company's patterns, then fills the remaining slots from its source pool. It favors unsolved Medium questions, useful Easy foundations, revision items, and patterns you have not covered. The full company bank remains below.</p>
+    <div className="mt-4 space-y-3">{familyStats.slice(0,12).map(([f,v])=>{const pct=Math.round(v.solved/Math.max(1,v.total)*100);const inSet=shortlist.filter(p=>topicFamily(p)===f).length;return <div key={f}><div className="flex justify-between text-xs"><span>{f}</span><span>{inSet} focus · {v.solved}/{v.total} solved</span></div><div className="h-2 bg-[#18212d] rounded-full mt-2"><div className="h-full bg-gradient-to-r from-cyan-300 to-violet-400 rounded-full" style={{width:pct+"%"}}/></div></div>})}</div>
+   </div>
+   <div className="panel rounded-2xl p-5">
+    <div className="flex items-end justify-between gap-3"><div><div className="text-[10px] tracking-widest text-cyan-200">MUST PREPARE</div><h2 className="text-2xl font-black mt-2">{shortlist.length} questions for {days} days</h2><p className="text-xs text-[#718096] mt-1">Daily target: about {Math.ceil(shortlist.length/days)} focused questions.</p></div></div>
+    <div className="mt-4 space-y-2">{shortlist.slice(0,18).map((p,i)=><div key={p.id} className="p-3 rounded-xl border border-[#202a38]"><div className="flex gap-2 items-center"><span className="text-[10px] text-[#627188]">#{i+1}</span><span className="text-sm flex-1">{p.title}</span><span className="text-[10px]">{p.difficulty}</span></div><div className="text-[10px] text-[#69788d] mt-1">{topicFamily(p)} · {p.topics.join(" · ")}</div><div className="flex gap-2 mt-2"><button onClick={()=>openTimer(p)} className="px-3 py-1.5 rounded-lg bg-white text-black text-[11px] font-semibold">Practice</button><a href={p.url} target="_blank" rel="noreferrer" className="px-3 py-1.5 rounded-lg border border-[#273447] text-[11px]">Source ↗</a></div></div>)}</div>
+   </div>
   </div>
+
   <div className="panel rounded-2xl p-5 mt-5">
-   <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-3"><div><div className="text-[10px] tracking-widest text-violet-200">COMPANY QUESTION BANK</div><h2 className="text-2xl font-black mt-2">{company}: {companyQuestions.length} matching questions</h2><p className="text-xs text-[#718096] mt-1">These are the actual problem titles present in DACE's company-wise source dataset—not invented company questions.</p></div></div>
-   <div className="grid md:grid-cols-[1fr_160px_auto] gap-2 mt-4">
-    <input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search Two Sum, graph, DP, tree..." className="bg-[#0b1119] border border-[#253245] rounded-xl px-4 py-3 text-sm outline-none"/>
-    <select value={difficulty} onChange={e=>setDifficulty(e.target.value)} className="bg-[#0b1119] border border-[#253245] rounded-xl px-3 py-3 text-sm"><option>All</option><option>Easy</option><option>Medium</option><option>Hard</option></select>
-    <button onClick={()=>setOnlyUnsolved(x=>!x)} className={"px-4 py-3 rounded-xl border text-xs "+(onlyUnsolved?"border-cyan-300/30 bg-cyan-300/10 text-cyan-100":"border-[#253245] text-[#8290a3]")}>{onlyUnsolved?"Showing unsolved":"Show unsolved only"}</button>
-   </div>
-   <div className="mt-4 grid md:grid-cols-2 xl:grid-cols-3 gap-2 max-h-[760px] overflow-auto pr-1">
-    {companyQuestions.map((p,i)=><div key={p.id} className="p-4 rounded-2xl border border-white/5 hover:border-cyan-300/20"><div className="flex gap-2 items-center"><span className="text-[10px] text-[#627188]">#{i+1}</span><span className={"text-[10px] "+(p.difficulty==="Easy"?"text-green-300":p.difficulty==="Medium"?"text-amber-300":"text-rose-300")}>{p.difficulty}</span><span className="text-[9px] text-[#68778c]">· {topicFamily(p)}</span>{solved.includes(p.id)&&<span className="ml-auto text-[9px] text-green-300">✓ solved</span>}</div><div className="text-sm leading-5 mt-2">{p.title}</div><div className="text-[10px] text-[#657387] mt-2">{p.topics.join(" · ")}</div><div className="flex gap-2 mt-3"><button onClick={()=>openTimer(p)} className="px-3 py-2 rounded-lg bg-white text-black text-[11px] font-semibold">Practice</button><a href={p.url} target="_blank" rel="noreferrer" className="px-3 py-2 rounded-lg border border-[#273447] text-[11px]">Open source ↗</a></div></div>)}
-    {companyQuestions.length===0&&<div className="col-span-full text-sm text-[#718096] py-10 text-center">No questions match these filters.</div>}
-   </div>
+   <div className="text-[10px] tracking-widest text-violet-200">DAY-BY-DAY PLAN</div>
+   <h2 className="text-2xl font-black mt-2">Your {days} days</h2>
+   <div className="mt-4 grid md:grid-cols-2 xl:grid-cols-3 gap-3">{dayPlan.map((day,i)=><div key={i} className="rounded-2xl border border-white/5 p-4"><div className="text-xs font-bold">DAY {i+1}</div>{day.length===0?<div className="text-xs text-[#657387] mt-2">Revision / mock / weak-topic day.</div>:day.map(p=><button key={p.id} onClick={()=>openTimer(p)} className="w-full text-left mt-2 p-2.5 rounded-xl bg-[#0a1017] border border-white/5 text-xs hover:border-cyan-300/20"><span className="text-cyan-200">{p.difficulty}</span> · {p.title}<span className="block text-[10px] text-[#657387] mt-1">{topicFamily(p)}</span></button>)}</div>)}</div>
   </div>
-  <div className="panel rounded-2xl p-5 mt-5"><h2 className="font-semibold">What DACE can measure</h2><div className="grid md:grid-cols-3 gap-3 mt-4"><MiniMetric label="Unsolved" value={String(pool.filter(p=>!solved.includes(p.id)).length)} sub="remaining in pool"/><MiniMetric label="Revision" value={String(pool.filter(p=>status[p.id]==="revision").length)} sub="needs another attempt"/><MiniMetric label="Plan size" value={String(plan.length)} sub="selected problems"/></div></div>
+
+  <div className="panel rounded-2xl p-5 mt-5">
+   <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-3"><div><div className="text-[10px] tracking-widest text-violet-200">FULL COMPANY BANK</div><h2 className="text-2xl font-black mt-2">{company}: {companyQuestions.length} source questions</h2><p className="text-xs text-[#718096] mt-1">The focus set is a subset. This remains the complete source-derived bank for extra practice.</p></div></div>
+   <div className="grid md:grid-cols-[1fr_160px_auto] gap-2 mt-4"><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search Two Sum, graph, DP, tree..." className="bg-[#0b1119] border border-[#253245] rounded-xl px-4 py-3 text-sm outline-none"/><select value={difficulty} onChange={e=>setDifficulty(e.target.value)} className="bg-[#0b1119] border border-[#253245] rounded-xl px-3 py-3 text-sm"><option>All</option><option>Easy</option><option>Medium</option><option>Hard</option></select><button onClick={()=>setOnlyUnsolved(x=>!x)} className={"px-4 py-3 rounded-xl border text-xs "+(onlyUnsolved?"border-cyan-300/30 bg-cyan-300/10 text-cyan-100":"border-[#253245] text-[#8290a3]")}>{onlyUnsolved?"Showing unsolved":"Show unsolved only"}</button></div>
+   <div className="mt-4 grid md:grid-cols-2 xl:grid-cols-3 gap-2 max-h-[760px] overflow-auto pr-1">{companyQuestions.map((p,i)=><div key={p.id} className="p-4 rounded-2xl border border-white/5 hover:border-cyan-300/20"><div className="flex gap-2 items-center"><span className="text-[10px] text-[#627188]">#{i+1}</span><span className={"text-[10px] "+(p.difficulty==="Easy"?"text-green-300":p.difficulty==="Medium"?"text-amber-300":"text-rose-300")}>{p.difficulty}</span><span className="text-[9px] text-[#68778c]">· {topicFamily(p)}</span>{solved.includes(p.id)&&<span className="ml-auto text-[9px] text-green-300">✓ solved</span>}</div><div className="text-sm leading-5 mt-2">{p.title}</div><div className="text-[10px] text-[#657387] mt-2">{p.topics.join(" · ")}</div><div className="flex gap-2 mt-3"><button onClick={()=>openTimer(p)} className="px-3 py-2 rounded-lg bg-white text-black text-[11px] font-semibold">Practice</button><a href={p.url} target="_blank" rel="noreferrer" className="px-3 py-2 rounded-lg border border-[#273447] text-[11px]">Open source ↗</a></div></div>)}</div>
+  </div>
  </div>
 }
 function SettingsPage({target,setTarget,company,setCompany,companies,exportData,importData,resetAll}:{target:{Easy:number;Medium:number;Hard:number};setTarget:React.Dispatch<React.SetStateAction<{Easy:number;Medium:number;Hard:number}>>;company:string;setCompany:(s:string)=>void;companies:string[];exportData:()=>void;importData:(e:React.ChangeEvent<HTMLInputElement>)=>void;resetAll:()=>void}){
