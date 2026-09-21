@@ -127,7 +127,17 @@
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 1,
-    "id": 548
+    "id": 548,
+    "companyFrequency": {
+      "AMD": 93.8,
+      "Accenture": 100,
+      "Accolite": 74.7,
+      "Adobe": 100,
+      "Airbnb": 65.5,
+      "Airbus SE": 87.1,
+      "Akamai": 64,
+      "Altimetrik": 84.2
+    }
   },
   {
     "title": "Palindrome Number",
@@ -168,13 +178,18 @@
       "Yandex",
       "Zoho",
       "persistent systems",
-      "tcs"
+      "tcs",
+      "AMD"
     ],
     "url": "https://leetcode.com/problems/palindrome-number/",
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 9,
-    "id": 573
+    "id": 573,
+    "companyFrequency": {
+      "AMD": 74.7,
+      "Accenture": 79.6
+    }
   },
   {
     "title": "Majority Element",
@@ -184,7 +199,8 @@
       "Hash Table",
       "Divide and Conquer",
       "Sorting",
-      "Counting"
+      "Counting",
+      "Boyer–Moore Majority Vote Algorithm"
     ],
     "companies": [
       "Accenture",
@@ -219,7 +235,11 @@
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 169,
-    "id": 577
+    "id": 577,
+    "companyFrequency": {
+      "Accenture": 77,
+      "Adobe": 86.8
+    }
   },
   {
     "title": "Best Time to Buy and Sell Stock",
@@ -354,7 +374,15 @@
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 121,
-    "id": 553
+    "id": 553,
+    "companyFrequency": {
+      "Accenture": 84,
+      "Accolite": 54.9,
+      "Adobe": 78.3,
+      "Agoda": 95.8,
+      "Airtel": 77.3,
+      "Akamai": 94
+    }
   },
   {
     "title": "Maximum Subarray",
@@ -419,20 +447,26 @@
       "Zomato",
       "eBay",
       "persistent systems",
-      "tcs"
+      "tcs",
+      "Accolite"
     ],
     "url": "https://leetcode.com/problems/maximum-subarray/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 53,
-    "id": 569
+    "id": 569,
+    "companyFrequency": {
+      "Accenture": 77,
+      "Accolite": 54.9
+    }
   },
   {
     "title": "Longest Common Prefix",
     "difficulty": "Easy",
     "topics": [
       "String",
-      "Trie"
+      "Trie",
+      "Array"
     ],
     "companies": [
       "Accenture",
@@ -489,14 +523,19 @@
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 14,
-    "id": 567
+    "id": 567,
+    "companyFrequency": {
+      "Accenture": 62.6,
+      "Adobe": 70.6
+    }
   },
   {
     "title": "Valid Parentheses",
     "difficulty": "Easy",
     "topics": [
       "String",
-      "Stack"
+      "Stack",
+      "Bracket Sequences"
     ],
     "companies": [
       "Accenture",
@@ -592,13 +631,22 @@
       "eBay",
       "opentext",
       "persistent systems",
-      "tcs"
+      "tcs",
+      "Altimetrik"
     ],
     "url": "https://leetcode.com/problems/valid-parentheses/",
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 20,
-    "id": 564
+    "id": 564,
+    "companyFrequency": {
+      "Accenture": 40.5,
+      "Accolite": 63.6,
+      "Adobe": 70.6,
+      "Agoda": 49.2,
+      "Airbnb": 65.5,
+      "Altimetrik": 68.4
+    }
   },
   {
     "title": "Fibonacci Number",
@@ -628,7 +676,10 @@
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 509,
-    "id": 690
+    "id": 690,
+    "companyFrequency": {
+      "Accenture": 57.2
+    }
   },
   {
     "title": "Subarray Sum Equals K",
@@ -672,13 +723,22 @@
       "Walmart Labs",
       "Yandex",
       "Zoho",
-      "tcs"
+      "tcs",
+      "Accenture",
+      "Adobe",
+      "Agoda"
     ],
     "url": "https://leetcode.com/problems/subarray-sum-equals-k/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 560,
-    "id": 568
+    "id": 568,
+    "companyFrequency": {
+      "AMD": 85.9,
+      "Accenture": 77,
+      "Adobe": 41.7,
+      "Agoda": 58.5
+    }
   },
   {
     "title": "Move Zeroes",
@@ -722,13 +782,20 @@
       "Zoho",
       "eBay",
       "josh technology",
-      "tcs"
+      "tcs",
+      "AMD",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/move-zeroes/",
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 283,
-    "id": 616
+    "id": 616,
+    "companyFrequency": {
+      "AMD": 74.7,
+      "Accenture": 70.8,
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Rotate Array",
@@ -773,7 +840,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 189,
-    "id": 623
+    "id": 623,
+    "companyFrequency": {
+      "Accenture": 74.1
+    }
   },
   {
     "title": "Jump Game",
@@ -818,13 +888,18 @@
       "Yahoo",
       "ZScaler",
       "Zoho",
-      "tcs"
+      "tcs",
+      "Agoda"
     ],
     "url": "https://leetcode.com/problems/jump-game/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 55,
-    "id": 580
+    "id": 580,
+    "companyFrequency": {
+      "Adobe": 74.7,
+      "Agoda": 49.2
+    }
   },
   {
     "title": "Merge Sorted Array",
@@ -881,13 +956,18 @@
       "Zoho",
       "athenahealth",
       "persistent systems",
-      "tcs"
+      "tcs",
+      "AMD"
     ],
     "url": "https://leetcode.com/problems/merge-sorted-array/",
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 88,
-    "id": 572
+    "id": 572,
+    "companyFrequency": {
+      "AMD": 85.9,
+      "Accenture": 67.1
+    }
   },
   {
     "title": "Unique Paths",
@@ -918,13 +998,18 @@
       "Uber",
       "Yahoo",
       "Zomato",
-      "tcs"
+      "tcs",
+      "Akamai"
     ],
     "url": "https://leetcode.com/problems/unique-paths/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 62,
-    "id": 605
+    "id": 605,
+    "companyFrequency": {
+      "Accenture": 40.5,
+      "Akamai": 64
+    }
   },
   {
     "title": "Roman to Integer",
@@ -976,7 +1061,12 @@
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 13,
-    "id": 607
+    "id": 607,
+    "companyFrequency": {
+      "AMD": 100,
+      "Accenture": 57.2,
+      "Adobe": 52.2
+    }
   },
   {
     "title": "Valid Anagram",
@@ -1019,13 +1109,19 @@
       "Yandex",
       "Yelp",
       "persistent systems",
-      "tcs"
+      "tcs",
+      "Amadeus"
     ],
     "url": "https://leetcode.com/problems/valid-anagram/",
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 242,
-    "id": 590
+    "id": 590,
+    "companyFrequency": {
+      "Accenture": 57.2,
+      "Affirm": 62.7,
+      "Amadeus": 82.2
+    }
   },
   {
     "title": "3Sum",
@@ -1107,7 +1203,13 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 15,
-    "id": 557
+    "id": 557,
+    "companyFrequency": {
+      "AMD": 74.7,
+      "Accenture": 62.6,
+      "Adobe": 84.3,
+      "Agoda": 70.3
+    }
   },
   {
     "title": "Climbing Stairs",
@@ -1153,13 +1255,21 @@
       "Yahoo",
       "Yandex",
       "Zoho",
-      "tcs"
+      "tcs",
+      "Agoda"
     ],
     "url": "https://leetcode.com/problems/climbing-stairs/",
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 70,
-    "id": 583
+    "id": 583,
+    "companyFrequency": {
+      "AMD": 74.7,
+      "Accenture": 86,
+      "Accolite": 54.9,
+      "Adobe": 84.3,
+      "Agoda": 58.5
+    }
   },
   {
     "title": "Find the Index of the First Occurrence in a String",
@@ -1201,7 +1311,8 @@
     "topics": [
       "Two Pointers",
       "String",
-      "Dynamic Programming"
+      "Dynamic Programming",
+      "Manacher"
     ],
     "companies": [
       "Accenture",
@@ -1283,7 +1394,12 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 5,
-    "id": 556
+    "id": 556,
+    "companyFrequency": {
+      "Accenture": 67.1,
+      "Accolite": 63.6,
+      "Adobe": 70.6
+    }
   },
   {
     "title": "Container With Most Water",
@@ -1345,13 +1461,20 @@
       "Zopsmart",
       "oyo",
       "razorpay",
-      "tcs"
+      "tcs",
+      "Airtel"
     ],
     "url": "https://leetcode.com/problems/container-with-most-water/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 11,
-    "id": 560
+    "id": 560,
+    "companyFrequency": {
+      "Accenture": 57.2,
+      "Accolite": 63.6,
+      "Adobe": 41.7,
+      "Airtel": 68
+    }
   },
   {
     "title": "Plus One",
@@ -1381,7 +1504,10 @@
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 66,
-    "id": 696
+    "id": 696,
+    "companyFrequency": {
+      "Accenture": 50.2
+    }
   },
   {
     "title": "Pow(x, n)",
@@ -1423,7 +1549,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 50,
-    "id": 664
+    "id": 664,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Second Highest Salary",
@@ -1449,7 +1578,10 @@
     "url": "https://leetcode.com/problems/second-highest-salary/",
     "frequency": 100,
     "estimate": 35,
-    "id": 716
+    "id": 716,
+    "companyFrequency": {
+      "Accenture": 50.2
+    }
   },
   {
     "title": "Sort Colors",
@@ -1457,7 +1589,9 @@
     "topics": [
       "Array",
       "Two Pointers",
-      "Sorting"
+      "Sorting",
+      "Quicksort",
+      "Bubble Sort"
     ],
     "companies": [
       "Adobe",
@@ -1492,13 +1626,17 @@
       "Zoho",
       "Zopsmart",
       "eBay",
-      "tcs"
+      "tcs",
+      "Agoda"
     ],
     "url": "https://leetcode.com/problems/sort-colors/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 75,
-    "id": 606
+    "id": 606,
+    "companyFrequency": {
+      "Agoda": 65.2
+    }
   },
   {
     "title": "Sliding Window Maximum",
@@ -1508,7 +1646,8 @@
       "Queue",
       "Sliding Window",
       "Heap (Priority Queue)",
-      "Monotonic Queue"
+      "Monotonic Queue",
+      "Range Minimum/Maximum Query"
     ],
     "companies": [
       "Amazon",
@@ -1544,13 +1683,19 @@
       "Zenefits",
       "Zepto",
       "oyo",
-      "tcs"
+      "tcs",
+      "Adobe",
+      "Agoda"
     ],
     "url": "https://leetcode.com/problems/sliding-window-maximum/",
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 239,
-    "id": 587
+    "id": 587,
+    "companyFrequency": {
+      "Adobe": 41.7,
+      "Agoda": 58.5
+    }
   },
   {
     "title": "Happy Number",
@@ -1558,7 +1703,8 @@
     "topics": [
       "Hash Table",
       "Math",
-      "Two Pointers"
+      "Two Pointers",
+      "Floyd's Cycle Finding Algorithm"
     ],
     "companies": [
       "Accenture",
@@ -1582,13 +1728,19 @@
       "Verily",
       "X",
       "Zoho",
-      "tcs"
+      "tcs",
+      "Agoda"
     ],
     "url": "https://leetcode.com/problems/happy-number/",
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 202,
-    "id": 692
+    "id": 692,
+    "companyFrequency": {
+      "Accenture": 74.1,
+      "Agoda": 49.2,
+      "Airbnb": 65.5
+    }
   },
   {
     "title": "Reverse Words in a String",
@@ -1627,7 +1779,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 151,
-    "id": 687
+    "id": 687,
+    "companyFrequency": {
+      "Accenture": 50.2
+    }
   },
   {
     "title": "Trapping Rain Water",
@@ -1720,13 +1875,19 @@
       "carwale",
       "jio",
       "redbus",
-      "tcs"
+      "tcs",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/trapping-rain-water/",
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 42,
-    "id": 550
+    "id": 550,
+    "companyFrequency": {
+      "Accenture": 50.2,
+      "Adobe": 70.6,
+      "Airbnb": 70.1
+    }
   },
   {
     "title": "Spiral Matrix",
@@ -1782,13 +1943,20 @@
       "Yahoo",
       "Zoho",
       "eBay",
-      "tcs"
+      "tcs",
+      "Akamai"
     ],
     "url": "https://leetcode.com/problems/spiral-matrix/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 54,
-    "id": 588
+    "id": 588,
+    "companyFrequency": {
+      "AMD": 85.9,
+      "Accenture": 40.5,
+      "Adobe": 59.8,
+      "Akamai": 64
+    }
   },
   {
     "title": "Best Time to Buy and Sell Stock II",
@@ -1832,13 +2000,18 @@
       "Yandex",
       "Zoho",
       "eBay",
-      "tcs"
+      "tcs",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 122,
-    "id": 624
+    "id": 624,
+    "companyFrequency": {
+      "Accenture": 40.5,
+      "Agoda": 49.2
+    }
   },
   {
     "title": "Add Two Numbers",
@@ -1884,13 +2057,22 @@
       "Yandex",
       "Zopsmart",
       "josh technology",
-      "tcs"
+      "tcs",
+      "AQR Capital Management",
+      "Accolite"
     ],
     "url": "https://leetcode.com/problems/add-two-numbers/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 2,
-    "id": 555
+    "id": 555,
+    "companyFrequency": {
+      "AQR Capital Management": 64,
+      "Accenture": 50.2,
+      "Accolite": 54.9,
+      "Adobe": 86.8,
+      "Airbnb": 67.9
+    }
   },
   {
     "title": "Set Matrix Zeroes",
@@ -1954,13 +2136,17 @@
       "Snap",
       "Walmart Labs",
       "Yandex",
-      "tcs"
+      "tcs",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/max-consecutive-ones-iii/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 1004,
-    "id": 646
+    "id": 646,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Check if Array Is Sorted and Rotated",
@@ -2078,13 +2264,23 @@
       "josh technology",
       "opentext",
       "persistent systems",
-      "tcs"
+      "tcs",
+      "Akamai"
     ],
     "url": "https://leetcode.com/problems/longest-substring-without-repeating-characters/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 3,
-    "id": 552
+    "id": 552,
+    "companyFrequency": {
+      "AMD": 74.7,
+      "Accenture": 77,
+      "Accolite": 78.7,
+      "Adobe": 91.3,
+      "Agoda": 65.2,
+      "Airtel": 77.3,
+      "Akamai": 64
+    }
   },
   {
     "title": "Merge Two Sorted Lists",
@@ -2135,13 +2331,18 @@
       "Yahoo",
       "Yandex",
       "Zoho",
-      "tcs"
+      "tcs",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/merge-two-sorted-lists/",
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 21,
-    "id": 585
+    "id": 585,
+    "companyFrequency": {
+      "Accenture": 50.2,
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Single Element in a Sorted Array",
@@ -2163,13 +2364,17 @@
       "Snowflake",
       "Sprinklr",
       "blinkit",
-      "tcs"
+      "tcs",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/single-element-in-a-sorted-array/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 540,
-    "id": 631
+    "id": 631,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "N-th Tribonacci Number",
@@ -2188,7 +2393,10 @@
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 1137,
-    "id": 1604
+    "id": 1604,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "4Sum",
@@ -2219,13 +2427,17 @@
       "Yahoo",
       "Zoox",
       "oyo",
-      "tcs"
+      "tcs",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/4sum/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 18,
-    "id": 620
+    "id": 620,
+    "companyFrequency": {
+      "Accenture": 57.2
+    }
   },
   {
     "title": "Reverse Linked List",
@@ -2269,13 +2481,17 @@
       "Zenefits",
       "Zopsmart",
       "Zynga",
-      "tcs"
+      "tcs",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/reverse-linked-list/",
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 206,
-    "id": 630
+    "id": 630,
+    "companyFrequency": {
+      "Adobe": 84.3
+    }
   },
   {
     "title": "Generate Parentheses",
@@ -2283,7 +2499,8 @@
     "topics": [
       "String",
       "Dynamic Programming",
-      "Backtracking"
+      "Backtracking",
+      "Bracket Sequences"
     ],
     "companies": [
       "Accenture",
@@ -2331,7 +2548,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 22,
-    "id": 578
+    "id": 578,
+    "companyFrequency": {
+      "Adobe": 59.8
+    }
   },
   {
     "title": "Edit Distance",
@@ -2380,7 +2600,8 @@
     "topics": [
       "Array",
       "Stack",
-      "Monotonic Stack"
+      "Monotonic Stack",
+      "Range Minimum/Maximum Query"
     ],
     "companies": [
       "Adobe",
@@ -2408,13 +2629,18 @@
       "Zomato",
       "Zynga",
       "oyo",
-      "tcs"
+      "tcs",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/largest-rectangle-in-histogram/",
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 84,
-    "id": 611
+    "id": 611,
+    "companyFrequency": {
+      "Accenture": 50.2,
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Find First and Last Position of Element in Sorted Array",
@@ -2460,7 +2686,11 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 34,
-    "id": 608
+    "id": 608,
+    "companyFrequency": {
+      "Accenture": 40.5,
+      "Airtel": 68
+    }
   },
   {
     "title": "Employee Bonus",
@@ -2482,7 +2712,8 @@
     "difficulty": "Medium",
     "topics": [
       "String",
-      "Dynamic Programming"
+      "Dynamic Programming",
+      "Longest Common Subsequence"
     ],
     "companies": [
       "Accolite",
@@ -2496,13 +2727,17 @@
       "Optum",
       "Salesforce",
       "Walmart Labs",
-      "tcs"
+      "tcs",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/longest-common-subsequence/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 1143,
-    "id": 783
+    "id": 783,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Pascal's Triangle",
@@ -2537,7 +2772,10 @@
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 118,
-    "id": 609
+    "id": 609,
+    "companyFrequency": {
+      "Accenture": 57.2
+    }
   },
   {
     "title": "Longest Consecutive Sequence",
@@ -2545,7 +2783,8 @@
     "topics": [
       "Array",
       "Hash Table",
-      "Union Find"
+      "Union Find",
+      "Union-Find"
     ],
     "companies": [
       "Amazon",
@@ -2583,13 +2822,17 @@
       "Yandex",
       "Zepto",
       "Zoho",
-      "tcs"
+      "tcs",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/longest-consecutive-sequence/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 128,
-    "id": 574
+    "id": 574,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Maximum Product Subarray",
@@ -2623,7 +2866,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 152,
-    "id": 662
+    "id": 662,
+    "companyFrequency": {
+      "Adobe": 70.6
+    }
   },
   {
     "title": "Largest Number",
@@ -2654,13 +2900,18 @@
       "Zalando",
       "Zoho",
       "josh technology",
-      "tcs"
+      "tcs",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/largest-number/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 179,
-    "id": 683
+    "id": 683,
+    "companyFrequency": {
+      "Accenture": 57.2,
+      "Adobe": 65.7
+    }
   },
   {
     "title": "Next Permutation",
@@ -2702,13 +2953,19 @@
       "Yahoo",
       "Zepto",
       "Zoho",
-      "tcs"
+      "tcs",
+      "Airtel"
     ],
     "url": "https://leetcode.com/problems/next-permutation/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 31,
-    "id": 595
+    "id": 595,
+    "companyFrequency": {
+      "Accenture": 50.2,
+      "Adobe": 74.7,
+      "Airtel": 77.3
+    }
   },
   {
     "title": "Power of Two",
@@ -2760,13 +3017,17 @@
       "Wix",
       "Yahoo",
       "Zoho",
-      "tcs"
+      "tcs",
+      "Agoda"
     ],
     "url": "https://leetcode.com/problems/subsets/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 78,
-    "id": 591
+    "id": 591,
+    "companyFrequency": {
+      "Agoda": 58.5
+    }
   },
   {
     "title": "Combination Sum",
@@ -2809,7 +3070,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 39,
-    "id": 672
+    "id": 672,
+    "companyFrequency": {
+      "Airbnb": 59.5
+    }
   },
   {
     "title": "Word Search",
@@ -2856,13 +3120,17 @@
       "Wix",
       "Zepto",
       "Zoho",
-      "tcs"
+      "tcs",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/word-search/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 79,
-    "id": 589
+    "id": 589,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Coin Change",
@@ -2870,7 +3138,9 @@
     "topics": [
       "Array",
       "Dynamic Programming",
-      "Breadth-First Search"
+      "Breadth-First Search",
+      "Knapsack Problem",
+      "Complete Knapsack"
     ],
     "companies": [
       "Accenture",
@@ -2909,13 +3179,23 @@
       "Uber",
       "Walmart Labs",
       "Zoho",
-      "tcs"
+      "tcs",
+      "Accolite",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/coin-change/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 322,
-    "id": 597
+    "id": 597,
+    "companyFrequency": {
+      "Accenture": 50.2,
+      "Accolite": 63.6,
+      "Adobe": 52.2,
+      "Affirm": 57.2,
+      "Agoda": 58.5,
+      "Airbnb": 36.9
+    }
   },
   {
     "title": "Intersection of Two Arrays",
@@ -2948,7 +3228,10 @@
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 349,
-    "id": 689
+    "id": 689,
+    "companyFrequency": {
+      "Accenture": 62.6
+    }
   },
   {
     "title": "Product of Array Except Self",
@@ -3005,7 +3288,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 238,
-    "id": 581
+    "id": 581,
+    "companyFrequency": {
+      "Adobe": 52.2
+    }
   },
   {
     "title": "Sort an Array",
@@ -3036,7 +3322,8 @@
     "difficulty": "Hard",
     "topics": [
       "Array",
-      "Backtracking"
+      "Backtracking",
+      "Algorithm X"
     ],
     "companies": [
       "Adobe",
@@ -3057,13 +3344,18 @@
       "Uber",
       "Yahoo",
       "Zoho",
-      "tcs"
+      "tcs",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/n-queens/",
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 51,
-    "id": 614
+    "id": 614,
+    "companyFrequency": {
+      "Accenture": 40.5,
+      "Adobe": 52.2
+    }
   },
   {
     "title": "Integer to English Words",
@@ -3133,7 +3425,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 63,
-    "id": 982
+    "id": 982,
+    "companyFrequency": {
+      "Agoda": 74.6
+    }
   },
   {
     "title": "Excel Sheet Column Number",
@@ -3219,13 +3514,17 @@
       "Uber",
       "Yahoo",
       "Yandex",
-      "tcs"
+      "tcs",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/remove-nth-node-from-end-of-list/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 19,
-    "id": 671
+    "id": 671,
+    "companyFrequency": {
+      "Accenture": 57.2
+    }
   },
   {
     "title": "Replace Employee ID With The Unique Identifier",
@@ -3276,13 +3575,18 @@
       "Qualcomm",
       "Walmart Labs",
       "Zoho",
-      "tcs"
+      "tcs",
+      "AMD"
     ],
     "url": "https://leetcode.com/problems/middle-of-the-linked-list/",
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 876,
-    "id": 685
+    "id": 685,
+    "companyFrequency": {
+      "AMD": 74.7,
+      "Accenture": 57.2
+    }
   },
   {
     "title": "House Robber",
@@ -3328,13 +3632,19 @@
       "Turing",
       "Walmart Labs",
       "Zoho",
-      "tcs"
+      "tcs",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/house-robber/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 198,
-    "id": 582
+    "id": 582,
+    "companyFrequency": {
+      "Adobe": 52.2,
+      "Agoda": 58.5,
+      "Airbnb": 65.5
+    }
   },
   {
     "title": "Diameter of Binary Tree",
@@ -3428,7 +3738,11 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 48,
-    "id": 594
+    "id": 594,
+    "companyFrequency": {
+      "Accenture": 50.2,
+      "Adobe": 52.2
+    }
   },
   {
     "title": "Group Anagrams",
@@ -3519,20 +3833,27 @@
       "Zopsmart",
       "athenahealth",
       "eBay",
-      "persistent systems"
+      "persistent systems",
+      "Accolite"
     ],
     "url": "https://leetcode.com/problems/group-anagrams/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 49,
-    "id": 554
+    "id": 554,
+    "companyFrequency": {
+      "Accolite": 54.9,
+      "Adobe": 95.1,
+      "Affirm": 70.3
+    }
   },
   {
     "title": "Merge Intervals",
     "difficulty": "Medium",
     "topics": [
       "Array",
-      "Sorting"
+      "Sorting",
+      "Quicksort"
     ],
     "companies": [
       "AMD",
@@ -3629,7 +3950,12 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 56,
-    "id": 561
+    "id": 561,
+    "companyFrequency": {
+      "AMD": 85.9,
+      "Accenture": 57.2,
+      "Adobe": 86.8
+    }
   },
   {
     "title": "Kth Largest Element in an Array",
@@ -3682,13 +4008,20 @@
       "Walmart Labs",
       "Wipro",
       "Yandex",
-      "eBay"
+      "eBay",
+      "Adobe",
+      "Alibaba"
     ],
     "url": "https://leetcode.com/problems/kth-largest-element-in-an-array/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 215,
-    "id": 601
+    "id": 601,
+    "companyFrequency": {
+      "Accenture": 57.2,
+      "Adobe": 41.7,
+      "Alibaba": 67.6
+    }
   },
   {
     "title": "Number of Islands",
@@ -3698,7 +4031,8 @@
       "Depth-First Search",
       "Breadth-First Search",
       "Union Find",
-      "Matrix"
+      "Matrix",
+      "Union-Find"
     ],
     "companies": [
       "Accenture",
@@ -3786,13 +4120,20 @@
       "Zoho",
       "Zomato",
       "eBay",
-      "thoughtspot"
+      "thoughtspot",
+      "AMD",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/number-of-islands/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 200,
-    "id": 551
+    "id": 551,
+    "companyFrequency": {
+      "AMD": 93.8,
+      "Accenture": 57.2,
+      "Adobe": 78.3
+    }
   },
   {
     "title": "Reverse Nodes in k-Group",
@@ -3867,13 +4208,19 @@
       "PhonePe",
       "ServiceNow",
       "Yahoo",
-      "Zepto"
+      "Zepto",
+      "Accolite",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/gas-station/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 134,
-    "id": 661
+    "id": 661,
+    "companyFrequency": {
+      "Accolite": 69.9,
+      "Adobe": 59.8
+    }
   },
   {
     "title": "Minimum Window Substring",
@@ -3920,7 +4267,11 @@
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 76,
-    "id": 602
+    "id": 602,
+    "companyFrequency": {
+      "Adobe": 74.7,
+      "Airbnb": 62.7
+    }
   },
   {
     "title": "Integer to Roman",
@@ -3966,13 +4317,19 @@
       "X",
       "Yahoo",
       "Zoho",
-      "eBay"
+      "eBay",
+      "AMD"
     ],
     "url": "https://leetcode.com/problems/integer-to-roman/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 12,
-    "id": 675
+    "id": 675,
+    "companyFrequency": {
+      "AMD": 74.7,
+      "Adobe": 74.7,
+      "Agoda": 49.2
+    }
   },
   {
     "title": "Koko Eating Bananas",
@@ -4011,13 +4368,20 @@
       "Walmart Labs",
       "Zepto",
       "eBay",
-      "oyo"
+      "oyo",
+      "Adobe",
+      "Agoda"
     ],
     "url": "https://leetcode.com/problems/koko-eating-bananas/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 875,
-    "id": 563
+    "id": 563,
+    "companyFrequency": {
+      "Accenture": 74.1,
+      "Adobe": 65.7,
+      "Agoda": 58.5
+    }
   },
   {
     "title": "Search in Rotated Sorted Array",
@@ -4083,7 +4447,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 33,
-    "id": 571
+    "id": 571,
+    "companyFrequency": {
+      "Adobe": 59.8
+    }
   },
   {
     "title": "Isomorphic Strings",
@@ -4137,13 +4504,18 @@
       "Qualcomm",
       "Uber",
       "Valve",
-      "Yahoo"
+      "Yahoo",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/string-to-integer-atoi/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 8,
-    "id": 660
+    "id": 660,
+    "companyFrequency": {
+      "Accenture": 40.5,
+      "Adobe": 59.8
+    }
   },
   {
     "title": "Car Fleet",
@@ -4224,7 +4596,11 @@
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 4,
-    "id": 559
+    "id": 559,
+    "companyFrequency": {
+      "Accenture": 57.2,
+      "Adobe": 86.8
+    }
   },
   {
     "title": "Valid Palindrome",
@@ -4265,13 +4641,18 @@
       "Wipro",
       "Yahoo",
       "Yandex",
-      "Zenefits"
+      "Zenefits",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/valid-palindrome/",
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 125,
-    "id": 665
+    "id": 665,
+    "companyFrequency": {
+      "Accenture": 50.2,
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Find Minimum in Rotated Sorted Array",
@@ -4354,7 +4735,8 @@
       "Linked List",
       "Divide and Conquer",
       "Heap (Priority Queue)",
-      "Merge Sort"
+      "Merge Sort",
+      "Tournament Sort"
     ],
     "companies": [
       "Adobe",
@@ -4404,7 +4786,10 @@
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 23,
-    "id": 565
+    "id": 565,
+    "companyFrequency": {
+      "Airbnb": 65.5
+    }
   },
   {
     "title": "Letter Combinations of a Phone Number",
@@ -4457,7 +4842,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 17,
-    "id": 584
+    "id": 584,
+    "companyFrequency": {
+      "Accenture": 70.8
+    }
   },
   {
     "title": "Valid Sudoku",
@@ -4560,7 +4948,10 @@
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 41,
-    "id": 604
+    "id": 604,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Jump Game II",
@@ -4607,7 +4998,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 45,
-    "id": 621
+    "id": 621,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Regular Expression Matching",
@@ -4646,7 +5040,10 @@
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 10,
-    "id": 663
+    "id": 663,
+    "companyFrequency": {
+      "Airbnb": 65.5
+    }
   },
   {
     "title": "Validate Binary Search Tree",
@@ -4730,7 +5127,8 @@
     "topics": [
       "String",
       "Dynamic Programming",
-      "Stack"
+      "Stack",
+      "Bracket Sequences"
     ],
     "companies": [
       "Adobe",
@@ -4753,13 +5151,17 @@
       "Yahoo",
       "Zeta",
       "Zoho",
-      "eBay"
+      "eBay",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/longest-valid-parentheses/",
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 32,
-    "id": 699
+    "id": 699,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Reverse Linked List II",
@@ -4864,7 +5266,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 91,
-    "id": 795
+    "id": 795,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Sudoku Solver",
@@ -5007,7 +5412,10 @@
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 68,
-    "id": 751
+    "id": 751,
+    "companyFrequency": {
+      "Airbnb": 100
+    }
   },
   {
     "title": "Permutation Sequence",
@@ -5133,7 +5541,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 93,
-    "id": 774
+    "id": 774,
+    "companyFrequency": {
+      "Adobe": 65.7
+    }
   },
   {
     "title": "Remove Duplicates from Sorted List II",
@@ -5247,13 +5658,17 @@
       "Wix",
       "Yahoo",
       "eBay",
-      "oyo"
+      "oyo",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/copy-list-with-random-pointer/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 138,
-    "id": 576
+    "id": 576,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Word Ladder",
@@ -5261,7 +5676,8 @@
     "topics": [
       "Hash Table",
       "String",
-      "Breadth-First Search"
+      "Breadth-First Search",
+      "Bidirectional Search"
     ],
     "companies": [
       "Adobe",
@@ -5294,7 +5710,10 @@
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 127,
-    "id": 579
+    "id": 579,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Binary Tree Maximum Path Sum",
@@ -5303,7 +5722,8 @@
       "Dynamic Programming",
       "Tree",
       "Depth-First Search",
-      "Binary Tree"
+      "Binary Tree",
+      "DP on Trees"
     ],
     "companies": [
       "Amazon",
@@ -5332,13 +5752,17 @@
       "Uber",
       "Walmart Labs",
       "Wix",
-      "Yandex"
+      "Yandex",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/binary-tree-maximum-path-sum/",
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 124,
-    "id": 617
+    "id": 617,
+    "companyFrequency": {
+      "Adobe": 65.7
+    }
   },
   {
     "title": "Candy",
@@ -5368,7 +5792,10 @@
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 135,
-    "id": 667
+    "id": 667,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Binary Tree Level Order Traversal",
@@ -5399,7 +5826,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 102,
-    "id": 656
+    "id": 656,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Binary Tree Zigzag Level Order Traversal",
@@ -5428,13 +5858,18 @@
       "TikTok",
       "Walmart Labs",
       "Yandex",
-      "eBay"
+      "eBay",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 103,
-    "id": 649
+    "id": 649,
+    "companyFrequency": {
+      "Accenture": 40.5,
+      "Adobe": 59.8
+    }
   },
   {
     "title": "Clone Graph",
@@ -5585,13 +6020,22 @@
       "eBay",
       "razorpay",
       "smartnews",
-      "thoughtspot"
+      "thoughtspot",
+      "AMD",
+      "Accenture",
+      "Airwallex"
     ],
     "url": "https://leetcode.com/problems/lru-cache/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 146,
-    "id": 549
+    "id": 549,
+    "companyFrequency": {
+      "AMD": 74.7,
+      "Accenture": 40.5,
+      "Adobe": 89.1,
+      "Airwallex": 100
+    }
   },
   {
     "title": "Reorganize String",
@@ -5617,13 +6061,17 @@
       "Tesla",
       "Walmart Labs",
       "Zoho",
-      "eBay"
+      "eBay",
+      "Agoda"
     ],
     "url": "https://leetcode.com/problems/reorganize-string/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 767,
-    "id": 558
+    "id": 558,
+    "companyFrequency": {
+      "Agoda": 49.2
+    }
   },
   {
     "title": "Top K Frequent Elements",
@@ -5681,13 +6129,18 @@
       "Walmart Labs",
       "Yandex",
       "Yelp",
-      "eBay"
+      "eBay",
+      "AMD"
     ],
     "url": "https://leetcode.com/problems/top-k-frequent-elements/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 347,
-    "id": 570
+    "id": 570,
+    "companyFrequency": {
+      "AMD": 74.7,
+      "Adobe": 65.7
+    }
   },
   {
     "title": "Lowest Common Ancestor of a Binary Tree",
@@ -5695,7 +6148,9 @@
     "topics": [
       "Tree",
       "Depth-First Search",
-      "Binary Tree"
+      "Binary Tree",
+      "Binary Lifting",
+      "Lowest Common Ancestor"
     ],
     "companies": [
       "Amazon",
@@ -5716,13 +6171,19 @@
       "Snapdeal",
       "TikTok",
       "Wix",
-      "Yandex"
+      "Yandex",
+      "Adobe",
+      "Airwallex"
     ],
     "url": "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 236,
-    "id": 575
+    "id": 575,
+    "companyFrequency": {
+      "Adobe": 65.7,
+      "Airwallex": 100
+    }
   },
   {
     "title": "Longest Repeating Character Replacement",
@@ -5754,7 +6215,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 424,
-    "id": 618
+    "id": 618,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Meeting Rooms II",
@@ -5808,12 +6272,16 @@
       "Waymo",
       "WorldQuant",
       "Yandex",
-      "eBay"
+      "eBay",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/meeting-rooms-ii/",
     "frequency": 100,
     "estimate": 35,
-    "id": 603
+    "id": 603,
+    "companyFrequency": {
+      "Adobe": 52.2
+    }
   },
   {
     "title": "Min Stack",
@@ -5855,13 +6323,17 @@
       "Walmart Labs",
       "Yahoo",
       "Yandex",
-      "Zenefits"
+      "Zenefits",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/min-stack/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 155,
-    "id": 627
+    "id": 627,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "LFU Cache",
@@ -5945,7 +6417,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 994,
-    "id": 566
+    "id": 566,
+    "companyFrequency": {
+      "Adobe": 59.8
+    }
   },
   {
     "title": "Insert Delete GetRandom O(1)",
@@ -6009,7 +6484,11 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 380,
-    "id": 610
+    "id": 610,
+    "companyFrequency": {
+      "Affirm": 100,
+      "Agoda": 49.2
+    }
   },
   {
     "title": "Flood Fill",
@@ -6068,7 +6547,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 692,
-    "id": 912
+    "id": 912,
+    "companyFrequency": {
+      "Adobe": 59.8
+    }
   },
   {
     "title": "Basic Calculator",
@@ -6096,13 +6578,17 @@
       "Snowflake",
       "Tesla",
       "TikTok",
-      "Uber"
+      "Uber",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/basic-calculator/",
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 224,
-    "id": 680
+    "id": 680,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Capacity To Ship Packages Within D Days",
@@ -6127,7 +6613,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 1011,
-    "id": 622
+    "id": 622,
+    "companyFrequency": {
+      "Agoda": 90.6
+    }
   },
   {
     "title": "Maximum Profit in Job Scheduling",
@@ -6165,7 +6654,10 @@
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 1235,
-    "id": 686
+    "id": 686,
+    "companyFrequency": {
+      "Airbnb": 93
+    }
   },
   {
     "title": "Number of Provinces",
@@ -6174,7 +6666,9 @@
       "Depth-First Search",
       "Breadth-First Search",
       "Union Find",
-      "Graph"
+      "Graph",
+      "Union-Find",
+      "Graph Theory"
     ],
     "companies": [
       "Amazon",
@@ -6182,12 +6676,16 @@
       "Google",
       "Sprinklr",
       "Two Sigma",
-      "Uber"
+      "Uber",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/number-of-provinces/",
     "frequency": 100,
     "estimate": 35,
-    "id": 694
+    "id": 694,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Word Search II",
@@ -6226,7 +6724,10 @@
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 212,
-    "id": 666
+    "id": 666,
+    "companyFrequency": {
+      "Airbnb": 67.9
+    }
   },
   {
     "title": "Next Greater Element I",
@@ -6253,7 +6754,11 @@
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 496,
-    "id": 655
+    "id": 655,
+    "companyFrequency": {
+      "Accenture": 50.2,
+      "Agoda": 49.2
+    }
   },
   {
     "title": "Analyze User Website Visit Pattern",
@@ -6339,13 +6844,17 @@
       "Google",
       "Nutanix",
       "ServiceNow",
-      "TikTok"
+      "TikTok",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/pacific-atlantic-water-flow/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 417,
-    "id": 948
+    "id": 948,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "String Compression",
@@ -6379,13 +6888,18 @@
       "Yandex",
       "Yelp",
       "Zoho",
-      "Zoox"
+      "Zoox",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/string-compression/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 443,
-    "id": 654
+    "id": 654,
+    "companyFrequency": {
+      "Accenture": 50.2,
+      "Affirm": 62.7
+    }
   },
   {
     "title": "Course Schedule",
@@ -6394,7 +6908,9 @@
       "Depth-First Search",
       "Breadth-First Search",
       "Graph",
-      "Topological Sort"
+      "Topological Sort",
+      "Graph Theory",
+      "Directed Acyclic Graph"
     ],
     "companies": [
       "Amazon",
@@ -6430,13 +6946,19 @@
       "Walmart Labs",
       "Yelp",
       "Zenefits",
-      "eBay"
+      "eBay",
+      "Adobe",
+      "Akamai"
     ],
     "url": "https://leetcode.com/problems/course-schedule/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 207,
-    "id": 562
+    "id": 562,
+    "companyFrequency": {
+      "Adobe": 41.7,
+      "Akamai": 64
+    }
   },
   {
     "title": "Maximize Distance to Closest Person",
@@ -6452,13 +6974,17 @@
       "Snowflake",
       "Tinkoff",
       "VK",
-      "Yandex"
+      "Yandex",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/maximize-distance-to-closest-person/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 849,
-    "id": 967
+    "id": 967,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Distribute Candies Among Children II",
@@ -6556,7 +7082,11 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 394,
-    "id": 704
+    "id": 704,
+    "companyFrequency": {
+      "Activision": 78.9,
+      "Agoda": 70.3
+    }
   },
   {
     "title": "Count Zero Request Servers",
@@ -6658,13 +7188,17 @@
       "Tinder",
       "Twitch",
       "Uber",
-      "WorldQuant"
+      "WorldQuant",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/find-median-from-data-stream/",
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 295,
-    "id": 596
+    "id": 596,
+    "companyFrequency": {
+      "Adobe": 52.2
+    }
   },
   {
     "title": "Serialize and Deserialize Binary Tree",
@@ -6805,7 +7339,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 735,
-    "id": 613
+    "id": 613,
+    "companyFrequency": {
+      "Accolite": 63.6
+    }
   },
   {
     "title": "Daily Temperatures",
@@ -6848,7 +7385,12 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 739,
-    "id": 638
+    "id": 638,
+    "companyFrequency": {
+      "Accenture": 40.5,
+      "Agoda": 88.6,
+      "Airwallex": 100
+    }
   },
   {
     "title": "Evaluate Reverse Polish Notation",
@@ -6914,13 +7456,18 @@
       "Verkada",
       "Yandex",
       "Zoho",
-      "Zoox"
+      "Zoox",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/basic-calculator-ii/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 227,
-    "id": 702
+    "id": 702,
+    "companyFrequency": {
+      "Adobe": 52.2,
+      "Airbnb": 65.5
+    }
   },
   {
     "title": "Random Pick with Weight",
@@ -6953,13 +7500,17 @@
       "Two Sigma",
       "Uber",
       "X",
-      "Yelp"
+      "Yelp",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/random-pick-with-weight/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 528,
-    "id": 758
+    "id": 758,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Count Subarrays of Length Three With a Condition",
@@ -7023,7 +7574,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 319,
-    "id": 1300
+    "id": 1300,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Delete and Earn",
@@ -7043,7 +7597,11 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 740,
-    "id": 1217
+    "id": 1217,
+    "companyFrequency": {
+      "Accenture": 77,
+      "Akuna Capital": 97
+    }
   },
   {
     "title": "Shortest Palindrome",
@@ -7052,7 +7610,10 @@
       "String",
       "Rolling Hash",
       "String Matching",
-      "Hash Function"
+      "Hash Function",
+      "Manacher",
+      "Z Algorithm",
+      "Knuth–Morris–Pratt Algorithm"
     ],
     "companies": [
       "Accenture",
@@ -7065,7 +7626,10 @@
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 214,
-    "id": 1584
+    "id": 1584,
+    "companyFrequency": {
+      "Accenture": 74.1
+    }
   },
   {
     "title": "Sort Integers by The Number of 1 Bits",
@@ -7093,7 +7657,9 @@
     "topics": [
       "Math",
       "Dynamic Programming",
-      "Breadth-First Search"
+      "Breadth-First Search",
+      "Knapsack Problem",
+      "Complete Knapsack"
     ],
     "companies": [
       "Accenture",
@@ -7107,7 +7673,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 279,
-    "id": 1214
+    "id": 1214,
+    "companyFrequency": {
+      "Accenture": 62.6
+    }
   },
   {
     "title": "Reverse Vowels of a String",
@@ -7136,7 +7705,8 @@
     "topics": [
       "Array",
       "Binary Search",
-      "Dynamic Programming"
+      "Dynamic Programming",
+      "Longest Increasing Subsequence"
     ],
     "companies": [
       "Accenture",
@@ -7161,13 +7731,18 @@
       "TikTok",
       "Wayfair",
       "Yandex",
-      "Zoho"
+      "Zoho",
+      "Agoda"
     ],
     "url": "https://leetcode.com/problems/longest-increasing-subsequence/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 300,
-    "id": 674
+    "id": 674,
+    "companyFrequency": {
+      "Accenture": 40.5,
+      "Agoda": 49.2
+    }
   },
   {
     "title": "Find the Winner of the Circular Game",
@@ -7185,12 +7760,17 @@
       "Goldman Sachs",
       "Groupon",
       "SoFi",
-      "Zoho"
+      "Zoho",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/find-the-winner-of-the-circular-game/",
     "frequency": 100,
     "estimate": 35,
-    "id": 969
+    "id": 969,
+    "companyFrequency": {
+      "Accenture": 50.2,
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Is Subsequence",
@@ -7212,13 +7792,17 @@
       "Tesla",
       "Tinkoff",
       "Wix",
-      "Yandex"
+      "Yandex",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/is-subsequence/",
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 392,
-    "id": 943
+    "id": 943,
+    "companyFrequency": {
+      "Adobe": 52.2
+    }
   },
   {
     "title": "01 Matrix",
@@ -7301,13 +7885,17 @@
       "Salesforce",
       "SoFi",
       "Walmart Labs",
-      "Wayfair"
+      "Wayfair",
+      "Akamai"
     ],
     "url": "https://leetcode.com/problems/palindromic-substrings/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 647,
-    "id": 823
+    "id": 823,
+    "companyFrequency": {
+      "Akamai": 64
+    }
   },
   {
     "title": "Make The String Great",
@@ -7348,13 +7936,17 @@
       "Siemens",
       "Yandex",
       "ZScaler",
-      "Zoho"
+      "Zoho",
+      "AMD"
     ],
     "url": "https://leetcode.com/problems/palindrome-linked-list/",
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 234,
-    "id": 634
+    "id": 634,
+    "companyFrequency": {
+      "AMD": 74.7
+    }
   },
   {
     "title": "Minimum Edge Reversals So Every Node Is Reachable",
@@ -7512,7 +8104,10 @@
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 415,
-    "id": 821
+    "id": 821,
+    "companyFrequency": {
+      "Airbnb": 65.5
+    }
   },
   {
     "title": "Transform Array to All Equal Elements",
@@ -7558,7 +8153,10 @@
     "url": "https://leetcode.com/problems/design-tic-tac-toe/",
     "frequency": 100,
     "estimate": 35,
-    "id": 794
+    "id": 794,
+    "companyFrequency": {
+      "Airbnb": 45.2
+    }
   },
   {
     "title": "Online Stock Span",
@@ -7571,13 +8169,17 @@
     ],
     "companies": [
       "INDmoney",
-      "Microsoft"
+      "Microsoft",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/online-stock-span/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 901,
-    "id": 785
+    "id": 785,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Ransom Note",
@@ -7642,7 +8244,10 @@
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 605,
-    "id": 847
+    "id": 847,
+    "companyFrequency": {
+      "Airbnb": 36.9
+    }
   },
   {
     "title": "Minimum Moves to Capture The Queen",
@@ -7752,13 +8357,17 @@
       "Geico",
       "Google",
       "TikTok",
-      "Visa"
+      "Visa",
+      "AQR Capital Management"
     ],
     "url": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 309,
-    "id": 891
+    "id": 891,
+    "companyFrequency": {
+      "AQR Capital Management": 64
+    }
   },
   {
     "title": "Game of Life",
@@ -7777,13 +8386,17 @@
       "Google",
       "Snap",
       "Two Sigma",
-      "Warnermedia"
+      "Warnermedia",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/game-of-life/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 289,
-    "id": 946
+    "id": 946,
+    "companyFrequency": {
+      "Adobe": 52.2
+    }
   },
   {
     "title": "Walls and Gates",
@@ -7998,13 +8611,17 @@
       "Google",
       "Paytm",
       "PhonePe",
-      "Sprinklr"
+      "Sprinklr",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/sum-of-subarray-minimums/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 907,
-    "id": 695
+    "id": 695,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Burst Balloons",
@@ -8060,17 +8677,22 @@
       "Depth-First Search",
       "Breadth-First Search",
       "Graph",
-      "Geometry"
+      "Geometry",
+      "Graph Theory"
     ],
     "companies": [
       "Chime",
       "Google",
-      "Uber"
+      "Uber",
+      "Airbnb"
     ],
     "url": "https://leetcode.com/problems/detonate-the-maximum-bombs/",
     "frequency": 100,
     "estimate": 35,
-    "id": 1515
+    "id": 1515,
+    "companyFrequency": {
+      "Airbnb": 36.9
+    }
   },
   {
     "title": "Moving Average from Data Stream",
@@ -8245,13 +8867,20 @@
       "Uber",
       "Walmart Labs",
       "Whatnot",
-      "Yandex"
+      "Yandex",
+      "Accenture",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/squares-of-a-sorted-array/",
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 977,
-    "id": 762
+    "id": 762,
+    "companyFrequency": {
+      "Accenture": 40.5,
+      "Adobe": 41.7,
+      "Agoda": 49.2
+    }
   },
   {
     "title": "Logger Rate Limiter",
@@ -8351,13 +8980,17 @@
       "Squarepoint Capital",
       "Two Sigma",
       "UBS",
-      "Wix"
+      "Wix",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/search-suggestions-system/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 1268,
-    "id": 951
+    "id": 951,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Maximal Square",
@@ -8395,7 +9028,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 221,
-    "id": 736
+    "id": 736,
+    "companyFrequency": {
+      "Airbnb": 65.5
+    }
   },
   {
     "title": "Minimum Area Rectangle",
@@ -8532,13 +9168,17 @@
       "Grammarly",
       "Meta",
       "Oracle",
-      "Walmart Labs"
+      "Walmart Labs",
+      "Agoda"
     ],
     "url": "https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string-ii/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 1209,
-    "id": 974
+    "id": 974,
+    "companyFrequency": {
+      "Agoda": 81.2
+    }
   },
   {
     "title": "Task Scheduler",
@@ -8738,7 +9378,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 1283,
-    "id": 1123
+    "id": 1123,
+    "companyFrequency": {
+      "Agoda": 49.2
+    }
   },
   {
     "title": "Subarray Product Less Than K",
@@ -8769,7 +9412,11 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 713,
-    "id": 860
+    "id": 860,
+    "companyFrequency": {
+      "Agoda": 49.2,
+      "Airbnb": 55.7
+    }
   },
   {
     "title": "Minimum Absolute Difference",
@@ -8785,13 +9432,18 @@
       "J.P. Morgan",
       "Oracle",
       "PayPal",
-      "Paycom"
+      "Paycom",
+      "Akamai"
     ],
     "url": "https://leetcode.com/problems/minimum-absolute-difference/",
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 1200,
-    "id": 1091
+    "id": 1091,
+    "companyFrequency": {
+      "Agoda": 100,
+      "Akamai": 64
+    }
   },
   {
     "title": "Island Perimeter",
@@ -8949,7 +9601,8 @@
       "Depth-First Search",
       "Breadth-First Search",
       "Union Find",
-      "Matrix"
+      "Matrix",
+      "Union-Find"
     ],
     "companies": [
       "Airbnb",
@@ -8968,7 +9621,10 @@
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 827,
-    "id": 812
+    "id": 812,
+    "companyFrequency": {
+      "Airbnb": 36.9
+    }
   },
   {
     "title": "Diagonal Traverse",
@@ -9068,13 +9724,17 @@
     "companies": [
       "KLA",
       "Meta",
-      "TikTok"
+      "TikTok",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/maximum-swap/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 670,
-    "id": 814
+    "id": 814,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Interval List Intersections",
@@ -9107,7 +9767,9 @@
       "Depth-First Search",
       "Breadth-First Search",
       "Graph",
-      "Topological Sort"
+      "Topological Sort",
+      "Graph Theory",
+      "Directed Acyclic Graph"
     ],
     "companies": [
       "Airbnb",
@@ -9127,7 +9789,10 @@
     "url": "https://leetcode.com/problems/alien-dictionary/",
     "frequency": 100,
     "estimate": 55,
-    "id": 840
+    "id": 840,
+    "companyFrequency": {
+      "Airbnb": 72.1
+    }
   },
   {
     "title": "Find K Closest Elements",
@@ -9317,7 +9982,14 @@
     "topics": [
       "Depth-First Search",
       "Graph",
-      "Eulerian Circuit"
+      "Eulerian Circuit",
+      "Array",
+      "String",
+      "Graph Theory",
+      "Sorting",
+      "Heap (Priority Queue)",
+      "Eulerian Path",
+      "Semi-Eulerian Graph"
     ],
     "companies": [
       "Booking.com",
@@ -9328,13 +10000,17 @@
       "Twilio",
       "Uber",
       "Yandex",
-      "eBay"
+      "eBay",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/reconstruct-itinerary/",
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 332,
-    "id": 896
+    "id": 896,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Amount of Time for Binary Tree to Be Infected",
@@ -9354,12 +10030,16 @@
       "PhonePe",
       "ServiceNow",
       "ShareChat",
-      "Snap"
+      "Snap",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/amount-of-time-for-binary-tree-to-be-infected/",
     "frequency": 100,
     "estimate": 35,
-    "id": 952
+    "id": 952,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Predict the Winner",
@@ -9402,13 +10082,17 @@
       "Snap",
       "Two Sigma",
       "Verily",
-      "Wix"
+      "Wix",
+      "Agoda"
     ],
     "url": "https://leetcode.com/problems/longest-string-chain/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 1048,
-    "id": 1348
+    "id": 1348,
+    "companyFrequency": {
+      "Agoda": 49.2
+    }
   },
   {
     "title": "Minimum Number of Refueling Stops",
@@ -9446,13 +10130,17 @@
       "Snap",
       "TikTok",
       "Turing",
-      "Zepto"
+      "Zepto",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/minimum-cost-for-tickets/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 983,
-    "id": 945
+    "id": 945,
+    "companyFrequency": {
+      "Adobe": 52.2
+    }
   },
   {
     "title": "Path Sum III",
@@ -9529,13 +10217,18 @@
       "Meesho",
       "Salesforce",
       "ServiceNow",
-      "Uber"
+      "Uber",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/minimum-number-of-taps-to-open-to-water-a-garden/",
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 1326,
-    "id": 966
+    "id": 966,
+    "companyFrequency": {
+      "Adobe": 41.7,
+      "Akuna Capital": 97
+    }
   },
   {
     "title": "Crawler Log Folder",
@@ -9586,13 +10279,17 @@
     ],
     "companies": [
       "Flipkart",
-      "Navi"
+      "Navi",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/minimum-number-of-days-to-make-m-bouquets/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 1482,
-    "id": 964
+    "id": 964,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Longest Increasing Path in a Matrix",
@@ -9605,7 +10302,9 @@
       "Graph",
       "Topological Sort",
       "Memoization",
-      "Matrix"
+      "Matrix",
+      "Graph Theory",
+      "Directed Acyclic Graph"
     ],
     "companies": [
       "Adobe",
@@ -9621,7 +10320,10 @@
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 329,
-    "id": 852
+    "id": 852,
+    "companyFrequency": {
+      "Adobe": 52.2
+    }
   },
   {
     "title": "Distinct Subsequences",
@@ -9762,7 +10464,8 @@
       "Depth-First Search",
       "Breadth-First Search",
       "Union Find",
-      "Matrix"
+      "Matrix",
+      "Union-Find"
     ],
     "companies": [
       "Bloomberg",
@@ -9778,13 +10481,17 @@
       "Snowflake",
       "Tesla",
       "TikTok",
-      "Wise"
+      "Wise",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/max-area-of-island/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 695,
-    "id": 853
+    "id": 853,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Pairs of Songs With Total Durations Divisible by 60",
@@ -9942,12 +10649,16 @@
       "Stripe",
       "Uber",
       "ZScaler",
-      "Zomato"
+      "Zomato",
+      "Affirm"
     ],
     "url": "https://leetcode.com/problems/optimal-account-balancing/",
     "frequency": 100,
     "estimate": 55,
-    "id": 1041
+    "id": 1041,
+    "companyFrequency": {
+      "Affirm": 49.6
+    }
   },
   {
     "title": "Backspace String Compare",
@@ -9976,7 +10687,10 @@
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 844,
-    "id": 1150
+    "id": 1150,
+    "companyFrequency": {
+      "Agoda": 65.2
+    }
   },
   {
     "title": "Find Servers That Handled Most Number of Requests",
@@ -10057,7 +10771,10 @@
     "url": "https://leetcode.com/problems/design-hit-counter/",
     "frequency": 100,
     "estimate": 35,
-    "id": 859
+    "id": 859,
+    "companyFrequency": {
+      "Affirm": 62.7
+    }
   },
   {
     "title": "Flatten Nested List Iterator",
@@ -10082,13 +10799,18 @@
       "Warnermedia",
       "X",
       "Yahoo",
-      "Yandex"
+      "Yandex",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/flatten-nested-list-iterator/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 341,
-    "id": 872
+    "id": 872,
+    "companyFrequency": {
+      "Adobe": 59.8,
+      "Airbnb": 36.9
+    }
   },
   {
     "title": "Compare Version Numbers",
@@ -10132,7 +10854,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 1041,
-    "id": 1129
+    "id": 1129,
+    "companyFrequency": {
+      "Airbnb": 65.5
+    }
   },
   {
     "title": "Walking Robot Simulation",
@@ -10216,7 +10941,10 @@
     "url": "https://leetcode.com/problems/number-of-divisible-triplet-sums/",
     "frequency": 100,
     "estimate": 35,
-    "id": 1252
+    "id": 1252,
+    "companyFrequency": {
+      "Activision": 70.1
+    }
   },
   {
     "title": "Shortest and Lexicographically Smallest Beautiful String",
@@ -10228,12 +10956,16 @@
     "companies": [
       "IBM",
       "Wells Fargo",
-      "Yelp"
+      "Yelp",
+      "Akuna Capital"
     ],
     "url": "https://leetcode.com/problems/shortest-and-lexicographically-smallest-beautiful-string/",
     "frequency": 100,
     "estimate": 35,
-    "id": 1932
+    "id": 1932,
+    "companyFrequency": {
+      "Akuna Capital": 62.1
+    }
   },
   {
     "title": "Number of Divisible Substrings",
@@ -10281,7 +11013,9 @@
       "Depth-First Search",
       "Breadth-First Search",
       "Union Find",
-      "Graph"
+      "Graph",
+      "Union-Find",
+      "Graph Theory"
     ],
     "companies": [
       "Akuna Capital",
@@ -10294,7 +11028,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 1319,
-    "id": 1282
+    "id": 1282,
+    "companyFrequency": {
+      "Akuna Capital": 97
+    }
   },
   {
     "title": "Find Pivot Index",
@@ -10318,7 +11055,10 @@
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 724,
-    "id": 1279
+    "id": 1279,
+    "companyFrequency": {
+      "Agoda": 65.2
+    }
   },
   {
     "title": "Largest Number After Digit Swaps by Parity",
@@ -10788,12 +11528,16 @@
       "Nutanix",
       "Snowflake",
       "Uber",
-      "Walmart Labs"
+      "Walmart Labs",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/boundary-of-binary-tree/",
     "frequency": 100,
     "estimate": 35,
-    "id": 846
+    "id": 846,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Collect Coins in a Tree",
@@ -10850,12 +11594,16 @@
       "Morgan Stanley",
       "OKX",
       "Snowflake",
-      "Uber"
+      "Uber",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/count-subarrays-with-fixed-bounds/",
     "frequency": 100,
     "estimate": 55,
-    "id": 937
+    "id": 937,
+    "companyFrequency": {
+      "Adobe": 59.8
+    }
   },
   {
     "title": "Number of Distinct Substrings in a String",
@@ -10885,7 +11633,8 @@
       "Array",
       "Greedy",
       "Sorting",
-      "Prefix Sum"
+      "Prefix Sum",
+      "Polygons"
     ],
     "companies": [
       "Airtel"
@@ -10893,7 +11642,10 @@
     "url": "https://leetcode.com/problems/find-polygon-with-the-largest-perimeter/",
     "frequency": 100,
     "estimate": 35,
-    "id": 1936
+    "id": 1936,
+    "companyFrequency": {
+      "Airtel": 100
+    }
   },
   {
     "title": "Reaching Points",
@@ -11006,19 +11758,25 @@
     "difficulty": "Hard",
     "topics": [
       "String",
-      "Recursion"
+      "Recursion",
+      "Divide and Conquer",
+      "Sorting"
     ],
     "companies": [
       "Coursera",
       "Grammarly",
       "Nvidia",
-      "UKG"
+      "UKG",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/special-binary-string/",
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 761,
-    "id": 913
+    "id": 913,
+    "companyFrequency": {
+      "Adobe": 95.1
+    }
   },
   {
     "title": "Maximum Number of Visible Points",
@@ -11229,13 +11987,17 @@
       "Nuro",
       "Pinterest",
       "Snap",
-      "TikTok"
+      "TikTok",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/",
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 1293,
-    "id": 936
+    "id": 936,
+    "companyFrequency": {
+      "Adobe": 59.8
+    }
   },
   {
     "title": "Valid Parenthesis String",
@@ -11244,7 +12006,8 @@
       "String",
       "Dynamic Programming",
       "Stack",
-      "Greedy"
+      "Greedy",
+      "Bracket Sequences"
     ],
     "companies": [
       "Alibaba",
@@ -11259,7 +12022,10 @@
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 678,
-    "id": 1186
+    "id": 1186,
+    "companyFrequency": {
+      "Alibaba": 100
+    }
   },
   {
     "title": "Insert Delete GetRandom O(1) - Duplicates allowed",
@@ -11284,7 +12050,10 @@
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 381,
-    "id": 1305
+    "id": 1305,
+    "companyFrequency": {
+      "Affirm": 70.3
+    }
   },
   {
     "title": "Maximum Spending After Buying Items",
@@ -11424,12 +12193,16 @@
       "Expedia",
       "Goldman Sachs",
       "Twilio",
-      "Veritas"
+      "Veritas",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/reformat-date/",
     "frequency": 100,
     "estimate": 20,
-    "id": 961
+    "id": 961,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Jump Game III",
@@ -11499,7 +12272,8 @@
       "Array",
       "Hash Table",
       "String",
-      "Trie"
+      "Trie",
+      "Hash Function"
     ],
     "companies": [
       "Airbnb",
@@ -11511,7 +12285,10 @@
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 336,
-    "id": 1177
+    "id": 1177,
+    "companyFrequency": {
+      "Airbnb": 78.6
+    }
   },
   {
     "title": "Minimum Bit Flips to Convert Number",
@@ -11790,7 +12567,10 @@
     "url": "https://leetcode.com/problems/simple-bank-system/",
     "frequency": 100,
     "estimate": 35,
-    "id": 1450
+    "id": 1450,
+    "companyFrequency": {
+      "Airbnb": 72.1
+    }
   },
   {
     "title": "Find the Length of the Longest Common Prefix",
@@ -11856,7 +12636,10 @@
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 432,
-    "id": 1013
+    "id": 1013,
+    "companyFrequency": {
+      "Airbnb": 36.9
+    }
   },
   {
     "title": "Maximum Number of Non-overlapping Palindrome Substrings",
@@ -12122,13 +12905,17 @@
       "Atlassian",
       "Box",
       "Tinder",
-      "Wells Fargo"
+      "Wells Fargo",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/kth-largest-element-in-a-stream/",
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 703,
-    "id": 919
+    "id": 919,
+    "companyFrequency": {
+      "Adobe": 78.3
+    }
   },
   {
     "title": "Find Words That Can Be Formed by Characters",
@@ -12276,7 +13063,10 @@
     "url": "https://leetcode.com/problems/ip-to-cidr/",
     "frequency": 100,
     "estimate": 35,
-    "id": 1504
+    "id": 1504,
+    "companyFrequency": {
+      "Airbnb": 67.9
+    }
   },
   {
     "title": "Find All Anagrams in a String",
@@ -12294,13 +13084,17 @@
       "Snowflake",
       "Splunk",
       "Turing",
-      "Yandex"
+      "Yandex",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/find-all-anagrams-in-a-string/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 438,
-    "id": 908
+    "id": 908,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Sort Array By Parity",
@@ -12870,12 +13664,16 @@
       "Delhivery",
       "Meesho",
       "Tiger Analytics",
-      "Turing"
+      "Turing",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/consecutive-numbers/",
     "frequency": 100,
     "estimate": 35,
-    "id": 1591
+    "id": 1591,
+    "companyFrequency": {
+      "Accenture": 50.2
+    }
   },
   {
     "title": "Longest Non-decreasing Subarray From Two Arrays",
@@ -13008,7 +13806,8 @@
       "Graph",
       "Design",
       "Topological Sort",
-      "Matrix"
+      "Matrix",
+      "Graph Theory"
     ],
     "companies": [
       "Airbnb",
@@ -13020,7 +13819,10 @@
     "url": "https://leetcode.com/problems/design-excel-sum-formula/",
     "frequency": 100,
     "estimate": 55,
-    "id": 1502
+    "id": 1502,
+    "companyFrequency": {
+      "Airbnb": 78.6
+    }
   },
   {
     "title": "Minimized Maximum of Products Distributed to Any Store",
@@ -13193,7 +13995,8 @@
     "difficulty": "Easy",
     "topics": [
       "Array",
-      "Hash Table"
+      "Hash Table",
+      "Pigeonhole Principle"
     ],
     "companies": [
       "Akamai"
@@ -13202,7 +14005,10 @@
     "frequency": 100,
     "estimate": 20,
     "leetcodeNumber": 961,
-    "id": 1757
+    "id": 1757,
+    "companyFrequency": {
+      "Akamai": 100
+    }
   },
   {
     "title": "Reward Top K Students",
@@ -13294,7 +14100,10 @@
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 1359,
-    "id": 1536
+    "id": 1536,
+    "companyFrequency": {
+      "Acko": 100
+    }
   },
   {
     "title": "Brace Expansion",
@@ -13874,7 +14683,10 @@
     "url": "https://leetcode.com/problems/strings-differ-by-one-character/",
     "frequency": 100,
     "estimate": 35,
-    "id": 1510
+    "id": 1510,
+    "companyFrequency": {
+      "Airbnb": 65.5
+    }
   },
   {
     "title": "Contains Duplicate III",
@@ -13896,7 +14708,10 @@
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 220,
-    "id": 1372
+    "id": 1372,
+    "companyFrequency": {
+      "Airbnb": 65.5
+    }
   },
   {
     "title": "Shortest Uncommon Substring in an Array",
@@ -13915,7 +14730,11 @@
     "url": "https://leetcode.com/problems/shortest-uncommon-substring-in-an-array/",
     "frequency": 100,
     "estimate": 35,
-    "id": 1503
+    "id": 1503,
+    "companyFrequency": {
+      "Affirm": 86.3,
+      "Airbnb": 67.9
+    }
   },
   {
     "title": "Maximum Number of Pairs in Array",
@@ -13931,7 +14750,10 @@
     "url": "https://leetcode.com/problems/maximum-number-of-pairs-in-array/",
     "frequency": 100,
     "estimate": 20,
-    "id": 2016
+    "id": 2016,
+    "companyFrequency": {
+      "Altimetrik": 100
+    }
   },
   {
     "title": "Video Stitching",
@@ -14684,17 +15506,25 @@
       "Backtracking",
       "Bit Manipulation",
       "Memoization",
-      "Bitmask"
+      "Bitmask",
+      "Knapsack Problem",
+      "Complete Knapsack"
     ],
     "companies": [
       "Coupang",
-      "MathWorks"
+      "MathWorks",
+      "Adobe",
+      "Airbnb"
     ],
     "url": "https://leetcode.com/problems/shopping-offers/",
     "frequency": 100,
     "estimate": 35,
     "leetcodeNumber": 638,
-    "id": 941
+    "id": 941,
+    "companyFrequency": {
+      "Adobe": 52.2,
+      "Airbnb": 65.5
+    }
   },
   {
     "title": "Spiral Matrix III",
@@ -15183,7 +16013,10 @@
     "url": "https://leetcode.com/problems/replace-the-substring-for-balanced-string/",
     "frequency": 100,
     "estimate": 35,
-    "id": 2072
+    "id": 2072,
+    "companyFrequency": {
+      "Accolite": 100
+    }
   },
   {
     "title": "Fill Missing Data",
@@ -15195,7 +16028,10 @@
     "url": "https://leetcode.com/problems/fill-missing-data/",
     "frequency": 100,
     "estimate": 20,
-    "id": 2073
+    "id": 2073,
+    "companyFrequency": {
+      "Acko": 100
+    }
   },
   {
     "title": "Reformat Phone Number",
@@ -15209,7 +16045,10 @@
     "url": "https://leetcode.com/problems/reformat-phone-number/",
     "frequency": 100,
     "estimate": 20,
-    "id": 2074
+    "id": 2074,
+    "companyFrequency": {
+      "Activision": 100
+    }
   },
   {
     "title": "Find the Number of Good Pairs II",
@@ -15224,7 +16063,10 @@
     "url": "https://leetcode.com/problems/find-the-number-of-good-pairs-ii/",
     "frequency": 100,
     "estimate": 35,
-    "id": 2075
+    "id": 2075,
+    "companyFrequency": {
+      "Airbus SE": 100
+    }
   },
   {
     "title": "Find the Number of Good Pairs I",
@@ -15239,7 +16081,10 @@
     "url": "https://leetcode.com/problems/find-the-number-of-good-pairs-i/",
     "frequency": 100,
     "estimate": 20,
-    "id": 2076
+    "id": 2076,
+    "companyFrequency": {
+      "Airbus SE": 97.4
+    }
   },
   {
     "title": "Minimum Array Changes to Make Differences Equal",
@@ -15255,7 +16100,10 @@
     "url": "https://leetcode.com/problems/minimum-array-changes-to-make-differences-equal/",
     "frequency": 100,
     "estimate": 35,
-    "id": 2077
+    "id": 2077,
+    "companyFrequency": {
+      "Airbus SE": 97.4
+    }
   },
   {
     "title": "Minimum Initial Energy to Finish Tasks",
@@ -15271,7 +16119,10 @@
     "url": "https://leetcode.com/problems/minimum-initial-energy-to-finish-tasks/",
     "frequency": 100,
     "estimate": 55,
-    "id": 1167
+    "id": 1167,
+    "companyFrequency": {
+      "Akuna Capital": 97
+    }
   },
   {
     "title": "Critical Connections in a Network",
@@ -15279,7 +16130,9 @@
     "topics": [
       "Depth-First Search",
       "Graph",
-      "Biconnected Component"
+      "Biconnected Component",
+      "Graph Theory",
+      "Bridge (Graph)"
     ],
     "companies": [
       "Akuna Capital"
@@ -15288,7 +16141,10 @@
     "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 1192,
-    "id": 1215
+    "id": 1215,
+    "companyFrequency": {
+      "Akuna Capital": 62.1
+    }
   },
   {
     "title": "Split Array with Equal Sum",
@@ -15304,7 +16160,10 @@
     "url": "https://leetcode.com/problems/split-array-with-equal-sum/",
     "frequency": 100,
     "estimate": 55,
-    "id": 2078
+    "id": 2078,
+    "companyFrequency": {
+      "Alibaba": 100
+    }
   },
   {
     "title": "Split Concatenated Strings",
@@ -15320,7 +16179,10 @@
     "url": "https://leetcode.com/problems/split-concatenated-strings/",
     "frequency": 100,
     "estimate": 35,
-    "id": 2079
+    "id": 2079,
+    "companyFrequency": {
+      "Alibaba": 100
+    }
   },
   {
     "title": "Path Sum IV",
@@ -15338,7 +16200,10 @@
     "url": "https://leetcode.com/problems/path-sum-iv/",
     "frequency": 100,
     "estimate": 35,
-    "id": 2080
+    "id": 2080,
+    "companyFrequency": {
+      "Alibaba": 100
+    }
   },
   {
     "title": "Watering Plants",
@@ -15353,7 +16218,10 @@
     "url": "https://leetcode.com/problems/watering-plants/",
     "frequency": 100,
     "estimate": 35,
-    "id": 2081
+    "id": 2081,
+    "companyFrequency": {
+      "Amadeus": 100
+    }
   },
   {
     "title": "Water Bottles",
@@ -15364,12 +16232,16 @@
     ],
     "companies": [
       "Amadeus",
-      "HiLabs"
+      "HiLabs",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/water-bottles/",
     "frequency": 100,
     "estimate": 20,
-    "id": 1585
+    "id": 1585,
+    "companyFrequency": {
+      "Accenture": 67.1
+    }
   },
   {
     "title": "The Number of Users That Are Eligible for Discount",
@@ -15486,12 +16358,16 @@
     ],
     "companies": [
       "AppDynamics",
-      "Lucid"
+      "Lucid",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/maximum-number-of-balls-in-a-box/",
     "frequency": 100,
     "estimate": 20,
-    "id": 1595
+    "id": 1595,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Jump Game VI",
@@ -15509,7 +16385,10 @@
     "url": "https://leetcode.com/problems/jump-game-vi/",
     "frequency": 100,
     "estimate": 35,
-    "id": 2088
+    "id": 2088,
+    "companyFrequency": {
+      "AQR Capital Management": 100
+    }
   },
   {
     "title": "The Number of Rich Customers",
@@ -18258,9 +19137,12 @@
       "Airtel"
     ],
     "url": "https://leetcode.com/problems/xor-queries-of-a-subarray/",
-    "frequency": 97.9,
+    "frequency": 100,
     "estimate": 35,
-    "id": 2238
+    "id": 2238,
+    "companyFrequency": {
+      "Airtel": 100
+    }
   },
   {
     "title": "Maximum Equal Frequency",
@@ -18778,7 +19660,8 @@
       "Array",
       "Hash Table",
       "Sorting",
-      "Counting"
+      "Counting",
+      "Boyer–Moore Majority Vote Algorithm"
     ],
     "companies": [
       "Accenture",
@@ -18791,7 +19674,10 @@
     "frequency": 97.6,
     "estimate": 35,
     "leetcodeNumber": 229,
-    "id": 1605
+    "id": 1605,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Excel Sheet Column Title",
@@ -18811,7 +19697,10 @@
     "frequency": 97.6,
     "estimate": 20,
     "leetcodeNumber": 168,
-    "id": 777
+    "id": 777,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Convert Sorted List to Binary Search Tree",
@@ -18893,7 +19782,10 @@
     "url": "https://leetcode.com/problems/flatten-2d-vector/",
     "frequency": 97.6,
     "estimate": 35,
-    "id": 1499
+    "id": 1499,
+    "companyFrequency": {
+      "Airbnb": 85.6
+    }
   },
   {
     "title": "Cherry Pickup",
@@ -18916,7 +19808,10 @@
     "frequency": 97.6,
     "estimate": 55,
     "leetcodeNumber": 741,
-    "id": 1006
+    "id": 1006,
+    "companyFrequency": {
+      "Akuna Capital": 97
+    }
   },
   {
     "title": "Design Snake Game",
@@ -19147,7 +20042,9 @@
       "Breadth-First Search",
       "Graph",
       "Heap (Priority Queue)",
-      "Shortest Path"
+      "Shortest Path",
+      "Graph Theory",
+      "Dijkstra's Algorithm"
     ],
     "companies": [
       "Akuna Capital",
@@ -19157,7 +20054,10 @@
     "frequency": 97.6,
     "estimate": 35,
     "leetcodeNumber": 743,
-    "id": 1264
+    "id": 1264,
+    "companyFrequency": {
+      "Akuna Capital": 97
+    }
   },
   {
     "title": "Dice Roll Simulation",
@@ -19172,7 +20072,10 @@
     "url": "https://leetcode.com/problems/dice-roll-simulation/",
     "frequency": 97.6,
     "estimate": 55,
-    "id": 2264
+    "id": 2264,
+    "companyFrequency": {
+      "Akuna Capital": 97
+    }
   },
   {
     "title": "Map Sum Pairs",
@@ -19190,7 +20093,10 @@
     "frequency": 97.6,
     "estimate": 35,
     "leetcodeNumber": 677,
-    "id": 1670
+    "id": 1670,
+    "companyFrequency": {
+      "Akuna Capital": 97
+    }
   },
   {
     "title": "Increasing Decreasing String",
@@ -19206,7 +20112,10 @@
     "url": "https://leetcode.com/problems/increasing-decreasing-string/",
     "frequency": 97.6,
     "estimate": 20,
-    "id": 2265
+    "id": 2265,
+    "companyFrequency": {
+      "Akuna Capital": 97
+    }
   },
   {
     "title": "Create Sorted Array through Instructions",
@@ -19226,7 +20135,10 @@
     "url": "https://leetcode.com/problems/create-sorted-array-through-instructions/",
     "frequency": 97.6,
     "estimate": 55,
-    "id": 2266
+    "id": 2266,
+    "companyFrequency": {
+      "Akuna Capital": 97
+    }
   },
   {
     "title": "Can Make Palindrome from Substring",
@@ -19242,9 +20154,12 @@
       "Akuna Capital"
     ],
     "url": "https://leetcode.com/problems/can-make-palindrome-from-substring/",
-    "frequency": 97.6,
+    "frequency": 100,
     "estimate": 35,
-    "id": 2267
+    "id": 2267,
+    "companyFrequency": {
+      "Akuna Capital": 100
+    }
   },
   {
     "title": "Constrained Subsequence Sum",
@@ -19263,7 +20178,10 @@
     "url": "https://leetcode.com/problems/constrained-subsequence-sum/",
     "frequency": 97.6,
     "estimate": 55,
-    "id": 2268
+    "id": 2268,
+    "companyFrequency": {
+      "Akuna Capital": 97
+    }
   },
   {
     "title": "Reduce Array Size to The Half",
@@ -19281,7 +20199,10 @@
     "url": "https://leetcode.com/problems/reduce-array-size-to-the-half/",
     "frequency": 97.6,
     "estimate": 35,
-    "id": 2269
+    "id": 2269,
+    "companyFrequency": {
+      "Akuna Capital": 97
+    }
   },
   {
     "title": "Number of Different Subsequences GCDs",
@@ -19290,7 +20211,9 @@
       "Array",
       "Math",
       "Counting",
-      "Number Theory"
+      "Number Theory",
+      "Euclidean Algorithm",
+      "Greatest Common Divisor"
     ],
     "companies": [
       "Akuna Capital"
@@ -19298,7 +20221,10 @@
     "url": "https://leetcode.com/problems/number-of-different-subsequences-gcds/",
     "frequency": 97.6,
     "estimate": 55,
-    "id": 1837
+    "id": 1837,
+    "companyFrequency": {
+      "Akuna Capital": 97
+    }
   },
   {
     "title": "Check If a Word Occurs As a Prefix of Any Word in a Sentence",
@@ -19487,12 +20413,16 @@
     ],
     "companies": [
       "Akuna Capital",
-      "Nutanix"
+      "Nutanix",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/minimum-processing-time/",
     "frequency": 97.5,
     "estimate": 35,
-    "id": 934
+    "id": 934,
+    "companyFrequency": {
+      "Adobe": 65.7
+    }
   },
   {
     "title": "Letter Case Permutation",
@@ -19911,7 +20841,10 @@
     "url": "https://leetcode.com/problems/find-the-child-who-has-the-ball-after-k-seconds/",
     "frequency": 95.5,
     "estimate": 20,
-    "id": 2285
+    "id": 2285,
+    "companyFrequency": {
+      "Agoda": 81.2
+    }
   },
   {
     "title": "Distribute Elements Into Two Arrays I",
@@ -20188,12 +21121,16 @@
       "Sliding Window"
     ],
     "companies": [
-      "eBay"
+      "eBay",
+      "Airbnb"
     ],
     "url": "https://leetcode.com/problems/minimum-window-subsequence/",
     "frequency": 95.1,
     "estimate": 55,
-    "id": 1290
+    "id": 1290,
+    "companyFrequency": {
+      "Airbnb": 36.9
+    }
   },
   {
     "title": "Binary Gap",
@@ -20299,7 +21236,10 @@
     "url": "https://leetcode.com/problems/parse-lisp-expression/",
     "frequency": 94.9,
     "estimate": 55,
-    "id": 2293
+    "id": 2293,
+    "companyFrequency": {
+      "Affirm": 75.7
+    }
   },
   {
     "title": "Nested List Weight Sum II",
@@ -20512,13 +21452,17 @@
       "Coupang",
       "Meesho",
       "PayPal",
-      "X"
+      "X",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/design-twitter/",
     "frequency": 94.2,
     "estimate": 35,
     "leetcodeNumber": 355,
-    "id": 956
+    "id": 956,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Tweet Counts Per Frequency",
@@ -20558,13 +21502,19 @@
       "Snowflake",
       "Zoho",
       "Zopsmart",
-      "josh technology"
+      "josh technology",
+      "Accenture",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/remove-k-digits/",
     "frequency": 94,
     "estimate": 35,
     "leetcodeNumber": 402,
-    "id": 749
+    "id": 749,
+    "companyFrequency": {
+      "Accenture": 40.5,
+      "Adobe": 52.2
+    }
   },
   {
     "title": "Wildcard Matching",
@@ -20667,7 +21617,10 @@
     "url": "https://leetcode.com/problems/split-the-array/",
     "frequency": 93.8,
     "estimate": 20,
-    "id": 955
+    "id": 955,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Power of Four",
@@ -20871,19 +21824,24 @@
       "Two Pointers",
       "String",
       "Stack",
-      "Greedy"
+      "Greedy",
+      "Bracket Sequences"
     ],
     "companies": [
       "Expedia",
       "Microstrategy",
       "Nutanix",
       "PayPal",
-      "Twilio"
+      "Twilio",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/minimum-number-of-swaps-to-make-the-string-balanced/",
     "frequency": 93.2,
     "estimate": 35,
-    "id": 962
+    "id": 962,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Score of Parentheses",
@@ -21032,13 +21990,17 @@
       "Intuit",
       "Nutanix",
       "PhonePe",
-      "TikTok"
+      "TikTok",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/heaters/",
     "frequency": 92.8,
     "estimate": 35,
     "leetcodeNumber": 475,
-    "id": 944
+    "id": 944,
+    "companyFrequency": {
+      "Adobe": 52.2
+    }
   },
   {
     "title": "Shortest Word Distance",
@@ -21251,7 +22213,8 @@
       "Depth-First Search",
       "Breadth-First Search",
       "Union Find",
-      "Matrix"
+      "Matrix",
+      "Union-Find"
     ],
     "companies": [
       "Arcesium",
@@ -21259,13 +22222,17 @@
       "Google",
       "Nutanix",
       "TikTok",
-      "Urban Company"
+      "Urban Company",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/surrounded-regions/",
     "frequency": 92.3,
     "estimate": 35,
     "leetcodeNumber": 130,
-    "id": 726
+    "id": 726,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Minimum Operations to Make Columns Strictly Increasing",
@@ -22080,7 +23047,10 @@
     "url": "https://leetcode.com/problems/department-top-three-salaries/",
     "frequency": 90,
     "estimate": 55,
-    "id": 1593
+    "id": 1593,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Closest Subsequence Sum",
@@ -22307,13 +23277,17 @@
       "Media.net",
       "Nvidia",
       "Oracle",
-      "tcs"
+      "tcs",
+      "Agoda"
     ],
     "url": "https://leetcode.com/problems/fizz-buzz/",
     "frequency": 89.9,
     "estimate": 20,
     "leetcodeNumber": 412,
-    "id": 897
+    "id": 897,
+    "companyFrequency": {
+      "Agoda": 49.2
+    }
   },
   {
     "title": "Add Two Integers",
@@ -22326,12 +23300,18 @@
       "Google",
       "Jane Street",
       "Meta",
-      "Microsoft"
+      "Microsoft",
+      "Accenture",
+      "Akamai"
     ],
     "url": "https://leetcode.com/problems/add-two-integers/",
     "frequency": 89.9,
     "estimate": 20,
-    "id": 728
+    "id": 728,
+    "companyFrequency": {
+      "Accenture": 40.5,
+      "Akamai": 73.7
+    }
   },
   {
     "title": "Convert an Array Into a 2D Array With Conditions",
@@ -22409,7 +23389,11 @@
     "frequency": 89.8,
     "estimate": 20,
     "leetcodeNumber": 217,
-    "id": 633
+    "id": 633,
+    "companyFrequency": {
+      "Accenture": 57.2,
+      "Airbnb": 65.5
+    }
   },
   {
     "title": "Camelcase Matching",
@@ -22448,13 +23432,17 @@
       "Infosys",
       "Morgan Stanley",
       "Odoo",
-      "tcs"
+      "tcs",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/reverse-string/",
     "frequency": 89.7,
     "estimate": 20,
     "leetcodeNumber": 344,
-    "id": 753
+    "id": 753,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Find The Original Array of Prefix Xor",
@@ -22548,7 +23536,9 @@
       "Array",
       "Dynamic Programming",
       "Graph",
-      "Topological Sort"
+      "Topological Sort",
+      "Graph Theory",
+      "Directed Acyclic Graph"
     ],
     "companies": [
       "Acko",
@@ -22562,7 +23552,10 @@
     "url": "https://leetcode.com/problems/parallel-courses-iii/",
     "frequency": 89.6,
     "estimate": 55,
-    "id": 2348
+    "id": 2348,
+    "companyFrequency": {
+      "Acko": 89.2
+    }
   },
   {
     "title": "Maximum Matrix Sum",
@@ -22593,13 +23586,17 @@
       "Confluent",
       "Coupang",
       "Docusign",
-      "Fastenal"
+      "Fastenal",
+      "Agoda"
     ],
     "url": "https://leetcode.com/problems/number-of-atoms/",
-    "frequency": 89.6,
+    "frequency": 100,
     "estimate": 55,
     "leetcodeNumber": 726,
-    "id": 1668
+    "id": 1668,
+    "companyFrequency": {
+      "Agoda": 100
+    }
   },
   {
     "title": "Find Peak Calling Hours for Each City",
@@ -22664,7 +23661,10 @@
     "url": "https://leetcode.com/problems/invalid-tweets/",
     "frequency": 89.6,
     "estimate": 20,
-    "id": 1905
+    "id": 1905,
+    "companyFrequency": {
+      "Acko": 89.2
+    }
   },
   {
     "title": "Sum of Beauty of All Substrings",
@@ -22766,13 +23766,17 @@
       "Workday",
       "Yahoo",
       "Zoho",
-      "eBay"
+      "eBay",
+      "Agoda"
     ],
     "url": "https://leetcode.com/problems/permutations/",
     "frequency": 89.5,
     "estimate": 35,
     "leetcodeNumber": 46,
-    "id": 642
+    "id": 642,
+    "companyFrequency": {
+      "Agoda": 49.2
+    }
   },
   {
     "title": "Number of Dice Rolls With Target Sum",
@@ -22848,13 +23852,17 @@
       "ServiceNow",
       "Sprinklr",
       "Turing",
-      "X"
+      "X",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/validate-ip-address/",
     "frequency": 89.4,
     "estimate": 35,
     "leetcodeNumber": 468,
-    "id": 898
+    "id": 898,
+    "companyFrequency": {
+      "Adobe": 74.7
+    }
   },
   {
     "title": "Remove All Occurrences of a Substring",
@@ -23099,7 +24107,11 @@
     "frequency": 89.2,
     "estimate": 35,
     "leetcodeNumber": 7,
-    "id": 600
+    "id": 600,
+    "companyFrequency": {
+      "Accenture": 77,
+      "Adobe": 52.2
+    }
   },
   {
     "title": "Contains Duplicate II",
@@ -23118,13 +24130,20 @@
       "Microsoft",
       "Netflix",
       "Palantir Technologies",
-      "tcs"
+      "tcs",
+      "Accenture",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/contains-duplicate-ii/",
     "frequency": 89.2,
     "estimate": 20,
     "leetcodeNumber": 219,
-    "id": 706
+    "id": 706,
+    "companyFrequency": {
+      "Accenture": 57.2,
+      "Adobe": 52.2,
+      "Airbnb": 70.1
+    }
   },
   {
     "title": "Find Valid Pair of Adjacent Digits in String",
@@ -23339,7 +24358,10 @@
       "Array",
       "Math",
       "Enumeration",
-      "Number Theory"
+      "Number Theory",
+      "Primality Test",
+      "Sieve Theory",
+      "Prime Number Sieve"
     ],
     "companies": [
       "Accenture",
@@ -23357,7 +24379,10 @@
     "frequency": 88.9,
     "estimate": 35,
     "leetcodeNumber": 204,
-    "id": 744
+    "id": 744,
+    "companyFrequency": {
+      "Accenture": 57.2
+    }
   },
   {
     "title": "Find the Duplicate Number",
@@ -23602,7 +24627,8 @@
       "Breadth-First Search",
       "Graph",
       "Heap (Priority Queue)",
-      "Shortest Path"
+      "Shortest Path",
+      "Graph Theory"
     ],
     "companies": [
       "Airbnb",
@@ -23619,7 +24645,10 @@
     "frequency": 88.8,
     "estimate": 35,
     "leetcodeNumber": 787,
-    "id": 885
+    "id": 885,
+    "companyFrequency": {
+      "Airbnb": 65.5
+    }
   },
   {
     "title": "The Maze II",
@@ -23683,7 +24712,10 @@
     "frequency": 88.7,
     "estimate": 35,
     "leetcodeNumber": 80,
-    "id": 707
+    "id": 707,
+    "companyFrequency": {
+      "Accolite": 54.9
+    }
   },
   {
     "title": "Maximum Sum of Subsequence With Non-adjacent Elements",
@@ -23829,12 +24861,16 @@
     "companies": [
       "Atlassian",
       "Capgemini",
-      "ZS Associates"
+      "ZS Associates",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/nth-highest-salary/",
     "frequency": 88.5,
     "estimate": 35,
-    "id": 1493
+    "id": 1493,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Time Taken to Cross the Door",
@@ -23951,13 +24987,17 @@
       "Visa",
       "Wells Fargo",
       "Zoho",
-      "tcs"
+      "tcs",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/rotate-string/",
     "frequency": 88.3,
     "estimate": 20,
     "leetcodeNumber": 796,
-    "id": 715
+    "id": 715,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Max Increase to Keep City Skyline",
@@ -24022,7 +25062,10 @@
     "frequency": 88.2,
     "estimate": 20,
     "leetcodeNumber": 104,
-    "id": 725
+    "id": 725,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Meeting Rooms",
@@ -24072,13 +25115,17 @@
       "Binary Tree"
     ],
     "companies": [
-      "Tekion"
+      "Tekion",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/cousins-in-binary-tree/",
     "frequency": 88,
     "estimate": 20,
     "leetcodeNumber": 993,
-    "id": 939
+    "id": 939,
+    "companyFrequency": {
+      "Adobe": 52.2
+    }
   },
   {
     "title": "Rising Temperature",
@@ -24096,7 +25143,10 @@
     "url": "https://leetcode.com/problems/rising-temperature/",
     "frequency": 87.9,
     "estimate": 20,
-    "id": 776
+    "id": 776,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Minimum Falling Path Sum",
@@ -24417,13 +25467,18 @@
     "companies": [
       "Airbnb",
       "Pinterest",
-      "Roku"
+      "Roku",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/shortest-path-to-get-all-keys/",
     "frequency": 87.5,
     "estimate": 55,
     "leetcodeNumber": 864,
-    "id": 950
+    "id": 950,
+    "companyFrequency": {
+      "Adobe": 41.7,
+      "Airbnb": 45.2
+    }
   },
   {
     "title": "Merge Operations to Turn Array Into a Palindrome",
@@ -24434,12 +25489,17 @@
       "Greedy"
     ],
     "companies": [
-      "Accolite"
+      "Accolite",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/merge-operations-to-turn-array-into-a-palindrome/",
     "frequency": 87.5,
     "estimate": 35,
-    "id": 927
+    "id": 927,
+    "companyFrequency": {
+      "Accolite": 84.9,
+      "Adobe": 78.3
+    }
   },
   {
     "title": "Binary Tree Right Side View",
@@ -24463,13 +25523,17 @@
       "Uber",
       "Walmart Labs",
       "Wix",
-      "Yandex"
+      "Yandex",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/binary-tree-right-side-view/",
     "frequency": 87.3,
     "estimate": 35,
     "leetcodeNumber": 199,
-    "id": 637
+    "id": 637,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Reconstruct Original Digits from English",
@@ -24597,7 +25661,10 @@
     "frequency": 87.2,
     "estimate": 35,
     "leetcodeNumber": 74,
-    "id": 632
+    "id": 632,
+    "companyFrequency": {
+      "Adobe": 59.8
+    }
   },
   {
     "title": "Substrings of Size Three with Distinct Characters",
@@ -24856,7 +25923,9 @@
       "Depth-First Search",
       "Breadth-First Search",
       "Union Find",
-      "Graph"
+      "Graph",
+      "Union-Find",
+      "Graph Theory"
     ],
     "companies": [
       "Accenture"
@@ -24864,7 +25933,10 @@
     "url": "https://leetcode.com/problems/divide-nodes-into-the-maximum-number-of-groups/",
     "frequency": 87.1,
     "estimate": 55,
-    "id": 1009
+    "id": 1009,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Find a Peak Element II",
@@ -24954,7 +26026,10 @@
     "frequency": 86.9,
     "estimate": 20,
     "leetcodeNumber": 26,
-    "id": 592
+    "id": 592,
+    "companyFrequency": {
+      "Accenture": 62.6
+    }
   },
   {
     "title": "Duplicate Emails",
@@ -25149,12 +26224,16 @@
     "companies": [
       "Google",
       "Wix",
-      "Yahoo"
+      "Yahoo",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/employees-earning-more-than-their-managers/",
     "frequency": 86.7,
     "estimate": 20,
-    "id": 754
+    "id": 754,
+    "companyFrequency": {
+      "Accenture": 50.2
+    }
   },
   {
     "title": "Invalid Transactions",
@@ -25195,7 +26274,10 @@
     "url": "https://leetcode.com/problems/design-file-system/",
     "frequency": 86.7,
     "estimate": 35,
-    "id": 1462
+    "id": 1462,
+    "companyFrequency": {
+      "Airbnb": 65.5
+    }
   },
   {
     "title": "Unique Email Addresses",
@@ -25671,12 +26753,16 @@
       "Greedy"
     ],
     "companies": [
-      "Wells Fargo"
+      "Wells Fargo",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/minimizing-array-after-replacing-pairs-with-their-product/",
     "frequency": 86.1,
     "estimate": 35,
-    "id": 928
+    "id": 928,
+    "companyFrequency": {
+      "Adobe": 78.3
+    }
   },
   {
     "title": "Maximum Length of a Concatenated String with Unique Characters",
@@ -25726,13 +26812,18 @@
       "Zepto",
       "Zoho",
       "eBay",
-      "tcs"
+      "tcs",
+      "Akamai"
     ],
     "url": "https://leetcode.com/problems/find-peak-element/",
     "frequency": 85.8,
     "estimate": 35,
     "leetcodeNumber": 162,
-    "id": 612
+    "id": 612,
+    "companyFrequency": {
+      "Accenture": 40.5,
+      "Akamai": 64
+    }
   },
   {
     "title": "Construct Binary Tree from Inorder and Postorder Traversal",
@@ -25932,13 +27023,17 @@
       "Snowflake",
       "TikTok",
       "Uber",
-      "Yandex"
+      "Yandex",
+      "Altimetrik"
     ],
     "url": "https://leetcode.com/problems/swap-nodes-in-pairs/",
     "frequency": 84.9,
     "estimate": 35,
     "leetcodeNumber": 24,
-    "id": 775
+    "id": 775,
+    "companyFrequency": {
+      "Altimetrik": 68.4
+    }
   },
   {
     "title": "Reverse Bits",
@@ -25957,7 +27052,10 @@
     "frequency": 84.9,
     "estimate": 20,
     "leetcodeNumber": 190,
-    "id": 861
+    "id": 861,
+    "companyFrequency": {
+      "Airbnb": 65.5
+    }
   },
   {
     "title": "Permutation in String",
@@ -25975,13 +27073,17 @@
       "Goldman Sachs",
       "Oracle",
       "Revolut",
-      "Yandex"
+      "Yandex",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/permutation-in-string/",
     "frequency": 84.8,
     "estimate": 35,
     "leetcodeNumber": 567,
-    "id": 714
+    "id": 714,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Possible Bipartition",
@@ -26200,7 +27302,10 @@
     "frequency": 84.1,
     "estimate": 20,
     "leetcodeNumber": 507,
-    "id": 1592
+    "id": 1592,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Flatten a Multilevel Doubly Linked List",
@@ -26213,13 +27318,17 @@
     "companies": [
       "Arista Networks",
       "Bloomberg",
-      "SoFi"
+      "SoFi",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/",
     "frequency": 84.1,
     "estimate": 35,
     "leetcodeNumber": 430,
-    "id": 968
+    "id": 968,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Smallest Common Region",
@@ -26230,7 +27339,9 @@
       "String",
       "Tree",
       "Depth-First Search",
-      "Breadth-First Search"
+      "Breadth-First Search",
+      "Binary Lifting",
+      "Lowest Common Ancestor"
     ],
     "companies": [
       "Airbnb"
@@ -26238,7 +27349,10 @@
     "url": "https://leetcode.com/problems/smallest-common-region/",
     "frequency": 84.1,
     "estimate": 35,
-    "id": 1500
+    "id": 1500,
+    "companyFrequency": {
+      "Airbnb": 82.4
+    }
   },
   {
     "title": "Stepping Numbers",
@@ -26380,12 +27494,16 @@
       "Meta",
       "Nextdoor",
       "Snap",
-      "eBay"
+      "eBay",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/nested-list-weight-sum/",
     "frequency": 83.5,
     "estimate": 35,
-    "id": 803
+    "id": 803,
+    "companyFrequency": {
+      "Adobe": 52.2
+    }
   },
   {
     "title": "Snakes and Ladders",
@@ -26672,7 +27790,10 @@
     "url": "https://leetcode.com/problems/pour-water/",
     "frequency": 82.9,
     "estimate": 35,
-    "id": 1109
+    "id": 1109,
+    "companyFrequency": {
+      "Airbnb": 77.1
+    }
   },
   {
     "title": "Inorder Successor in BST II",
@@ -26700,12 +27821,16 @@
       "Counting"
     ],
     "companies": [
-      "Jump Trading"
+      "Jump Trading",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/largest-combination-with-bitwise-and-greater-than-zero/",
     "frequency": 82.8,
     "estimate": 35,
-    "id": 960
+    "id": 960,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Arranging Coins",
@@ -26797,7 +27922,10 @@
     "frequency": 82.5,
     "estimate": 35,
     "leetcodeNumber": 40,
-    "id": 947
+    "id": 947,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Closest Binary Search Tree Value",
@@ -27166,13 +28294,20 @@
       "Yahoo",
       "Yandex",
       "Zoho",
-      "tcs"
+      "tcs",
+      "Accenture",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/single-number/",
     "frequency": 82,
     "estimate": 20,
     "leetcodeNumber": 136,
-    "id": 626
+    "id": 626,
+    "companyFrequency": {
+      "Accenture": 50.2,
+      "Adobe": 52.2,
+      "Airbnb": 65.5
+    }
   },
   {
     "title": "Smallest Sufficient Team",
@@ -27184,13 +28319,17 @@
       "Bitmask"
     ],
     "companies": [
-      "tcs"
+      "tcs",
+      "Airbnb"
     ],
     "url": "https://leetcode.com/problems/smallest-sufficient-team/",
     "frequency": 82,
     "estimate": 55,
     "leetcodeNumber": 1125,
-    "id": 1512
+    "id": 1512,
+    "companyFrequency": {
+      "Airbnb": 45.2
+    }
   },
   {
     "title": "Stone Game VI",
@@ -28168,7 +29307,10 @@
     "frequency": 79.1,
     "estimate": 35,
     "leetcodeNumber": 1091,
-    "id": 805
+    "id": 805,
+    "companyFrequency": {
+      "Airbnb": 36.9
+    }
   },
   {
     "title": "Sliding Puzzle",
@@ -28179,7 +29321,10 @@
       "Backtracking",
       "Breadth-First Search",
       "Memoization",
-      "Matrix"
+      "Matrix",
+      "Heuristic Search",
+      "Bidirectional Search",
+      "A* Search"
     ],
     "companies": [
       "Airbnb",
@@ -28189,7 +29334,10 @@
     "frequency": 79,
     "estimate": 55,
     "leetcodeNumber": 773,
-    "id": 1358
+    "id": 1358,
+    "companyFrequency": {
+      "Airbnb": 75.6
+    }
   },
   {
     "title": "Maximum Star Sum of a Graph",
@@ -28199,15 +29347,19 @@
       "Greedy",
       "Graph",
       "Sorting",
-      "Heap (Priority Queue)"
+      "Heap (Priority Queue)",
+      "Graph Theory"
     ],
     "companies": [
       "Akuna Capital"
     ],
     "url": "https://leetcode.com/problems/maximum-star-sum-of-a-graph/",
-    "frequency": 79,
+    "frequency": 85.2,
     "estimate": 35,
-    "id": 2451
+    "id": 2451,
+    "companyFrequency": {
+      "Akuna Capital": 85.2
+    }
   },
   {
     "title": "Vowel Spellchecker",
@@ -28482,13 +29634,19 @@
       "Walmart Labs",
       "Yandex",
       "Zoho",
-      "tcs"
+      "tcs",
+      "Accenture",
+      "Akamai"
     ],
     "url": "https://leetcode.com/problems/first-unique-character-in-a-string/",
     "frequency": 78.1,
     "estimate": 20,
     "leetcodeNumber": 387,
-    "id": 652
+    "id": 652,
+    "companyFrequency": {
+      "Accenture": 40.5,
+      "Akamai": 64
+    }
   },
   {
     "title": "Minimum Operations to Make Numbers Non-positive",
@@ -28570,7 +29728,10 @@
     "url": "https://leetcode.com/problems/sum-of-values-at-indices-with-k-set-bits/",
     "frequency": 77.6,
     "estimate": 20,
-    "id": 1577
+    "id": 1577,
+    "companyFrequency": {
+      "Accenture": 77
+    }
   },
   {
     "title": "Find Subsequence of Length K With the Largest Sum",
@@ -28588,7 +29749,10 @@
     "url": "https://leetcode.com/problems/find-subsequence-of-length-k-with-the-largest-sum/",
     "frequency": 77.6,
     "estimate": 20,
-    "id": 1581
+    "id": 1581,
+    "companyFrequency": {
+      "Accenture": 74.1
+    }
   },
   {
     "title": "Maximum Area of Longest Diagonal Rectangle",
@@ -28603,7 +29767,10 @@
     "url": "https://leetcode.com/problems/maximum-area-of-longest-diagonal-rectangle/",
     "frequency": 77.6,
     "estimate": 20,
-    "id": 1578
+    "id": 1578,
+    "companyFrequency": {
+      "Accenture": 77
+    }
   },
   {
     "title": "Ant on the Boundary",
@@ -28619,7 +29786,10 @@
     "url": "https://leetcode.com/problems/ant-on-the-boundary/",
     "frequency": 77.6,
     "estimate": 20,
-    "id": 1582
+    "id": 1582,
+    "companyFrequency": {
+      "Accenture": 74.1
+    }
   },
   {
     "title": "Count Tested Devices After Test Operations",
@@ -28635,7 +29805,10 @@
     "url": "https://leetcode.com/problems/count-tested-devices-after-test-operations/",
     "frequency": 77.6,
     "estimate": 20,
-    "id": 1580
+    "id": 1580,
+    "companyFrequency": {
+      "Accenture": 74.1
+    }
   },
   {
     "title": "Permutation Difference between Two Strings",
@@ -28650,7 +29823,10 @@
     "url": "https://leetcode.com/problems/permutation-difference-between-two-strings/",
     "frequency": 77.6,
     "estimate": 20,
-    "id": 1579
+    "id": 1579,
+    "companyFrequency": {
+      "Accenture": 77
+    }
   },
   {
     "title": "Minimum Right Shifts to Sort the Array",
@@ -28664,7 +29840,10 @@
     "url": "https://leetcode.com/problems/minimum-right-shifts-to-sort-the-array/",
     "frequency": 77.6,
     "estimate": 20,
-    "id": 1583
+    "id": 1583,
+    "companyFrequency": {
+      "Accenture": 74.1
+    }
   },
   {
     "title": "People Whose List of Favorite Companies Is Not a Subset of Another List",
@@ -28759,12 +29938,16 @@
     ],
     "companies": [
       "IBM",
-      "Walmart Labs"
+      "Walmart Labs",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/divide-intervals-into-minimum-number-of-groups/",
-    "frequency": 77.4,
+    "frequency": 81.4,
     "estimate": 35,
-    "id": 916
+    "id": 916,
+    "companyFrequency": {
+      "Adobe": 81.4
+    }
   },
   {
     "title": "Query Kth Smallest Trimmed Number",
@@ -29909,7 +31092,8 @@
       "Array",
       "Line Sweep",
       "Sorting",
-      "Heap (Priority Queue)"
+      "Heap (Priority Queue)",
+      "Sweep Line"
     ],
     "companies": [
       "Airbnb",
@@ -29923,7 +31107,10 @@
     "url": "https://leetcode.com/problems/employee-free-time/",
     "frequency": 74.3,
     "estimate": 55,
-    "id": 1397
+    "id": 1397,
+    "companyFrequency": {
+      "Airbnb": 67.9
+    }
   },
   {
     "title": "Maximum Profitable Triplets With Increasing Prices I",
@@ -30247,13 +31434,17 @@
       "Monotonic Stack"
     ],
     "companies": [
-      "Zepto"
+      "Zepto",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/maximum-width-ramp/",
     "frequency": 73.3,
     "estimate": 35,
     "leetcodeNumber": 962,
-    "id": 1586
+    "id": 1586,
+    "companyFrequency": {
+      "Accenture": 57.2
+    }
   },
   {
     "title": "Make Array Empty",
@@ -30331,13 +31522,17 @@
       "Qualcomm",
       "Yandex",
       "Zomato",
-      "eBay"
+      "eBay",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/",
     "frequency": 73.2,
     "estimate": 35,
     "leetcodeNumber": 167,
-    "id": 650
+    "id": 650,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Custom Sort String",
@@ -30574,7 +31769,10 @@
     "frequency": 72.8,
     "estimate": 35,
     "leetcodeNumber": 105,
-    "id": 938
+    "id": 938,
+    "companyFrequency": {
+      "Adobe": 52.2
+    }
   },
   {
     "title": "Single-Threaded CPU",
@@ -30632,10 +31830,13 @@
       "VMware"
     ],
     "url": "https://leetcode.com/problems/intersection-of-two-linked-lists/",
-    "frequency": 72.4,
+    "frequency": 73.9,
     "estimate": 20,
     "leetcodeNumber": 160,
-    "id": 788
+    "id": 788,
+    "companyFrequency": {
+      "Airbnb": 73.9
+    }
   },
   {
     "title": "Recyclable and Low Fat Products",
@@ -30660,17 +31861,21 @@
     "topics": [
       "Array",
       "Breadth-First Search",
-      "Graph"
+      "Graph",
+      "Graph Theory"
     ],
     "companies": [
       "Airbnb",
       "Lyft"
     ],
     "url": "https://leetcode.com/problems/maximum-candies-you-can-get-from-boxes/",
-    "frequency": 72.4,
+    "frequency": 82.4,
     "estimate": 55,
     "leetcodeNumber": 1298,
-    "id": 1501
+    "id": 1501,
+    "companyFrequency": {
+      "Airbnb": 82.4
+    }
   },
   {
     "title": "Check if There is a Valid Partition For The Array",
@@ -31057,13 +32262,17 @@
     "companies": [
       "American Express",
       "Bloomberg",
-      "Google"
+      "Google",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/add-digits/",
-    "frequency": 71.2,
+    "frequency": 78.3,
     "estimate": 20,
     "leetcodeNumber": 258,
-    "id": 797
+    "id": 797,
+    "companyFrequency": {
+      "Adobe": 78.3
+    }
   },
   {
     "title": "Subsequence With the Minimum Score",
@@ -31123,12 +32332,16 @@
     ],
     "companies": [
       "IBM",
-      "josh technology"
+      "josh technology",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/minimum-swaps-to-group-all-1s-together-ii/",
     "frequency": 71,
     "estimate": 35,
-    "id": 953
+    "id": 953,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Construct Smallest Number From DI String",
@@ -31198,13 +32411,17 @@
       "Binary Tree"
     ],
     "companies": [
-      "josh technology"
+      "josh technology",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/trim-a-binary-search-tree/",
     "frequency": 71,
     "estimate": 35,
     "leetcodeNumber": 669,
-    "id": 959
+    "id": 959,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Dot Product of Two Sparse Vectors",
@@ -31424,13 +32641,18 @@
       "Meta",
       "Microsoft",
       "Samsung",
-      "TikTok"
+      "TikTok",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/",
     "frequency": 70.4,
     "estimate": 20,
     "leetcodeNumber": 108,
-    "id": 904
+    "id": 904,
+    "companyFrequency": {
+      "Accenture": 50.2,
+      "Airbnb": 65.5
+    }
   },
   {
     "title": "Suspicious Bank Accounts",
@@ -31513,7 +32735,10 @@
     "frequency": 70.4,
     "estimate": 35,
     "leetcodeNumber": 385,
-    "id": 1507
+    "id": 1507,
+    "companyFrequency": {
+      "Airbnb": 65.5
+    }
   },
   {
     "title": "Pyramid Transition Matrix",
@@ -31521,7 +32746,10 @@
     "topics": [
       "Bit Manipulation",
       "Depth-First Search",
-      "Breadth-First Search"
+      "Breadth-First Search",
+      "Hash Table",
+      "String",
+      "Backtracking"
     ],
     "companies": [
       "Airbnb"
@@ -31530,13 +32758,18 @@
     "frequency": 70.4,
     "estimate": 35,
     "leetcodeNumber": 756,
-    "id": 1511
+    "id": 1511,
+    "companyFrequency": {
+      "Airbnb": 65.5
+    }
   },
   {
     "title": "Minimum Number of Vertices to Reach All Nodes",
     "difficulty": "Medium",
     "topics": [
-      "Graph"
+      "Graph",
+      "Graph Theory",
+      "Directed Acyclic Graph"
     ],
     "companies": [
       "Airbnb"
@@ -31544,7 +32777,10 @@
     "url": "https://leetcode.com/problems/minimum-number-of-vertices-to-reach-all-nodes/",
     "frequency": 70.4,
     "estimate": 35,
-    "id": 1509
+    "id": 1509,
+    "companyFrequency": {
+      "Airbnb": 65.5
+    }
   },
   {
     "title": "Minimize Rounding Error to Meet Target",
@@ -31562,7 +32798,10 @@
     "url": "https://leetcode.com/problems/minimize-rounding-error-to-meet-target/",
     "frequency": 70.4,
     "estimate": 35,
-    "id": 1505
+    "id": 1505,
+    "companyFrequency": {
+      "Airbnb": 65.5
+    }
   },
   {
     "title": "Minimum Number of Flips to Convert Binary Matrix to Zero Matrix",
@@ -31581,7 +32820,10 @@
     "frequency": 70.4,
     "estimate": 55,
     "leetcodeNumber": 1284,
-    "id": 1508
+    "id": 1508,
+    "companyFrequency": {
+      "Airbnb": 65.5
+    }
   },
   {
     "title": "Number of Ways to Build House of Cards",
@@ -31596,7 +32838,10 @@
     "url": "https://leetcode.com/problems/number-of-ways-to-build-house-of-cards/",
     "frequency": 70.4,
     "estimate": 35,
-    "id": 1506
+    "id": 1506,
+    "companyFrequency": {
+      "Airbnb": 65.5
+    }
   },
   {
     "title": "Convert to Base -2",
@@ -31611,7 +32856,10 @@
     "frequency": 70.4,
     "estimate": 35,
     "leetcodeNumber": 1017,
-    "id": 1350
+    "id": 1350,
+    "companyFrequency": {
+      "Airbnb": 65.5
+    }
   },
   {
     "title": "Next Greater Element III",
@@ -31625,13 +32873,17 @@
       "DoorDash",
       "Goldman Sachs",
       "Mitsogo",
-      "Zoho"
+      "Zoho",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/next-greater-element-iii/",
     "frequency": 70.3,
     "estimate": 35,
     "leetcodeNumber": 556,
-    "id": 949
+    "id": 949,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Missing Element in Sorted Array",
@@ -31710,12 +32962,16 @@
       "Bloomberg",
       "Cognizant",
       "Roblox",
-      "tcs"
+      "tcs",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/students-and-examinations/",
     "frequency": 69.9,
     "estimate": 20,
-    "id": 1606
+    "id": 1606,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Magnetic Force Between Two Balls",
@@ -31852,13 +33108,17 @@
     ],
     "companies": [
       "Flipkart",
-      "Oracle"
+      "Oracle",
+      "Accolite"
     ],
     "url": "https://leetcode.com/problems/create-maximum-number/",
     "frequency": 69.7,
     "estimate": 55,
     "leetcodeNumber": 321,
-    "id": 1658
+    "id": 1658,
+    "companyFrequency": {
+      "Accolite": 63.6
+    }
   },
   {
     "title": "Subarrays with K Different Integers",
@@ -31889,13 +33149,17 @@
     ],
     "companies": [
       "Arcesium",
-      "Squarepoint Capital"
+      "Squarepoint Capital",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/",
     "frequency": 69.5,
     "estimate": 55,
     "leetcodeNumber": 1312,
-    "id": 1598
+    "id": 1598,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Binary Tree Upside Down",
@@ -31923,7 +33187,8 @@
       "Depth-First Search",
       "Breadth-First Search",
       "Union Find",
-      "Sorting"
+      "Sorting",
+      "Union-Find"
     ],
     "companies": [
       "LinkedIn",
@@ -31933,13 +33198,17 @@
       "Pinterest",
       "Rippling",
       "Roblox",
-      "Snap"
+      "Snap",
+      "Airbnb"
     ],
     "url": "https://leetcode.com/problems/accounts-merge/",
     "frequency": 69.1,
     "estimate": 35,
     "leetcodeNumber": 721,
-    "id": 827
+    "id": 827,
+    "companyFrequency": {
+      "Airbnb": 55.7
+    }
   },
   {
     "title": "Sort Array by Increasing Frequency",
@@ -31955,12 +33224,17 @@
       "Akuna Capital",
       "SAP",
       "Walmart Labs",
-      "tcs"
+      "tcs",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/sort-array-by-increasing-frequency/",
-    "frequency": 69,
+    "frequency": 70.6,
     "estimate": 20,
-    "id": 933
+    "id": 933,
+    "companyFrequency": {
+      "Adobe": 70.6,
+      "Agoda": 58.5
+    }
   },
   {
     "title": "Distance to a Cycle in Undirected Graph",
@@ -32251,12 +33525,16 @@
       "Deloitte",
       "Microsoft",
       "Wipro",
-      "tcs"
+      "tcs",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/article-views-i/",
     "frequency": 67.3,
     "estimate": 20,
-    "id": 763
+    "id": 763,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Queue Reconstruction by Height",
@@ -32336,12 +33614,16 @@
     "companies": [
       "Infosys",
       "J.P. Morgan",
-      "MindTree"
+      "MindTree",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/average-time-of-process-per-machine/",
     "frequency": 66.8,
     "estimate": 20,
-    "id": 991
+    "id": 991,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Number of Valid Words in a Sentence",
@@ -32439,7 +33721,10 @@
     "frequency": 65.8,
     "estimate": 35,
     "leetcodeNumber": 343,
-    "id": 1588
+    "id": 1588,
+    "companyFrequency": {
+      "Accenture": 50.2
+    }
   },
   {
     "title": "Sum of Distances in Tree",
@@ -32693,13 +33978,17 @@
       "Two Pointers"
     ],
     "companies": [
-      "Quora"
+      "Quora",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/number-of-subarrays-with-bounded-maximum/",
-    "frequency": 65.1,
+    "frequency": 78.3,
     "estimate": 35,
     "leetcodeNumber": 795,
-    "id": 921
+    "id": 921,
+    "companyFrequency": {
+      "Adobe": 78.3
+    }
   },
   {
     "title": "H-Index",
@@ -32831,7 +34120,10 @@
     "frequency": 64.4,
     "estimate": 20,
     "leetcodeNumber": 27,
-    "id": 640
+    "id": 640,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Execute Asynchronous Functions in Parallel",
@@ -32947,13 +34239,17 @@
       "Microsoft",
       "Uber",
       "Yahoo",
-      "Zoho"
+      "Zoho",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/search-insert-position/",
     "frequency": 63.6,
     "estimate": 20,
     "leetcodeNumber": 35,
-    "id": 641
+    "id": 641,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Minimum Number of Arrows to Burst Balloons",
@@ -33032,13 +34328,17 @@
       "Binary Tree"
     ],
     "companies": [
-      "Dunzo"
+      "Dunzo",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/count-complete-tree-nodes/",
     "frequency": 63.4,
     "estimate": 20,
     "leetcodeNumber": 222,
-    "id": 958
+    "id": 958,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Find the Largest Area of Square Inside Two Rectangles",
@@ -33387,13 +34687,17 @@
     "companies": [
       "Deutsche Bank",
       "Google",
-      "Walmart Labs"
+      "Walmart Labs",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/fruit-into-baskets/",
-    "frequency": 61.9,
+    "frequency": 65.7,
     "estimate": 35,
     "leetcodeNumber": 904,
-    "id": 593
+    "id": 593,
+    "companyFrequency": {
+      "Adobe": 65.7
+    }
   },
   {
     "title": "Find K-th Smallest Pair Distance",
@@ -33462,7 +34766,10 @@
     "url": "https://leetcode.com/problems/lexicographically-smallest-string-after-substring-operation/",
     "frequency": 61.7,
     "estimate": 35,
-    "id": 1877
+    "id": 1877,
+    "companyFrequency": {
+      "Agoda": 49.2
+    }
   },
   {
     "title": "Palindrome Partitioning",
@@ -33479,13 +34786,17 @@
       "Meta",
       "Uber",
       "Walmart Labs",
-      "Yahoo"
+      "Yahoo",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/palindrome-partitioning/",
     "frequency": 61.5,
     "estimate": 35,
     "leetcodeNumber": 131,
-    "id": 698
+    "id": 698,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Max Consecutive Ones",
@@ -33502,10 +34813,13 @@
       "Yandex"
     ],
     "url": "https://leetcode.com/problems/max-consecutive-ones/",
-    "frequency": 61.5,
+    "frequency": 62.6,
     "estimate": 20,
     "leetcodeNumber": 485,
-    "id": 684
+    "id": 684,
+    "companyFrequency": {
+      "Accenture": 62.6
+    }
   },
   {
     "title": "Maximum Difference Between Even and Odd Frequency II",
@@ -33829,13 +35143,17 @@
     "companies": [
       "Nvidia",
       "Wipro",
-      "tcs"
+      "tcs",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/sort-characters-by-frequency/",
     "frequency": 60.8,
     "estimate": 35,
     "leetcodeNumber": 451,
-    "id": 1289
+    "id": 1289,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Cinema Seat Allocation",
@@ -33941,18 +35259,24 @@
     "difficulty": "Medium",
     "topics": [
       "String",
-      "Stack"
+      "Stack",
+      "Bracket Sequences"
     ],
     "companies": [
       "Agoda",
       "Flipkart",
-      "Goldman Sachs"
+      "Goldman Sachs",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/reverse-substrings-between-each-pair-of-parentheses/",
-    "frequency": 60,
+    "frequency": 78.3,
     "estimate": 35,
     "leetcodeNumber": 1190,
-    "id": 923
+    "id": 923,
+    "companyFrequency": {
+      "Adobe": 78.3,
+      "Agoda": 49.2
+    }
   },
   {
     "title": "Count Integers in Intervals",
@@ -34161,13 +35485,19 @@
       "Prefix Sum"
     ],
     "companies": [
-      "Morgan Stanley"
+      "Morgan Stanley",
+      "Accenture",
+      "Akamai"
     ],
     "url": "https://leetcode.com/problems/contiguous-array/",
-    "frequency": 59.2,
+    "frequency": 85.9,
     "estimate": 35,
     "leetcodeNumber": 525,
-    "id": 856
+    "id": 856,
+    "companyFrequency": {
+      "Accenture": 40.5,
+      "Akamai": 85.9
+    }
   },
   {
     "title": "All Paths From Source to Target",
@@ -34377,12 +35707,16 @@
       "BlackRock",
       "Oracle",
       "Snowflake",
-      "Walmart Labs"
+      "Walmart Labs",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/maximum-profit-from-trading-stocks/",
     "frequency": 58.5,
     "estimate": 35,
-    "id": 963
+    "id": 963,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Couples Holding Hands",
@@ -34571,12 +35905,16 @@
       "Counting"
     ],
     "companies": [
-      "IBM"
+      "IBM",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/count-pairs-of-similar-strings/",
-    "frequency": 57.7,
+    "frequency": 59.8,
     "estimate": 20,
-    "id": 935
+    "id": 935,
+    "companyFrequency": {
+      "Adobe": 59.8
+    }
   },
   {
     "title": "Balanced Binary Tree",
@@ -34920,7 +36258,8 @@
       "Array",
       "Two Pointers",
       "Greedy",
-      "Sorting"
+      "Sorting",
+      "Quicksort"
     ],
     "companies": [
       "Accenture",
@@ -34931,7 +36270,10 @@
     "frequency": 56.2,
     "estimate": 20,
     "leetcodeNumber": 455,
-    "id": 1589
+    "id": 1589,
+    "companyFrequency": {
+      "Accenture": 50.2
+    }
   },
   {
     "title": "Nth Digit",
@@ -34941,13 +36283,18 @@
       "Binary Search"
     ],
     "companies": [
-      "Accenture"
+      "Accenture",
+      "Airbnb"
     ],
     "url": "https://leetcode.com/problems/nth-digit/",
-    "frequency": 56.2,
+    "frequency": 57.2,
     "estimate": 35,
     "leetcodeNumber": 400,
-    "id": 1513
+    "id": 1513,
+    "companyFrequency": {
+      "Accenture": 57.2,
+      "Airbnb": 36.9
+    }
   },
   {
     "title": "Find K Pairs with Smallest Sums",
@@ -34993,9 +36340,12 @@
       "Agoda"
     ],
     "url": "https://leetcode.com/problems/eliminate-maximum-number-of-monsters/",
-    "frequency": 55.9,
+    "frequency": 97.3,
     "estimate": 35,
-    "id": 2580
+    "id": 2580,
+    "companyFrequency": {
+      "Agoda": 97.3
+    }
   },
   {
     "title": "Remove Adjacent Almost-Equal Characters",
@@ -35164,7 +36514,10 @@
     "frequency": 54.7,
     "estimate": 35,
     "leetcodeNumber": 59,
-    "id": 965
+    "id": 965,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "title": "Shuffle the Array",
@@ -35579,13 +36932,17 @@
       "Google",
       "Nvidia",
       "Oracle",
-      "PayPal"
+      "PayPal",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/delete-node-in-a-linked-list/",
-    "frequency": 51.8,
+    "frequency": 78.3,
     "estimate": 35,
     "leetcodeNumber": 237,
-    "id": 790
+    "id": 790,
+    "companyFrequency": {
+      "Adobe": 78.3
+    }
   },
   {
     "title": "Mice and Cheese",
@@ -36137,12 +37494,16 @@
     ],
     "companies": [
       "Amazon",
-      "Oracle"
+      "Oracle",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/plates-between-candles/",
-    "frequency": 49,
+    "frequency": 78.3,
     "estimate": 35,
-    "id": 718
+    "id": 718,
+    "companyFrequency": {
+      "Adobe": 78.3
+    }
   },
   {
     "title": "Largest Plus Sign",
@@ -36427,12 +37788,16 @@
       "Sliding Window"
     ],
     "companies": [
-      "Bloomberg"
+      "Bloomberg",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/count-subarrays-where-max-element-appears-at-least-k-times/",
-    "frequency": 47.6,
+    "frequency": 78.3,
     "estimate": 35,
-    "id": 929
+    "id": 929,
+    "companyFrequency": {
+      "Adobe": 78.3
+    }
   },
   {
     "title": "Sort Items by Groups Respecting Dependencies",
@@ -37090,13 +38455,17 @@
       "Meta",
       "Microsoft",
       "Uber",
-      "Yahoo"
+      "Yahoo",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/search-in-rotated-sorted-array-ii/",
     "frequency": 41.9,
     "estimate": 35,
     "leetcodeNumber": 81,
-    "id": 1207
+    "id": 1207,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Maximum Gap",
@@ -37525,13 +38894,17 @@
       "Enumeration"
     ],
     "companies": [
-      "Citadel"
+      "Citadel",
+      "Airbnb"
     ],
     "url": "https://leetcode.com/problems/consecutive-numbers-sum/",
     "frequency": 38.9,
     "estimate": 55,
     "leetcodeNumber": 829,
-    "id": 1112
+    "id": 1112,
+    "companyFrequency": {
+      "Airbnb": 36.9
+    }
   },
   {
     "title": "The Latest Time to Catch a Bus",
@@ -37899,12 +39272,16 @@
       "Counting"
     ],
     "companies": [
-      "tcs"
+      "tcs",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/number-of-good-pairs/",
-    "frequency": 35.3,
+    "frequency": 40.5,
     "estimate": 20,
-    "id": 1594
+    "id": 1594,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Pascal's Triangle II",
@@ -37984,12 +39361,16 @@
       "Enumeration"
     ],
     "companies": [
-      "Microsoft"
+      "Microsoft",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/sum-of-all-subset-xor-totals/",
-    "frequency": 32.8,
+    "frequency": 52.2,
     "estimate": 20,
-    "id": 940
+    "id": 940,
+    "companyFrequency": {
+      "Adobe": 52.2
+    }
   },
   {
     "title": "Third Maximum Number",
@@ -38305,12 +39686,16 @@
     ],
     "companies": [
       "Google",
-      "Yahoo"
+      "Yahoo",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/rank-scores/",
-    "frequency": 27.2,
+    "frequency": 40.5,
     "estimate": 35,
-    "id": 1601
+    "id": 1601,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Find the Difference of Two Arrays",
@@ -38320,12 +39705,16 @@
       "Hash Table"
     ],
     "companies": [
-      "Yandex"
+      "Yandex",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/find-the-difference-of-two-arrays/",
-    "frequency": 25.6,
+    "frequency": 40.5,
     "estimate": 20,
-    "id": 1600
+    "id": 1600,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Path Crossing",
@@ -38479,13 +39868,17 @@
       "Sorting"
     ],
     "companies": [
-      "Google"
+      "Google",
+      "Accenture"
     ],
     "url": "https://leetcode.com/problems/find-the-difference/",
-    "frequency": 23.8,
+    "frequency": 40.5,
     "estimate": 20,
     "leetcodeNumber": 389,
-    "id": 1597
+    "id": 1597,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
   },
   {
     "title": "Random Flip Matrix",
@@ -38686,16 +40079,22 @@
       "Array",
       "Design",
       "Binary Indexed Tree",
-      "Segment Tree"
+      "Segment Tree",
+      "Divide and Conquer",
+      "Sqrt Decomposition"
     ],
     "companies": [
-      "Google"
+      "Google",
+      "Adobe"
     ],
     "url": "https://leetcode.com/problems/range-sum-query-mutable/",
-    "frequency": 5,
+    "frequency": 41.7,
     "estimate": 35,
     "leetcodeNumber": 307,
-    "id": 954
+    "id": 954,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
   },
   {
     "id": 900000,
@@ -39467,5 +40866,563 @@
     "source": "Codeforces",
     "externalId": "791A",
     "rating": 800
+  },
+  {
+    "id": 900049,
+    "title": "Smallest Divisible Digit Product II",
+    "difficulty": "Hard",
+    "topics": [
+      "Math",
+      "String",
+      "Backtracking",
+      "Greedy",
+      "Number Theory"
+    ],
+    "companies": [
+      "Accenture"
+    ],
+    "url": "https://leetcode.com/problems/smallest-divisible-digit-product-ii",
+    "frequency": 81.9,
+    "estimate": 30,
+    "companyFrequency": {
+      "Accenture": 81.9
+    }
+  },
+  {
+    "id": 900050,
+    "title": "Smallest Divisible Digit Product I",
+    "difficulty": "Easy",
+    "topics": [
+      "Math",
+      "Enumeration"
+    ],
+    "companies": [
+      "Accenture"
+    ],
+    "url": "https://leetcode.com/problems/smallest-divisible-digit-product-i",
+    "frequency": 79.6,
+    "estimate": 30,
+    "companyFrequency": {
+      "Accenture": 79.6
+    }
+  },
+  {
+    "id": 900051,
+    "title": "Minimum Number of Operations to Have Distinct Elements",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Hash Table"
+    ],
+    "companies": [
+      "Accenture"
+    ],
+    "url": "https://leetcode.com/problems/minimum-number-of-operations-to-have-distinct-elements",
+    "frequency": 79.6,
+    "estimate": 30,
+    "companyFrequency": {
+      "Accenture": 79.6
+    }
+  },
+  {
+    "id": 900052,
+    "title": "Count Partitions with Even Sum Difference",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "Math",
+      "Prefix Sum"
+    ],
+    "companies": [
+      "Accenture"
+    ],
+    "url": "https://leetcode.com/problems/count-partitions-with-even-sum-difference",
+    "frequency": 57.2,
+    "estimate": 30,
+    "companyFrequency": {
+      "Accenture": 57.2
+    }
+  },
+  {
+    "id": 900053,
+    "title": "Separate Black and White Balls",
+    "difficulty": "Medium",
+    "topics": [
+      "Two Pointers",
+      "String",
+      "Greedy"
+    ],
+    "companies": [
+      "Accenture"
+    ],
+    "url": "https://leetcode.com/problems/separate-black-and-white-balls",
+    "frequency": 50.2,
+    "estimate": 30,
+    "companyFrequency": {
+      "Accenture": 50.2
+    }
+  },
+  {
+    "id": 900054,
+    "title": "Maximum Number of Moves in a Grid",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Dynamic Programming",
+      "Matrix"
+    ],
+    "companies": [
+      "Accenture"
+    ],
+    "url": "https://leetcode.com/problems/maximum-number-of-moves-in-a-grid",
+    "frequency": 40.5,
+    "estimate": 30,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
+  },
+  {
+    "id": 900055,
+    "title": "Largest Odd Number in String",
+    "difficulty": "Easy",
+    "topics": [
+      "Math",
+      "String",
+      "Greedy"
+    ],
+    "companies": [
+      "Accenture"
+    ],
+    "url": "https://leetcode.com/problems/largest-odd-number-in-string",
+    "frequency": 40.5,
+    "estimate": 30,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
+  },
+  {
+    "id": 900056,
+    "title": "Rotate Function",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Math",
+      "Dynamic Programming"
+    ],
+    "companies": [
+      "Accenture"
+    ],
+    "url": "https://leetcode.com/problems/rotate-function",
+    "frequency": 40.5,
+    "estimate": 30,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
+  },
+  {
+    "id": 900057,
+    "title": "Final Value of Variable After Performing Operations",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "String",
+      "Simulation"
+    ],
+    "companies": [
+      "Accenture"
+    ],
+    "url": "https://leetcode.com/problems/final-value-of-variable-after-performing-operations",
+    "frequency": 40.5,
+    "estimate": 30,
+    "companyFrequency": {
+      "Accenture": 40.5
+    }
+  },
+  {
+    "id": 900058,
+    "title": "Rotate Non Negative Elements",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Simulation"
+    ],
+    "companies": [
+      "Accolite"
+    ],
+    "url": "https://leetcode.com/problems/rotate-non-negative-elements",
+    "frequency": 87.5,
+    "estimate": 30,
+    "companyFrequency": {
+      "Accolite": 87.5
+    }
+  },
+  {
+    "id": 900059,
+    "title": "Minimum Jumps to Reach Home",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Hash Table",
+      "Breadth-First Search"
+    ],
+    "companies": [
+      "Accolite"
+    ],
+    "url": "https://leetcode.com/problems/minimum-jumps-to-reach-home",
+    "frequency": 54.9,
+    "estimate": 30,
+    "companyFrequency": {
+      "Accolite": 54.9
+    }
+  },
+  {
+    "id": 900060,
+    "title": "Smallest Range II",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Math",
+      "Greedy",
+      "Sorting"
+    ],
+    "companies": [
+      "Adobe"
+    ],
+    "url": "https://leetcode.com/problems/smallest-range-ii",
+    "frequency": 84.3,
+    "estimate": 30,
+    "companyFrequency": {
+      "Adobe": 84.3
+    }
+  },
+  {
+    "id": 900061,
+    "title": "Number of Increasing Paths in a Grid",
+    "difficulty": "Hard",
+    "topics": [
+      "Array",
+      "Dynamic Programming",
+      "Depth-First Search",
+      "Breadth-First Search",
+      "Graph Theory",
+      "Topological Sort",
+      "Memoization",
+      "Matrix"
+    ],
+    "companies": [
+      "Adobe"
+    ],
+    "url": "https://leetcode.com/problems/number-of-increasing-paths-in-a-grid",
+    "frequency": 81.4,
+    "estimate": 30,
+    "companyFrequency": {
+      "Adobe": 81.4
+    }
+  },
+  {
+    "id": 900062,
+    "title": "Tenth Line",
+    "difficulty": "Easy",
+    "topics": [
+      "Shell"
+    ],
+    "companies": [
+      "Adobe"
+    ],
+    "url": "https://leetcode.com/problems/tenth-line",
+    "frequency": 78.3,
+    "estimate": 30,
+    "companyFrequency": {
+      "Adobe": 78.3
+    }
+  },
+  {
+    "id": 900063,
+    "title": "Nim Game",
+    "difficulty": "Easy",
+    "topics": [
+      "Math",
+      "Brainteaser",
+      "Minimax",
+      "Game Theory",
+      "Nim Game",
+      "Impartial Game"
+    ],
+    "companies": [
+      "Adobe"
+    ],
+    "url": "https://leetcode.com/problems/nim-game",
+    "frequency": 78.3,
+    "estimate": 30,
+    "companyFrequency": {
+      "Adobe": 78.3
+    }
+  },
+  {
+    "id": 900064,
+    "title": "Preimage Size of Factorial Zeroes Function",
+    "difficulty": "Hard",
+    "topics": [
+      "Math",
+      "Binary Search"
+    ],
+    "companies": [
+      "Adobe"
+    ],
+    "url": "https://leetcode.com/problems/preimage-size-of-factorial-zeroes-function",
+    "frequency": 78.3,
+    "estimate": 30,
+    "companyFrequency": {
+      "Adobe": 78.3
+    }
+  },
+  {
+    "id": 900065,
+    "title": "Smallest Range I",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "Math"
+    ],
+    "companies": [
+      "Adobe"
+    ],
+    "url": "https://leetcode.com/problems/smallest-range-i",
+    "frequency": 78.3,
+    "estimate": 30,
+    "companyFrequency": {
+      "Adobe": 78.3
+    }
+  },
+  {
+    "id": 900066,
+    "title": "Count Ways to Build Rooms in an Ant Colony",
+    "difficulty": "Hard",
+    "topics": [
+      "Array",
+      "Math",
+      "Dynamic Programming",
+      "Tree",
+      "Depth-First Search",
+      "Graph Theory",
+      "Topological Sort",
+      "Combinatorics",
+      "DP on Trees",
+      "Fermat's Little Theorem"
+    ],
+    "companies": [
+      "Adobe"
+    ],
+    "url": "https://leetcode.com/problems/count-ways-to-build-rooms-in-an-ant-colony",
+    "frequency": 78.3,
+    "estimate": 30,
+    "companyFrequency": {
+      "Adobe": 78.3
+    }
+  },
+  {
+    "id": 900067,
+    "title": "Choose Numbers From Two Arrays in Range",
+    "difficulty": "Hard",
+    "topics": [
+      "Array",
+      "Dynamic Programming"
+    ],
+    "companies": [
+      "Adobe"
+    ],
+    "url": "https://leetcode.com/problems/choose-numbers-from-two-arrays-in-range",
+    "frequency": 78.3,
+    "estimate": 30,
+    "companyFrequency": {
+      "Adobe": 78.3
+    }
+  },
+  {
+    "id": 900068,
+    "title": "Minimize XOR",
+    "difficulty": "Medium",
+    "topics": [
+      "Greedy",
+      "Bit Manipulation"
+    ],
+    "companies": [
+      "Adobe"
+    ],
+    "url": "https://leetcode.com/problems/minimize-xor",
+    "frequency": 78.3,
+    "estimate": 30,
+    "companyFrequency": {
+      "Adobe": 78.3
+    }
+  },
+  {
+    "id": 900069,
+    "title": "Bitwise OR of Adjacent Elements",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "Bit Manipulation"
+    ],
+    "companies": [
+      "Adobe"
+    ],
+    "url": "https://leetcode.com/problems/bitwise-or-of-adjacent-elements",
+    "frequency": 78.3,
+    "estimate": 30,
+    "companyFrequency": {
+      "Adobe": 78.3
+    }
+  },
+  {
+    "id": 900070,
+    "title": "Threshold Majority Queries",
+    "difficulty": "Hard",
+    "topics": [
+      "Array",
+      "Hash Table",
+      "Binary Search",
+      "Divide and Conquer",
+      "Counting",
+      "Prefix Sum"
+    ],
+    "companies": [
+      "Adobe"
+    ],
+    "url": "https://leetcode.com/problems/threshold-majority-queries",
+    "frequency": 78.3,
+    "estimate": 30,
+    "companyFrequency": {
+      "Adobe": 78.3
+    }
+  },
+  {
+    "id": 900071,
+    "title": "Minimum Moves to Equal Array Elements III",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "Math"
+    ],
+    "companies": [
+      "Adobe"
+    ],
+    "url": "https://leetcode.com/problems/minimum-moves-to-equal-array-elements-iii",
+    "frequency": 78.3,
+    "estimate": 30,
+    "companyFrequency": {
+      "Adobe": 78.3
+    }
+  },
+  {
+    "id": 900072,
+    "title": "Unit Conversion I",
+    "difficulty": "Medium",
+    "topics": [
+      "Depth-First Search",
+      "Breadth-First Search",
+      "Graph Theory"
+    ],
+    "companies": [
+      "Adobe"
+    ],
+    "url": "https://leetcode.com/problems/unit-conversion-i",
+    "frequency": 52.2,
+    "estimate": 30,
+    "companyFrequency": {
+      "Adobe": 52.2
+    }
+  },
+  {
+    "id": 900073,
+    "title": "Increment Submatrices by One",
+    "difficulty": "Medium",
+    "topics": [
+      "Array",
+      "Matrix",
+      "Prefix Sum"
+    ],
+    "companies": [
+      "Adobe"
+    ],
+    "url": "https://leetcode.com/problems/increment-submatrices-by-one",
+    "frequency": 41.7,
+    "estimate": 30,
+    "companyFrequency": {
+      "Adobe": 41.7
+    }
+  },
+  {
+    "id": 900074,
+    "title": "Find Diameter Endpoints of a Tree",
+    "difficulty": "Medium",
+    "topics": [
+      "Tree",
+      "Breadth-First Search",
+      "Graph Theory"
+    ],
+    "companies": [
+      "Agoda"
+    ],
+    "url": "https://leetcode.com/problems/find-diameter-endpoints-of-a-tree",
+    "frequency": 83.9,
+    "estimate": 30,
+    "companyFrequency": {
+      "Agoda": 83.9
+    }
+  },
+  {
+    "id": 900075,
+    "title": "Rank Transform of an Array",
+    "difficulty": "Easy",
+    "topics": [
+      "Array",
+      "Hash Table",
+      "Sorting"
+    ],
+    "companies": [
+      "Agoda"
+    ],
+    "url": "https://leetcode.com/problems/rank-transform-of-an-array",
+    "frequency": 65.2,
+    "estimate": 30,
+    "companyFrequency": {
+      "Agoda": 65.2
+    }
+  },
+  {
+    "id": 900076,
+    "title": "Maximum Team Size with Overlapping Intervals",
+    "difficulty": "Medium",
+    "topics": [],
+    "companies": [
+      "Agoda"
+    ],
+    "url": "https://leetcode.com/problems/maximum-team-size-with-overlapping-intervals",
+    "frequency": 49.2,
+    "estimate": 30,
+    "companyFrequency": {
+      "Agoda": 49.2
+    }
+  },
+  {
+    "id": 900077,
+    "title": "Minimum Cost to Reach Destination in Time",
+    "difficulty": "Hard",
+    "topics": [
+      "Array",
+      "Dynamic Programming",
+      "Graph Theory",
+      "Dijkstra's Algorithm"
+    ],
+    "companies": [
+      "Airbnb"
+    ],
+    "url": "https://leetcode.com/problems/minimum-cost-to-reach-destination-in-time",
+    "frequency": 36.9,
+    "estimate": 30,
+    "companyFrequency": {
+      "Airbnb": 36.9
+    }
   }
 ]
