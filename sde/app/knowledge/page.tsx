@@ -9,7 +9,7 @@ type Lesson={id:string;subject:string;order:number;topic:string;level:string;tit
 const items=bank as BankItem[];
 const lessons=curriculum as Lesson[];
 const subjects=["DBMS","OS","CN","OOP","SQL","DSA Fundamentals"];
-const allSubjects=["All",...subjects,"OA & Coding Patterns","Machine Coding","LLD","System Design","Behavioral"];
+const allSubjects=["All",...subjects,"OA & Coding Patterns","Machine Coding","LLD","System Design","Behavioral"];\nfunction simpleText(text:string){return text.replace(/\butilize\b/gi,"use").replace(/\bsubsequent\b/gi,"next").replace(/\bprior to\b/gi,"before").replace(/\btherefore\b/gi,"so").replace(/\badditional\b/gi,"extra").replace(/\bapproximately\b/gi,"about").replace(/\bcommonly\b/gi,"usually").replace(/\bprimarily\b/gi,"mainly").replace(/\bimplement\b/gi,"build").replace(/\bencapsulates\b/gi,"contains").replace(/\bfacilitates\b/gi,"helps").replace(/\bcomprises\b/gi,"contains").replace(/\bensure\b/gi,"make sure").replace(/\bwhereas\b/gi,"while");}\n
 const levelOf=(x:BankItem)=>x.level||(["DBMS","OS","CN","OOP","SQL","DSA Fundamentals"].includes(x.category)&&x.subCategory==="Fundamentals"?"Beginner":"Interview");
 
 export default function KnowledgeHub(){
@@ -38,7 +38,7 @@ export default function KnowledgeHub(){
    <div className="rounded-3xl border border-[#202a38] bg-[#0d121a] p-6 md:p-8">
     <div className="text-[10px] tracking-[.24em] text-cyan-200">DACE / STUDY CENTRE</div>
     <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-5">
-     <div><h1 className="text-4xl md:text-5xl font-black mt-3">Learn. Understand. Practice. Revise.</h1><p className="text-sm text-[#8998ac] mt-3 max-w-3xl">No more empty subject pages and no more prompts telling you to invent the answer yourself. Each core subject has a fixed learning sequence with explanations, examples, interview answers, MCQs, and a large practice bank.</p></div>
+     <div><h1 className="text-4xl md:text-5xl font-black mt-3">Learn. Understand. Practice. Revise.</h1><p className="text-sm text-[#8998ac] mt-3 max-w-3xl">Start with simple English. Understand the idea with a real example, then learn the technical version, then practice it in interview questions and MCQs.</p></div>
      <div className="text-right"><div className="text-3xl font-black">{items.length+lessons.length}</div><div className="text-[10px] uppercase tracking-widest text-[#657387]">study + practice items</div></div>
     </div>
    </div>
@@ -55,9 +55,9 @@ export default function KnowledgeHub(){
       <div className="text-xs text-[#718096] mt-2">{current.level} · prerequisite-aware sequence</div>
      </div>
      <div className="p-5 md:p-7 space-y-5">
-      <div><div className="text-[10px] tracking-widest text-[#617188]">LEARN</div><p className="text-[15px] leading-7 text-[#c2cbd6] mt-2">{current.learn}</p></div>
-      <div className="rounded-2xl border border-[#253246] bg-[#0a1017] p-5"><div className="text-[10px] tracking-widest text-cyan-200">WORKED EXAMPLE</div><p className="text-sm leading-6 text-[#aeb9c8] mt-2">{current.example}</p></div>
-      <div><div className="text-[10px] tracking-widest text-[#617188]">REMEMBER</div><ul className="mt-2 space-y-2">{current.keyPoints.map((k,i)=><li key={i} className="text-sm text-[#aeb9c8] leading-6 flex gap-2"><span className="text-cyan-300">•</span>{k}</li>)}</ul></div>
+      <div><div className="text-[10px] tracking-widest text-cyan-200">IN SIMPLE WORDS</div><p className="text-[15px] leading-7 text-[#c2cbd6] mt-2">{simpleText(current.learn)}</p><div className="mt-4 rounded-xl border border-white/5 bg-[#0a1017] p-4"><div className="text-[10px] tracking-widest text-[#617188]">FIRST THINK OF THIS</div><p className="text-sm leading-6 text-[#aeb9c8] mt-2">{simpleText(current.example)}</p></div></div>
+      <div className="rounded-2xl border border-[#253246] bg-[#0a1017] p-5"><div className="text-[10px] tracking-widest text-violet-200">NOW GO DEEPER</div><p className="text-sm leading-6 text-[#aeb9c8] mt-2">{current.example}</p></div>
+      <div><div className="text-[10px] tracking-widest text-[#617188]">REMEMBER THIS</div><ul className="mt-2 space-y-2">{current.keyPoints.map((k,i)=><li key={i} className="text-sm text-[#aeb9c8] leading-6 flex gap-2"><span className="text-cyan-300">•</span>{k}</li>)}</ul></div>
       <div className="rounded-2xl border border-violet-300/10 bg-violet-300/[.03] p-5"><div className="text-[10px] tracking-widest text-violet-200">INTERVIEW ANSWER</div>{current.interview.map((q,i)=><div key={i} className="mt-3"><div className="text-sm font-semibold">{q.q}</div><div className="text-sm text-[#aeb9c8] leading-6 mt-1">{q.a}</div></div>)}</div>
       <div className="rounded-2xl border border-amber-300/10 bg-amber-300/[.03] p-5"><div className="text-[10px] tracking-widest text-amber-200">CHECK YOURSELF</div><div className="font-semibold text-sm mt-2">{current.mcq.q}</div><div className="grid md:grid-cols-2 gap-2 mt-3">{current.mcq.options.map((o,i)=><div key={i} className={"p-3 rounded-xl border text-sm "+(i===current.mcq.answer?"border-green-300/20 bg-green-300/[.05] text-green-100":"border-white/5 text-[#aeb9c8]")}>{String.fromCharCode(65+i)}. {o}{i===current.mcq.answer&&<span className="text-[10px] ml-2 text-green-300">ANSWER</span>}</div>)}</div><p className="text-xs text-[#8998ac] mt-3"><b className="text-white">Why:</b> {current.mcq.why}</p></div>
       <div className="flex flex-wrap gap-2"><button onClick={()=>markDone(current.id)} className="px-4 py-2.5 rounded-xl border border-green-300/20 text-green-200 text-sm">{done.includes(current.id)?"✓ Completed":"Mark lesson complete"}</button><button onClick={next} className="px-5 py-2.5 rounded-xl bg-white text-black text-sm font-bold">{lessonIndex===subjectLessons.length-1?"Finish subject":"Next lesson →"}</button></div>
