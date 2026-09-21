@@ -24,3 +24,9 @@ The source is a historical interview-tag dataset rather than a guarantee of what
 ## Refresh policy
 
 When expanding this dataset, keep the source attribution and verify the source repository's current terms before redistributing a larger snapshot.
+
+
+## Additional practice bank
+DACE also includes a curated starter set of 49 Codeforces problems. These are stored separately in the common practice dataset with `source: Codeforces`, an `externalId`, rating, and direct Codeforces problem URL. Codeforces items are not treated as company-tagged LeetCode questions and therefore do not increase the 469-company count.
+
+DACE also includes a structured interview/knowledge bank covering Core CS, SQL, OA patterns, machine coding, LLD, system design, and behavioral preparation. These are original study prompts, not claimed company interview questions.
