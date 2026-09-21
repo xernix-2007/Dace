@@ -328,10 +328,8 @@ function CodingCalendar({solvedAt}:{solvedAt:Record<number,string>}){
  for(const d of Object.values(solvedAt))counts[d]=(counts[d]||0)+1;
 
  const start=new Date(year,0,1);
- const end=new Date(year,11,31);
- const offset=start.getDay();
  const raw:string[]=[];
- for(let i=0;i<offset;i++)raw.push("");
+ for(let i=0;i<start.getDay();i++)raw.push("");
  for(let i=0;i<366;i++){
   const d=new Date(year,0,1);
   d.setDate(i+1);
@@ -342,10 +340,13 @@ function CodingCalendar({solvedAt}:{solvedAt:Record<number,string>}){
 
  const weeks:string[][]=[];
  for(let i=0;i<raw.length;i+=7)weeks.push(raw.slice(i,i+7));
- const monthLabels=weeks.map((week)=>{
-  const firstDay=week.find(Boolean);
-  return firstDay?new Date(firstDay+"T00:00:00").toLocaleDateString("en-US",{month:"short"}):"";
+
+ // Put each month label only above the week where that month begins.
+ const monthLabels=weeks.map(week=>{
+  const first=week.find(d=>d&&new Date(d+"T00:00:00").getDate()===1);
+  return first?new Date(first+"T00:00:00").toLocaleDateString("en-US",{month:"short"}):"";
  });
+
  const level=(n:number)=>n===0?"bg-white/[.035] border-white/[.035]":n===1?"bg-fuchsia-500/25 border-fuchsia-400/20":n<=3?"bg-fuchsia-500/55 border-fuchsia-400/30":"bg-fuchsia-400 border-fuchsia-300/60";
  const totalSolved=Object.values(counts).reduce((a,b)=>a+b,0);
  const weekCount=weeks.length;
@@ -362,14 +363,14 @@ function CodingCalendar({solvedAt}:{solvedAt:Record<number,string>}){
 
   <div className="mt-5 overflow-x-auto">
    <div className="min-w-[760px]">
-    <div className="grid gap-[3px]" style={{gridTemplateColumns:`30px repeat(${weekCount}, 12px)`}}>
+    <div className="grid gap-[3px] items-end" style={{gridTemplateColumns:`30px repeat(${weekCount}, 12px)`}}>
      <span/>
-     {monthLabels.map((m,i)=><span key={i} className="text-[9px] text-[#657387] h-4">{m}</span>)}
+     {monthLabels.map((m,i)=><span key={i} className="text-[9px] text-[#657387] h-4 text-center">{m}</span>)}
     </div>
 
     <div className="grid gap-[3px] mt-1" style={{gridTemplateColumns:`30px repeat(${weekCount}, 12px)`}}>
      <div className="grid grid-rows-7 gap-[3px] text-[9px] text-[#657387]">
-      <span>Sun</span><span></span><span>Tue</span><span></span><span>Thu</span><span></span><span>Sat</span>
+      <span></span><span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span>
      </div>
      {weeks.flatMap((week,wi)=>week.map((d,di)=>{
       const n=d?(counts[d]||0):0;
