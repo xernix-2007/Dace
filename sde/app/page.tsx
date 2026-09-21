@@ -326,17 +326,65 @@ function CodingCalendar({solvedAt}:{solvedAt:Record<number,string>}){
  const year=new Date().getFullYear();
  const counts:Record<string,number>={};
  for(const d of Object.values(solvedAt))counts[d]=(counts[d]||0)+1;
- const first=new Date(year,0,1); const offset=first.getDay();
- const days:string[]=[]; const total=new Date(year,11,31).getDate() + Math.floor((new Date(year,11,31).getTime()-new Date(year,0,1).getTime())/86400000) - 364;
- for(let i=0;i<offset;i++)days.push('');
- for(let i=0;i<365+(new Date(year,1,29).getMonth()===1?1:0);i++){const d=new Date(year,0,1);d.setDate(i+1);if(d.getFullYear()===year)days.push(dateKey(d));}
- while(days.length%7)days.push('');
- const weeks=Math.ceil(days.length/7);
- const level=(n:number)=>n===0?'bg-white/[.035] border-white/[.035]':n===1?'bg-fuchsia-500/25 border-fuchsia-400/20':n<=3?'bg-fuchsia-500/55 border-fuchsia-400/30':'bg-fuchsia-400 border-fuchsia-300/60';
- const totalSolved=Object.values(counts).reduce((a,b)=>a+b,0);
- return <div className="panel rounded-2xl p-5 mt-5"><div className="flex flex-wrap items-end justify-between gap-3"><div><div className="text-[10px] tracking-[.2em] text-pink-200">CODING HEATMAP</div><h2 className="text-xl font-black mt-1">{year} consistency</h2></div><div className="text-right"><div className="text-2xl font-black">{totalSolved}</div><div className="text-[10px] uppercase tracking-wider text-[#657387]">solved</div></div></div><div className="mt-5 overflow-x-auto"><div className="grid gap-[3px] min-w-[690px]" style={{gridTemplateColumns:`repeat(${weeks}, 12px)`,gridTemplateRows:"repeat(7, 12px)",gridAutoFlow:"column"}}>{days.map((d,i)=>{const n=d?(counts[d]||0):0;return <span key={i} title={d?(d+' · '+n+' solved'):''} aria-label={d?(d+' '+n+' solved'):''} className={'w-3 h-3 rounded-[3px] border '+(d?level(n):'border-transparent bg-transparent')}/>})}</div></div><div className="mt-3 flex justify-end gap-2 items-center text-[10px] text-[#657387]"><span>Less</span>{[0,1,2,4].map(n=><span key={n} className={'h-3 w-3 rounded-[3px] border '+level(n)}/>)}<span>More</span></div></div>
-}
 
+ const start=new Date(year,0,1);
+ const end=new Date(year,11,31);
+ const offset=start.getDay();
+ const raw:string[]=[];
+ for(let i=0;i<offset;i++)raw.push("");
+ for(let i=0;i<366;i++){
+  const d=new Date(year,0,1);
+  d.setDate(i+1);
+  if(d.getFullYear()!==year)break;
+  raw.push(dateKey(d));
+ }
+ while(raw.length%7)raw.push("");
+
+ const weeks:string[][]=[];
+ for(let i=0;i<raw.length;i+=7)weeks.push(raw.slice(i,i+7));
+ const monthLabels=weeks.map((week)=>{
+  const firstDay=week.find(Boolean);
+  return firstDay?new Date(firstDay+"T00:00:00").toLocaleDateString("en-US",{month:"short"}):"";
+ });
+ const level=(n:number)=>n===0?"bg-white/[.035] border-white/[.035]":n===1?"bg-fuchsia-500/25 border-fuchsia-400/20":n<=3?"bg-fuchsia-500/55 border-fuchsia-400/30":"bg-fuchsia-400 border-fuchsia-300/60";
+ const totalSolved=Object.values(counts).reduce((a,b)=>a+b,0);
+ const weekCount=weeks.length;
+
+ return <div className="panel rounded-2xl p-5 mt-5">
+  <div className="flex flex-wrap items-end justify-between gap-3">
+   <div>
+    <div className="text-[10px] tracking-[.2em] text-pink-200">CODING HEATMAP</div>
+    <h2 className="text-xl font-black mt-1">{year} consistency</h2>
+    <div className="text-[10px] text-[#657387] mt-1">{weekCount} weeks · Jan–Dec</div>
+   </div>
+   <div className="text-right"><div className="text-2xl font-black">{totalSolved}</div><div className="text-[10px] uppercase tracking-wider text-[#657387]">solved</div></div>
+  </div>
+
+  <div className="mt-5 overflow-x-auto">
+   <div className="min-w-[760px]">
+    <div className="grid gap-[3px]" style={{gridTemplateColumns:`30px repeat(${weekCount}, 12px)`}}>
+     <span/>
+     {monthLabels.map((m,i)=><span key={i} className="text-[9px] text-[#657387] h-4">{m}</span>)}
+    </div>
+
+    <div className="grid gap-[3px] mt-1" style={{gridTemplateColumns:`30px repeat(${weekCount}, 12px)`}}>
+     <div className="grid grid-rows-7 gap-[3px] text-[9px] text-[#657387]">
+      <span>Sun</span><span></span><span>Tue</span><span></span><span>Thu</span><span></span><span>Sat</span>
+     </div>
+     {weeks.flatMap((week,wi)=>week.map((d,di)=>{
+      const n=d?(counts[d]||0):0;
+      return <span key={wi+"-"+di} title={d?(d+" · "+n+" solved"):""} aria-label={d?(d+" "+n+" solved"):""} className={"w-3 h-3 rounded-[3px] border "+(d?level(n):"border-transparent bg-transparent")}/>;
+     }))}
+    </div>
+   </div>
+  </div>
+
+  <div className="mt-3 flex justify-between items-center gap-3 text-[10px] text-[#657387]">
+   <span>Each column = 1 week</span>
+   <div className="flex gap-2 items-center"><span>Less</span>{[0,1,2,4].map(n=><span key={n} className={"h-3 w-3 rounded-[3px] border "+level(n)}/>)}<span>More</span></div>
+  </div>
+ </div>
+}
 
 function TodayPage({today,solved,status,solvedToday,company,companies,setCompany,openTimer,mark,regenerate}:{today:Problem[];solved:number[];status:Record<number,Status>;solvedToday:number;company:string;companies:string[];setCompany:(c:string)=>void;openTimer:(p:Problem)=>void;mark:(p:Problem,s:Status)=>void;regenerate:()=>void}){
  const completion=Math.round(solvedToday/5*100);
