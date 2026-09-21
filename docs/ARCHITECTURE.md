@@ -1,4 +1,4 @@
-# DayFlow AI Architecture
+# Dace Architecture
 
 ## Product layers
 
