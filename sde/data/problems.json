@@ -38696,5 +38696,776 @@
     "estimate": 35,
     "leetcodeNumber": 307,
     "id": 954
+  },
+  {
+    "id": 900000,
+    "title": "CF 4A: Watermelon",
+    "difficulty": "Easy",
+    "topics": [
+      "Math",
+      "Implementation"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/4/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "4A",
+    "rating": 800
+  },
+  {
+    "id": 900001,
+    "title": "CF 71A: Way Too Long Words",
+    "difficulty": "Easy",
+    "topics": [
+      "Strings",
+      "Implementation"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/71/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "71A",
+    "rating": 800
+  },
+  {
+    "id": 900002,
+    "title": "CF 231A: Team",
+    "difficulty": "Easy",
+    "topics": [
+      "Implementation",
+      "Math"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/231/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "231A",
+    "rating": 800
+  },
+  {
+    "id": 900003,
+    "title": "CF 158A: Next Round",
+    "difficulty": "Easy",
+    "topics": [
+      "Implementation",
+      "Sorting"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/158/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "158A",
+    "rating": 800
+  },
+  {
+    "id": 900004,
+    "title": "CF 50A: Domino piling",
+    "difficulty": "Easy",
+    "topics": [
+      "Implementation",
+      "Math"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/50/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "50A",
+    "rating": 800
+  },
+  {
+    "id": 900005,
+    "title": "CF 282A: Bit++",
+    "difficulty": "Easy",
+    "topics": [
+      "Implementation"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/282/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "282A",
+    "rating": 800
+  },
+  {
+    "id": 900006,
+    "title": "CF 263A: Beautiful Matrix",
+    "difficulty": "Easy",
+    "topics": [
+      "Implementation",
+      "Math"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/263/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "263A",
+    "rating": 800
+  },
+  {
+    "id": 900007,
+    "title": "CF 112A: Petya and Strings",
+    "difficulty": "Easy",
+    "topics": [
+      "Strings",
+      "Implementation"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/112/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "112A",
+    "rating": 800
+  },
+  {
+    "id": 900008,
+    "title": "CF 118A: String Task",
+    "difficulty": "Easy",
+    "topics": [
+      "Strings",
+      "Implementation"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/118/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "118A",
+    "rating": 800
+  },
+  {
+    "id": 900009,
+    "title": "CF 339A: Helpful Maths",
+    "difficulty": "Easy",
+    "topics": [
+      "Sorting",
+      "Strings"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/339/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "339A",
+    "rating": 800
+  },
+  {
+    "id": 900010,
+    "title": "CF 96A: Football",
+    "difficulty": "Easy",
+    "topics": [
+      "Strings"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/96/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "96A",
+    "rating": 900
+  },
+  {
+    "id": 900011,
+    "title": "CF 281A: Word Capitalization",
+    "difficulty": "Easy",
+    "topics": [
+      "Strings",
+      "Implementation"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/281/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "281A",
+    "rating": 800
+  },
+  {
+    "id": 900012,
+    "title": "CF 734A: Anton and Danik",
+    "difficulty": "Easy",
+    "topics": [
+      "Strings",
+      "Implementation"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/734/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "734A",
+    "rating": 800
+  },
+  {
+    "id": 900013,
+    "title": "CF 546A: Soldier and Bananas",
+    "difficulty": "Easy",
+    "topics": [
+      "Math",
+      "Implementation"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/546/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "546A",
+    "rating": 800
+  },
+  {
+    "id": 900014,
+    "title": "CF 677A: Vanya and Fence",
+    "difficulty": "Easy",
+    "topics": [
+      "Implementation"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/677/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "677A",
+    "rating": 800
+  },
+  {
+    "id": 900015,
+    "title": "CF 41A: Translation",
+    "difficulty": "Easy",
+    "topics": [
+      "Strings"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/41/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "41A",
+    "rating": 800
+  },
+  {
+    "id": 900016,
+    "title": "CF 236A: Boy or Girl",
+    "difficulty": "Easy",
+    "topics": [
+      "Strings",
+      "Data Structures"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/236/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "236A",
+    "rating": 800
+  },
+  {
+    "id": 900017,
+    "title": "CF 1A: Theatre Square",
+    "difficulty": "Easy",
+    "topics": [
+      "Math"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/1/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "1A",
+    "rating": 1000
+  },
+  {
+    "id": 900018,
+    "title": "CF 158B: Taxi",
+    "difficulty": "Medium",
+    "topics": [
+      "Greedy",
+      "Implementation"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/158/B",
+    "estimate": 30,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "158B",
+    "rating": 1100
+  },
+  {
+    "id": 900019,
+    "title": "CF 160A: Twins",
+    "difficulty": "Easy",
+    "topics": [
+      "Greedy",
+      "Sorting"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/160/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "160A",
+    "rating": 900
+  },
+  {
+    "id": 900020,
+    "title": "CF 116A: Tram",
+    "difficulty": "Easy",
+    "topics": [
+      "Implementation"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/116/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "116A",
+    "rating": 800
+  },
+  {
+    "id": 900021,
+    "title": "CF 136A: Presents",
+    "difficulty": "Easy",
+    "topics": [
+      "Implementation"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/136/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "136A",
+    "rating": 800
+  },
+  {
+    "id": 900022,
+    "title": "CF 230A: Dragons",
+    "difficulty": "Easy",
+    "topics": [
+      "Greedy",
+      "Sorting"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/230/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "230A",
+    "rating": 1000
+  },
+  {
+    "id": 900023,
+    "title": "CF 69A: Young Physicist",
+    "difficulty": "Easy",
+    "topics": [
+      "Math",
+      "Implementation"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/69/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "69A",
+    "rating": 1000
+  },
+  {
+    "id": 900024,
+    "title": "CF 266A: Stones on the Table",
+    "difficulty": "Easy",
+    "topics": [
+      "Implementation",
+      "Strings"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/266/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "266A",
+    "rating": 800
+  },
+  {
+    "id": 900025,
+    "title": "CF 271A: Beautiful Year",
+    "difficulty": "Easy",
+    "topics": [
+      "Brute Force",
+      "Implementation"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/271/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "271A",
+    "rating": 800
+  },
+  {
+    "id": 900026,
+    "title": "CF 144A: Arrival of the General",
+    "difficulty": "Easy",
+    "topics": [
+      "Implementation",
+      "Greedy"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/144/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "144A",
+    "rating": 1000
+  },
+  {
+    "id": 900027,
+    "title": "CF 732A: Buy a Shovel",
+    "difficulty": "Easy",
+    "topics": [
+      "Brute Force",
+      "Math"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/732/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "732A",
+    "rating": 800
+  },
+  {
+    "id": 900028,
+    "title": "CF 785A: Anton and Polyhedrons",
+    "difficulty": "Easy",
+    "topics": [
+      "Implementation",
+      "Strings"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/785/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "785A",
+    "rating": 800
+  },
+  {
+    "id": 900029,
+    "title": "CF 110A: Nearly Lucky Number",
+    "difficulty": "Easy",
+    "topics": [
+      "Number Theory",
+      "Implementation"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/110/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "110A",
+    "rating": 800
+  },
+  {
+    "id": 900030,
+    "title": "CF 32B: Borze",
+    "difficulty": "Easy",
+    "topics": [
+      "Strings",
+      "Greedy"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/32/B",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "32B",
+    "rating": 800
+  },
+  {
+    "id": 900031,
+    "title": "CF 25A: IQ Test",
+    "difficulty": "Medium",
+    "topics": [
+      "Implementation",
+      "Math"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/25/A",
+    "estimate": 30,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "25A",
+    "rating": 1300
+  },
+  {
+    "id": 900032,
+    "title": "CF 160B: Unusual Product",
+    "difficulty": "Easy",
+    "topics": [
+      "Implementation"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/160/B",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "160B",
+    "rating": 800
+  },
+  {
+    "id": 900033,
+    "title": "CF 200B: Drinks",
+    "difficulty": "Easy",
+    "topics": [
+      "Math"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/200/B",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "200B",
+    "rating": 800
+  },
+  {
+    "id": 900034,
+    "title": "CF 349A: Cinema Line",
+    "difficulty": "Easy",
+    "topics": [
+      "Greedy",
+      "Implementation"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/349/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "349A",
+    "rating": 1000
+  },
+  {
+    "id": 900035,
+    "title": "CF 474B: Worms",
+    "difficulty": "Medium",
+    "topics": [
+      "Binary Search",
+      "Implementation"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/474/B",
+    "estimate": 30,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "474B",
+    "rating": 1200
+  },
+  {
+    "id": 900036,
+    "title": "CF 451A: Game With Sticks",
+    "difficulty": "Easy",
+    "topics": [
+      "Games",
+      "Math"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/451/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "451A",
+    "rating": 800
+  },
+  {
+    "id": 900037,
+    "title": "CF 344A: Magnets",
+    "difficulty": "Easy",
+    "topics": [
+      "Implementation"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/344/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "344A",
+    "rating": 800
+  },
+  {
+    "id": 900038,
+    "title": "CF 486A: Calculating Function",
+    "difficulty": "Easy",
+    "topics": [
+      "Math"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/486/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "486A",
+    "rating": 800
+  },
+  {
+    "id": 900039,
+    "title": "CF 433A: Kitahara's Gift",
+    "difficulty": "Easy",
+    "topics": [
+      "Brute Force",
+      "DP"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/433/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "433A",
+    "rating": 800
+  },
+  {
+    "id": 900040,
+    "title": "CF 131A: cAPS lOCK",
+    "difficulty": "Easy",
+    "topics": [
+      "Implementation",
+      "Strings"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/131/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "131A",
+    "rating": 800
+  },
+  {
+    "id": 900041,
+    "title": "CF 155A: I_love_%username%",
+    "difficulty": "Easy",
+    "topics": [
+      "Implementation"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/155/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "155A",
+    "rating": 800
+  },
+  {
+    "id": 900042,
+    "title": "CF 43A: Football",
+    "difficulty": "Easy",
+    "topics": [
+      "Strings",
+      "Data Structures"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/43/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "43A",
+    "rating": 1000
+  },
+  {
+    "id": 900043,
+    "title": "CF 977A: Wrong Subtraction",
+    "difficulty": "Easy",
+    "topics": [
+      "Implementation"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/977/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "977A",
+    "rating": 800
+  },
+  {
+    "id": 900044,
+    "title": "CF 59A: Word",
+    "difficulty": "Easy",
+    "topics": [
+      "Strings",
+      "Implementation"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/59/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "59A",
+    "rating": 800
+  },
+  {
+    "id": 900045,
+    "title": "CF 266B: Queue at the School",
+    "difficulty": "Easy",
+    "topics": [
+      "Implementation",
+      "Strings"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/266/B",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "266B",
+    "rating": 900
+  },
+  {
+    "id": 900046,
+    "title": "CF 580A: Kefa and First Steps",
+    "difficulty": "Easy",
+    "topics": [
+      "Implementation",
+      "DP"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/580/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "580A",
+    "rating": 900
+  },
+  {
+    "id": 900047,
+    "title": "CF 705A: Hulk",
+    "difficulty": "Easy",
+    "topics": [
+      "Implementation",
+      "Strings"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/705/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "705A",
+    "rating": 800
+  },
+  {
+    "id": 900048,
+    "title": "CF 791A: Bear and Big Brother",
+    "difficulty": "Easy",
+    "topics": [
+      "Math",
+      "Implementation"
+    ],
+    "companies": [],
+    "url": "https://codeforces.com/problemset/problem/791/A",
+    "estimate": 20,
+    "leetcodeNumber": null,
+    "source": "Codeforces",
+    "externalId": "791A",
+    "rating": 800
   }
 ]
