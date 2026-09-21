@@ -5,12 +5,13 @@ import bank from "../../data/interview-bank.json";
 
 type Item={id:string;category:string;subCategory:string;title:string;source:string;type?:string;level?:string};
 const items=bank as Item[];
+const initialSubject=typeof window!=="undefined"?new URLSearchParams(window.location.search).get("subject")||"All":"All";
 const subjects=["All","DBMS","OS","CN","OOP","SQL","DSA Fundamentals","OA & Coding Patterns","Machine Coding","LLD","System Design","Behavioral"];
 
 const levelOf=(x:Item)=>x.level||(["DBMS","OS","CN","OOP","SQL","DSA Fundamentals"].includes(x.category)&&x.subCategory==="Fundamentals"?"Beginner":"Interview");
 
 export default function KnowledgeHub(){
- const [subject,setSubject]=useState("All");
+ const [subject,setSubject]=useState(initialSubject);
  const [topic,setTopic]=useState("All");
  const [level,setLevel]=useState("All");
  const [search,setSearch]=useState("");
