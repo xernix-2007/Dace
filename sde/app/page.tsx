@@ -95,6 +95,16 @@ export default function Home(){
  const todayKey=dateKey();
 
  useEffect(()=>{
+  const supabase=getSupabase();
+  supabase.auth.getUser().then(({data})=>{
+   if(!data.user) window.location.href="/login";
+   else setAuthUser(data.user);
+  }).finally(()=>setAuthReady(true));
+  const {data:listener}=supabase.auth.onAuthStateChange((_event,session)=>setAuthUser(session?.user??null));
+  return ()=>listener.subscription.unsubscribe();
+ },[]);
+
+ useEffect(()=>{
   try{
    const load=(k:string)=>localStorage.getItem(k);
    if(load("dace-solved"))setSolved(JSON.parse(load("dace-solved")!));
@@ -228,7 +238,12 @@ export default function Home(){
   ["companies","Companies","company"],["analytics","Analytics","analytics"],["interview","Interview","interview"],["prep","Prep Plan","target"],["knowledge","Study Centre","book"],["dbms","DBMS","book"],["os","OS","settings"],["cn","CN","github"],["oop","OOP","code"],["sql","SQL","list"],["dsa","DSA Fundamentals","zap"],["settings","Settings","settings"]
  ] as [View,string,string][];
 
- if(!authReady || !authUser) return <main className="min-h-screen dace-grid flex items-center justify-center text-slate-400">Loading DACE…</main>;\n const displayName=(authUser.user_metadata?.full_name||authUser.user_metadata?.name||authUser.email?.split("@")[0]||"User") as string;\n const username=(authUser.user_metadata?.username||"") as string;\n async function logout(){ await getSupabase().auth.signOut(); window.location.href="/login"; }\n\n return <main className="min-h-screen dace-grid">
+ if(!authReady || !authUser) return <main className="min-h-screen dace-grid flex items-center justify-center text-slate-400">Loading DACE…</main>;\n const displayName=(authUser.user_metadata?.full_name||authUser.user_metadata?.name||authUser.email?.split("@")[0]||"User") as string;\n const username=(authUser.user_metadata?.username||"") as string;\n async function logout(){ await getSupabase().auth.signOut(); window.location.href="/login"; }\n\n if(!authReady || !authUser) return <main className="min-h-screen dace-grid flex items-center justify-center text-slate-400">Loading DACE…</main>;
+ const displayName=(authUser.user_metadata?.full_name||authUser.user_metadata?.name||authUser.email?.split("@")[0]||"User") as string;
+ const username=(authUser.user_metadata?.username||"") as string;
+ async function logout(){ await getSupabase().auth.signOut(); window.location.href="/login"; }
+
+ return <main className="min-h-screen dace-grid">
   <header className="h-16 border-b border-[#202a38] sticky top-0 z-40 glass flex items-center px-4 md:px-6 gap-3">
    <button className="md:hidden p-2 rounded-lg hover:bg-white/5" onClick={()=>setMobileOpen(!mobileOpen)}><Icon name="menu"/></button>
    <button onClick={()=>setView("overview")} className="flex items-center gap-2.5">
