@@ -12,7 +12,7 @@ import {
 
 type Difficulty="Easy"|"Medium"|"Hard";
 type Status="unsolved"|"solved"|"revision"|"failed";
-type View="overview"|"today"|"problems"|"companies"|"analytics"|"interview"|"prep"|"settings";
+type View="overview"|"today"|"problems"|"companies"|"analytics"|"interview"|"prep"|"knowledge"|"settings";
 type Problem={
  id:number; title:string; difficulty:Difficulty; topics:string[]; companies:string[];
  url:string; estimate:number; leetcodeNumber?:number|null;
@@ -219,7 +219,7 @@ export default function Home(){
 
  const nav=[
   ["overview","Overview","dashboard"],["today","Today","calendar"],["problems","Problems","list"],
-  ["companies","Companies","company"],["analytics","Analytics","analytics"],["interview","Interview","interview"],["prep","Prep Plan","target"],["settings","Settings","settings"]
+  ["companies","Companies","company"],["analytics","Analytics","analytics"],["interview","Interview","interview"],["prep","Prep Plan","target"],["knowledge","Knowledge Hub","book"],["settings","Settings","settings"]
  ] as [View,string,string][];
 
  return <main className="min-h-screen dace-grid">
@@ -237,12 +237,12 @@ export default function Home(){
    </div>
   </header>
 
-  {mobileOpen&&<div className="fixed inset-0 z-50 md:hidden"><div className="absolute inset-0 bg-black/60" onClick={()=>setMobileOpen(false)}/><aside className="absolute left-0 top-0 bottom-0 w-72 bg-[#0a0f16] border-r border-[#202a38] p-4 float-in">{nav.map(([k,l,i])=><NavButton key={k} active={view===k} label={l} icon={i} onClick={()=>{setView(k);setMobileOpen(false)}}/>)}</aside></div>}
+  {mobileOpen&&<div className="fixed inset-0 z-50 md:hidden"><div className="absolute inset-0 bg-black/60" onClick={()=>setMobileOpen(false)}/><aside className="absolute left-0 top-0 bottom-0 w-72 bg-[#0a0f16] border-r border-[#202a38] p-4 float-in">{nav.map(([k,l,i])=><NavButton key={k} active={view===k} label={l} icon={i} onClick={()=>{if(k==="knowledge"){window.location.href="/knowledge";return;}setView(k);setMobileOpen(false)}}/>)}</aside></div>}
 
   <div className="flex min-h-[calc(100vh-64px)]">
    <aside className="hidden md:block w-60 border-r border-[#202a38] p-4 shrink-0">
     <div className="text-[10px] tracking-[.2em] text-[#59687c] px-3 py-3">WORKSPACE</div>
-    {nav.map(([k,l,i])=><NavButton key={k} active={view===k} label={l} icon={i} onClick={()=>setView(k)}/>)}
+    {nav.map(([k,l,i])=><NavButton key={k} active={view===k} label={l} icon={i} onClick={()=>{if(k==="knowledge"){window.location.href="/knowledge";return;}setView(k)}}/>)}
     <div className="mt-7 panel rounded-xl p-4 glow-cyan">
      <div className="flex items-center gap-2 text-xs font-semibold"><Icon name="spark" size={14}/> Adaptive engine</div>
      <p className="text-[11px] leading-5 text-[#77869a] mt-2">Selection weighs weakness, revisions, freshness and company preference.</p>
