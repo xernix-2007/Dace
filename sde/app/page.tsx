@@ -510,7 +510,8 @@ function PrepPage({problems,solved,status,company,setCompany,days,setDays,topicS
  const ranked=useMemo(()=>pool.map(p=>{
    const family=topicFamily(p);
    const solvedPenalty=solved.includes(p.id)?-1000:0;
-   const sourceFrequency=p.companyFrequency?.[company]??p.frequency??0; const frequencyScore=Math.min(45,sourceFrequency*0.45);\n   const difficultyScore=p.difficulty==="Medium"?18:p.difficulty==="Easy"?10:7;
+   const sourceFrequency=p.companyFrequency?.[company]??p.frequency??0; const frequencyScore=Math.min(45,sourceFrequency*0.45);
+   const difficultyScore=p.difficulty==="Medium"?18:p.difficulty==="Easy"?10:7;
    const familyNeed=(familyStats.find(([f])=>f===family)?.[1].solved===0?16:0);
    const statusBonus=status[p.id]==="revision"?8:0;
    const companyDepth=familyStats.find(([f])=>f===family)?.[1].total||0;
