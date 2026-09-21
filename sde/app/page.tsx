@@ -2,6 +2,7 @@
 
 import problemsData from "../data/problems.json";
 import { useEffect, useMemo, useState } from "react";
+import { createClient, User } from "@supabase/supabase-js";
 import {
   Activity, ArrowUpRight, BarChart3, BookOpen, BriefcaseBusiness, CalendarDays,
   Check, CheckCircle2, ChevronRight, CircleHelp, Clock3, Code2, Download,
@@ -19,6 +20,7 @@ type Problem={
 };
 
 const problems:Problem[] = problemsData as Problem[];
+function getSupabase(){ return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!); }
 const difficulties:Difficulty[]=["Easy","Medium","Hard"];
 const companyCounts=Array.from(new Set(problems.flatMap(p=>p.companies))).map(name=>({name,count:problems.filter(p=>p.companies.includes(name)).length})).sort((a,b)=>b.count-a.count||a.name.localeCompare(b.name));
 const companies=["All",...companyCounts.map(x=>x.name)];
@@ -88,6 +90,8 @@ export default function Home(){
  const [prepDays,setPrepDays]=useState(14);
  const [prepCompany,setPrepCompany]=useState("Amazon");
  const [hydrated,setHydrated]=useState(false);
+ const [authUser,setAuthUser]=useState<User|null>(null);
+ const [authReady,setAuthReady]=useState(false);
  const todayKey=dateKey();
 
  useEffect(()=>{
@@ -224,7 +228,7 @@ export default function Home(){
   ["companies","Companies","company"],["analytics","Analytics","analytics"],["interview","Interview","interview"],["prep","Prep Plan","target"],["knowledge","Study Centre","book"],["dbms","DBMS","book"],["os","OS","settings"],["cn","CN","github"],["oop","OOP","code"],["sql","SQL","list"],["dsa","DSA Fundamentals","zap"],["settings","Settings","settings"]
  ] as [View,string,string][];
 
- return <main className="min-h-screen dace-grid">
+ if(!authReady || !authUser) return <main className="min-h-screen dace-grid flex items-center justify-center text-slate-400">Loading DACE…</main>;\n const displayName=(authUser.user_metadata?.full_name||authUser.user_metadata?.name||authUser.email?.split("@")[0]||"User") as string;\n const username=(authUser.user_metadata?.username||"") as string;\n async function logout(){ await getSupabase().auth.signOut(); window.location.href="/login"; }\n\n return <main className="min-h-screen dace-grid">
   <header className="h-16 border-b border-[#202a38] sticky top-0 z-40 glass flex items-center px-4 md:px-6 gap-3">
    <button className="md:hidden p-2 rounded-lg hover:bg-white/5" onClick={()=>setMobileOpen(!mobileOpen)}><Icon name="menu"/></button>
    <button onClick={()=>setView("overview")} className="flex items-center gap-2.5">
@@ -235,7 +239,7 @@ export default function Home(){
    <div className="ml-auto flex items-center gap-3">
     <div className="hidden sm:flex items-center gap-2 text-xs text-[#9aa8ba]"><span className="w-2 h-2 rounded-full bg-pink-400 pulse-dot"/>LOCAL MODE</div>
     <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#263346] bg-[#0b1017] text-xs"><Icon name="flame" size={14}/><span>{streak}</span></div>
-    <div className="w-8 h-8 rounded-full border border-[#334155] bg-[#141c28] flex items-center justify-center"><Icon name="user" size={15}/></div>
+    <button onClick={()=>setView("settings")} title={username?`@${username}`:displayName} className="w-8 h-8 rounded-full border border-[#334155] bg-[#141c28] flex items-center justify-center hover:border-cyan-300/50"><Icon name="user" size={15}/></button>
    </div>
   </header>
 
@@ -261,7 +265,7 @@ export default function Home(){
     {view==="analytics"&&<AnalyticsPage problems={problems} solved={solved} status={status} timeSpent={timeSpent} topicStats={topicStats} streak={streak} totalTime={totalTime}/>}
     {view==="interview"&&<InterviewPage problems={problems} interviewTime={interviewTime} setInterviewTime={setInterviewTime} openTimer={openTimer} mark={mark} attempts={attempts} hints={hints} timeSpent={timeSpent}/>}
     {view==="prep"&&<PrepPage problems={problems} solved={solved} status={status} company={prepCompany} setCompany={setPrepCompany} days={prepDays} setDays={setPrepDays} topicStats={topicStats} openTimer={openTimer}/>}
-    {view==="settings"&&<SettingsPage target={target} setTarget={setTarget} company={company} setCompany={setCompany} companies={companies} exportData={exportData} importData={importData} resetAll={resetAll}/>}
+    {view==="settings"&&<SettingsPage target={target} setTarget={setTarget} company={company} setCompany={setCompany} companies={companies} exportData={exportData} importData={importData} resetAll={resetAll} displayName={displayName} username={username} email={authUser.email||""} logout={logout}/>}
    </section>
   </div>
 
@@ -650,7 +654,7 @@ function PrepPage({problems,solved,status,company,setCompany,days,setDays,topicS
  </div>
 }
 function SettingsPage({target,setTarget,company,setCompany,companies,exportData,importData,resetAll}:{target:{Easy:number;Medium:number;Hard:number};setTarget:React.Dispatch<React.SetStateAction<{Easy:number;Medium:number;Hard:number}>>;company:string;setCompany:(s:string)=>void;companies:string[];exportData:()=>void;importData:(e:React.ChangeEvent<HTMLInputElement>)=>void;resetAll:()=>void}){
- return <div className="max-w-3xl mx-auto p-5 md:p-8"><div className="text-[10px] tracking-[.2em] text-violet-300">CONTROL ROOM</div><h1 className="text-3xl md:text-4xl font-black mt-2">Settings</h1><p className="text-sm text-[#748398] mt-2 mb-7">Tune the practice system. Everything currently lives in your browser.</p>
+ return <div className="max-w-4xl mx-auto p-5 md:p-8"><div className="panel rounded-3xl p-6"><div className="flex items-start justify-between gap-4"><div><div className="text-xs uppercase tracking-[.2em] text-cyan-300">ACCOUNT</div><h2 className="text-2xl font-bold mt-2">{displayName}</h2><p className="text-sm text-slate-400 mt-1">{email}{username&&<> · @{username}</>}</p></div><button onClick={logout} className="rounded-xl border border-rose-400/30 px-4 py-2 text-sm text-rose-300 hover:bg-rose-400/10">Log out</button></div>return <div className="max-w-3xl mx-auto p-5 md:p-8"><div className="text-[10px] tracking-[.2em] text-violet-300">CONTROL ROOM</div><h1 className="text-3xl md:text-4xl font-black mt-2">Settings</h1><p className="text-sm text-[#748398] mt-2 mb-7">Tune the practice system. Everything currently lives in your browser.</p>
   <div className="panel rounded-2xl p-5"><h2 className="font-semibold">Daily target</h2><div className="text-xs text-[#718096] mt-1">Default: 1 Easy + 2 Medium + 2 Hard.</div><div className="mt-5 space-y-3">{difficulties.map(d=><div key={d} className="flex items-center justify-between border-b border-[#1e2835] py-3 last:border-0"><span className={`text-sm ${d==="Easy"?"text-green-300":d==="Medium"?"text-amber-300":"text-rose-300"}`}>{d}</span><input type="number" min={0} max={5} value={target[d]} onChange={e=>setTarget(x=>({...x,[d]:Math.max(0,Math.min(5,Number(e.target.value)||0))}))} className="w-20 bg-[#0a1017] border border-[#273447] rounded-lg px-3 py-2 text-center"/></div>)}</div></div>
   <div className="panel rounded-2xl p-5 mt-4"><h2 className="font-semibold">Company focus</h2><p className="text-xs text-[#718096] mt-1">The adaptive engine can bias future sets toward one company.</p><select value={company} onChange={e=>setCompany(e.target.value)} className="mt-4 bg-[#0a1017] border border-[#273447] rounded-xl px-3 py-2.5 text-sm">{companies.map(c=><option key={c}>{c}</option>)}</select></div>
   <div className="panel rounded-2xl p-5 mt-4"><h2 className="font-semibold">Your data</h2><p className="text-xs text-[#718096] mt-1">Back up your local progress before changing browsers or devices.</p><div className="flex flex-wrap gap-2 mt-4"><button onClick={exportData} className="px-4 py-2.5 rounded-xl border border-[#273447] text-sm flex items-center gap-2"><Icon name="download" size={15}/> Export backup</button><label className="px-4 py-2.5 rounded-xl border border-[#273447] text-sm flex items-center gap-2 cursor-pointer"><Icon name="upload" size={15}/> Import backup<input type="file" accept="application/json" onChange={importData} className="hidden"/></label></div></div>
