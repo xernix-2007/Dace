@@ -15,7 +15,7 @@ type Status="unsolved"|"solved"|"revision"|"failed";
 type View="overview"|"today"|"problems"|"companies"|"analytics"|"interview"|"prep"|"knowledge"|"dbms"|"os"|"cn"|"oop"|"sql"|"dsa"|"settings";
 type Problem={
  id:number; title:string; difficulty:Difficulty; topics:string[]; companies:string[];
- url:string; estimate:number; leetcodeNumber?:number|null;
+ url:string; estimate:number; leetcodeNumber?:number|null; frequency?:number; companyFrequency?:Record<string,number>;
 };
 
 const problems:Problem[] = problemsData as Problem[];
@@ -510,12 +510,12 @@ function PrepPage({problems,solved,status,company,setCompany,days,setDays,topicS
  const ranked=useMemo(()=>pool.map(p=>{
    const family=topicFamily(p);
    const solvedPenalty=solved.includes(p.id)?-1000:0;
-   const difficultyScore=p.difficulty==="Medium"?18:p.difficulty==="Easy"?10:7;
+   const sourceFrequency=p.companyFrequency?.[company]??p.frequency??0; const frequencyScore=Math.min(45,sourceFrequency*0.45);\n   const difficultyScore=p.difficulty==="Medium"?18:p.difficulty==="Easy"?10:7;
    const familyNeed=(familyStats.find(([f])=>f===family)?.[1].solved===0?16:0);
    const statusBonus=status[p.id]==="revision"?8:0;
    const companyDepth=familyStats.find(([f])=>f===family)?.[1].total||0;
    const depthBonus=Math.min(12,Math.log2(companyDepth+1)*2);
-   return {p,score:solvedPenalty+difficultyScore+familyNeed+statusBonus+depthBonus};
+   return {p,score:solvedPenalty+frequencyScore+difficultyScore+familyNeed+statusBonus+depthBonus};
  }).sort((a,b)=>b.score-a.score),[pool,solved,status,familyStats]);
 
  const target=useMemo(()=>Math.min(pool.length,Math.max(12,Math.min(90,Math.ceil(days*2.5)))),[pool.length,days]);
