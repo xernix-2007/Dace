@@ -12,7 +12,7 @@ import {
 
 type Difficulty="Easy"|"Medium"|"Hard";
 type Status="unsolved"|"solved"|"revision"|"failed";
-type View="overview"|"today"|"problems"|"companies"|"analytics"|"interview"|"prep"|"knowledge"|"dbms"|"os"|"cn"|"oop"|"sql"|"dsa"|"settings";
+type View="overview"|"today"|"history"|"problems"|"companies"|"analytics"|"interview"|"prep"|"knowledge"|"dbms"|"os"|"cn"|"oop"|"sql"|"dsa"|"settings";
 type Problem={
  id:number; title:string; difficulty:Difficulty; topics:string[]; companies:string[];
  url:string; estimate:number; leetcodeNumber?:number|null; frequency?:number; companyFrequency?:Record<string,number>;
@@ -228,7 +228,7 @@ export default function Home(){
  function resetAll(){if(confirm("Reset all DACE local progress? This cannot be undone unless you have exported a backup.")){localStorage.clear();location.reload()}}
 
  const nav=[
-  ["overview","Overview","dashboard"],["today","Today","calendar"],["problems","Problems","list"],
+  ["overview","Overview","dashboard"],["today","Today","calendar"],["history","Question History","calendar"],["problems","Problems","list"],
   ["companies","Companies","company"],["analytics","Analytics","analytics"],["interview","Interview","interview"],["prep","Prep Plan","target"],["knowledge","Study Centre","book"],["dbms","DBMS","book"],["os","OS","settings"],["cn","CN","github"],["oop","OOP","code"],["sql","SQL","list"],["dsa","DSA Fundamentals","zap"],["settings","Settings","settings"]
  ] as [View,string,string][];
 
@@ -263,7 +263,7 @@ export default function Home(){
 
    <section className="flex-1 min-w-0">
     {view==="overview"&&<Overview today={today} solvedToday={solvedToday} streak={streak} weeklySolved={weeklySolved} completion={completion} totalTime={totalTime} solvedAt={solvedAt} setView={setView} openTimer={openTimer}/>}
-    {view==="today"&&<TodayPage today={today} solved={solved} status={status} solvedToday={solvedToday} company={company} companies={companies} setCompany={setCompany} openTimer={openTimer} mark={mark} regenerate={regenerateToday}/>}
+    {view==="today"&&<TodayPage today={today} solved={solved} status={status} solvedToday={solvedToday} company={company} companies={companies} setCompany={setCompany} openTimer={openTimer} mark={mark} regenerate={regenerateToday}/>}    {view==="history"&&<QuestionHistoryPage daily={daily} solved={solved} status={status} openTimer={openTimer}/>}
     {view==="problems"&&<ProblemsPage problems={filtered} solved={solved} status={status} search={search} setSearch={setSearch} difficulty={difficulty} setDifficulty={setDifficulty} topic={topic} setTopic={setTopic} openTimer={openTimer} mark={mark}/>}
     {view==="companies"&&<CompaniesPage company={company} companies={companies} setCompany={setCompany} problems={problems} solved={solved} status={status} openTimer={openTimer} mark={mark}/>}
     {view==="analytics"&&<AnalyticsPage problems={problems} solved={solved} status={status} timeSpent={timeSpent} topicStats={topicStats} streak={streak} totalTime={totalTime}/>}
@@ -657,6 +657,78 @@ function PrepPage({problems,solved,status,company,setCompany,days,setDays,topicS
   </div>
  </div>
 }
+function QuestionHistoryPage({daily,solved,status,openTimer}:{daily:Record<string,number[]>;solved:number[];status:Record<number,Status>;openTimer:(p:Problem)=>void}){
+ const days=useMemo(()=>{
+  const out:{key:string;label:string;ids:number[]}[]=[];
+  for(let i=6;i>=0;i--){
+   const d=new Date();
+   d.setDate(d.getDate()-i);
+   const key=dateKey(d);
+   out.push({key,label:d.toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"short"}),ids:daily[key]||[]});
+  }
+  return out;
+ },[daily]);
+
+ const recordedDays=days.filter(d=>d.ids.length>0).length;
+ const totalQuestions=days.reduce((n,d)=>n+d.ids.length,0);
+ const uniqueIds=new Set(days.flatMap(d=>d.ids));
+
+ return <div className="max-w-7xl mx-auto p-5 md:p-8">
+  <div className="text-[10px] tracking-[.2em] text-cyan-200">QUESTION HISTORY</div>
+  <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 mt-2">
+   <div><h1 className="text-3xl md:text-4xl font-black">Last 7 Days</h1><p className="text-sm text-[#748398] mt-2">Every question DACE recorded for your daily sets, from the oldest day shown through today.</p></div>
+   <div className="grid grid-cols-3 gap-2">
+    <MiniMetric label="Days" value={String(recordedDays)} sub="with a saved set"/>
+    <MiniMetric label="Questions" value={String(totalQuestions)} sub="shown in 7 days"/>
+    <MiniMetric label="Unique" value={String(uniqueIds.size)} sub="different questions"/>
+   </div>
+  </div>
+
+  <div className="panel rounded-2xl p-5 mt-6">
+   <div className="flex items-center justify-between gap-3">
+    <div><h2 className="font-semibold">Daily question log</h2><p className="text-xs text-[#718096] mt-1">Your daily sets are saved locally in this browser.</p></div>
+    <span className="text-[10px] text-[#64748b]">7 DAYS</span>
+   </div>
+
+   <div className="mt-5 space-y-5">
+    {days.map(day=>{
+     const items=day.ids.map(id=>problems.find(p=>p.id===id)).filter(Boolean) as Problem[];
+     const solvedCount=items.filter(p=>solved.includes(p.id)).length;
+     return <div key={day.key} className="rounded-2xl border border-white/5 overflow-hidden">
+      <div className="px-4 py-3 bg-white/[.025] border-b border-white/5 flex flex-wrap items-center gap-3">
+       <div className="font-semibold text-sm">{day.label}</div>
+       <span className="text-[10px] text-[#68778c]">{day.key}</span>
+       <span className="ml-auto text-[10px]">{items.length} question{items.length===1?"":"s"} · {solvedCount} solved</span>
+      </div>
+      {items.length===0
+       ? <div className="px-4 py-5 text-xs text-[#657387]">No daily set was recorded for this date.</div>
+       : <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-2 p-3">
+        {items.map((p,i)=><div key={p.id} className="p-3 rounded-xl bg-[#0a1017] border border-white/5">
+         <div className="flex items-center gap-2">
+          <span className="text-[10px] text-[#627188]">#{i+1}</span>
+          <span className={"text-[10px] "+(p.difficulty==="Easy"?"text-green-300":p.difficulty==="Medium"?"text-amber-300":"text-rose-300")}>{p.difficulty}</span>
+          {solved.includes(p.id)&&<span className="ml-auto text-[9px] text-green-300">✓ solved</span>}
+          {!solved.includes(p.id)&&status[p.id]&&<span className="ml-auto text-[9px] text-[#a7b4c6]">{status[p.id]}</span>}
+         </div>
+         <div className="text-sm leading-5 mt-2">{p.title}</div>
+         <div className="text-[10px] text-[#657387] mt-1">{topicFamily(p)} · {p.topics.slice(0,3).join(" · ")}</div>
+         <div className="flex gap-2 mt-3">
+          <button onClick={()=>openTimer(p)} className="px-3 py-1.5 rounded-lg bg-white text-black text-[11px] font-semibold">Practice</button>
+          <a href={p.url} target="_blank" rel="noreferrer" className="px-3 py-1.5 rounded-lg border border-[#273447] text-[11px]">Open source ↗</a>
+         </div>
+        </div>)}
+       </div>}
+     </div>
+    })}
+   </div>
+  </div>
+
+  <div className="mt-4 text-[11px] text-[#657387]">
+   History shows sets that were actually saved by DACE. If DACE was not opened on an older day, that day's questions cannot be reconstructed as a historical record.
+  </div>
+ </div>;
+}
+
 function SettingsPage({target,setTarget,company,setCompany,companies,exportData,importData,resetAll}:{target:{Easy:number;Medium:number;Hard:number};setTarget:React.Dispatch<React.SetStateAction<{Easy:number;Medium:number;Hard:number}>>;company:string;setCompany:(s:string)=>void;companies:string[];exportData:()=>void;importData:(e:React.ChangeEvent<HTMLInputElement>)=>void;resetAll:()=>void}){
  return <div className="max-w-3xl mx-auto p-5 md:p-8"><div className="text-[10px] tracking-[.2em] text-violet-300">CONTROL ROOM</div><h1 className="text-3xl md:text-4xl font-black mt-2">Settings</h1><p className="text-sm text-[#748398] mt-2 mb-7">Tune the practice system. Everything currently lives in your browser.</p>
   <div className="panel rounded-2xl p-5"><h2 className="font-semibold">Daily target</h2><div className="text-xs text-[#718096] mt-1">Set how many Easy, Medium and Hard questions you want each day.</div><div className="mt-5 space-y-3">{difficulties.map(d=>{const color=d==="Easy"?"text-green-300":d==="Medium"?"text-amber-300":"text-rose-300";const value=target[d];const change=(delta:number)=>setTarget(x=>({...x,[d]:Math.max(0,Math.min(5,(x[d]??0)+delta))}));return <div key={d} className={"flex items-center justify-between border-b border-[#1e2835] py-3 last:border-0"}><span className={"text-sm "+color}>{d}</span><div className="flex items-center gap-2"><button type="button" onClick={()=>change(-1)} disabled={value<=0} aria-label={"Decrease "+d+" target"} className="w-9 h-9 rounded-lg border border-[#273447] text-lg leading-none hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed">−</button><input type="number" min={0} max={5} step={1} value={value} onChange={e=>{const next=e.target.value===""?0:Number(e.target.value);setTarget(x=>({...x,[d]:Number.isFinite(next)?Math.max(0,Math.min(5,next)):x[d]}));}} className="w-16 bg-[#0a1017] border border-[#273447] rounded-lg px-2 py-2 text-center"/><button type="button" onClick={()=>change(1)} disabled={value>=5} aria-label={"Increase "+d+" target"} className="w-9 h-9 rounded-lg border border-[#273447] text-lg leading-none hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed">+</button></div></div>})}</div><div className="text-[11px] text-[#69788d] mt-4">Today: {target.Easy + target.Medium + target.Hard} questions</div></div>
