@@ -282,7 +282,7 @@ function NavButton({active,label,icon,onClick}:{active:boolean;label:string;icon
  return <button onClick={onClick} className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm mb-1.5 transition ${active?"bg-gradient-to-r from-cyan-300/10 to-violet-400/10 border border-cyan-300/10 text-white":"text-[#8391a5] hover:text-white hover:bg-white/[.035]"}`}><Icon name={icon} size={17}/><span>{label}</span>{active&&<span className="ml-auto w-1.5 h-1.5 rounded-full bg-cyan-300"/>}</button>
 }
 
-function Overview({today,solvedToday,streak,weeklySolved,completion,totalTime,solvedAt,setView,setHistoryDate,openTimer}:{today:Problem[];solvedToday:number;streak:number;weeklySolved:number;completion:number;totalTime:number;solvedAt:Record<number,string>;setView:(v:View)=>void;openTimer:(p:Problem)=>void}){
+function Overview({today,solvedToday,streak,weeklySolved,completion,totalTime,solvedAt,setView,setHistoryDate,openTimer}:{today:Problem[];solvedToday:number;streak:number;weeklySolved:number;completion:number;totalTime:number;solvedAt:Record<number,string>;setView:(v:View)=>void;setHistoryDate:(d:string)=>void;openTimer:(p:Problem)=>void}){
  const focus=today.filter(p=>p.difficulty!=="Easy").slice(0,3);
  return <div className="max-w-7xl mx-auto p-5 md:p-8">
   <div className="fade-up panel rounded-3xl p-6 md:p-9 relative overflow-hidden glow-cyan">
