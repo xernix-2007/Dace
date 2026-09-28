@@ -263,8 +263,8 @@ export default function Home(){
    </aside>
 
    <section className="flex-1 min-w-0">
-    {view==="overview"&&<Overview today={today} solvedToday={solvedToday} streak={streak} weeklySolved={weeklySolved} completion={completion} totalTime={totalTime} solvedAt={solvedAt} setView={setView} openTimer={openTimer}/>}
-    {view==="today"&&<TodayPage today={today} solved={solved} status={status} solvedToday={solvedToday} target={target} company={company} companies={companies} setCompany={setCompany} openTimer={openTimer} mark={mark} regenerate={regenerateToday}/>}    {view==="history"&&<QuestionHistoryPage daily={daily} solved={solved} status={status} openTimer={openTimer}/>}
+    {view==="overview"&&<Overview today={today} solvedToday={solvedToday} streak={streak} weeklySolved={weeklySolved} completion={completion} totalTime={totalTime} solvedAt={solvedAt} setView={setView} setHistoryDate={setHistoryDate} openTimer={openTimer}/>}
+    {view==="today"&&<TodayPage today={today} solved={solved} status={status} solvedToday={solvedToday} target={target} company={company} companies={companies} setCompany={setCompany} openTimer={openTimer} mark={mark} regenerate={regenerateToday}/>}    {view==="history"&&<QuestionHistoryPage daily={daily} solved={solved} status={status} openTimer={openTimer} selectedDate={historyDate}/>}
     {view==="problems"&&<ProblemsPage problems={filtered} solved={solved} status={status} search={search} setSearch={setSearch} difficulty={difficulty} setDifficulty={setDifficulty} topic={topic} setTopic={setTopic} openTimer={openTimer} mark={mark}/>}
     {view==="companies"&&<CompaniesPage company={company} companies={companies} setCompany={setCompany} problems={problems} solved={solved} status={status} openTimer={openTimer} mark={mark}/>}
     {view==="analytics"&&<AnalyticsPage problems={problems} solved={solved} status={status} timeSpent={timeSpent} topicStats={topicStats} streak={streak} totalTime={totalTime}/>}
