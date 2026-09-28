@@ -11,7 +11,8 @@
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "lucide-react": "latest"
+    "lucide-react": "latest",
+    "@vercel/analytics": "latest"
   },
   "devDependencies": {
     "typescript": "latest",
