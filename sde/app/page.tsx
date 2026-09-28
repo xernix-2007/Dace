@@ -88,6 +88,7 @@ export default function Home(){
  const [prepDays,setPrepDays]=useState(14);
  const [prepCompany,setPrepCompany]=useState("Amazon");
  const [hydrated,setHydrated]=useState(false);
+ const [historyDate,setHistoryDate]=useState<string|null>(null);
  const todayKey=dateKey();
  function updateTarget(next:React.SetStateAction<{Easy:number;Medium:number;Hard:number}>){
   setTarget(prev=>{
@@ -201,7 +202,7 @@ export default function Home(){
   setStatus(x=>({...x,[p.id]:s}));
   if(s==="solved"){
    setSolved(x=>x.includes(p.id)?x:[...x,p.id]);
-   setSolvedAt(x=>({...x,[p.id]:x[p.id]||new Date().toISOString().slice(0,10)}));
+   setSolvedAt(x=>({...x,[p.id]:x[p.id]||dateKey()}));
   }else{
    setSolved(x=>x.filter(id=>id!==p.id));
    setSolvedAt(x=>{const y={...x};delete y[p.id];return y});
@@ -281,7 +282,7 @@ function NavButton({active,label,icon,onClick}:{active:boolean;label:string;icon
  return <button onClick={onClick} className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm mb-1.5 transition ${active?"bg-gradient-to-r from-cyan-300/10 to-violet-400/10 border border-cyan-300/10 text-white":"text-[#8391a5] hover:text-white hover:bg-white/[.035]"}`}><Icon name={icon} size={17}/><span>{label}</span>{active&&<span className="ml-auto w-1.5 h-1.5 rounded-full bg-cyan-300"/>}</button>
 }
 
-function Overview({today,solvedToday,streak,weeklySolved,completion,totalTime,solvedAt,setView,openTimer}:{today:Problem[];solvedToday:number;streak:number;weeklySolved:number;completion:number;totalTime:number;solvedAt:Record<number,string>;setView:(v:View)=>void;openTimer:(p:Problem)=>void}){
+function Overview({today,solvedToday,streak,weeklySolved,completion,totalTime,solvedAt,setView,setHistoryDate,openTimer}:{today:Problem[];solvedToday:number;streak:number;weeklySolved:number;completion:number;totalTime:number;solvedAt:Record<number,string>;setView:(v:View)=>void;openTimer:(p:Problem)=>void}){
  const focus=today.filter(p=>p.difficulty!=="Easy").slice(0,3);
  return <div className="max-w-7xl mx-auto p-5 md:p-8">
   <div className="fade-up panel rounded-3xl p-6 md:p-9 relative overflow-hidden glow-cyan">
@@ -319,7 +320,7 @@ function Overview({today,solvedToday,streak,weeklySolved,completion,totalTime,so
    </div>
   </div>
 
-  <CodingCalendar solvedAt={solvedAt}/>
+  <CodingCalendar solvedAt={solvedAt} setView={setView} setHistoryDate={setHistoryDate}/>
 
   <div className="mt-5 grid md:grid-cols-3 gap-4">
    <FeatureCard icon="timer" title="Solve with intent" text="Track actual time, expected time, attempts and hints."/>
@@ -330,7 +331,7 @@ function Overview({today,solvedToday,streak,weeklySolved,completion,totalTime,so
 }
 
 
-function CodingCalendar({solvedAt}:{solvedAt:Record<number,string>}){
+function CodingCalendar({solvedAt,setView,setHistoryDate}:{solvedAt:Record<number,string>;setView:(v:View)=>void;setHistoryDate:(d:string)=>void}){
  const year=new Date().getFullYear();
  const counts:Record<string,number>={};
  for(const d of Object.values(solvedAt))counts[d]=(counts[d]||0)+1;
@@ -384,7 +385,7 @@ function CodingCalendar({solvedAt}:{solvedAt:Record<number,string>}){
      {weeks.map((week,wi)=><div key={wi} className="grid grid-rows-7 gap-[3px]">
       {week.map((d,di)=>{
        const n=d?(counts[d]||0):0;
-       return <span key={di} title={d?(d+" · "+n+" solved"):""} aria-label={d?(d+" "+n+" solved"):""} className={"w-3 h-3 rounded-[3px] border "+(d?level(n):"border-transparent bg-transparent")}/>;
+       return d?<button key={di} type="button" onClick={()=>{setHistoryDate(d);setView("history")}} title={d+" · "+n+" solved · click to open questions"} aria-label={d+" "+n+" solved; click to open questions"} className={"w-3 h-3 rounded-[3px] border cursor-pointer hover:ring-2 hover:ring-pink-200/50 "+level(n)}/>:<span key={di} className="w-3 h-3 rounded-[3px] border-transparent bg-transparent"/>;
       })}
      </div>)}
     </div>
@@ -567,7 +568,7 @@ function PrepPage({problems,solved,status,company,setCompany,days,setDays,topicS
  const sourceIds=useMemo(()=>new Set(sourcePool.map(p=>p.id)),[sourcePool]);
  const pool=useMemo(()=>{
    if(company==="All") return problems.slice(0,1000);
-   const target=Math.min(1000,Math.max(300,sourcePool.length));
+   const target=Math.min(1000,Math.max(500,sourcePool.length));
    if(sourcePool.length>=target){
      return [...sourcePool].sort((a,b)=>(b.companyFrequency?.[company]??b.frequency??0)-(a.companyFrequency?.[company]??a.frequency??0)).slice(0,target);
    }
@@ -651,34 +652,31 @@ function PrepPage({problems,solved,status,company,setCompany,days,setDays,topicS
   </div>
 
   <div className="panel rounded-2xl p-5 mt-5">
-   <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-3"><div><div className="text-[10px] tracking-widest text-violet-200">FULL COMPANY BANK</div><h2 className="text-2xl font-black mt-2">{company}: {companyQuestions.length} questions</h2><p className="text-xs text-[#718096] mt-1">The bank keeps all available company-tagged questions first, then adds relevant broader DSA questions until it reaches 300; large banks are capped at 1,000. Company-tagged questions are prioritized for prep.</p></div></div>
+   <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-3"><div><div className="text-[10px] tracking-widest text-violet-200">FULL COMPANY BANK</div><h2 className="text-2xl font-black mt-2">{company}: {companyQuestions.length} questions</h2><p className="text-xs text-[#718096] mt-1">The bank keeps all available company-tagged questions first, then adds relevant broader DSA questions until it reaches 500; large banks are capped at 1,000. Company-tagged questions are prioritized for prep.</p></div></div>
    <div className="grid md:grid-cols-[1fr_160px_auto] gap-2 mt-4"><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search Two Sum, graph, DP, tree..." className="bg-[#0b1119] border border-[#253245] rounded-xl px-4 py-3 text-sm outline-none"/><select value={difficulty} onChange={e=>setDifficulty(e.target.value)} className="bg-[#0b1119] border border-[#253245] rounded-xl px-3 py-3 text-sm"><option>All</option><option>Easy</option><option>Medium</option><option>Hard</option></select><button onClick={()=>setOnlyUnsolved(x=>!x)} className={"px-4 py-3 rounded-xl border text-xs "+(onlyUnsolved?"border-cyan-300/30 bg-cyan-300/10 text-cyan-100":"border-[#253245] text-[#8290a3]")}>{onlyUnsolved?"Showing unsolved":"Show unsolved only"}</button></div>
    <div className="mt-4 grid md:grid-cols-2 xl:grid-cols-3 gap-2 max-h-[760px] overflow-auto pr-1">{companyQuestions.map((p,i)=><div key={p.id} className="p-4 rounded-2xl border border-white/5 hover:border-cyan-300/20"><div className="flex gap-2 items-center"><span className="text-[10px] text-[#627188]">#{i+1}</span><span className={"text-[10px] "+(p.difficulty==="Easy"?"text-green-300":p.difficulty==="Medium"?"text-amber-300":"text-rose-300")}>{p.difficulty}</span><span className="text-[9px] text-[#68778c]">· {topicFamily(p)}</span>{solved.includes(p.id)&&<span className="ml-auto text-[9px] text-green-300">✓ solved</span>}</div><div className="text-sm leading-5 mt-2">{p.title}</div><div className="text-[10px] text-[#657387] mt-2">{p.topics.join(" · ")}</div><div className="flex gap-2 mt-3"><button onClick={()=>openTimer(p)} className="px-3 py-2 rounded-lg bg-white text-black text-[11px] font-semibold">Practice</button><a href={p.url} target="_blank" rel="noreferrer" className="px-3 py-2 rounded-lg border border-[#273447] text-[11px]">Open source ↗</a></div></div>)}</div>
   </div>
  </div>
 }
-function QuestionHistoryPage({daily,solved,status,openTimer}:{daily:Record<string,number[]>;solved:number[];status:Record<number,Status>;openTimer:(p:Problem)=>void}){
+function QuestionHistoryPage({daily,solved,status,openTimer,selectedDate}:{daily:Record<string,number[]>;solved:number[];status:Record<number,Status>;openTimer:(p:Problem)=>void;selectedDate:string|null}){
  const days=useMemo(()=>{
-  const out:{key:string;label:string;ids:number[]}[]=[];
-  for(let i=6;i>=0;i--){
-   const d=new Date();
-   d.setDate(d.getDate()-i);
-   const key=dateKey(d);
-   out.push({key,label:d.toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"short"}),ids:daily[key]||[]});
-  }
-  return out;
+  const keys=new Set(Object.keys(daily));
+  keys.add(dateKey());
+  return [...keys].sort((a,b)=>b.localeCompare(a)).map(key=>{
+   const d=new Date(key+"T00:00:00");
+   return {key,label:d.toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"short",year:"numeric"}),ids:daily[key]||[]};
+  });
  },[daily]);
 
- const recordedDays=days.filter(d=>d.ids.length>0).length;
  const totalQuestions=days.reduce((n,d)=>n+d.ids.length,0);
  const uniqueIds=new Set(days.flatMap(d=>d.ids));
 
  return <div className="max-w-7xl mx-auto p-5 md:p-8">
   <div className="text-[10px] tracking-[.2em] text-cyan-200">QUESTION HISTORY</div>
   <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 mt-2">
-   <div><h1 className="text-3xl md:text-4xl font-black">Last 7 Days</h1><p className="text-sm text-[#748398] mt-2">Every question DACE recorded for your daily sets, from the oldest day shown through today.</p></div>
+   <div><h1 className="text-3xl md:text-4xl font-black">{selectedDate?"Questions · "+selectedDate:"All Question History"}</h1><p className="text-sm text-[#748398] mt-2">Nothing is removed after 7 days. Every saved daily set stays available in your local DACE data.</p></div>
    <div className="grid grid-cols-3 gap-2">
-    <MiniMetric label="Days" value={String(recordedDays)} sub="with a saved set"/>
+    <MiniMetric label="Days" value={String(days.length)} sub="saved days"/>
     <MiniMetric label="Questions" value={String(totalQuestions)} sub="shown in 7 days"/>
     <MiniMetric label="Unique" value={String(uniqueIds.size)} sub="different questions"/>
    </div>
@@ -691,7 +689,7 @@ function QuestionHistoryPage({daily,solved,status,openTimer}:{daily:Record<strin
    </div>
 
    <div className="mt-5 space-y-5">
-    {days.map(day=>{
+    {days.map(day=>{if(selectedDate&&day.key!==selectedDate)return null;
      const items=day.ids.map(id=>problems.find(p=>p.id===id)).filter(Boolean) as Problem[];
      const solvedCount=items.filter(p=>solved.includes(p.id)).length;
      return <div key={day.key} className="rounded-2xl border border-white/5 overflow-hidden">
