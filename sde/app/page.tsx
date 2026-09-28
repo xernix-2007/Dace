@@ -134,7 +134,7 @@ export default function Home(){
   const ids:number[]=[];
   for(let i=1;i<=14;i++){const d=new Date();d.setDate(d.getDate()-i);ids.push(...(daily[dateKey(d)]||[]))}
   return new Set(ids);
- },[daily,today,target,company]);
+ },[daily]);
 
  const score=(p:Problem,seed:string)=>{
   const weak=p.topics.reduce((best,t)=>Math.max(best,1-(topicStats[t]?.solved||0)/Math.max(1,topicStats[t]?.total||1)),.25);
@@ -680,7 +680,7 @@ function QuestionHistoryPage({daily,solved,status,openTimer,selectedDate,today,t
    const d=new Date(key+"T00:00:00");
    return {key,label:d.toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"short",year:"numeric"}),ids:reconstruct(key)};
   });
- },[daily]);
+ },[daily,today,target,company]);
 
  const totalQuestions=days.reduce((n,d)=>n+d.ids.length,0);
  const uniqueIds=new Set(days.flatMap(d=>d.ids));
