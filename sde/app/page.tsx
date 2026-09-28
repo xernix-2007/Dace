@@ -676,6 +676,7 @@ function QuestionHistoryPage({daily,solved,status,openTimer,selectedDate,today,t
  const days=useMemo(()=>{
   const keys=new Set(Object.keys(daily));
   keys.add(dateKey());
+  if(selectedDate)keys.add(selectedDate);
   return [...keys].sort((a,b)=>b.localeCompare(a)).map(key=>{
    const d=new Date(key+"T00:00:00");
    return {key,label:d.toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"short",year:"numeric"}),ids:reconstruct(key)};
