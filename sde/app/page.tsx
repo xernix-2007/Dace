@@ -323,9 +323,9 @@ function Overview({today,solvedToday,streak,weeklySolved,completion,totalTime,so
   <CodingCalendar solvedAt={solvedAt} setView={setView} setHistoryDate={setHistoryDate}/>
 
   <div className="mt-5 grid md:grid-cols-3 gap-4">
-   <FeatureCard icon="timer" title="Solve with intent" text="Track actual time, expected time, attempts and hints."/>
-   <FeatureCard icon="shield" title="Own your data" text="Local-first progress with export/import backup."/>
-   <FeatureCard icon="trophy" title="Prepare for interviews" text="Company filters, revision loops and interview mode."/>
+   <FeatureCard icon="timer" title="Solve with intent" text="Track actual time, expected time, attempts and hints." onClick={()=>setView("today")}/>
+   <FeatureCard icon="shield" title="Own your data" text="Local-first progress with export/import backup." onClick={()=>setView("settings")}/>
+   <FeatureCard icon="trophy" title="Prepare for interviews" text="Company filters, revision loops and interview mode." onClick={()=>setView("prep")}/>
   </div>
  </div>
 }
