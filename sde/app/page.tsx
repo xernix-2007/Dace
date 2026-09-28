@@ -264,7 +264,7 @@ export default function Home(){
 
    <section className="flex-1 min-w-0">
     {view==="overview"&&<Overview today={today} solvedToday={solvedToday} streak={streak} weeklySolved={weeklySolved} completion={completion} totalTime={totalTime} solvedAt={solvedAt} setView={setView} setHistoryDate={setHistoryDate} openTimer={openTimer}/>}
-    {view==="today"&&<TodayPage today={today} solved={solved} status={status} solvedToday={solvedToday} target={target} company={company} companies={companies} setCompany={setCompany} openTimer={openTimer} mark={mark} regenerate={regenerateToday}/>}    {view==="history"&&<QuestionHistoryPage daily={daily} solved={solved} status={status} openTimer={openTimer} selectedDate={historyDate}/>}
+    {view==="today"&&<TodayPage today={today} solved={solved} status={status} solvedToday={solvedToday} target={target} company={company} companies={companies} setCompany={setCompany} openTimer={openTimer} mark={mark} regenerate={regenerateToday}/>}    {view==="history"&&<QuestionHistoryPage daily={daily} solved={solved} status={status} openTimer={openTimer} selectedDate={historyDate} today={today}/>}
     {view==="problems"&&<ProblemsPage problems={filtered} solved={solved} status={status} search={search} setSearch={setSearch} difficulty={difficulty} setDifficulty={setDifficulty} topic={topic} setTopic={setTopic} openTimer={openTimer} mark={mark}/>}
     {view==="companies"&&<CompaniesPage company={company} companies={companies} setCompany={setCompany} problems={problems} solved={solved} status={status} openTimer={openTimer} mark={mark}/>}
     {view==="analytics"&&<AnalyticsPage problems={problems} solved={solved} status={status} timeSpent={timeSpent} topicStats={topicStats} streak={streak} totalTime={totalTime}/>}
@@ -659,13 +659,13 @@ function PrepPage({problems,solved,status,company,setCompany,days,setDays,topicS
   </div>
  </div>
 }
-function QuestionHistoryPage({daily,solved,status,openTimer,selectedDate}:{daily:Record<string,number[]>;solved:number[];status:Record<number,Status>;openTimer:(p:Problem)=>void;selectedDate:string|null}){
+function QuestionHistoryPage({daily,solved,status,openTimer,selectedDate,today}:{daily:Record<string,number[]>;solved:number[];status:Record<number,Status>;openTimer:(p:Problem)=>void;selectedDate:string|null;today:Problem[]}){
  const days=useMemo(()=>{
   const keys=new Set(Object.keys(daily));
   keys.add(dateKey());
   return [...keys].sort((a,b)=>b.localeCompare(a)).map(key=>{
    const d=new Date(key+"T00:00:00");
-   return {key,label:d.toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"short",year:"numeric"}),ids:daily[key]||[]};
+   return {key,label:d.toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"short",year:"numeric"}),ids:key===dateKey()&&!(daily[key]?.length)?today.map(p=>p.id):(daily[key]||[])};
   });
  },[daily]);
 
