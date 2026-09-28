@@ -264,7 +264,7 @@ export default function Home(){
 
    <section className="flex-1 min-w-0">
     {view==="overview"&&<Overview today={today} solvedToday={solvedToday} streak={streak} weeklySolved={weeklySolved} completion={completion} totalTime={totalTime} solvedAt={solvedAt} setView={setView} openTimer={openTimer}/>}
-    {view==="today"&&<TodayPage today={today} solved={solved} status={status} solvedToday={solvedToday} company={company} companies={companies} setCompany={setCompany} openTimer={openTimer} mark={mark} regenerate={regenerateToday}/>}    {view==="history"&&<QuestionHistoryPage daily={daily} solved={solved} status={status} openTimer={openTimer}/>}
+    {view==="today"&&<TodayPage today={today} solved={solved} status={status} solvedToday={solvedToday} target={target} company={company} companies={companies} setCompany={setCompany} openTimer={openTimer} mark={mark} regenerate={regenerateToday}/>}    {view==="history"&&<QuestionHistoryPage daily={daily} solved={solved} status={status} openTimer={openTimer}/>}
     {view==="problems"&&<ProblemsPage problems={filtered} solved={solved} status={status} search={search} setSearch={setSearch} difficulty={difficulty} setDifficulty={setDifficulty} topic={topic} setTopic={setTopic} openTimer={openTimer} mark={mark}/>}
     {view==="companies"&&<CompaniesPage company={company} companies={companies} setCompany={setCompany} problems={problems} solved={solved} status={status} openTimer={openTimer} mark={mark}/>}
     {view==="analytics"&&<AnalyticsPage problems={problems} solved={solved} status={status} timeSpent={timeSpent} topicStats={topicStats} streak={streak} totalTime={totalTime}/>}
@@ -399,25 +399,26 @@ function CodingCalendar({solvedAt,setView,setHistoryDate}:{solvedAt:Record<numbe
  </div>
 }
 
-function TodayPage({today,solved,status,solvedToday,company,companies,setCompany,openTimer,mark,regenerate}:{today:Problem[];solved:number[];status:Record<number,Status>;solvedToday:number;company:string;companies:string[];setCompany:(c:string)=>void;openTimer:(p:Problem)=>void;mark:(p:Problem,s:Status)=>void;regenerate:()=>void}){
- const completion=Math.round(solvedToday/5*100);
+function TodayPage({today,solved,status,solvedToday,target,company,companies,setCompany,openTimer,mark,regenerate}:{today:Problem[];solved:number[];status:Record<number,Status>;solvedToday:number;target:{Easy:number;Medium:number;Hard:number};company:string;companies:string[];setCompany:(c:string)=>void;openTimer:(p:Problem)=>void;mark:(p:Problem,s:Status)=>void;regenerate:()=>void}){
+ const totalTarget=target.Easy+target.Medium+target.Hard;
+ const completion=totalTarget?Math.round(solvedToday/totalTarget*100):0;
  return <div className="max-w-7xl mx-auto p-5 md:p-8">
   <div className="fade-up grid xl:grid-cols-[1fr_460px] gap-7 items-stretch mb-7">
    <div className="min-h-[330px] rounded-[30px] report-card relative overflow-hidden p-7 md:p-9 flex flex-col justify-between">
     <div className="report-orb w-64 h-48 -right-10 -top-10 opacity-90"/><div className="report-orb two w-52 h-32 -left-16 bottom-2 opacity-80"/>
     <div className="relative z-10 flex items-center justify-between"><div><div className="text-[10px] tracking-[.24em] text-pink-200">DACE / DAILY CHAPTER</div><div className="text-xs text-[#778398] mt-2">{dateKey()} · adaptive set</div></div><button onClick={regenerate} className="p-2.5 rounded-xl border border-white/10 bg-black/20 hover:bg-white/10" title="Regenerate"><Icon name="reset" size={15}/></button></div>
-    <div className="relative z-10"><h1 className="text-4xl md:text-6xl font-black tracking-tight leading-[.92]">Today's<br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-200 via-fuchsia-300 to-violet-300">Problems.</span></h1><p className="text-sm text-[#9aa5b5] mt-5 max-w-xl">Five mixed interview questions. Your history changes what comes next.</p></div>
-    <div className="relative z-10 grid grid-cols-3 gap-3 mt-7"><MiniMetric label="Complete" value={`${solvedToday}/5`} sub={`${completion}% today`}/><MiniMetric label="Target" value="1E · 2M · 2H" sub="daily mix"/><MiniMetric label="Focus" value={company==="All"?"All":company} sub="company bias"/></div>
+    <div className="relative z-10"><h1 className="text-4xl md:text-6xl font-black tracking-tight leading-[.92]">Today's<br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-200 via-fuchsia-300 to-violet-300">Problems.</span></h1><p className="text-sm text-[#9aa5b5] mt-5 max-w-xl">Your daily target follows the Easy / Medium / Hard mix you set in Settings.</p></div>
+    <div className="relative z-10 grid grid-cols-3 gap-3 mt-7"><MiniMetric label="Complete" value={`${solvedToday}/${totalTarget}`} sub={`${completion}% today`}/><MiniMetric label="Target" value={`${target.Easy}E · ${target.Medium}M · ${target.Hard}H`} sub="daily mix"/><MiniMetric label="Focus" value={company==="All"?"All":company} sub="company bias"/></div>
    </div>
    <div className="rounded-[30px] bg-[#0a0d12] border border-white/8 p-6 md:p-7 flex flex-col justify-between">
-    <div><div className="text-[10px] tracking-[.24em] text-[#78869a]">CHAPTER INDEX</div><div className="text-2xl font-black mt-3">Today's set</div><p className="text-xs text-[#68778c] mt-2">One easy · two medium · two hard</p></div>
+    <div><div className="text-[10px] tracking-[.24em] text-[#78869a]">CHAPTER INDEX</div><div className="text-2xl font-black mt-3">Today's set</div><p className="text-xs text-[#68778c] mt-2">{target.Easy} Easy · {target.Medium} Medium · {target.Hard} Hard</p></div>
     <div className="space-y-3 my-6">{today.map((p,i)=><div key={p.id} className="flex items-center gap-3"><span className="text-[10px] text-[#5e6b7d] w-5">0{i+1}</span><div className="h-px flex-1 bg-white/10"/><span className="text-xs truncate max-w-[190px]">{p.title}</span><span className={`text-[10px] ${p.difficulty==="Easy"?"text-emerald-300":p.difficulty==="Medium"?"text-amber-300":"text-pink-300"}`}>{p.difficulty}</span></div>)}</div>
     <select value={company} onChange={e=>{setCompany(e.target.value);regenerate()}} className="w-full bg-[#11151c] border border-white/10 rounded-xl px-3 py-3 text-xs"><option value="All">All companies</option>{companies.filter(c=>c!=="All").map(c=><option key={c}>{c}</option>)}</select>
    </div>
   </div>
-  <div className="flex items-center justify-between mb-3"><div><div className="text-[10px] tracking-[.22em] text-pink-200">CHAPTERS / 05</div><h2 className="text-xl font-black mt-1">Solve today's set</h2></div><div className="text-xs text-[#657387]">{solvedToday}/5 complete</div></div>
+  <div className="flex items-center justify-between mb-3"><div><div className="text-[10px] tracking-[.22em] text-pink-200">CHAPTERS / 05</div><h2 className="text-xl font-black mt-1">Solve today's set</h2></div><div className="text-xs text-[#657387]">{solvedToday}/{totalTarget} complete</div></div>
   <div className="space-y-3">{today.map((p,i)=><DailyCard key={p.id} p={p} index={i} solved={solved.includes(p.id)} status={status[p.id]||"unsolved"} openTimer={openTimer} mark={mark}/>)}</div>
-  {today.length<5&&<div className="mt-5 panel rounded-xl p-4 text-xs text-amber-300">Not enough problems matched the current company/difficulty filter. DACE is using the available pool.</div>}
+  {today.length<totalTarget&&<div className="mt-5 panel rounded-xl p-4 text-xs text-amber-300">Not enough problems matched the current company/difficulty filter. DACE is using the available pool.</div>}
  </div>
 }
 function DailyCard({p,index,solved,status,openTimer,mark}:{p:Problem;index:number;solved:boolean;status:Status;openTimer:(p:Problem)=>void;mark:(p:Problem,s:Status)=>void}){
