@@ -329,3 +329,69 @@ body{
   radial-gradient(circle at 90% 70%,rgba(240,171,252,.8) 0 1px,transparent 1.7px),
   radial-gradient(circle at 23% 84%,rgba(96,165,250,.8) 0 1px,transparent 1.7px);
 }
+
+
+/* LIVE PLANETARY MULTIVERSE — final visible layer */
+.cosmic-bg{position:fixed!important;pointer-events:none!important;user-select:none!important}
+.dace-grid .cosmic-bg{z-index:0!important}
+.dace-grid>*:not(.cosmic-bg){position:relative;z-index:2}
+.cosmic-nebula{z-index:0!important;opacity:.82!important}
+.cosmic-planet{
+ z-index:1!important;
+ display:block!important;
+ border-radius:50%!important;
+ pointer-events:none!important;
+ overflow:visible!important;
+}
+.planet-a{
+ width:190px!important;height:190px!important;right:3%!important;top:105px!important;opacity:.72!important;
+ background:
+ radial-gradient(circle at 29% 25%,rgba(255,255,255,.65) 0 2px,transparent 3px),
+ radial-gradient(circle at 64% 61%,rgba(34,211,238,.3) 0 4px,transparent 5px),
+ radial-gradient(circle at 39% 42%,#8b5cf6 0 12%,transparent 13%),
+ radial-gradient(circle at 50% 50%,#4338ca,#1e1b4b 48%,#050816 76%)!important;
+ box-shadow:inset -38px -28px 52px rgba(0,0,0,.8),0 0 85px rgba(99,102,241,.30)!important;
+ animation:livePlanetA 11s ease-in-out infinite!important;
+}
+.planet-a::before{
+ content:"";position:absolute;inset:-25px;border:2px solid rgba(103,232,249,.24);border-radius:50%;
+ transform:rotate(-23deg) scaleY(.33);box-shadow:0 0 25px rgba(103,232,249,.12);
+}
+.planet-a::after{
+ content:"";position:absolute;inset:-43px;border:1px solid rgba(167,139,250,.20);border-radius:50%;
+ transform:rotate(25deg) scaleY(.25);
+}
+.planet-b{
+ width:95px!important;height:95px!important;left:7%!important;top:29%!important;opacity:.55!important;
+ background:radial-gradient(circle at 32% 27%,#93c5fd 0 3%,transparent 4%),radial-gradient(circle at 38% 38%,#22d3ee,#155e75 40%,#06111d 78%)!important;
+ box-shadow:inset -20px -16px 25px rgba(0,0,0,.7),0 0 55px rgba(34,211,238,.18)!important;
+ animation:livePlanetB 15s ease-in-out infinite!important;
+}
+.planet-b::after{
+ content:"";position:absolute;inset:-13px;border:1px solid rgba(103,232,249,.20);border-radius:50%;transform:rotate(18deg) scaleY(.3);
+}
+.planet-c{
+ width:58px!important;height:58px!important;right:19%!important;bottom:13%!important;opacity:.45!important;
+ background:radial-gradient(circle at 32% 27%,#f0abfc,#7c3aed 46%,#0b1020 80%)!important;
+ box-shadow:inset -14px -10px 20px rgba(0,0,0,.7),0 0 40px rgba(217,70,239,.16)!important;
+ animation:livePlanetC 13s ease-in-out infinite!important;
+}
+.orbit-one{z-index:1!important;right:-230px!important;top:135px!important;opacity:.46!important}
+.orbit-two{
+ position:fixed!important;width:760px!important;height:250px!important;left:-270px!important;bottom:8%!important;
+ border:1px solid rgba(167,139,250,.13);border-radius:50%;transform:rotate(21deg);
+ box-shadow:0 0 45px rgba(124,58,237,.05);z-index:1!important;animation:orbitTwo 28s linear infinite!important;
+}
+.orbit-two::after{
+ content:"";position:absolute;width:6px;height:6px;right:15%;top:50%;border-radius:50%;
+ background:#c084fc;box-shadow:0 0 18px 4px rgba(192,132,252,.35);
+}
+.cosmic-galaxy{z-index:0!important}
+.cosmic-wormhole{z-index:0!important;opacity:.36!important}
+.cosmic-constellation{z-index:0!important}
+.cosmic-spark{z-index:1!important}
+.dace-brand-mark img{display:block!important;opacity:1!important}
+@keyframes livePlanetA{0%,100%{transform:translate3d(0,0,0) rotate(0) scale(1)}33%{transform:translate3d(-18px,12px,0) rotate(4deg) scale(1.025)}66%{transform:translate3d(10px,-14px,0) rotate(-3deg) scale(.99)}}
+@keyframes livePlanetB{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(34px,24px,0) scale(1.08)}}
+@keyframes livePlanetC{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-25px,-20px,0) scale(1.12)}}
+@keyframes orbitTwo{from{rotate:21deg}to{rotate:381deg}}
