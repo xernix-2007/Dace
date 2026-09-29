@@ -237,9 +237,11 @@ export default function Home(){
   <div className="cosmic-bg cosmic-nebula" aria-hidden="true"/><div className="cosmic-bg cosmic-planet" aria-hidden="true"/><div className="cosmic-bg cosmic-galaxy galaxy-one" aria-hidden="true"/><div className="cosmic-bg cosmic-galaxy galaxy-two" aria-hidden="true"/><div className="cosmic-bg cosmic-wormhole" aria-hidden="true"/><div className="cosmic-bg cosmic-constellation" aria-hidden="true"/><div className="cosmic-bg cosmic-orbit" aria-hidden="true"/><div className="cosmic-bg cosmic-spark" aria-hidden="true"/><div className="cosmic-bg cosmic-spark two" aria-hidden="true"/>
   <header className="h-16 border-b border-[#202a38] sticky top-0 z-40 glass flex items-center px-4 md:px-6 gap-3">
    <button className="md:hidden p-2 rounded-lg hover:bg-white/5" onClick={()=>setMobileOpen(!mobileOpen)}><Icon name="menu"/></button>
-   <button onClick={()=>setView("overview")} className="flex items-center gap-2.5">
-    <span className="w-9 h-9 rounded-xl bg-gradient-to-br from-pink-500/20 to-violet-500/20 border border-pink-300/20 flex items-center justify-center"><Icon name="code" size={19}/></span>
-    <span className="font-black tracking-[-.03em] text-lg"><span className="text-pink-300">D</span>ACE</span>
+   <button onClick={()=>setView("overview")} className="flex items-center gap-2.5 group" title="DACE — Daily Adaptive Coding">
+    <span className="w-9 h-9 rounded-xl overflow-hidden border border-violet-300/20 bg-[#080b14] shadow-[0_0_24px_rgba(124,58,237,.18)] group-hover:shadow-[0_0_30px_rgba(34,211,238,.25)] transition">
+      <img src="/dace-logo.svg" alt="DACE" className="w-full h-full object-cover"/>
+    </span>
+    <span className="font-black tracking-[-.04em] text-lg bg-gradient-to-r from-cyan-200 via-violet-200 to-fuchsia-200 text-transparent bg-clip-text">DACE</span>
    </button>
    <span className="hidden sm:block text-[10px] tracking-[.2em] text-[#637187]">DAILY ADAPTIVE CODING</span>
    <div className="ml-auto flex items-center gap-3">
