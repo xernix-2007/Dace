@@ -234,6 +234,7 @@ export default function Home(){
  ] as [View,string,string][];
 
  return <main className="min-h-screen dace-grid">
+  <div className="cosmic-orbit" aria-hidden="true"/><div className="cosmic-spark" aria-hidden="true"/><div className="cosmic-spark two" aria-hidden="true"/>
   <header className="h-16 border-b border-[#202a38] sticky top-0 z-40 glass flex items-center px-4 md:px-6 gap-3">
    <button className="md:hidden p-2 rounded-lg hover:bg-white/5" onClick={()=>setMobileOpen(!mobileOpen)}><Icon name="menu"/></button>
    <button onClick={()=>setView("overview")} className="flex items-center gap-2.5">
