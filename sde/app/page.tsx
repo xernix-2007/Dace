@@ -335,12 +335,21 @@ function Overview({today,solvedToday,streak,weeklySolved,completion,totalTime,so
 
 
 function CodingCalendar({solvedAt,setView,setHistoryDate}:{solvedAt:Record<number,string>;setView:(v:View)=>void;setHistoryDate:(d:string)=>void}){
- const year=new Date().getFullYear();
+ const currentYear=new Date().getFullYear();
+ const [year,setYear]=useState(currentYear);
+
+ // The selected year is independent of the current year, but a fresh page load always starts on the real current year.
+ useEffect(()=>{setYear(new Date().getFullYear())},[]);
+
  const counts:Record<string,number>={};
- for(const d of Object.values(solvedAt))counts[d]=(counts[d]||0)+1;
+ for(const d of Object.values(solvedAt)){
+  const y=Number(d.slice(0,4));
+  if(y===year)counts[d]=(counts[d]||0)+1;
+ }
 
  const start=new Date(year,0,1);
  const raw:string[]=[];
+ // Sunday-first calendar padding keeps the same GitHub-style 7-row week layout.
  for(let i=0;i<start.getDay();i++)raw.push("");
  for(let i=0;i<366;i++){
   const d=new Date(year,0,1);
@@ -353,7 +362,6 @@ function CodingCalendar({solvedAt,setView,setHistoryDate}:{solvedAt:Record<numbe
  const weeks:string[][]=[];
  for(let i=0;i<raw.length;i+=7)weeks.push(raw.slice(i,i+7));
 
- // Label a month once, above the week that contains its first day.
  const monthLabels=weeks.map(week=>{
   const first=week.find(d=>d&&new Date(d+"T00:00:00").getDate()===1);
   return first?new Date(first+"T00:00:00").toLocaleDateString("en-US",{month:"short"}):"";
@@ -364,13 +372,22 @@ function CodingCalendar({solvedAt,setView,setHistoryDate}:{solvedAt:Record<numbe
  const weekCount=weeks.length;
 
  return <div className="panel rounded-2xl p-5 mt-5">
-  <div className="flex flex-wrap items-end justify-between gap-3">
+  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
    <div>
     <div className="text-[10px] tracking-[.2em] text-pink-200">CODING HEATMAP</div>
     <h2 className="text-xl font-black mt-1">{year} consistency</h2>
     <div className="text-[10px] text-[#657387] mt-1">{weekCount} weeks · Jan–Dec</div>
    </div>
-   <div className="text-right"><div className="text-2xl font-black">{totalSolved}</div><div className="text-[10px] uppercase tracking-wider text-[#657387]">solved</div></div>
+
+   <div className="flex items-center gap-1.5 rounded-xl border border-[#273447] bg-[#080d16]/80 p-1">
+    <button type="button" onClick={()=>setYear(y=>y-1)} className="w-8 h-8 rounded-lg hover:bg-white/10 text-[#8d9ab2]" aria-label={`Previous year: ${year-1}`}>‹</button>
+    <div className="flex items-center gap-0.5 px-1">
+     {[year-1,year,year+1].map(y=><button key={y} type="button" onClick={()=>setYear(y)} className={`min-w-14 px-2 py-1.5 rounded-lg text-[11px] transition ${y===year?"bg-violet-500/20 text-violet-200 border border-violet-300/20":"text-[#657387] hover:text-white"}`}>{y}</button>)}
+    </div>
+    <button type="button" onClick={()=>setYear(y=>y+1)} className="w-8 h-8 rounded-lg hover:bg-white/10 text-[#8d9ab2]" aria-label={`Next year: ${year+1}`}>›</button>
+   </div>
+
+   <div className="text-right"><div className="text-2xl font-black">{totalSolved}</div><div className="text-[10px] uppercase tracking-wider text-[#657387]">solved in {year}</div></div>
   </div>
 
   <div className="mt-5 overflow-x-auto">
@@ -384,7 +401,6 @@ function CodingCalendar({solvedAt,setView,setHistoryDate}:{solvedAt:Record<numbe
      <div className="grid grid-rows-7 gap-[3px] text-[9px] text-[#657387] leading-3">
       <span></span><span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span>
      </div>
-
      {weeks.map((week,wi)=><div key={wi} className="grid grid-rows-7 gap-[3px]">
       {week.map((d,di)=>{
        const n=d?(counts[d]||0):0;
@@ -396,7 +412,7 @@ function CodingCalendar({solvedAt,setView,setHistoryDate}:{solvedAt:Record<numbe
   </div>
 
   <div className="mt-3 flex justify-between items-center gap-3 text-[10px] text-[#657387]">
-   <span>Each column = 1 week</span>
+   <span>Each column = 1 week · select a year above</span>
    <div className="flex gap-2 items-center"><span>Less</span>{[0,1,2,4].map(n=><span key={n} className={"h-3 w-3 rounded-[3px] border "+level(n)}/>)}<span>More</span></div>
   </div>
  </div>
