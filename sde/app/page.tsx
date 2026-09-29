@@ -234,12 +234,12 @@ export default function Home(){
  ] as [View,string,string][];
 
  return <main className="min-h-screen dace-grid">
-  <div className="cosmic-bg cosmic-nebula" aria-hidden="true"/><div className="cosmic-bg cosmic-planet" aria-hidden="true"/><div className="cosmic-bg cosmic-galaxy galaxy-one" aria-hidden="true"/><div className="cosmic-bg cosmic-galaxy galaxy-two" aria-hidden="true"/><div className="cosmic-bg cosmic-wormhole" aria-hidden="true"/><div className="cosmic-bg cosmic-constellation" aria-hidden="true"/><div className="cosmic-bg cosmic-orbit" aria-hidden="true"/><div className="cosmic-bg cosmic-spark" aria-hidden="true"/><div className="cosmic-bg cosmic-spark two" aria-hidden="true"/>
+  <div className="cosmic-bg cosmic-nebula" aria-hidden="true"/><div className="cosmic-bg cosmic-planet planet-a" aria-hidden="true"/><div className="cosmic-bg cosmic-planet planet-b" aria-hidden="true"/><div className="cosmic-bg cosmic-planet planet-c" aria-hidden="true"/><div className="cosmic-bg cosmic-galaxy galaxy-one" aria-hidden="true"/><div className="cosmic-bg cosmic-galaxy galaxy-two" aria-hidden="true"/><div className="cosmic-bg cosmic-wormhole" aria-hidden="true"/><div className="cosmic-bg cosmic-constellation" aria-hidden="true"/><div className="cosmic-bg cosmic-orbit orbit-one" aria-hidden="true"/><div className="cosmic-bg cosmic-orbit orbit-two" aria-hidden="true"/><div className="cosmic-bg cosmic-spark" aria-hidden="true"/><div className="cosmic-bg cosmic-spark two" aria-hidden="true"/>
   <header className="h-16 border-b border-[#202a38] sticky top-0 z-40 glass flex items-center px-4 md:px-6 gap-3">
    <button className="md:hidden p-2 rounded-lg hover:bg-white/5" onClick={()=>setMobileOpen(!mobileOpen)}><Icon name="menu"/></button>
    <button onClick={()=>setView("overview")} className="flex items-center gap-2.5 group" title="DACE — Daily Adaptive Coding">
-    <span className="w-9 h-9 rounded-xl overflow-hidden border border-violet-300/20 bg-[#080b14] shadow-[0_0_24px_rgba(124,58,237,.18)] group-hover:shadow-[0_0_30px_rgba(34,211,238,.25)] transition">
-      <img src="/dace-logo.svg" alt="DACE" className="w-full h-full object-cover"/>
+    <span className="dace-brand-mark w-9 h-9 rounded-xl overflow-hidden border border-violet-300/20 bg-[#080b14] shadow-[0_0_24px_rgba(124,58,237,.18)] group-hover:shadow-[0_0_30px_rgba(34,211,238,.25)] transition">
+      <img src="/dace-logo.svg?v=2" alt="DACE orbital logo" className="w-full h-full object-cover"/>
     </span>
     <span className="font-black tracking-[-.04em] text-lg bg-gradient-to-r from-cyan-200 via-violet-200 to-fuchsia-200 text-transparent bg-clip-text">DACE</span>
    </button>
