@@ -492,13 +492,83 @@ function CompaniesPage({company,companies,setCompany,problems,solved,status,open
  const [companySearch,setCompanySearch]=useState("");
  const [companyDifficulty,setCompanyDifficulty]=useState<"All"|Difficulty>("All");
  const selected=company!=="All";
- const companyProblems=useMemo(()=>problems.filter(p=>selected&&p.companies.includes(company)&&(companyDifficulty==="All"||p.difficulty===companyDifficulty)&&p.title.toLowerCase().includes(companySearch.toLowerCase().trim())).sort((a,b)=>(a.leetcodeNumber??Infinity)-(b.leetcodeNumber??Infinity)||a.title.localeCompare(b.title)),[problems,company,selected,companyDifficulty,companySearch]);
+
+ const sourceProblems=useMemo(()=>problems.filter(p=>p.companies.includes(company)),[problems,company]);
+ const sourceIds=useMemo(()=>new Set(sourceProblems.map(p=>p.id)),[sourceProblems]);
+
+ // Company pages use the same 500–1000 preparation-bank rule as Prep Plan:
+ // real company-tagged questions first, then relevant broader DSA questions when the source pool is smaller.
+ const companyBank=useMemo(()=>{
+  if(!selected)return [];
+  const target=Math.min(1000,Math.max(500,sourceProblems.length));
+  if(sourceProblems.length>=target){
+   return [...sourceProblems]
+    .sort((a,b)=>(b.companyFrequency?.[company]??b.frequency??0)-(a.companyFrequency?.[company]??a.frequency??0)||a.title.localeCompare(b.title))
+    .slice(0,target);
+  }
+  const sourceFamilies=new Set(sourceProblems.map(topicFamily));
+  const extras=problems
+   .filter(p=>!sourceIds.has(p.id))
+   .map(p=>{
+    const familyBoost=sourceFamilies.has(topicFamily(p))?35:0;
+    const frequency=Math.min(30,(p.frequency??0)*0.5);
+    const difficulty=p.difficulty==="Medium"?12:p.difficulty==="Easy"?8:6;
+    return {p,score:familyBoost+frequency+difficulty};
+   })
+   .sort((a,b)=>b.score-a.score||a.p.title.localeCompare(b.p.title));
+  return [...sourceProblems,...extras.slice(0,target-sourceProblems.length).map(x=>x.p)];
+ },[selected,company,sourceProblems,sourceIds,problems]);
+
+ const companyProblems=useMemo(()=>{
+  const q=companySearch.toLowerCase().trim();
+  return companyBank
+   .filter(p=>(companyDifficulty==="All"||p.difficulty===companyDifficulty)&&(!q||p.title.toLowerCase().includes(q)||p.topics.some(t=>t.toLowerCase().includes(q))))
+   .sort((a,b)=>(sourceIds.has(b.id)?1:0)-(sourceIds.has(a.id)?1:0)||(b.companyFrequency?.[company]??b.frequency??0)-(a.companyFrequency?.[company]??a.frequency??0)||a.title.localeCompare(b.title));
+ },[companyBank,companyDifficulty,companySearch,sourceIds,company]);
+
  const visibleCompanies=companies.filter(c=>c!=="All"&&c.toLowerCase().includes(companySearch.toLowerCase().trim()));
+
  return <div className="max-w-7xl mx-auto p-5 md:p-8">
-  <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4"><div><div className="text-[10px] tracking-[.2em] text-cyan-200">COMPANY PREP / ALL COMPANIES</div><h1 className="text-3xl md:text-4xl font-black mt-2">Companies</h1><p className="text-sm text-[#748398] mt-2">Choose a company to see its full question set. Selecting a company stays here instead of sending you to Today.</p></div><div className="text-xs text-[#657387]">{companies.length-1} companies · {problems.length.toLocaleString()} practice items</div></div>
+  <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
+   <div><div className="text-[10px] tracking-[.2em] text-cyan-200">COMPANY PREP / ALL COMPANIES</div><h1 className="text-3xl md:text-4xl font-black mt-2">Companies</h1><p className="text-sm text-[#748398] mt-2">Each company gets a 500–1000 item preparation bank: real company-tagged questions first, then relevant DSA practice when the source pool is smaller.</p></div>
+   <div className="text-xs text-[#657387]">{companies.length-1} companies · {problems.length.toLocaleString()} practice items</div>
+  </div>
+
   <div className="panel rounded-2xl p-3 mt-6"><div className="flex items-center gap-2 bg-[#0b1119] border border-[#243145] rounded-xl px-3"><Icon name="search" size={15}/><input value={companySearch} onChange={e=>setCompanySearch(e.target.value)} placeholder="Search companies or questions..." className="bg-transparent outline-none py-2.5 text-sm w-full"/></div></div>
-  <div className="grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-3 mt-4">{visibleCompanies.map(c=>{const n=problems.filter(p=>p.companies.includes(c)).length;const done=problems.filter(p=>p.companies.includes(c)&&solved.includes(p.id)).length;return <button key={c} onClick={()=>{setCompany(c);setCompanySearch("");setTimeout(()=>document.getElementById("company-question-bank")?.scrollIntoView({behavior:"smooth",block:"start"}),0)}} className={"panel rounded-2xl p-4 text-left hover:-translate-y-0.5 transition "+(company===c?"border-cyan-300/30 glow-cyan":"")}><div className="flex items-center justify-between"><div className="w-9 h-9 rounded-xl bg-[#151f2c] flex items-center justify-center"><Icon name="company" size={16}/></div><Icon name="arrow" size={14}/></div><div className="mt-4 font-semibold text-sm">{c}</div><div className="text-[11px] text-[#748398] mt-1">{done} solved · {n} questions</div></button>})}</div>
-  {selected&&<div id="company-question-bank" className="mt-8"><div className="panel rounded-3xl overflow-hidden"><div className="p-5 md:p-6 border-b border-[#202a38]"><div className="flex flex-col md:flex-row md:items-end gap-4"><div><div className="text-[10px] tracking-[.2em] text-violet-300">COMPANY QUESTION BANK</div><h2 className="text-2xl md:text-3xl font-black mt-2">{company}</h2><p className="text-xs text-[#718096] mt-1">{companyProblems.length.toLocaleString()} matching questions · solved {companyProblems.filter(p=>solved.includes(p.id)).length}</p></div><div className="md:ml-auto flex flex-wrap gap-2"><button onClick={()=>setCompanyDifficulty("All")} className={"px-3 py-2 rounded-xl border text-xs "+(companyDifficulty==="All"?"border-cyan-300/30 bg-cyan-300/10":"border-[#273447]")}>All</button>{difficulties.map(d=><button key={d} onClick={()=>setCompanyDifficulty(d)} className={"px-3 py-2 rounded-xl border text-xs "+(companyDifficulty===d?"border-cyan-300/30 bg-cyan-300/10":"border-[#273447]")}>{d}</button>)}<button onClick={()=>setCompany("All")} className="px-3 py-2 rounded-xl border border-[#273447] text-xs">All companies</button></div></div></div><div className="p-3 md:p-5 space-y-2">{companyProblems.map((p,i)=><DailyCard key={p.id} p={p} index={i} solved={solved.includes(p.id)} status={status[p.id]||"unsolved"} openTimer={openTimer} mark={mark}/>)}</div></div></div>}
+
+  <div className="grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-3 mt-4">
+   {visibleCompanies.map(c=>{
+    const sourceCount=problems.filter(p=>p.companies.includes(c)).length;
+    const bankCount=Math.min(1000,Math.max(500,sourceCount));
+    const done=problems.filter(p=>p.companies.includes(c)&&solved.includes(p.id)).length;
+    return <button key={c} onClick={()=>{setCompany(c);setCompanySearch("");setTimeout(()=>document.getElementById("company-question-bank")?.scrollIntoView({behavior:"smooth",block:"start"}),0)}} className={"panel rounded-2xl p-4 text-left hover:-translate-y-0.5 transition "+(company===c?"border-cyan-300/30 glow-cyan":"")}>
+     <div className="flex items-center justify-between"><div className="w-9 h-9 rounded-xl bg-[#151f2c] flex items-center justify-center"><Icon name="company" size={16}/></div><Icon name="arrow" size={14}/></div>
+     <div className="mt-4 font-semibold text-sm">{c}</div>
+     <div className="text-[11px] text-[#748398] mt-1"><span className="text-cyan-200">{bankCount} prep items</span> · {sourceCount} source · {done} solved</div>
+    </button>
+   })}
+  </div>
+
+  {selected&&<div id="company-question-bank" className="mt-8">
+   <div className="panel rounded-3xl overflow-hidden">
+    <div className="p-5 md:p-6 border-b border-[#202a38]">
+     <div className="flex flex-col md:flex-row md:items-end gap-4">
+      <div>
+       <div className="text-[10px] tracking-[.2em] text-violet-300">COMPANY PREPARATION BANK</div>
+       <h2 className="text-2xl md:text-3xl font-black mt-2">{company}</h2>
+       <p className="text-xs text-[#718096] mt-1"><span className="text-cyan-200">{companyBank.length.toLocaleString()} prep items</span> · {sourceProblems.length.toLocaleString()} are source-tagged · solved {companyBank.filter(p=>solved.includes(p.id)).length}</p>
+      </div>
+      <div className="md:ml-auto flex flex-wrap gap-2">
+       <button onClick={()=>setCompanyDifficulty("All")} className={"px-3 py-2 rounded-xl border text-xs "+(companyDifficulty==="All"?"border-cyan-300/30 bg-cyan-300/10":"border-[#273447]")}>All</button>
+       {difficulties.map(d=><button key={d} onClick={()=>setCompanyDifficulty(d)} className={"px-3 py-2 rounded-xl border text-xs "+(companyDifficulty===d?"border-cyan-300/30 bg-cyan-300/10":"border-[#273447]")}>{d}</button>)}
+       <button onClick={()=>setCompany("All")} className="px-3 py-2 rounded-xl border border-[#273447] text-xs">All companies</button>
+      </div>
+     </div>
+    </div>
+    <div className="px-5 pt-4 text-[11px] text-[#657387]">Source-tagged questions are kept first. Fill-in questions are broader DSA practice and are not claimed to be interview questions from {company}.</div>
+    <div className="p-3 md:p-5 space-y-2">{companyProblems.map((p,i)=><DailyCard key={p.id} p={p} index={i} solved={solved.includes(p.id)} status={status[p.id]||"unsolved"} openTimer={openTimer} mark={mark}/>)}</div>
+   </div>
+  </div>}
  </div>
 }
 function AnalyticsPage({problems,solved,status,timeSpent,topicStats,streak,totalTime}:{problems:Problem[];solved:number[];status:Record<number,Status>;timeSpent:Record<number,number>;topicStats:Record<string,{solved:number;total:number}>;streak:number;totalTime:number}){
