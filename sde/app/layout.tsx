@@ -3,7 +3,12 @@ import { Analytics } from "@vercel/analytics/next";
 
 export const metadata={
   title:"DACE — Daily Adaptive Coding Environment",
-  description:"A daily adaptive SDE practice environment for coding interview preparation."
+  description:"A daily adaptive SDE practice environment for coding interview preparation.",
+  icons:{
+    icon:"/dace-logo.svg?v=2",
+    shortcut:"/dace-logo.svg?v=2",
+    apple:"/dace-logo.svg?v=2"
+  }
 };
 
 export default function RootLayout({children}:{children:React.ReactNode}){
