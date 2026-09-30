@@ -13,7 +13,7 @@ import {
 
 type Difficulty="Easy"|"Medium"|"Hard";
 type Status="unsolved"|"solved"|"revision"|"failed";
-type View="overview"|"today"|"history"|"problems"|"companies"|"analytics"|"interview"|"prep"|"knowledge"|"dbms"|"os"|"cn"|"oop"|"sql"|"dsa"|"settings";
+type View="overview"|"today"|"history"|"problems"|"companies"|"analytics"|"interview"|"prep"|"backend"|"knowledge"|"dbms"|"os"|"cn"|"oop"|"sql"|"dsa"|"settings";
 type Problem={
  id:number; title:string; difficulty:Difficulty; topics:string[]; companies:string[];
  url:string; estimate:number; leetcodeNumber?:number|null; frequency?:number; companyFrequency?:Record<string,number>;
@@ -142,7 +142,7 @@ export default function Home(){
   const t=setInterval(tick,250);
   return()=>clearInterval(t);
  },[running]);
- useEffect(()=>{const routes:Record<string,string>={dbms:"DBMS",os:"OS",cn:"CN",oop:"OOP",sql:"SQL",dsa:"DSA%20Fundamentals"};if(routes[view])window.location.href="/knowledge?subject="+routes[view]},[view]);
+ useEffect(()=>{const routes:Record<string,string>={backend:"/backend",dbms:"DBMS",os:"OS",cn:"CN",oop:"OOP",sql:"SQL",dsa:"DSA%20Fundamentals"};if(routes[view])window.location.href="/knowledge?subject="+routes[view]},[view]);
 
  const topicStats=useMemo(()=>{
   const all:Record<string,{solved:number;total:number}>= {};
