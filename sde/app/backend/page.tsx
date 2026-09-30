@@ -490,32 +490,35 @@ export default function BackendSDEPage() {
                               </div>
                               {lessonList.map((lesson) => {
                                 const checked = !!subtopicDone[subtopicKey(d.day, lesson)];
+                                const lessonKey = subtopicKey(d.day, lesson);
+                                const isExpanded = expandedLesson === lessonKey;
+
                                 return (
-                                  <div
-                                    key={lesson}
-                                    className="w-full flex items-center gap-3 px-4 py-3.5 text-left border-b border-white/[.035] last:border-b-0 hover:bg-white/[.025]"
-                                  >
-                                    <button
-                                      onClick={() => toggleSubtopic(lesson)}
-                                      aria-label={checked ? `Mark ${lesson} incomplete` : `Mark ${lesson} complete`}
-                                      className={`w-5 h-5 rounded-md border flex items-center justify-center shrink-0 transition ${checked ? "bg-cyan-300 border-cyan-300 text-black" : "border-[#46546a] text-transparent"}`}
-                                    >
-                                      {checked ? "✓" : ""}
-                                    </button>
-                                    <button
-                                      onClick={() => setExpandedLesson(
-                                        expandedLesson === subtopicKey(d.day, lesson) ? null : subtopicKey(d.day, lesson)
-                                      )}
-                                      className="text-left flex-1 min-w-0 group/lesson"
-                                      aria-expanded={expandedLesson === subtopicKey(d.day, lesson)}
-                                    >
-                                      <span className={`text-xs group-hover/lesson:text-cyan-200 transition ${checked ? "text-[#64748b] line-through" : "text-[#aeb8c6]"}`}>
-                                        {lesson}
-                                      </span>
-                                    </button>
-                                    <span className={`text-[#657387] text-sm transition-transform ${expandedLesson === subtopicKey(d.day, lesson) ? "rotate-180" : ""}`}>⌄</span>
-                                    <span className="hidden sm:inline text-[10px] text-[#78869a] ml-1">Est. {lessonMinutes} min</span>
-                                    {expandedLesson === subtopicKey(d.day, lesson) && (() => {
+                                  <div key={lesson} className="border-b border-white/[.035] last:border-b-0">
+                                    <div className="w-full flex items-center gap-3 px-4 py-3.5 text-left hover:bg-white/[.025]">
+                                      <button
+                                        onClick={() => toggleSubtopic(lesson)}
+                                        aria-label={checked ? `Mark ${lesson} incomplete` : `Mark ${lesson} complete`}
+                                        className={`w-5 h-5 rounded-md border flex items-center justify-center shrink-0 transition ${checked ? "bg-cyan-300 border-cyan-300 text-black" : "border-[#46546a] text-transparent"}`}
+                                      >
+                                        {checked ? "✓" : ""}
+                                      </button>
+
+                                      <button
+                                        onClick={() => setExpandedLesson(isExpanded ? null : lessonKey)}
+                                        className="text-left flex-1 min-w-0 group/lesson"
+                                        aria-expanded={isExpanded}
+                                      >
+                                        <span className={`text-xs group-hover/lesson:text-cyan-200 transition ${checked ? "text-[#64748b] line-through" : "text-[#aeb8c6]"}`}>
+                                          {lesson}
+                                        </span>
+                                      </button>
+
+                                      <span className={`text-[#657387] text-sm transition-transform ${isExpanded ? "rotate-180" : ""}`}>⌄</span>
+                                      <span className="hidden sm:inline text-[10px] text-[#78869a] ml-1">Est. {lessonMinutes} min</span>
+                                    </div>
+
+                                    {isExpanded && (() => {
                                       const content = lessonContent(d, lesson);
                                       return (
                                         <div className="mx-4 mb-4 rounded-xl border border-cyan-300/10 bg-[#080d14] overflow-hidden">
@@ -523,6 +526,7 @@ export default function BackendSDEPage() {
                                             <div className="text-[9px] tracking-[.16em] text-cyan-200">LESSON SLIDE</div>
                                             <div className="text-sm font-bold mt-1 text-white">{lesson}</div>
                                           </div>
+
                                           <div className="grid gap-4 p-4">
                                             <section>
                                               <div className="text-[9px] tracking-[.15em] text-blue-200"># WHY</div>
