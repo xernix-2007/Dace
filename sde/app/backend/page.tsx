@@ -231,54 +231,184 @@ export default function BackendSDEPage() {
     location.reload();
   };
 
+  const sprintMinutes = topicDays.length * 65;
+  const sprintHours = Math.floor(sprintMinutes / 60);
+  const sprintMins = sprintMinutes % 60;
+  const lessonsFor = (d: Day) => {
+    const special: Record<number,string[]> = {
+      1: ["Client vs Server", "What an HTTP request contains", "Backend flow: route → validation → logic → data", "What an HTTP response contains", "Real-life browser → API example"],
+      2: ["GET — read data", "POST — create data", "PUT vs PATCH — update data", "DELETE — remove data", "Safe and idempotent operations"],
+      3: ["2xx — success", "3xx — redirects", "4xx — client mistakes", "5xx — server mistakes", "Headers and why they matter"],
+      4: ["JSON request and response", "URL structure", "Path parameters", "Query parameters", "Small API example"],
+      5: ["Cookies", "Sessions", "CORS", "Authentication vs a normal request", "Common browser/API mistake"],
+      6: ["What makes an API RESTful", "Resource-based URLs", "Consistent responses", "Idempotency in real APIs", "Design the Notes API"],
+    };
+    if (special[d.day]) return special[d.day];
+    return [
+      `Understand: ${d.target}`,
+      `See it in a real backend`,
+      `Build a small example`,
+      `Add it to the project`,
+      `Checkpoint: ${d.checkpoint}`,
+    ];
+  };
+
   return (
     <main className="min-h-screen dace-grid text-white">
       <div className="cosmic-bg cosmic-nebula" aria-hidden="true" />
-      <header className="sticky top-0 z-40 glass border-b border-[#202a38] px-5 md:px-8 h-16 flex items-center gap-3">
+
+      <header className="sticky top-0 z-40 glass border-b border-[#202a38] h-[74px] px-5 md:px-8 flex items-center gap-4">
         <a href="/" className="text-xs text-[#7e8ca0] hover:text-white">← DACE</a>
-        <div className="h-5 w-px bg-[#263346]" />
+        <div className="h-7 w-px bg-[#263346]" />
         <div>
-          <div className="font-black tracking-tight">Backend / SDE</div>
-          <div className="text-[9px] tracking-[.18em] text-cyan-200">12 WEEKS · 84 DAYS · TOP-SDE ORIENTED</div>
+          <div className="font-black tracking-tight text-base">Backend / SDE</div>
+          <div className="text-[9px] tracking-[.2em] text-cyan-200 mt-0.5">BACKEND ENGINEERING · 84 DAYS</div>
         </div>
-        <div className="ml-auto text-xs text-[#9aa8ba]">{completedDays}/{days.length} days · {progress}%</div>
+
+        <div className="ml-auto flex items-center gap-3">
+          <div className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-xl bg-blue-400/10 text-blue-300 text-xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-300" />
+            Sprint {currentTopicIndex + 1}
+          </div>
+          <div className="hidden md:block text-xs text-[#9aa8ba]">
+            Est. {sprintHours}h {sprintMins}m · {completedDays > 0 ? "In progress" : "Not started"}
+          </div>
+          <div className="text-xs text-[#9aa8ba]">{completedDays}/{days.length} · {progress}%</div>
+        </div>
       </header>
 
-      <div className="max-w-[1100px] mx-auto p-4 md:p-7">
-        
+      <div className="max-w-[1180px] mx-auto px-4 md:px-8 py-6 md:py-8">
+        <div className="mb-5 flex items-center justify-between">
+          <div>
+            <div className="text-[10px] tracking-[.2em] text-cyan-200">LEARNING ROADMAP</div>
+            <h1 className="text-2xl md:text-3xl font-black mt-2">Build the backend. One day at a time.</h1>
+          </div>
+          <div className="hidden md:block text-right">
+            <div className="text-[10px] text-[#657387]">CURRENT</div>
+            <div className="text-sm font-semibold mt-1">Day {day.day} · {topic.title}</div>
+          </div>
+        </div>
 
-        <section className="min-w-0">
-          <div className="panel rounded-2xl p-6"><div className="text-[10px] tracking-[.2em] text-cyan-200">TODAY</div><div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-2"><div><div className="text-xs text-[#657387]">DAY {day.day} OF 84 · {topic.title}</div><h1 className="text-3xl font-black mt-2">{day.target}</h1><p className="text-sm text-[#8391a4] mt-2">~45–90 minutes. Learn one thing, practice it, add it to the project, then check yourself.</p></div><div className="text-xs text-[#9aa8ba]">{completedDays}/84 complete · {progress}%</div></div></div><details className="mt-4"><summary className="cursor-pointer list-none panel rounded-2xl p-4 text-xs text-[#9aa8ba] hover:text-white">Roadmap, topic details and all daily targets <span className="float-right text-cyan-200">▾</span></summary><div className="mt-3"><div className="space-y-3">
-            {topics.map((t, ti) => {
-              const stageDays = days.filter(d => d.topicId === t.id);
-              const stageDone = stageDays.filter(d => done[d.day]).length;
-              const isCurrent = t.id === topic.id;
-              return (
-                <details key={t.id} open={isCurrent} className="group rounded-2xl border border-[#202a38] bg-[#0a0f16] overflow-hidden">
-                  <summary className="list-none cursor-pointer px-4 md:px-5 py-4 flex items-center gap-3 hover:bg-white/[.025]">
-                    <span className="w-7 h-7 rounded-full border border-[#2b3a4f] flex items-center justify-center text-[9px] text-[#718096]">{String(ti+1).padStart(2,"0")}</span>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex flex-wrap items-center gap-2"><span className="text-[10px] tracking-[.16em] text-cyan-200">STAGE {ti+1}</span><span className="text-xs text-[#5f6d80]">·</span><span className="font-bold text-sm">{t.title}</span></div>
-                      <div className="text-[10px] text-[#68778c] mt-1">{t.goal}</div>
-                    </div>
-                    <div className="hidden sm:block text-right mr-2"><div className="text-[10px] text-[#9aa8ba]">{stageDone}/{stageDays.length} days</div><div className="w-20 h-1.5 bg-[#18212d] rounded-full mt-1 overflow-hidden"><div className="h-full bg-cyan-300 rounded-full" style={{width: `${stageDone/stageDays.length*100}%`}} /></div></div>
-                    <span className="text-[#657387] transition group-open:rotate-90">›</span>
-                  </summary>
-                  <div className="border-t border-[#202a38]">
-                    {stageDays.map((d, di) => (
-                      <button key={d.day} onClick={() => setSelectedDay(d.day)} className={`w-full text-left px-4 md:px-5 py-3.5 flex items-center gap-3 border-b border-white/[.035] last:border-b-0 transition ${selectedDay===d.day ? "bg-cyan-300/[.045]" : "hover:bg-white/[.02]"}`}>
-                        <span className={`w-7 h-7 shrink-0 rounded-full flex items-center justify-center text-[9px] border ${done[d.day] ? "border-green-300/30 bg-green-300/10 text-green-300" : "border-[#2b384b] text-[#68778c]"}`}>{done[d.day] ? "✓" : String(di+1).padStart(2,"0")}</span>
-                        <div className="min-w-0 flex-1"><div className={`text-xs md:text-sm font-semibold ${done[d.day] ? "text-[#7f8b9b]" : "text-[#c0c8d3]"}`}>{d.target}</div><div className="text-[10px] text-[#5f6d80] mt-1 truncate">{d.practice}</div></div>
-                        <span className="hidden sm:block text-[10px] text-[#78869a]">~45–90 min</span><span className="text-[#657387]">›</span>
-                      </button>
-                    ))}
-                    <div className="px-4 md:px-5 py-3 bg-white/[.018] flex flex-wrap items-center gap-2"><span className="text-[9px] tracking-[.14em] text-violet-200">PROJECT</span><span className="text-[10px] text-[#758296]">{t.miniProject}</span></div>
+        <div className="rounded-2xl border border-[#202a38] bg-[#090e15]/95 overflow-hidden shadow-2xl">
+          {topics.map((t, ti) => {
+            const stageDays = days.filter(d => d.topicId === t.id);
+            const stageDone = stageDays.filter(d => done[d.day]).length;
+            const isCurrentSprint = t.id === topic.id;
+            const minutes = stageDays.length * 65;
+            const hours = Math.floor(minutes / 60);
+            const mins = minutes % 60;
+
+            return (
+              <details key={t.id} open={isCurrentSprint} className="group border-b border-[#202a38] last:border-b-0">
+                <summary className="list-none cursor-pointer px-4 md:px-6 py-4 md:py-5 flex items-center gap-3 hover:bg-white/[.018]">
+                  <div className="w-9 h-9 rounded-full border border-[#29384c] flex items-center justify-center text-[10px] text-[#718096] shrink-0">
+                    {stageDone === stageDays.length ? "✓" : ""}
                   </div>
-                </details>
-              );
-            })}
-          </div></div></details>
-        </section>
+
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="px-2 py-1 rounded-lg border border-blue-400/30 text-[10px] text-blue-300">Sprint {ti + 1}</span>
+                      <span className="font-bold text-sm md:text-base truncate">{t.title}</span>
+                    </div>
+                    <div className="text-[10px] text-[#657387] mt-1 truncate">{t.goal}</div>
+                  </div>
+
+                  <div className="hidden sm:block text-right shrink-0">
+                    <div className="text-xs text-[#9aa8ba]">{stageDone}/{stageDays.length} days</div>
+                    <div className="text-[10px] text-[#657387] mt-0.5">Est. {hours}h {mins}m</div>
+                  </div>
+                  <span className="text-[#657387] text-xl transition-transform group-open:rotate-90">›</span>
+                </summary>
+
+                <div className="bg-[#070c12] border-t border-[#202a38]">
+                  {stageDays.map((d, di) => {
+                    const open = selectedDay === d.day;
+                    const lessonList = lessonsFor(d);
+                    const lessonMinutes = Math.max(10, Math.round(65 / lessonList.length));
+
+                    return (
+                      <div key={d.day} className={`border-b border-white/[.035] last:border-b-0 ${open ? "bg-[#0a1017]" : ""}`}>
+                        <button
+                          onClick={() => setSelectedDay(d.day)}
+                          className="w-full text-left px-4 md:px-8 py-4 flex items-center gap-3 hover:bg-white/[.02]"
+                        >
+                          <span className={`w-7 h-7 rounded-full flex items-center justify-center text-[9px] border shrink-0 ${done[d.day] ? "border-green-300/30 bg-green-300/10 text-green-300" : open ? "border-blue-300/40 text-blue-300 bg-blue-300/5" : "border-[#2b384b] text-[#657387]"}`}>
+                            {done[d.day] ? "✓" : ""}
+                          </span>
+
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2">
+                              <span className="text-[10px] text-[#657387]">DAY {di + 1}</span>
+                              {open && <span className="text-[9px] px-1.5 py-0.5 rounded bg-blue-300/10 text-blue-300">TODAY</span>}
+                            </div>
+                            <div className={`text-sm font-semibold mt-1 ${done[d.day] ? "text-[#707c8c]" : "text-[#c4ccd7]"}`}>{d.target}</div>
+                          </div>
+
+                          <span className="hidden sm:block text-[10px] text-[#78869a]">Est. 1h 05m</span>
+                          <span className={`text-[#657387] text-lg transition-transform ${open ? "rotate-90" : ""}`}>›</span>
+                        </button>
+
+                        {open && (
+                          <div className="px-4 md:px-8 pb-4">
+                            <div className="ml-10 rounded-xl border border-[#202a38] overflow-hidden">
+                              {lessonList.map((lesson, li) => (
+                                <button
+                                  key={lesson}
+                                  onClick={() => setSelectedDay(d.day)}
+                                  className="w-full flex items-center gap-3 px-4 py-3.5 text-left border-b border-white/[.035] last:border-b-0 hover:bg-white/[.025]"
+                                >
+                                  <span className="w-4 h-4 rounded-full border border-[#46546a] flex items-center justify-center shrink-0">
+                                    <span className="w-1 h-1 rounded-full bg-[#46546a]" />
+                                  </span>
+                                  <span className="text-xs text-[#aeb8c6] flex-1">{lesson}</span>
+                                  <span className="text-[10px] text-[#78869a]">Est. {lessonMinutes} min</span>
+                                  <span className="text-[#657387]">›</span>
+                                </button>
+                              ))}
+                            </div>
+
+                            <div className="ml-10 mt-3 flex flex-col sm:flex-row gap-3">
+                              <div className="flex-1 rounded-xl border border-violet-300/10 bg-violet-300/[.025] px-4 py-3">
+                                <div className="text-[9px] tracking-[.16em] text-violet-200">PROJECT</div>
+                                <div className="text-xs font-semibold mt-1">{d.project}</div>
+                              </div>
+                              <div className="flex-1 rounded-xl border border-cyan-300/10 bg-cyan-300/[.025] px-4 py-3">
+                                <div className="text-[9px] tracking-[.16em] text-cyan-200">CHECKPOINT</div>
+                                <div className="text-xs mt-1 text-[#a4afbd]">{d.checkpoint}</div>
+                              </div>
+                            </div>
+
+                            <div className="ml-10 mt-3 flex flex-wrap gap-2">
+                              <button
+                                onClick={() => setDone(x => ({...x, [d.day]: !x[d.day]}))}
+                                className={`px-4 py-2.5 rounded-xl text-xs font-bold ${done[d.day] ? "bg-green-300 text-black" : "bg-white text-black"}`}
+                              >
+                                {done[d.day] ? "✓ Day complete" : "Complete day"}
+                              </button>
+                              {d.day < days.length && (
+                                <button
+                                  onClick={() => setSelectedDay(d.day + 1)}
+                                  className="px-4 py-2.5 rounded-xl border border-[#2b384b] text-xs text-[#a7b2c1]"
+                                >
+                                  Next day →
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+
+                  <div className="px-4 md:px-8 py-4 flex items-center gap-3 bg-white/[.018]">
+                    <span className="text-[9px] tracking-[.16em] text-violet-200">PROJECT</span>
+                    <span className="text-[10px] text-[#68778c]">{t.miniProject}</span>
+                  </div>
+                </div>
+              </details>
+            );
+          })}
+        </div>
       </div>
     </main>
   );
