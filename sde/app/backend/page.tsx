@@ -541,6 +541,14 @@ export default function BackendSDEPage() {
                                               <pre className="overflow-x-auto whitespace-pre text-[11px] leading-5 text-[#d8e1ec] mt-2 p-3 rounded-lg bg-black/40 border border-white/[.04] font-mono">{content.code}</pre>
                                             </section>
                                             <section>
+                                              <div className="text-[9px] tracking-[.15em] text-cyan-200"># CODE WALKTHROUGH</div>
+                                              <pre className="whitespace-pre-wrap text-[11px] leading-5 text-[#b9c5d4] mt-2">{content.walkthrough}</pre>
+                                            </section>
+                                            <section>
+                                              <div className="text-[9px] tracking-[.15em] text-indigo-200"># REAL BACKEND EXAMPLE</div>
+                                              <p className="text-xs leading-6 text-[#b5bfcd] mt-1">{content.realExample}</p>
+                                            </section>
+                                            <section>
                                               <div className="text-[9px] tracking-[.15em] text-violet-200"># PROJECT</div>
                                               <p className="text-xs leading-6 text-[#b5bfcd] mt-1">{content.project}</p>
                                             </section>
@@ -551,6 +559,10 @@ export default function BackendSDEPage() {
                                             <section>
                                               <div className="text-[9px] tracking-[.15em] text-amber-200"># COMMON MISTAKES</div>
                                               <p className="text-xs leading-6 text-[#b5bfcd] mt-1">{content.mistakes}</p>
+                                            </section>
+                                            <section>
+                                              <div className="text-[9px] tracking-[.15em] text-amber-200"># INTERVIEW CHECK</div>
+                                              <pre className="whitespace-pre-wrap text-[11px] leading-5 text-[#b9c5d4] mt-2">{content.interview}</pre>
                                             </section>
                                             <section className="rounded-lg bg-cyan-300/[.035] border border-cyan-300/10 p-3">
                                               <div className="text-[9px] tracking-[.15em] text-cyan-200"># CHECK YOURSELF</div>
