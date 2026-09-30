@@ -196,7 +196,7 @@ body{overflow-x:hidden}
 /* MULTIVERSE COMMAND CENTER — background-only scene */
 .cosmic-bg{position:fixed!important;pointer-events:none!important;user-select:none!important;z-index:-1!important}
 .dace-grid{isolation:isolate;position:relative}
-.dace-grid>*:not(.cosmic-bg){position:relative;z-index:2}
+.dace-grid>*:not(.cosmic-bg):not(.dace-overlay){position:relative;z-index:2}
 .cosmic-nebula{
  inset:-20%!important;z-index:-5!important;opacity:.72!important;filter:blur(42px)!important;
  background:
