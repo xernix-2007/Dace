@@ -150,10 +150,12 @@ export default function Home(){
  },[solved]);
 
  const recentIds=useMemo(()=>{
+  if(!todayKey)return new Set<number>();
   const ids:number[]=[];
-  for(let i=1;i<=14;i++){const d=new Date();d.setDate(d.getDate()-i);ids.push(...(daily[dateKey(d)]||[]))}
+  const base=new Date(todayKey+"T00:00:00");
+  for(let i=1;i<=14;i++){const d=new Date(base);d.setDate(d.getDate()-i);ids.push(...(daily[dateKey(d)]||[]))}
   return new Set(ids);
- },[daily]);
+ },[daily,todayKey]);
 
  const score=(p:Problem,seed:string)=>{
   const weak=p.topics.reduce((best,t)=>Math.max(best,1-(topicStats[t]?.solved||0)/Math.max(1,topicStats[t]?.total||1)),.25);
@@ -204,10 +206,12 @@ export default function Home(){
  const completion=Math.round(totalSolved/problems.length*100);
  const solvedDateSet=useMemo(()=>new Set(Object.values(solvedAt)),[solvedAt]);
  const streak=useMemo(()=>{
+  if(!todayKey)return 0;
   let n=0;
-  for(let i=0;i<365;i++){const d=new Date();d.setDate(d.getDate()-i);if(!solvedDateSet.has(dateKey(d)))break;n++}
+  const base=new Date(todayKey+"T00:00:00");
+  for(let i=0;i<365;i++){const d=new Date(base);d.setDate(d.getDate()-i);if(!solvedDateSet.has(dateKey(d)))break;n++}
   return n;
- },[solvedDateSet]);
+ },[solvedDateSet,todayKey]);
 
  const filtered=useMemo(()=>problems.filter(p=>
   (difficulty==="All"||p.difficulty===difficulty)&&
@@ -216,8 +220,12 @@ export default function Home(){
  ),[difficulty,topic,search]);
 
  const weeklySolved=useMemo(()=>{
-  let n=0;for(let i=0;i<7;i++){const d=new Date();d.setDate(d.getDate()-i);const k=dateKey(d);n+=Object.values(solvedAt).filter(v=>v===k).length}return n;
- },[solvedAt]);
+  if(!todayKey)return 0;
+  let n=0;
+  const base=new Date(todayKey+"T00:00:00");
+  for(let i=0;i<7;i++){const d=new Date(base);d.setDate(d.getDate()-i);const k=dateKey(d);n+=Object.values(solvedAt).filter(v=>v===k).length}
+  return n;
+ },[solvedAt,todayKey]);
 
  function regenerateToday(){
   if(!todayKey)return;
