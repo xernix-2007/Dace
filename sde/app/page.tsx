@@ -2,6 +2,7 @@
 
 import problemsData from "../data/problems.json";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import {
   Activity, ArrowUpRight, BarChart3, BookOpen, BriefcaseBusiness, CalendarDays,
   Check, CheckCircle2, ChevronRight, CircleHelp, Clock3, Code2, Download,
@@ -921,15 +922,15 @@ function SettingsPage({target,setTarget,company,setCompany,companies,exportData,
  </div>
 }
 function TimerModal({active,seconds,running,hints,onToggle,onReset,onHint,onClose,onSolved}:{active:Problem;seconds:number;running:boolean;hints:number;onToggle:()=>void;onReset:()=>void;onHint:()=>void;onClose:()=>void;onSolved:()=>void}){
- return <div className="dace-overlay fixed inset-0 z-[60] bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
+ const modal=<div className="dace-overlay fixed inset-0 z-[9999] bg-black/75 backdrop-blur-sm flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label={`${active.title} focus timer`}>
   <div className="w-full max-w-xl panel rounded-3xl overflow-hidden shadow-2xl float-in">
-   <div className="p-5 border-b border-[#202a38] flex items-start gap-4"><div className="w-11 h-11 rounded-xl bg-gradient-to-br from-cyan-300/15 to-violet-400/15 border border-cyan-300/15 flex items-center justify-center"><Icon name="timer" size={20}/></div><div><div className={`text-[10px] tracking-[.16em] ${active.difficulty==="Hard"?"text-rose-300":active.difficulty==="Medium"?"text-amber-300":"text-green-300"}`}>{active.difficulty} · {active.companies.slice(0,2).join(" · ")}</div><h2 className="text-xl font-bold mt-1">{active.title}</h2><div className="text-xs text-[#718096] mt-1">{active.topics.join(" · ")}</div></div><button onClick={onClose} className="ml-auto p-2 rounded-lg hover:bg-white/5"><Icon name="x" size={17}/></button></div>
+   <div className="p-5 border-b border-[#202a38] flex items-start gap-4"><div className="w-11 h-11 rounded-xl bg-gradient-to-br from-cyan-300/15 to-violet-400/15 border border-cyan-300/15 flex items-center justify-center"><Icon name="timer" size={20}/></div><div><div className={`text-[10px] tracking-[.16em] ${active.difficulty==="Hard"?"text-rose-300":active.difficulty==="Medium"?"text-amber-300":"text-green-300"}`}>{active.difficulty} · {active.companies.slice(0,2).join(" · ")}</div><h2 className="text-xl font-bold mt-1">{active.title}</h2><div className="text-xs text-[#718096] mt-1">{active.topics.join(" · ")}</div></div><button onClick={onClose} className="ml-auto p-2 rounded-lg hover:bg-white/5" aria-label="Close timer"><Icon name="x" size={17}/></button></div>
    <div className="p-8 md:p-10 text-center"><div className="text-[10px] tracking-[.2em] text-[#627188]">FOCUS TIMER</div><div className="font-mono text-6xl md:text-7xl font-semibold tracking-tight mt-2">{fmt(seconds)}</div><div className="text-xs text-[#69788d] mt-2">Expected ~{active.estimate} min · {hints} hint{hints===1?"":"s"} used</div><div className="flex justify-center gap-2 mt-7"><button onClick={onToggle} className="px-6 py-3 rounded-xl bg-white text-black font-semibold text-sm flex items-center gap-2"><Icon name={running?"clock":"play"} size={15}/>{running?"Pause":"Start"}</button><button onClick={onReset} className="px-5 py-3 rounded-xl border border-[#273447] text-sm">Reset</button><button onClick={onHint} className="px-5 py-3 rounded-xl border border-[#273447] text-sm">+ Hint</button></div></div>
    <div className="p-4 border-t border-[#202a38] flex gap-2"><a href={active.url} target="_blank" rel="noreferrer" className="flex-1 px-3 py-3 rounded-xl bg-gradient-to-r from-cyan-200 to-violet-300 text-black text-center text-sm font-bold">Open on LeetCode <ArrowUpRight size={14} className="inline"/></a><button onClick={onSolved} className="px-4 py-3 rounded-xl border border-green-400/20 text-green-300 text-sm flex items-center gap-2"><Check size={15}/> Solved</button></div>
   </div>
- </div>
+ </div>;
+ return typeof document==="undefined"?null:createPortal(modal,document.body);
 }
-
 function SectionTitle({title,icon,action,onClick}:{title:string;icon:string;action?:string;onClick?:()=>void}){
  return <div className="flex items-center gap-2"><Icon name={icon} size={15}/><h2 className="text-sm font-semibold">{title}</h2>{action&&<button onClick={onClick} className="ml-auto text-[11px] text-[#8190a5] hover:text-white flex items-center gap-1">{action}<ChevronRight size={13}/></button>}</div>
 }
