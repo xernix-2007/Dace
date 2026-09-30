@@ -685,7 +685,9 @@ type LessonContent = {
 };
 
 function lessonContent(d: Day, lesson: string): LessonContent {
-  const focus = lesson;
+  const stageMatch = lesson.match(/^([1-5])\.\s*([^:]+):\s*(.*)$/);
+  const stage = stageMatch ? Number(stageMatch[1]) : 1;
+  const focus = stageMatch ? stageMatch[3].replace(/ through a real backend request$/,"").replace(/ in code$/,"").replace(/ into TaskFlow$/,"").replace(/$/,"") : lesson;
   const topic = d.topicId;
   const target = d.target;
 
@@ -1419,10 +1421,18 @@ rollback plan
 A deployment is not finished just because the process starts.`
   };
 
-  const detail = focusDetail[focus] || (
+  const stageGuide: Record<number,string> = {
+    1: "# STEP 1 — UNDERSTAND\nBuild the mental model before touching syntax.",
+    2: "# STEP 2 — TRACE\nFollow the concept through a real request from input to output.",
+    3: "# STEP 3 — IMPLEMENT\nWrite the smallest working version, run it and change one thing.",
+    4: "# STEP 4 — INTEGRATE\nPut the concept into the cumulative TaskFlow backend rather than a disconnected demo.",
+    5: "# STEP 5 — DEBUG + EXPLAIN\nBreak it deliberately, debug the failure, then explain the design without notes."
+  };
+
+  const detail = (stageGuide[stage] || "") + "\n\n" + (focusDetail[focus] || (
     "# CORE CONCEPT\n" + target +
     "\n\n# HOW TO THINK\n1. Identify the input.\n2. Identify the output.\n3. Understand the normal flow.\n4. Identify failure cases.\n5. Implement the smallest example.\n6. Connect it to the TaskFlow backend."
-  );
+  ));
 
   const walkthrough =
     "# READ THE CODE TOP → BOTTOM\n" +
