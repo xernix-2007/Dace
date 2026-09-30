@@ -177,6 +177,7 @@ export default function BackendSDEPage() {
   const [mistakes, setMistakes] = useState<Record<string, string>>({});
   const [code, setCode] = useState<Record<string, string>>({});
   const [attachments, setAttachments] = useState<Record<string, {name:string;size:number;type:string}[]>>({});
+  const [subtopicDone, setSubtopicDone] = useState<Record<string, boolean>>({});
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
@@ -186,6 +187,7 @@ export default function BackendSDEPage() {
       setMistakes(JSON.parse(localStorage.getItem("dace-backend-mistakes") || "{}"));
       setCode(JSON.parse(localStorage.getItem("dace-backend-code") || "{}"));
       setAttachments(JSON.parse(localStorage.getItem("dace-backend-attachments") || "{}"));
+      setSubtopicDone(JSON.parse(localStorage.getItem("dace-backend-subtopics") || "{}"));
     } finally {
       setHydrated(true);
     }
@@ -196,6 +198,7 @@ export default function BackendSDEPage() {
   useEffect(() => { if (hydrated) localStorage.setItem("dace-backend-mistakes", JSON.stringify(mistakes)); }, [mistakes, hydrated]);
   useEffect(() => { if (hydrated) localStorage.setItem("dace-backend-code", JSON.stringify(code)); }, [code, hydrated]);
   useEffect(() => { if (hydrated) localStorage.setItem("dace-backend-attachments", JSON.stringify(attachments)); }, [attachments, hydrated]);
+  useEffect(() => { if (hydrated) localStorage.setItem("dace-backend-subtopics", JSON.stringify(subtopicDone)); }, [subtopicDone, hydrated]);
 
   const topic = topics.find(t => t.id === selectedTopic) || topics[0];
   const topicDays = days.filter(d => d.topicId === topic.id);
@@ -227,8 +230,21 @@ export default function BackendSDEPage() {
 
   const resetWorkspace = () => {
     if (!confirm("Reset Backend/SDE learning notes and progress? Export anything important first.")) return;
-    ["dace-backend-done","dace-backend-notes","dace-backend-mistakes","dace-backend-code","dace-backend-attachments"].forEach(k => localStorage.removeItem(k));
+    ["dace-backend-done","dace-backend-notes","dace-backend-mistakes","dace-backend-code","dace-backend-attachments","dace-backend-subtopics"].forEach(k => localStorage.removeItem(k));
     location.reload();
+  };
+
+  const subtopicKey = (dayNumber: number, lesson: string) => `${dayNumber}::${lesson}`;
+  const currentLessons = lessonsFor(day);
+  const currentChecked = currentLessons.filter(lesson => subtopicDone[subtopicKey(day.day, lesson)]).length;
+  const toggleSubtopic = (lesson: string) => {
+    const key = subtopicKey(day.day, lesson);
+    setSubtopicDone(prev => {
+      const next = { ...prev, [key]: !prev[key] };
+      const allDone = currentLessons.length > 0 && currentLessons.every(item => next[subtopicKey(day.day, item)]);
+      setDone(prevDone => ({ ...prevDone, [day.day]: allDone }));
+      return next;
+    });
   };
 
   const sprintMinutes = topicDays.length * 65;
@@ -462,20 +478,31 @@ export default function BackendSDEPage() {
                         {open && (
                           <div className="px-4 md:px-8 pb-4">
                             <div className="ml-10 rounded-xl border border-[#202a38] overflow-hidden">
-                              {lessonList.map((lesson, li) => (
-                                <button
-                                  key={lesson}
-                                  onClick={() => setSelectedDay(d.day)}
-                                  className="w-full flex items-center gap-3 px-4 py-3.5 text-left border-b border-white/[.035] last:border-b-0 hover:bg-white/[.025]"
-                                >
-                                  <span className="w-4 h-4 rounded-full border border-[#46546a] flex items-center justify-center shrink-0">
-                                    <span className="w-1 h-1 rounded-full bg-[#46546a]" />
-                                  </span>
-                                  <span className="text-xs text-[#aeb8c6] flex-1">{lesson}</span>
-                                  <span className="text-[10px] text-[#78869a]">Est. {lessonMinutes} min</span>
-                                  <span className="text-[#657387]">›</span>
-                                </button>
-                              ))}
+                              <div className="px-4 py-3 flex items-center justify-between bg-white/[.018] border-b border-white/[.035]">
+                                <div>
+                                  <div className="text-[9px] tracking-[.16em] text-cyan-200">TODAY'S SUBTOPICS</div>
+                                  <div className="text-[10px] text-[#657387] mt-1">{currentChecked}/{lessonList.length} checked</div>
+                                </div>
+                                <div className="w-28 h-1.5 rounded-full bg-white/10 overflow-hidden">
+                                  <div className="h-full bg-cyan-300 rounded-full transition-all" style={{width:`${lessonList.length ? currentChecked / lessonList.length * 100 : 0}%`}} />
+                                </div>
+                              </div>
+                              {lessonList.map((lesson, li) => {
+                                const checked = !!subtopicDone[subtopicKey(d.day, lesson)];
+                                return (
+                                  <button
+                                    key={lesson}
+                                    onClick={() => toggleSubtopic(lesson)}
+                                    className="w-full flex items-center gap-3 px-4 py-3.5 text-left border-b border-white/[.035] last:border-b-0 hover:bg-white/[.025]"
+                                  >
+                                    <span className={`w-5 h-5 rounded-md border flex items-center justify-center shrink-0 transition ${checked ? "bg-cyan-300 border-cyan-300 text-black" : "border-[#46546a] text-transparent"}`}>
+                                      {checked ? "✓" : ""}
+                                    </span>
+                                    <span className={`text-xs flex-1 ${checked ? "text-[#64748b] line-through" : "text-[#aeb8c6]"}`}>{lesson}</span>
+                                    <span className="text-[10px] text-[#78869a]">Est. {lessonMinutes} min</span>
+                                  </button>
+                                );
+                              })}
                             </div>
 
                             <div className="ml-10 mt-3 flex flex-col sm:flex-row gap-3">
@@ -486,6 +513,40 @@ export default function BackendSDEPage() {
                               <div className="flex-1 rounded-xl border border-cyan-300/10 bg-cyan-300/[.025] px-4 py-3">
                                 <div className="text-[9px] tracking-[.16em] text-cyan-200">CHECKPOINT</div>
                                 <div className="text-xs mt-1 text-[#a4afbd]">{d.checkpoint}</div>
+                              </div>
+                            </div>
+
+                            <div className="ml-10 mt-4 grid lg:grid-cols-2 gap-3">
+                              <div className="rounded-2xl border border-violet-300/10 bg-[#080d14] p-4">
+                                <div className="flex items-center justify-between">
+                                  <div>
+                                    <div className="text-[9px] tracking-[.16em] text-violet-200">THOUGHTS / NOTES</div>
+                                    <div className="text-[10px] text-[#5f6d80] mt-1">Write what you understood in your own words.</div>
+                                  </div>
+                                  <span className="text-[9px] text-[#536174]">AUTO-SAVED</span>
+                                </div>
+                                <textarea
+                                  value={notes[String(d.day)] || ""}
+                                  onChange={e => setText(setNotes, String(d.day), e.target.value)}
+                                  placeholder="What did you learn? What confused you? What would you explain in an interview?"
+                                  className="mt-3 w-full min-h-[150px] resize-y rounded-xl border border-white/8 bg-[#050a10] p-3 text-xs text-[#c6cfdb] outline-none focus:border-violet-300/30"
+                                />
+                              </div>
+                              <div className="rounded-2xl border border-cyan-300/10 bg-[#080d14] p-4">
+                                <div className="flex items-center justify-between">
+                                  <div>
+                                    <div className="text-[9px] tracking-[.16em] text-cyan-200">MY CODE</div>
+                                    <div className="text-[10px] text-[#5f6d80] mt-1">Keep your own implementation here.</div>
+                                  </div>
+                                  <span className="text-[9px] text-[#536174]">AUTO-SAVED</span>
+                                </div>
+                                <textarea
+                                  value={code[String(d.day)] || ""}
+                                  onChange={e => setText(setCode, String(d.day), e.target.value)}
+                                  placeholder="# Paste or write the code you wrote today..."
+                                  spellCheck={false}
+                                  className="mt-3 w-full min-h-[190px] resize-y rounded-xl border border-white/8 bg-[#050a10] p-3 text-xs text-cyan-100 font-mono outline-none focus:border-cyan-300/30"
+                                />
                               </div>
                             </div>
 
