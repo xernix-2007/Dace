@@ -665,16 +665,6 @@ type LessonContent = {
   why: string;
   explanation: string;
   code: string;
-  project: string;
-  practice: string;
-  mistakes: string;
-  summary: string;
-};
-
-type LessonContent = {
-  why: string;
-  explanation: string;
-  code: string;
   walkthrough: string;
   realExample: string;
   project: string;
