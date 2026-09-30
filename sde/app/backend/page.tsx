@@ -645,6 +645,318 @@ export default function BackendSDEPage() {
   );
 }
 
+
+type LessonContent = {
+  why: string;
+  explanation: string;
+  code: string;
+  project: string;
+  practice: string;
+  mistakes: string;
+  summary: string;
+};
+
+function lessonContent(d: Day, lesson: string): LessonContent {
+  const focus = lesson;
+  const topic = d.topicId;
+
+  const why: Record<string,string> = {
+    http: "HTTP is the foundation underneath every API request. Understanding the request/response flow makes FastAPI much easier.",
+    git: "Backend code changes constantly. Git gives you history, safe experimentation and a clean way to collaborate.",
+    fastapi: "FastAPI turns Python functions into API endpoints. The important skill is understanding request → validation → logic → response.",
+    postgres: "Real backends need durable state. SQL lets you reason about that state directly before an ORM hides some of the details.",
+    sqlalchemy: "SQLAlchemy maps database work into Python while still giving you control over queries and transactions.",
+    auth: "A multi-user API must know who is calling it and whether that user is allowed to perform the requested action.",
+    api: "Production APIs need predictable behavior for large, repeated, invalid and concurrent requests.",
+    testing: "Tests let you verify backend behavior automatically instead of relying only on manual testing.",
+    redis: "Redis provides fast temporary state and is commonly used for caching, counters and rate limiting.",
+    celery: "Slow or retryable work should not block an HTTP request. Workers process that work separately.",
+    docker: "Containers make the backend runtime reproducible across development, CI and deployment.",
+    cicd: "CI/CD makes testing and deployment repeatable instead of relying on manual steps."
+  };
+
+  const code: Record<string,string> = {
+    http: \`curl -i http://localhost:8000/tasks?limit=10
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{"items":[{"id":1,"title":"Learn HTTP"}]}\`,
+    git: \`git status
+git add .
+git commit -m "Add task endpoint"
+git log --oneline -5\`,
+    fastapi: \`from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/tasks/{task_id}")
+def get_task(task_id: int):
+    return {"id": task_id, "title": "Learn backend"}\`,
+    postgres: \`CREATE TABLE tasks (
+    id SERIAL PRIMARY KEY,
+    title TEXT NOT NULL,
+    completed BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+SELECT id, title
+FROM tasks
+WHERE completed = FALSE
+ORDER BY id;\`,
+    sqlalchemy: \`from sqlalchemy import create_engine
+from sqlalchemy.orm import DeclarativeBase, Session
+
+class Base(DeclarativeBase):
+    pass
+
+engine = create_engine("postgresql+psycopg://user:pass@localhost/db")
+
+with Session(engine) as session:
+    pass\`,
+    auth: \`from fastapi import Depends
+from fastapi.security import HTTPBearer
+
+bearer = HTTPBearer()
+
+@app.get("/me")
+def me(credentials=Depends(bearer)):
+    return {"authenticated": True}\`,
+    api: \`@app.get("/tasks")
+def list_tasks(limit: int = 20, offset: int = 0):
+    return {
+        "items": load_tasks(limit=limit, offset=offset),
+        "limit": limit,
+        "offset": offset
+    }\`,
+    testing: \`def test_task_title():
+    response = client.get("/tasks/1")
+    assert response.status_code == 200
+    assert response.json()["title"] == "Learn backend"\`,
+    redis: \`import redis
+
+r = redis.Redis(host="localhost", port=6379, decode_responses=True)
+r.setex("task:1", 60, '{"id":1,"title":"Learn Redis"}')
+cached = r.get("task:1")\`,
+    celery: \`from celery import Celery
+
+celery_app = Celery("worker", broker="redis://localhost:6379/0")
+
+@celery_app.task
+def send_notification(user_id: int):
+    print("send notification to", user_id)\`,
+    docker: \`FROM python:3.12-slim
+
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]\`,
+    cicd: \`name: Backend CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: pytest\`
+  };
+
+  const logic: Record<string,string> = {
+    "Client vs server and the request/response pipeline": \`CLIENT
+The client starts the request.
+
+SERVER
+The server receives it, runs backend logic and sends a response.
+
+FLOW
+client → HTTP request → router → validation → business logic → database/cache → HTTP response → client\`,
+    "HTTP method + URL + headers + body": \`METHOD = ACTION
+GET reads, POST creates, PUT/PATCH changes, DELETE removes.
+
+URL = RESOURCE
+/tasks/42 identifies a task.
+
+HEADERS = METADATA
+Content-Type and Authorization are common examples.
+
+BODY = INPUT DATA
+Usually JSON for structured API input.\`,
+    "Status codes: 2xx, 3xx, 4xx, 5xx": \`2xx = success
+3xx = redirect/another location or cached response behavior
+4xx = client/request problem
+5xx = server-side failure
+
+Use the status code to communicate the result before the client reads the body.\`,
+    "JSON, path parameters and query parameters": \`PATH
+GET /tasks/42
+
+QUERY
+GET /tasks?completed=false&limit=20
+
+JSON BODY
+{"title":"Learn FastAPI"}
+
+Path identifies a resource; query parameters control a collection; JSON usually carries structured input.\`,
+    "Repository, working tree and staging area": \`WORKING TREE = files you are editing
+STAGING AREA = changes selected for the next commit
+REPOSITORY = committed history
+
+Flow:
+edit → git diff → git add → git diff --staged → git commit\`,
+    "FastAPI app, route and Uvicorn": \`A route connects an HTTP method and URL to Python code.
+
+Uvicorn runs the ASGI application.
+
+GET /tasks/1
+→ FastAPI matches the route
+→ Python function runs
+→ return value becomes the HTTP response.\`,
+    "Pydantic validation and schemas": \`Client input is untrusted.
+
+Pydantic creates a boundary:
+request data → validation → typed Python data → application logic
+
+Invalid data should be rejected before it reaches business logic.\`,
+    "Tables, rows, columns and relationships": \`TABLE = entity collection
+ROW = one record
+COLUMN = one property
+FOREIGN KEY = connection between related records
+
+Example:
+users.id ← tasks.user_id\`,
+    "INNER JOIN and LEFT JOIN": \`INNER JOIN keeps only matching rows.
+
+LEFT JOIN keeps every row from the left table, even when there is no matching row on the right.
+
+users LEFT JOIN tasks can therefore show users who have zero tasks.\`,
+    "Indexes and why they speed reads": \`Without a useful index, the database may inspect many rows.
+
+An index creates a lookup structure that can find matching values faster.
+
+Trade-off: indexes use storage and can make INSERT/UPDATE operations more expensive.\`,
+    "Transactions and ACID": \`A transaction groups related database operations.
+
+BEGIN
+→ operation A
+→ operation B
+→ COMMIT
+
+If something fails:
+ROLLBACK
+
+ACID = atomicity, consistency, isolation, durability.\`,
+    "Authentication vs authorization": \`AUTHENTICATION = Who are you?
+
+AUTHORIZATION = Are you allowed to do this?
+
+Login proves Alice is Alice.
+Authorization decides whether Alice may delete task 42.\`,
+    "Never store plain passwords: hashing": \`Never save the original password.
+
+Registration:
+password → password hash → database
+
+Login:
+entered password → verify against stored hash → accept/reject
+
+Hashing is intentionally one-way; encryption is a different concept.\`,
+    "JWT structure and signed access tokens": \`A JWT commonly has:
+header.payload.signature
+
+The signature lets the server detect tampering.
+
+Claims can contain identity and expiry information, but the server must still enforce authorization.\`,
+    "Pagination for large result sets": \`Large result:
+100,000 rows
+
+Paginated request:
+GET /tasks?limit=20&offset=40
+
+The API returns a small page instead of the whole collection. Cursor/keyset pagination is another option for large changing datasets.\`,
+    "pytest setup and assertions": \`Use:
+ARRANGE → ACT → ASSERT
+
+Arrange the input.
+Act by calling the code.
+Assert the expected behavior.
+
+A useful test should fail when the intended behavior breaks.\`,
+    "Redis keys, values and fast temporary state": \`KEY = "task:42"
+VALUE = temporary cached data
+
+Redis is commonly used for cache entries, counters, locks and short-lived state.\`,
+    "Why queues and workers exist": \`HTTP request:
+validate → enqueue job → return response
+
+Worker:
+take job → perform slow work → record success/failure
+
+The user does not have to keep an HTTP connection open while slow work runs.\`,
+    "Image vs container": \`IMAGE = packaged application/runtime blueprint
+CONTAINER = running instance of an image
+
+Think:
+image = package
+container = running copy\`,
+    "What CI/CD actually solves": \`push code
+→ automated checks
+→ tests
+→ build
+→ deploy when configured
+→ health/log checks
+
+The goal is repeatability and fast feedback.\`
+  };
+
+  const project: Record<string,string> = {
+    http: "Build the first REST version of the cumulative Task/Notes API and document its request/response shapes.",
+    git: "Put the cumulative backend project under Git using small commits, a feature branch and a pull-request-style review.",
+    fastapi: "Build Task API v1 with routes, validation, CRUD, routers, dependencies and consistent errors.",
+    postgres: "Design the database for users, projects, tasks and comments. Write real SQL before introducing the ORM.",
+    sqlalchemy: "Connect Task API v2 to PostgreSQL using SQLAlchemy and Alembic with explicit transaction boundaries.",
+    auth: "Add registration, secure password hashing, login, access tokens and user-owned task resources.",
+    api: "Add pagination, filtering, search, sorting, versioning and predictable error responses to the Task API.",
+    testing: "Create unit, API and database integration tests, including authenticated and edge-case behavior.",
+    redis: "Add cache-aside reads to a frequently accessed endpoint and invalidate the cache when task data changes.",
+    celery: "Move notifications and other slow work into Celery workers with retries and a scheduled job.",
+    docker: "Run FastAPI, PostgreSQL, Redis and the worker together through Docker Compose.",
+    cicd: "Create a pipeline that installs dependencies, runs tests, builds the application and is ready for deployment."
+  };
+
+  const explanation = logic[focus] ||
+    \`# HOW TO THINK
+
+Start with the input.
+1. Identify what enters the system.
+2. Validate it.
+3. Process it.
+4. Read or write the required state.
+5. Produce a predictable output.
+6. Handle failure paths.
+
+Do not memorise syntax before understanding this flow.\`;
+
+  const practice = "Explain \"" + focus + "\" in your own words, then write the smallest working example without copying it. Finally connect that example to today's cumulative Task API.";
+  const mistakes = "Do not memorise commands without understanding the flow. Do not skip validation or failure cases. Do not paste the project solution unchanged. Be able to explain why your example works.";
+  const summary = "You should be able to explain \"" + focus + "\", write a small example from memory, identify its input/output, and point to where it belongs in the cumulative backend project.";
+
+  return {
+    why: why[topic] || "This is a building block of backend engineering. Learn the problem first, then the implementation.",
+    explanation,
+    code: code[topic] || "# Write the smallest runnable example for this concept.",
+    project: project[topic] || d.project,
+    practice,
+    mistakes,
+    summary
+  };
+}
+
 function topicProgressFor(id: string, done: Record<number,boolean>, allDays: Day[]) {
   return allDays.filter(d => d.topicId === id && done[d.day]).length;
 }
