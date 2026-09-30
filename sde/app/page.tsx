@@ -479,8 +479,6 @@ function Overview({today,solvedToday,streak,weeklySolved,completion,totalTime,so
    </div>
   </div>
 
-  <CodingCalendar solvedAt={solvedAt} setView={setView} setHistoryDate={setHistoryDate}/>
-
   <div className="mt-5 panel rounded-2xl p-5 border border-cyan-300/10 fade-up-2">
    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
     <div className="flex items-start gap-4">
@@ -495,7 +493,9 @@ function Overview({today,solvedToday,streak,weeklySolved,completion,totalTime,so
    </div>
   </div>
 
-  <div className="mt-5 grid md:grid-cols-3 gap-4">
+  <CodingCalendar solvedAt={solvedAt} setView={setView} setHistoryDate={setHistoryDate}/>
+
+<div className="mt-5 grid md:grid-cols-3 gap-4">
    <FeatureCard icon="timer" title="Solve with intent" text="Track actual time, expected time, attempts and hints." onClick={()=>setView("today")}/>
    <FeatureCard icon="shield" title="Own your data" text="Local-first progress with export/import backup." onClick={()=>setView("settings")}/>
    <FeatureCard icon="trophy" title="Prepare for interviews" text="Company filters, revision loops and interview mode." onClick={()=>setView("prep")}/>
