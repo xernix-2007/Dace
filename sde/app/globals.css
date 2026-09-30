@@ -66,7 +66,7 @@ button{cursor:pointer}
 
 /* COSMIC DACE LAYER */
 body{overflow-x:hidden}
-.dace-grid{position:relative;isolation:isolate;overflow:hidden}
+.dace-grid{position:relative;isolation:isolate;overflow:visible}
 .dace-grid::before{
   content:"";
   position:fixed;
@@ -334,7 +334,7 @@ body{
 /* LIVE PLANETARY MULTIVERSE — final visible layer */
 .cosmic-bg{position:fixed!important;pointer-events:none!important;user-select:none!important}
 .dace-grid .cosmic-bg{z-index:0!important}
-.dace-grid>*:not(.cosmic-bg){position:relative;z-index:2}
+.dace-grid>*:not(.cosmic-bg):not(.dace-overlay){position:relative;z-index:2}
 .cosmic-nebula{z-index:0!important;opacity:.82!important}
 .cosmic-planet{
  z-index:1!important;
@@ -395,3 +395,13 @@ body{
 @keyframes livePlanetB{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(34px,24px,0) scale(1.08)}}
 @keyframes livePlanetC{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-25px,-20px,0) scale(1.12)}}
 @keyframes orbitTwo{from{rotate:21deg}to{rotate:381deg}}
+
+
+/* Interactive overlays always belong to the current viewport, never the document flow. */
+.dace-overlay{
+ position:fixed!important;
+ inset:0!important;
+ z-index:9999!important;
+ width:100vw!important;
+ height:100vh!important;
+}
