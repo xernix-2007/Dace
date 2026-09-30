@@ -274,11 +274,31 @@ export default function Home(){
   const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="dace-progress.json";a.click();URL.revokeObjectURL(url);
  }
  function importData(e:React.ChangeEvent<HTMLInputElement>){
-  const file=e.target.files?.[0];if(!file)return;const r=new FileReader();
-  r.onload=()=>{try{const d=JSON.parse(String(r.result));if(Array.isArray(d.solved))setSolved(d.solved);if(d.solvedAt&&typeof d.solvedAt==="object")setSolvedAt(d.solvedAt);if(d.status&&typeof d.status==="object")setStatus(d.status);if(d.daily)setDaily(d.daily);if(d.timeSpent)setTimeSpent(d.timeSpent);if(d.attempts)setAttempts(d.attempts);if(d.hints)setHints(d.hints);if(d.target)setTarget(d.target);if(d.company)setCompany(d.company)}catch{alert("Invalid DACE backup file.")}};
+  const input=e.currentTarget;
+  const file=input.files?.[0];if(!file)return;
+  const r=new FileReader();
+  r.onload=()=>{
+   try{
+    const d=JSON.parse(String(r.result));
+    if(Array.isArray(d.solved))setSolved(d.solved);
+    if(d.solvedAt&&typeof d.solvedAt==="object")setSolvedAt(d.solvedAt);
+    if(d.status&&typeof d.status==="object")setStatus(d.status);
+    if(d.daily&&typeof d.daily==="object")setDaily(d.daily);
+    if(d.timeSpent&&typeof d.timeSpent==="object")setTimeSpent(d.timeSpent);
+    if(d.attempts&&typeof d.attempts==="object")setAttempts(d.attempts);
+    if(d.hints&&typeof d.hints==="object")setHints(d.hints);
+    if(d.target&&typeof d.target==="object")setTarget(d.target);
+    if(typeof d.company==="string")setCompany(d.company);
+   }catch{alert("Invalid DACE backup file.");}
+   finally{input.value="";}
+  };
   r.readAsText(file);
  }
- function resetAll(){if(confirm("Reset all DACE local progress? This cannot be undone unless you have exported a backup.")){localStorage.clear();location.reload()}}
+ function resetAll(){
+  if(!confirm("Reset all DACE local progress? This cannot be undone unless you have exported a backup."))return;
+  ["dace-solved","dace-solved-at","dace-status","dace-daily","dace-time","dace-attempts","dace-hints","dace-target","dace-company","dace-lessons"].forEach(k=>localStorage.removeItem(k));
+  location.reload();
+ }
 
  const nav=[
   ["overview","Overview","dashboard"],["today","Today","calendar"],["history","Question History","calendar"],["problems","Problems","list"],
