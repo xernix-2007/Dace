@@ -171,29 +171,95 @@ export default function Home(){
  const todayIds=useMemo(()=>{
   if(!hydrated||!todayKey)return [];
   if(daily[todayKey])return daily[todayKey];
-  const available=problems.filter(p=>!solved.includes(p.id));
-  const picked:number[]=[];
-  const totalTarget=target.Easy+target.Medium+target.Hard;
-  const usedFamilies=new Set<string>();
-  for(const d of difficulties){
-   const count=target[d];
-   const ranked=available.filter(p=>p.difficulty===d&&(company==="All"||p.companies.includes(company)))
-     .sort((a,b)=>score(b,todayKey+d)-score(a,todayKey+d));
-   const candidatePool=shuffle(ranked.slice(0,Math.max(count*10,30)),todayKey+d);
-   const countForDifficulty=()=>picked.filter(id=>problems.find(x=>x.id===id)?.difficulty===d).length;
-   for(const p of candidatePool){
-    if(picked.length>=totalTarget||countForDifficulty()>=count)break;
-    const family=topicFamily(p);
-    if(!usedFamilies.has(family)||candidatePool.every(x=>usedFamilies.has(topicFamily(x)))){picked.push(p.id);usedFamilies.add(family);}
-   }
-  }
-  if(picked.length<totalTarget){
-   const fallback=shuffle(available.filter(p=>!picked.includes(p.id)&&(company==="All"||p.companies.includes(company))),todayKey+"fallback");
-   for(const p of fallback){if(picked.length>=totalTarget)break;picked.push(p.id)}
-  }
-  return picked;
- },[daily,todayKey,solved,company,target,topicStats,recentIds,hydrated]);
 
+  const totalTarget=target.Easy+target.Medium+target.Hard;
+  const available=problems.filter(p=>!solved.includes(p.id)&&(company==="All"||p.companies.includes(company)));
+  if(!available.length)return [];
+
+  // DACE daily structure:
+  // 1) choose only 1–2 topic families for the whole day;
+  // 2) teach fundamentals first;
+  // 3) move into core interview problems;
+  // 4) finish with 1–2 application-style problems;
+  // Randomness is only used between similarly suitable candidates.
+  const familyCounts:Record<string,number>={};
+  for(const p of available){const f=topicFamily(p);familyCounts[f]=(familyCounts[f]||0)+1;}
+  const familyPool=Object.keys(familyCounts).filter(f=>familyCounts[f]>=2);
+  const rankedFamilies=shuffle(familyPool.length?familyPool:Object.keys(familyCounts),todayKey+"-families")
+    .sort((a,b)=>{
+      const weakness=(f:string)=>1-(Object.entries(topicStats).filter(([t])=>topicFamily({topics:[t]} as Problem)===f).reduce((s,[,v])=>s+v.solved,0)/Math.max(1,Object.entries(topicStats).filter(([t])=>topicFamily({topics:[t]} as Problem)===f).reduce((s,[,v])=>s+v.total,0)));
+      return weakness(b)-weakness(a);
+    });
+  const selectedFamilies=rankedFamilies.slice(0,Math.min(2,rankedFamilies.length));
+  const focused=available.filter(p=>selectedFamilies.includes(topicFamily(p)));
+  const pool=focused.length>=totalTarget?focused:available;
+  const familyOf=(p:Problem)=>topicFamily(p);
+  const applicationWords=["cache","schedule","meeting","network","server","database","stream","traffic","route","flight","calendar","log","rate","event","design","system","service","store","delivery","message","task","time","order","queue"];
+  const isApplication=(p:Problem)=>{
+    const text=(p.title+" "+p.topics.join(" ")).toLowerCase();
+    return applicationWords.some(w=>text.includes(w));
+  };
+  const rank=(p:Problem,seed:string,stage:"foundation"|"core"|"application")=>{
+    const weak=p.topics.reduce((best,t)=>Math.max(best,1-(topicStats[t]?.solved||0)/Math.max(1,topicStats[t]?.total||1)),.25);
+    const revision=status[p.id]==="revision"?1.5:0;
+    const failed=status[p.id]==="failed"?1.2:0;
+    const fresh=recentIds.has(p.id)?-3:1;
+    const frequency=Math.min(2,(p.companyFrequency?.[company]??p.frequency??0)/50);
+    const stageFit=stage==="foundation"?(p.difficulty==="Easy"?5:p.difficulty==="Medium"?1:-4):stage==="core"?(p.difficulty==="Medium"?5:p.difficulty==="Easy"?2:3):(isApplication(p)?5:0);
+    const jitter=(hashSeed(seed+p.id)*0.000001)%1;
+    return weak*4+revision+failed+fresh+frequency+stageFit+jitter;
+  };
+  const choose=(candidates:Problem[],count:number,stage:string)=>{
+    const chosen:Problem[]=[];
+    const remaining=[...candidates];
+    while(chosen.length<count&&remaining.length){
+      remaining.sort((a,b)=>rank(b,todayKey+stage+chosen.length,stage as "foundation"|"core"|"application")-rank(a,todayKey+stage+chosen.length,stage as "foundation"|"core"|"application"));
+      const top=remaining.slice(0,Math.min(5,remaining.length));
+      const pick=shuffle(top,todayKey+stage+chosen.length)[0];
+      chosen.push(pick);
+      remaining.splice(remaining.indexOf(pick),1);
+    }
+    return chosen;
+  };
+
+  // Reserve the daily difficulty counts first, then order the selected questions pedagogically.
+  const selected:Problem[]=[];
+  const used=new Set<number>();
+  const take=(list:Problem[],count:number,stage:"foundation"|"core"|"application")=>{
+    const candidates=list.filter(p=>!used.has(p.id));
+    const chosen=choose(candidates,count,stage);
+    chosen.forEach(p=>{used.add(p.id);selected.push(p)});
+  };
+
+  // Fundamentals first: consume Easy first, then the first Medium.
+  take(pool.filter(p=>p.difficulty==="Easy"),Math.min(target.Easy,Math.max(1,totalTarget>1?1:target.Easy)),"foundation");
+  if(selected.length<target.Easy)take(pool.filter(p=>p.difficulty==="Easy"),target.Easy-selected.length,"foundation");
+
+  // Core progression: remaining Easy, then Medium, then Hard as requested by the target.
+  if(selected.length<totalTarget)take(pool.filter(p=>p.difficulty==="Medium"),target.Medium,"core");
+  if(selected.length<totalTarget)take(pool.filter(p=>p.difficulty==="Hard"),target.Hard,"core");
+  if(selected.length<totalTarget)take(pool.filter(p=>p.difficulty==="Easy"),target.Easy-selected.filter(p=>p.difficulty==="Easy").length,"core");
+
+  // Finish with 1–2 application-style questions whenever the pool contains suitable ones.
+  const applicationCount=Math.min(2,Math.max(1,totalTarget>=4?2:1));
+  const applications=pool.filter(p=>isApplication(p)&&!used.has(p.id));
+  if(applications.length){
+    const replacements=choose(applications,Math.min(applicationCount,applications.length),"application");
+    for(const p of replacements){
+      const replaceIndex=[...selected].reverse().findIndex(x=>x.difficulty===p.difficulty);
+      const idx=replaceIndex<0?-1:selected.length-1-replaceIndex;
+      if(idx>=0){used.delete(selected[idx].id);selected[idx]=p;used.add(p.id);}
+      else if(selected.length<totalTarget){selected.push(p);used.add(p.id);}
+    }
+  }
+
+  // If a requested difficulty has too few questions, fill without breaking the 1–2 topic focus.
+  const fallback=shuffle(pool.filter(p=>!used.has(p.id)),todayKey+"-fallback");
+  for(const p of fallback){if(selected.length>=totalTarget)break;selected.push(p);used.add(p.id);}
+
+  // Final deterministic shuffle is NOT used: the pedagogical order is intentional.
+  return selected.slice(0,totalTarget).map(p=>p.id);
+ },[daily,todayKey,solved,company,target,topicStats,recentIds,hydrated]);
  useEffect(()=>{
   if(!hydrated||!todayKey||daily[todayKey])return;
   const ids=todayIds;
