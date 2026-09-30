@@ -656,105 +656,140 @@ type LessonContent = {
   summary: string;
 };
 
+type LessonContent = {
+  why: string;
+  explanation: string;
+  code: string;
+  walkthrough: string;
+  realExample: string;
+  project: string;
+  practice: string;
+  mistakes: string;
+  interview: string;
+  summary: string;
+};
+
 function lessonContent(d: Day, lesson: string): LessonContent {
   const focus = lesson;
   const topic = d.topicId;
+  const target = d.target;
 
   const why: Record<string,string> = {
-    http: "HTTP is the foundation underneath every API request. Understanding the request/response flow makes FastAPI much easier.",
-    git: "Backend code changes constantly. Git gives you history, safe experimentation and a clean way to collaborate.",
-    fastapi: "FastAPI turns Python functions into API endpoints. The important skill is understanding request → validation → logic → response.",
-    postgres: "Real backends need durable state. SQL lets you reason about that state directly before an ORM hides some of the details.",
-    sqlalchemy: "SQLAlchemy maps database work into Python while still giving you control over queries and transactions.",
-    auth: "A multi-user API must know who is calling it and whether that user is allowed to perform the requested action.",
-    api: "Production APIs need predictable behavior for large, repeated, invalid and concurrent requests.",
-    testing: "Tests let you verify backend behavior automatically instead of relying only on manual testing.",
-    redis: "Redis provides fast temporary state and is commonly used for caching, counters and rate limiting.",
-    celery: "Slow or retryable work should not block an HTTP request. Workers process that work separately.",
-    docker: "Containers make the backend runtime reproducible across development, CI and deployment.",
-    cicd: "CI/CD makes testing and deployment repeatable instead of relying on manual steps."
+    http: "HTTP is the language between clients and servers. Learn the protocol first so FastAPI becomes a tool instead of magic.",
+    git: "Backend code changes constantly. Git gives you history, safe experiments and collaboration.",
+    fastapi: "FastAPI implements HTTP concepts in Python. The important skill is request → validation → business logic → response.",
+    postgres: "Real backends need durable state. SQL teaches how that state is stored, queried and protected.",
+    sqlalchemy: "SQLAlchemy maps database work into Python, but you still need to understand the SQL and transaction behavior underneath.",
+    auth: "A multi-user system must identify callers and enforce what each caller is allowed to do.",
+    api: "Production APIs must remain predictable with large, repeated, invalid and concurrent requests.",
+    testing: "Tests make backend behavior repeatable and protect the project as it grows.",
+    redis: "Redis provides very fast temporary state for caching, counters and rate limiting.",
+    celery: "Slow, retryable or scheduled work should not block an HTTP request.",
+    docker: "Containers make the same backend runtime reproducible across machines.",
+    cicd: "CI/CD turns shipping into a repeatable validate → build → deploy process."
   };
 
   const code: Record<string,string> = {
-    http: `curl -i http://localhost:8000/tasks?limit=10
+    http: `curl -i "http://localhost:8000/tasks?completed=false&limit=10"
 
 HTTP/1.1 200 OK
 Content-Type: application/json
 
-{"items":[{"id":1,"title":"Learn HTTP"}]}`,
+{"items":[{"id":1,"title":"Learn HTTP","completed":false}]}`,
     git: `git status
-git add .
-git commit -m "Add task endpoint"
-git log --oneline -5`,
-    fastapi: `from fastapi import FastAPI
+git diff
+git add app/
+git diff --staged
+git commit -m "Add task listing endpoint"
+git log --oneline --decorate -5`,
+    fastapi: `from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 
 app = FastAPI()
 
-@app.get("/tasks/{task_id}")
-def get_task(task_id: int):
-    return {"id": task_id, "title": "Learn backend"}`,
+class TaskCreate(BaseModel):
+    title: str
+
+@app.post("/tasks", status_code=201)
+def create_task(data: TaskCreate):
+    if not data.title.strip():
+        raise HTTPException(400, "Title is required")
+    return {"id": 1, "title": data.title, "completed": False}`,
     postgres: `CREATE TABLE tasks (
-    id SERIAL PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     title TEXT NOT NULL,
-    completed BOOLEAN NOT NULL DEFAULT FALSE
+    completed BOOLEAN NOT NULL DEFAULT FALSE,
+    user_id BIGINT NOT NULL
 );
 
-SELECT id, title
+CREATE INDEX idx_tasks_user_id ON tasks(user_id);
+
+SELECT id, title, completed
 FROM tasks
-WHERE completed = FALSE
-ORDER BY id;`,
-    sqlalchemy: `from sqlalchemy import create_engine
-from sqlalchemy.orm import DeclarativeBase, Session
+WHERE user_id = 7
+ORDER BY id DESC
+LIMIT 20;`,
+    sqlalchemy: `from sqlalchemy import create_engine, String, Boolean
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, Session
 
 class Base(DeclarativeBase):
     pass
 
-engine = create_engine("postgresql+psycopg://user:pass@localhost/db")
+class Task(Base):
+    __tablename__ = "tasks"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    title: Mapped[str] = mapped_column(String(200))
+    completed: Mapped[bool] = mapped_column(Boolean, default=False)
+
+engine = create_engine("postgresql+psycopg://user:pass@localhost/app")
 
 with Session(engine) as session:
-    pass`,
-    auth: `from fastapi import Depends
-from fastapi.security import HTTPBearer
+    task = Task(title="Learn SQLAlchemy")
+    session.add(task)
+    session.commit()
+    session.refresh(task)`,
+    auth: `from pwdlib import PasswordHash
+passwords = PasswordHash.recommended()
 
-bearer = HTTPBearer()
+hashed = passwords.hash("my-password")
+assert passwords.verify("my-password", hashed)
 
-@app.get("/me")
-def me(credentials=Depends(bearer)):
-    return {"authenticated": True}`,
-    api: `@app.get("/tasks")
-def list_tasks(limit: int = 20, offset: int = 0):
-    return {
-        "items": load_tasks(limit=limit, offset=offset),
-        "limit": limit,
-        "offset": offset
-    }`,
-    testing: `def test_task_title():
-    response = client.get("/tasks/1")
-    assert response.status_code == 200
-    assert response.json()["title"] == "Learn backend"`,
-    redis: `import redis
+# In the real app, issue a short-lived signed access token
+# only after the password has been verified.`,
+    api: `from fastapi import Query
 
-r = redis.Redis(host="localhost", port=6379, decode_responses=True)
-r.setex("task:1", 60, '{"id":1,"title":"Learn Redis"}')
-cached = r.get("task:1")`,
+@app.get("/v1/tasks")
+def list_tasks(
+    limit: int = Query(20, ge=1, le=100),
+    offset: int = Query(0, ge=0),
+    completed: bool | None = None,
+):
+    return load_tasks(limit, offset, completed)`,
+    testing: `def test_create_task(client):
+    response = client.post("/tasks", json={"title": "Learn testing"})
+    assert response.status_code == 201
+    assert response.json()["title"] == "Learn testing"`,
+    redis: `import redis, json
+
+cache = redis.Redis(host="localhost", port=6379, decode_responses=True)
+cache.setex("task:7", 60, json.dumps({"id": 7, "title": "Learn Redis"}))
+value = cache.get("task:7")`,
     celery: `from celery import Celery
 
-celery_app = Celery("worker", broker="redis://localhost:6379/0")
+celery_app = Celery("tasks", broker="redis://localhost:6379/0")
 
-@celery_app.task
+@celery_app.task(autoretry_for=(Exception,), retry_backoff=True, max_retries=3)
 def send_notification(user_id: int):
     print("send notification to", user_id)`,
     docker: `FROM python:3.12-slim
-
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]`,
+EXPOSE 8000
+CMD ["uvicorn","app.main:app","--host","0.0.0.0","--port","8000"]`,
     cicd: `name: Backend CI
-
 on: [push, pull_request]
-
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -767,192 +802,673 @@ jobs:
       - run: pytest`
   };
 
-  const logic: Record<string,string> = {
-    "Client vs server and the request/response pipeline": `CLIENT
-The client starts the request.
+  const focusDetail: Record<string,string> = {
+    "Client vs server and the request/response pipeline": `# CORE IDEA
+Client starts the request. Server owns the application logic and returns a response.
 
-SERVER
-The server receives it, runs backend logic and sends a response.
+# FLOW
+client → HTTP request → router → validation → business logic → database/cache → HTTP response → client
 
-FLOW
-client → HTTP request → router → validation → business logic → database/cache → HTTP response → client`,
-    "HTTP method + URL + headers + body": `METHOD = ACTION
+# IMPORTANT
+FastAPI does not replace this flow. It gives Python tools for implementing the server side.`,
+    "HTTP method + URL + headers + body": `# METHOD
 GET reads, POST creates, PUT/PATCH changes, DELETE removes.
 
-URL = RESOURCE
-/tasks/42 identifies a task.
+# URL
+/tasks/42 identifies a resource.
 
-HEADERS = METADATA
-Content-Type and Authorization are common examples.
+# HEADERS
+Metadata such as Content-Type and Authorization.
 
-BODY = INPUT DATA
-Usually JSON for structured API input.`,
-    "Status codes: 2xx, 3xx, 4xx, 5xx": `2xx = success
-3xx = redirect/another location or cached response behavior
-4xx = client/request problem
-5xx = server-side failure
+# BODY
+Structured input such as {"title":"Learn HTTP"}.
 
-Use the status code to communicate the result before the client reads the body.`,
-    "JSON, path parameters and query parameters": `PATH
+Each part has a different job.`,
+    "Status codes: 2xx, 3xx, 4xx, 5xx": `200 success read
+201 resource created
+204 success with no body
+400 invalid request
+401 missing/invalid authentication
+403 authenticated but not allowed
+404 resource missing
+409 state conflict
+422 validation failure
+429 rate limited
+500 unexpected server failure
+
+The status code is part of the API contract.`,
+    "JSON, path parameters and query parameters": `PATH: /tasks/42 → which resource?
+QUERY: /tasks?completed=false&limit=20 → how should the collection be returned?
+BODY: {"title":"Learn FastAPI"} → what data should be created?
+
+Keep identity in the path, collection controls in query parameters and structured input in the body.`,
+    "REST resources, CORS, cookies and sessions": `REST uses resource-oriented URLs:
+GET /tasks
 GET /tasks/42
+POST /tasks
+PATCH /tasks/42
+DELETE /tasks/42
 
-QUERY
-GET /tasks?completed=false&limit=20
+CORS controls which browser origins may read cross-origin responses.
+Cookies are automatically sent by browsers.
+Sessions associate requests with server-side state.`,
+    "Design the first version of the Task/Notes API": `Resources: users, tasks, notes.
 
-JSON BODY
-{"title":"Learn FastAPI"}
+Start with:
+POST /tasks
+GET /tasks
+GET /tasks/{id}
+PATCH /tasks/{id}
+DELETE /tasks/{id}
 
-Path identifies a resource; query parameters control a collection; JSON usually carries structured input.`,
-    "Repository, working tree and staging area": `WORKING TREE = files you are editing
-STAGING AREA = changes selected for the next commit
-REPOSITORY = committed history
+Define request bodies, response bodies, errors and ownership before writing framework code.`,
+    "Repository, working tree and staging area": `Working tree = files being edited.
+Staging area = changes selected for the next commit.
+Repository = committed history.
 
 Flow:
-edit → git diff → git add → git diff --staged → git commit`,
-    "FastAPI app, route and Uvicorn": `A route connects an HTTP method and URL to Python code.
+edit → diff → add → staged diff → commit.
 
-Uvicorn runs the ASGI application.
+Stage intentionally so every commit tells one clear story.`,
+    "Small commits and useful commit messages": `One commit should represent one logical change.
 
-GET /tasks/1
-→ FastAPI matches the route
-→ Python function runs
-→ return value becomes the HTTP response.`,
-    "Pydantic validation and schemas": `Client input is untrusted.
+Good:
+Add task creation endpoint
+Validate task titles
+Add PostgreSQL task repository
+
+Bad:
+stuff
+changes
+final final
+
+A useful commit helps future debugging and review.`,
+    "Branches, merge and conflict resolution": `A branch is a separate line of development.
+
+main → feature/task-api → commits → merge
+
+A conflict means Git cannot safely combine changes. Inspect both versions, choose the correct result, run tests, then commit the resolution.`,
+    "Pull request workflow and code review": `Create branch → push → PR → review → fix → tests → merge.
+
+Review questions:
+Does it work?
+Is the contract clear?
+Are errors handled?
+Are tests present?
+Is complexity justified?`,
+    "Rebase basics and clean project history": `Rebase replays your commits on a new base.
+
+It can create a cleaner linear history, but rewriting shared history can disrupt teammates. Use it deliberately and understand which commits are being rewritten.`,
+    "FastAPI app, route and Uvicorn": `FastAPI = application framework.
+Route = method + path → Python function.
+Uvicorn = ASGI server.
+
+GET /tasks/7
+→ route matches
+→ function runs
+→ Python data is serialized into the response.`,
+    "Path/query parameters and request bodies": `Path parameter identifies a resource.
+Query parameter controls a collection.
+Request body carries structured input.
+
+FastAPI parses typed values for you, giving the endpoint a clear input contract.`,
+    "Pydantic validation and schemas": `Incoming data is untrusted.
 
 Pydantic creates a boundary:
-request data → validation → typed Python data → application logic
+JSON → validation → typed Python data → business logic.
 
-Invalid data should be rejected before it reaches business logic.`,
-    "Tables, rows, columns and relationships": `TABLE = entity collection
-ROW = one record
-COLUMN = one property
-FOREIGN KEY = connection between related records
+Invalid input should fail at this boundary rather than causing a deeper application error.`,
+    "Response models and HTTP status codes": `A response model is the public contract of the endpoint.
+
+Do not blindly return a database object containing fields the client should not see.
+
+Use explicit success/error status codes so clients can reliably react.`,
+    "CRUD routes and error handling": `CRUD:
+Create → POST
+Read → GET
+Update → PATCH/PUT
+Delete → DELETE
+
+Lookup missing resource → 404.
+Invalid input → validation error.
+Unexpected failure → 500 and a useful server log.
+
+Do not turn every error into 500.`,
+    "Routers, dependencies and project structure": `Separate responsibilities:
+routes = HTTP
+schemas = contracts
+services = business rules
+repositories = persistence
+models = database mapping
+
+Dependencies provide reusable objects such as database sessions and current users.`,
+    "Configuration and environment variables": `Secrets and environment-specific values belong outside source code.
+
+Examples:
+DATABASE_URL
+JWT_SECRET
+REDIS_URL
+
+The same application code can then run with different configuration in development and production.`,
+    "Middleware and CORS": `Middleware wraps many requests.
+
+request → middleware before → endpoint → middleware after → response
+
+Good middleware concerns:
+request IDs, timing, logging, CORS.
+
+Do not put route-specific business rules into global middleware.`,
+    "async/await in APIs": `Async helps when code spends time waiting for I/O.
+
+Network/database wait → async can help.
+Heavy CPU calculation → async alone does not make it faster.
+
+Use async consistently with async-compatible libraries and do not mix blocking work carelessly into the event loop.`,
+    "Request → validation → service → response flow": `Clean backend flow:
+HTTP request
+→ router
+→ schema validation
+→ service/business rule
+→ repository/database
+→ response schema
+→ HTTP response
+
+Each layer should have a clear responsibility.`,
+    "Test the API manually with /docs": `Use /docs to explore the API:
+1. Start the server.
+2. Open /docs.
+3. Try valid input.
+4. Try invalid input.
+5. Try a missing resource.
+6. Inspect status, headers and JSON.
+
+Manual testing is useful for exploration; automated tests provide repeatability.`,
+    "Build and review Task API v1": `Milestone checklist:
+create task
+list tasks
+read one
+update one
+delete one
+validate bad input
+return 404 for missing data
+keep project structure understandable
+
+This is a usable milestone, not the end of the backend.`,
+    "Relational database mental model": `Tables hold related entities.
+Rows are records.
+Columns are attributes.
+Foreign keys connect records.
 
 Example:
-users.id ← tasks.user_id`,
-    "INNER JOIN and LEFT JOIN": `INNER JOIN keeps only matching rows.
+users.id ← tasks.user_id
 
-LEFT JOIN keeps every row from the left table, even when there is no matching row on the right.
+The database should help prevent invalid states, not merely store whatever Python sends.`,
+    "SELECT": `SELECT chooses columns.
 
-users LEFT JOIN tasks can therefore show users who have zero tasks.`,
-    "Indexes and why they speed reads": `Without a useful index, the database may inspect many rows.
+SELECT id, title
+FROM tasks;
 
-An index creates a lookup structure that can find matching values faster.
+Prefer selecting the fields the API actually needs rather than blindly selecting everything.`,
+    "WHERE": `WHERE filters rows inside the database.
 
-Trade-off: indexes use storage and can make INSERT/UPDATE operations more expensive.`,
-    "Transactions and ACID": `A transaction groups related database operations.
+SELECT id, title
+FROM tasks
+WHERE user_id = 7
+  AND completed = false;
 
-BEGIN
-→ operation A
-→ operation B
-→ COMMIT
+Database filtering is normally better than loading every row into Python first.`,
+    "INSERT/UPDATE/DELETE": `INSERT creates.
+UPDATE changes.
+DELETE removes.
 
-If something fails:
-ROLLBACK
+Always ask which rows are affected. A missing WHERE clause on UPDATE or DELETE can change the entire table.`,
+    "ORDER BY": `SQL does not promise a useful order without ORDER BY.
 
-ACID = atomicity, consistency, isolation, durability.`,
-    "Authentication vs authorization": `AUTHENTICATION = Who are you?
+ORDER BY created_at DESC, id DESC
 
-AUTHORIZATION = Are you allowed to do this?
+The second field provides a stable tie-breaker, which matters for predictable pagination.`,
+    "GROUP BY/HAVING": `GROUP BY creates groups for aggregation.
 
-Login proves Alice is Alice.
-Authorization decides whether Alice may delete task 42.`,
-    "Never store plain passwords: hashing": `Never save the original password.
+WHERE filters individual rows before grouping.
+HAVING filters groups after aggregation.
 
-Registration:
-password → password hash → database
+Example question:
+Which users have more than 10 tasks?`,
+    "INNER JOIN": `INNER JOIN returns matching rows from both sides.
+
+users JOIN tasks
+ON tasks.user_id = users.id
+
+Use it when records without a match should be excluded.`,
+    "LEFT JOIN": `LEFT JOIN keeps every row from the left table.
+
+Useful question:
+Show every user and their tasks, including users who have zero tasks.
+
+That is different from INNER JOIN.`,
+    "Subqueries": `A subquery produces data used by another query.
+
+Use it when the inner calculation has a clear purpose. Prefer the simplest query that communicates the relationship correctly.`,
+    "CTEs": `WITH creates a named intermediate result.
+
+WITH active_tasks AS (...)
+SELECT ...
+FROM active_tasks;
+
+CTEs can make multi-step SQL much easier to read and debug.`,
+    "CASE and window functions": `CASE creates conditional values.
+
+Window functions calculate across related rows without collapsing them.
+
+ROW_NUMBER() OVER (
+  PARTITION BY user_id
+  ORDER BY created_at DESC
+)
+
+This can find the newest task per user.`,
+    "Primary keys, foreign keys and constraints": `Primary key = unique row identity.
+Foreign key = relationship.
+NOT NULL = required value.
+UNIQUE = no duplicates.
+CHECK = allowed values.
+
+Constraints move important correctness rules into the database.`,
+    "One-to-one, one-to-many and many-to-many": `One-to-one: user → profile.
+One-to-many: user → many tasks.
+Many-to-many: users ↔ projects.
+
+Many-to-many normally uses a junction table such as project_members(user_id, project_id).`,
+    "Normalization and avoiding duplicated data": `Store each fact in the right place.
+
+If a user's name is copied into thousands of task rows, changing it becomes error-prone.
+
+Normalize first. Denormalize later only when there is a measured reason.`,
+    "Indexes and why they speed reads": `An index is a lookup structure.
+
+Good candidate:
+WHERE user_id = ?
+ORDER BY created_at
+
+Trade-off:
+more storage and slower writes.
+
+Use query plans and measurements rather than indexing everything.`,
+    "Transactions and ACID": `A transaction groups related writes.
+
+BEGIN → operation A → operation B → COMMIT
+
+Failure → ROLLBACK
+
+ACID means atomicity, consistency, isolation and durability.`,
+    "Isolation and concurrent database work": `Two requests can touch the same data concurrently.
+
+Isolation controls what one transaction can observe from another.
+
+Think about dirty reads, non-repeatable reads, lost updates and locking when correctness depends on concurrent writes.`,
+    "Design the Task API database": `Initial schema:
+users
+tasks
+notes
+
+tasks.user_id → users.id
+notes.task_id → tasks.id
+
+Add constraints and indexes based on real API queries.`,
+    "Why an ORM exists and what SQL it hides": `An ORM maps database records to application objects.
+
+It reduces repetitive mapping code, but it does not remove SQL concepts. You still need SELECT, JOIN, transactions, constraints and indexes.`,
+    "Engine and database connection": `The engine manages database connectivity.
+
+engine → connection → SQL → PostgreSQL
+
+Create the engine as application infrastructure, not once per request. Keep the database URL in configuration.`,
+    "Sessions and transaction boundaries": `A Session coordinates ORM work.
+
+request → session → query/change → commit or rollback → close
+
+Keep transaction boundaries explicit and short enough to avoid unnecessary locks.`,
+    "SQLAlchemy models and mapped columns": `A model maps Python attributes to database columns.
+
+The model describes persistence, not the entire API contract. Keep response schemas separate when clients should see a different shape.`,
+    "CRUD with select/add/commit/refresh": `Create:
+session.add(obj)
+session.commit()
+session.refresh(obj)
+
+Read:
+session.execute(select(Task).where(...))
+
+Update:
+change object → commit
+
+Delete:
+session.delete(obj) → commit`,
+    "Relationships and loading related data": `Relationships represent foreign-key connections in Python.
+
+Be deliberate about loading. Accidental lazy loading can create an N+1 query problem when an API loops through many records.`,
+    "Queries, transactions and service/repository separation": `Router handles HTTP.
+Service handles business rules.
+Repository handles persistence.
+
+This separation keeps database details from spreading across every endpoint and makes business logic easier to test.`,
+    "Alembic migrations and schema versioning": `A migration records a schema change over time.
+
+v1 → tasks
+v2 → completed
+v3 → owner_id
+
+Changing a Python model does not safely migrate an existing production database by itself. Migrations make schema evolution explicit and reviewable.`,
+    "Authentication vs authorization": `Authentication asks: who are you?
+Authorization asks: are you allowed?
+
+A valid login does not automatically grant permission to every resource.`,
+    "Never store plain passwords: hashing": `Registration:
+password → slow password hash → database
 
 Login:
-entered password → verify against stored hash → accept/reject
+password + stored hash → verify → success/failure
 
-Hashing is intentionally one-way; encryption is a different concept.`,
-    "JWT structure and signed access tokens": `A JWT commonly has:
+Never store raw passwords. Password hashing and encryption solve different problems.`,
+    "JWT structure and signed access tokens": `JWT commonly looks like:
 header.payload.signature
 
-The signature lets the server detect tampering.
+The signature detects tampering.
+Claims can contain identity and expiry.
 
-Claims can contain identity and expiry information, but the server must still enforce authorization.`,
-    "Pagination for large result sets": `Large result:
-100,000 rows
+A valid signature still does not prove the requested action is authorized.`,
+    "Login → token → Authorization: Bearer flow": `Login → verify password → issue token.
 
-Paginated request:
-GET /tasks?limit=20&offset=40
+Later:
+Authorization: Bearer <token>
+→ verify token
+→ identify user
+→ apply authorization rules
+→ perform operation
 
-The API returns a small page instead of the whole collection. Cursor/keyset pagination is another option for large changing datasets.`,
-    "pytest setup and assertions": `Use:
-ARRANGE → ACT → ASSERT
+The token proves identity information; the endpoint still decides permission.`,
+    "Protected routes with dependencies": `A dependency can read the Authorization header, validate the token and load the current user.
 
-Arrange the input.
-Act by calling the code.
-Assert the expected behavior.
+Then protected routes receive the already-validated user instead of repeating authentication code.`,
+    "Current user and user-owned resources": `Never trust a client-supplied user_id for ownership.
 
-A useful test should fail when the intended behavior breaks.`,
-    "Redis keys, values and fast temporary state": `KEY = "task:42"
-VALUE = temporary cached data
+Correct:
+current authenticated user = 7
+→ query task 42 WHERE id=42 AND user_id=7
 
-Redis is commonly used for cache entries, counters, locks and short-lived state.`,
+This prevents one user from modifying another user's resources.`,
+    "Roles, permissions and authorization checks": `Role-based access control maps roles to permissions.
+
+Example:
+admin → manage users
+member → manage own tasks
+
+Authorization must be enforced on the server even if the UI hides a button.`,
+    "Pagination for large result sets": `Returning 100,000 rows is expensive.
+
+limit + offset returns a small page.
+For very large changing datasets, cursor/keyset pagination can be more stable and efficient than large offsets.`,
+    "Filtering and search": `Filters narrow a collection:
+tasks?completed=false
+
+Search might use:
+tasks?q=fastapi
+
+Validate values, use parameterized queries and index important search/filter patterns.`,
+    "Sorting and stable API responses": `Allow only known sortable fields.
+
+Use stable ordering:
+created_at DESC, id DESC
+
+Never concatenate an arbitrary client string into raw SQL.`,
+    "API versioning and consistent error contracts": `Version boundaries protect clients:
+ /v1/tasks
+
+Use predictable errors:
+{"error":"TASK_NOT_FOUND","message":"Task 42 was not found"}
+
+Clients should not have to parse random server messages.`,
+    "Idempotency, logging and production API rules": `GET is naturally idempotent.
+PUT is designed to be idempotent.
+POST often is not unless an idempotency key is used.
+
+Logs should contain useful request context without leaking passwords, tokens or secrets.`,
+    "pytest setup": `Create a tests/ directory and run pytest.
+
+A test should answer one behavior question and fail clearly when the behavior breaks.`,
+    "Assertions/fixtures": `Assertions express expected behavior.
+Fixtures prepare reusable state such as a test client, database session or authenticated user.
+
+Use fixtures to remove duplication without hiding important test setup.`,
+    "Unit tests for business logic": `Unit tests isolate one business rule.
+
+Arrange → call service → assert result/error.
+
+They should be fast and should not require the entire HTTP stack for every rule.`,
+    "API tests with TestClient/httpx": `API tests call the real application boundary.
+
+POST /tasks
+→ inspect status
+→ inspect JSON
+→ verify the contract
+
+They catch routing, validation and serialization problems.`,
+    "Database/integration tests": `Integration tests exercise:
+API → service → SQLAlchemy → test database
+
+Keep test data isolated and clean so one test does not silently depend on another.`,
+    "Authentication, authorization, edge cases and coverage": `Test failures deliberately:
+no token → 401
+wrong owner → forbidden/not found according to your contract
+missing task → 404
+bad body → validation error
+duplicate unique value → conflict/error
+
+Coverage is a signal, not proof of correctness.`,
+    "Redis keys, values and fast temporary state": `Redis stores values under keys.
+
+Examples:
+task:42
+user:7:rate
+session:abc
+
+Good key naming makes ownership, debugging and invalidation easier.`,
+    "TTL and automatic expiration": `A TTL removes temporary data automatically.
+
+SETEX task:42 60 value
+
+After 60 seconds the key expires.
+
+Useful for cache entries, codes and rate-limit windows.`,
+    "Cache-aside: read cache → fallback to DB": `Read Redis first.
+If hit → return.
+If miss → read PostgreSQL → store result in Redis → return.
+
+PostgreSQL remains the source of truth.`,
+    "Connect Redis to FastAPI safely": `Create Redis as application infrastructure and read REDIS_URL from configuration.
+
+Decide the failure policy. A cache outage should not automatically turn every read request into a 500 if the database can still serve it.`,
+    "Cache invalidation and basic rate limiting": `After changing task 42:
+database update → invalidate task:42 cache.
+
+For rate limiting, use an expiring Redis counter.
+
+Caching is easy to add and hard to invalidate correctly, so design the invalidation path at the same time as the cache.`,
     "Why queues and workers exist": `HTTP request:
-validate → enqueue job → return response
+validate → enqueue → return quickly.
 
 Worker:
-take job → perform slow work → record success/failure
+receive job → perform slow work → retry/fail → record outcome.
 
-The user does not have to keep an HTTP connection open while slow work runs.`,
-    "Image vs container": `IMAGE = packaged application/runtime blueprint
-CONTAINER = running instance of an image
+Use queues for email, notifications, reports and other work that should not block the user request.`,
+    "Celery app, task and worker": `Celery app = configuration.
+Task = unit of background work.
+Worker = process that executes tasks.
 
-Think:
-image = package
-container = running copy`,
-    "What CI/CD actually solves": `push code
-→ automated checks
-→ tests
-→ build
-→ deploy when configured
-→ health/log checks
+FastAPI sends a task message. A separate worker executes it.`,
+    "Redis as broker and result backend": `Broker transports task messages.
 
-The goal is repeatability and fast feedback.`
+A result backend can store task state/results when the application needs them.
+
+Do not confuse the queue with PostgreSQL's durable business data.`,
+    "Retries and failure handling": `Temporary failure → wait/backoff → retry.
+
+Permanent failure → stop retrying and record the failure.
+
+Use limits and backoff. Unlimited immediate retries can create a retry storm.`,
+    "Scheduled jobs and Celery Beat": `Beat decides when a scheduled task should be sent.
+Worker executes it.
+
+Example:
+every night → cleanup expired data.
+
+Make scheduled jobs safe to run repeatedly where possible.`,
+    "Linux CLI, files and processes": `pwd = current directory
+ls = files
+cd = change directory
+cat = read
+grep = search
+ps = processes
+kill = stop
+
+Backend deployment requires comfort with the terminal.`,
+    "Permissions and SSH basics": `Linux permissions control owner/group/other access.
+
+SSH gives remote terminal access.
+
+Understand ownership and permission bits before reaching for sudo.`,
+    "Image vs container": `Image = packaged application/runtime artifact.
+Container = running instance of an image.
+
+One image can create multiple containers with different runtime configuration.`,
+    "Dockerfile and reproducible builds": `A Dockerfile describes image construction:
+base image → dependencies → source → runtime command.
+
+Keep builds reproducible and avoid unnecessary files/dependencies in the final image.`,
+    "Volumes, networks and ports": `Volume = persistent data.
+Network = container communication.
+Port = exposed service entry point.
+
+Example:
+host:8000 → api:8000.`,
+    "Environment variables and service configuration": `Keep DATABASE_URL, REDIS_URL and JWT_SECRET outside source code.
+
+One image should work across environments by changing configuration, not application code.`,
+    "Docker Compose for API + PostgreSQL + Redis": `Compose can run:
+api
+postgres
+redis
+worker
+
+Inside the Compose network, the API connects to the database using the service name postgres, not localhost.`,
+    "Run and debug the complete stack": `Debug from the failing boundary:
+1. docker compose ps
+2. inspect logs
+3. check health
+4. check environment
+5. check network/ports
+6. test API
+7. test dependencies
+
+Do not randomly restart everything before finding the failure.`,
+    "What CI/CD actually solves": `push → install → checks → tests → build → deploy → health check
+
+The value is repeatability and fast feedback, not magic automation.`,
+    "GitHub Actions and automated tests": `A workflow runs on GitHub's runner.
+
+checkout → setup runtime → install → test
+
+A trusted deployment path should not release code when required tests fail.`,
+    "Secrets and environment configuration": `Never commit passwords, API keys, JWT secrets or production database URLs.
+
+Store secrets in the CI/deployment platform and expose them as environment variables at runtime.`,
+    "Build the application image": `Build an image with an immutable identifier such as the commit SHA.
+
+docker build -t task-api:$GIT_SHA .
+
+Test the exact artifact you intend to deploy.`,
+    "Deploy, health checks and logs": `Deployment:
+new version → start → health check → receive traffic → observe
+
+Logs explain what happened. Health checks tell you whether the service is alive/ready. Both are part of production engineering.`,
+    "HTTPS, rollback and final production checklist": `Production checklist:
+HTTPS
+secure secrets
+database backups
+health checks
+logs
+monitoring
+resource limits
+migration plan
+rollback plan
+
+A deployment is not finished just because the process starts.`
   };
 
-  const project: Record<string,string> = {
-    http: "Build the first REST version of the cumulative Task/Notes API and document its request/response shapes.",
-    git: "Put the cumulative backend project under Git using small commits, a feature branch and a pull-request-style review.",
-    fastapi: "Build Task API v1 with routes, validation, CRUD, routers, dependencies and consistent errors.",
-    postgres: "Design the database for users, projects, tasks and comments. Write real SQL before introducing the ORM.",
-    sqlalchemy: "Connect Task API v2 to PostgreSQL using SQLAlchemy and Alembic with explicit transaction boundaries.",
-    auth: "Add registration, secure password hashing, login, access tokens and user-owned task resources.",
-    api: "Add pagination, filtering, search, sorting, versioning and predictable error responses to the Task API.",
-    testing: "Create unit, API and database integration tests, including authenticated and edge-case behavior.",
-    redis: "Add cache-aside reads to a frequently accessed endpoint and invalidate the cache when task data changes.",
-    celery: "Move notifications and other slow work into Celery workers with retries and a scheduled job.",
-    docker: "Run FastAPI, PostgreSQL, Redis and the worker together through Docker Compose.",
-    cicd: "Create a pipeline that installs dependencies, runs tests, builds the application and is ready for deployment."
-  };
+  const detail = focusDetail[focus] || (
+    "# CORE CONCEPT\n" + target +
+    "\n\n# HOW TO THINK\n1. Identify the input.\n2. Identify the output.\n3. Understand the normal flow.\n4. Identify failure cases.\n5. Implement the smallest example.\n6. Connect it to the TaskFlow backend."
+  );
 
-  const explanation = logic[focus] ||
-    `# HOW TO THINK
+  const walkthrough =
+    "# READ THE CODE TOP → BOTTOM\n" +
+    "1. Identify imports and configuration.\n" +
+    "2. Find the input entering the program.\n" +
+    "3. Find validation/checks.\n" +
+    "4. Follow the main operation.\n" +
+    "5. Find the output.\n" +
+    "6. Ask what happens when input or a dependency fails.\n\n" +
+    "# CHANGE IT\nChange one value, run it, observe the result, and explain why the result changed.";
 
-Start with the input.
-1. Identify what enters the system.
-2. Validate it.
-3. Process it.
-4. Read or write the required state.
-5. Produce a predictable output.
-6. Handle failure paths.
+  const realExample =
+    "Real backend flow: a client sends a request, the API validates it, business logic decides what should happen, persistence/cache performs the required data operation, and the API returns a predictable response. This lesson is one part of that same TaskFlow system.";
 
-Do not memorise syntax before understanding this flow.`;
+  const project =
+    "Cumulative TaskFlow integration:\n" +
+    d.project +
+    "\n\nDo not build a disconnected demo. Add today's concept to the same backend so the project becomes progressively more complete.";
 
-  const practice = "Explain \"" + focus + "\" in your own words, then write the smallest working example without copying it. Finally connect that example to today's cumulative Task API.";
-  const mistakes = "Do not memorise commands without understanding the flow. Do not skip validation or failure cases. Do not paste the project solution unchanged. Be able to explain why your example works.";
-  const summary = "You should be able to explain \"" + focus + "\", write a small example from memory, identify its input/output, and point to where it belongs in the cumulative backend project.";
+  const practice =
+    "# PRACTICE\n" +
+    "1. Explain \"" + focus + "\" without notes.\n" +
+    "2. Write the smallest version yourself.\n" +
+    "3. Run it.\n" +
+    "4. Intentionally create one failure and debug it.\n" +
+    "5. Add the concept to TaskFlow.\n" +
+    "6. Write one sentence explaining what changed.";
+
+  const mistakes =
+    "# COMMON MISTAKES\n" +
+    "• Memorising syntax before understanding the problem.\n" +
+    "• Copying code without modifying or testing it.\n" +
+    "• Ignoring invalid input and failure paths.\n" +
+    "• Mixing HTTP, business logic and database responsibilities unnecessarily.\n" +
+    "• Using production tools without understanding their trade-offs.\n" +
+    "• Calling a demo complete when you cannot explain why it works.";
+
+  const interview =
+    "# INTERVIEW CHECK\n" +
+    "Be able to answer:\n" +
+    "1. What problem does this solve?\n" +
+    "2. How does it work at a high level?\n" +
+    "3. Where is it used in a real backend?\n" +
+    "4. What can fail?\n" +
+    "5. What trade-off does it introduce?\n" +
+    "6. Can you write a small version without notes?";
+
+  const summary =
+    "Complete this lesson only when you can explain " + focus +
+    ", implement a small example, debug one failure, and connect it to TaskFlow without copying.";
 
   return {
-    why: why[topic] || "This is a building block of backend engineering. Learn the problem first, then the implementation.",
-    explanation,
-    code: code[topic] || "# Write the smallest runnable example for this concept.",
-    project: project[topic] || d.project,
+    why: why[topic] || "This is a core backend building block. Understand the problem first, then the implementation.",
+    explanation: detail,
+    code: code[topic] || "# " + focus + "\n\n# Start with the smallest runnable example and connect it to TaskFlow.",
+    walkthrough,
+    realExample,
+    project,
     practice,
     mistakes,
+    interview,
     summary
   };
 }
