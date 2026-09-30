@@ -377,7 +377,7 @@ export default function Home(){
 
  const nav=[
   ["overview","Overview","dashboard"],["today","Today","calendar"],["history","Question History","calendar"],["problems","Problems","list"],
-  ["companies","Companies","company"],["analytics","Analytics","analytics"],["interview","Interview","interview"],["prep","Prep Plan","target"],["knowledge","Study Centre","book"],["dbms","DBMS","book"],["os","OS","settings"],["cn","CN","github"],["oop","OOP","code"],["sql","SQL","list"],["dsa","DSA Fundamentals","zap"],["settings","Settings","settings"]
+  ["companies","Companies","company"],["analytics","Analytics","analytics"],["interview","Interview","interview"],["prep","Prep Plan","target"],["backend","Backend / SDE","code"],["knowledge","Study Centre","book"],["dbms","DBMS","book"],["os","OS","settings"],["cn","CN","github"],["oop","OOP","code"],["sql","SQL","list"],["dsa","DSA Fundamentals","zap"],["settings","Settings","settings"]
  ] as [View,string,string][];
 
  return <main className="min-h-screen dace-grid">
@@ -403,7 +403,7 @@ export default function Home(){
   <div className="flex min-h-[calc(100vh-64px)]">
    <aside className="hidden md:block w-60 border-r border-[#202a38] p-4 shrink-0">
     <div className="text-[10px] tracking-[.2em] text-[#59687c] px-3 py-3">WORKSPACE</div>
-    {nav.map(([k,l,i])=><NavButton key={k} active={view===k} label={l} icon={i} onClick={()=>{if(k==="knowledge"){window.location.href="/knowledge";return;}setView(k)}}/>)}
+    {nav.map(([k,l,i])=><NavButton key={k} active={view===k} label={l} icon={i} onClick={()=>{if(k==="knowledge"){window.location.href="/knowledge";return;}if(k==="backend"){window.location.href="/backend";return;}setView(k)}}/>)}
     <div className="mt-7 panel rounded-xl p-4 glow-cyan">
      <div className="flex items-center gap-2 text-xs font-semibold"><Icon name="spark" size={14}/> Adaptive engine</div>
      <p className="text-[11px] leading-5 text-[#77869a] mt-2">Selection weighs weakness, revisions, freshness and company preference.</p>
