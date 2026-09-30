@@ -369,18 +369,18 @@ export default function BackendSDEPage() {
 
   const resourceFor = (d: Day) => {
     const resources: Record<string, { youtube: string; site: string; siteLabel: string }> = {
-      http: { youtube: "https://www.youtube.com/results?search_query=HTTP+REST+API+tutorial+beginner+Traversy+Media", site: "https://developer.mozilla.org/en-US/docs/Web/HTTP", siteLabel: "MDN HTTP" },
-      git: { youtube: "https://www.youtube.com/results?search_query=Git+GitHub+tutorial+beginner+freeCodeCamp", site: "https://git-scm.com/book/en/v2", siteLabel: "Pro Git" },
-      fastapi: { youtube: "https://www.youtube.com/results?search_query=FastAPI+tutorial+beginner+Hitesh+Choudhary", site: "https://fastapi.tiangolo.com/tutorial/", siteLabel: "FastAPI Docs" },
-      postgres: { youtube: "https://www.youtube.com/results?search_query=PostgreSQL+SQL+tutorial+beginner+freeCodeCamp", site: "https://www.postgresql.org/docs/current/tutorial.html", siteLabel: "PostgreSQL" },
-      sqlalchemy: { youtube: "https://www.youtube.com/results?search_query=SQLAlchemy+2.0+tutorial+beginner+Python", site: "https://docs.sqlalchemy.org/en/20/tutorial/", siteLabel: "SQLAlchemy" },
-      auth: { youtube: "https://www.youtube.com/results?search_query=FastAPI+JWT+authentication+tutorial+beginner", site: "https://fastapi.tiangolo.com/tutorial/security/", siteLabel: "FastAPI Security" },
-      api: { youtube: "https://www.youtube.com/results?search_query=REST+API+best+practices+pagination+versioning+tutorial", site: "https://www.rfc-editor.org/rfc/rfc9110", siteLabel: "HTTP Semantics" },
-      testing: { youtube: "https://www.youtube.com/results?search_query=pytest+FastAPI+testing+tutorial+beginner", site: "https://docs.pytest.org/en/stable/", siteLabel: "pytest Docs" },
-      redis: { youtube: "https://www.youtube.com/results?search_query=Redis+tutorial+beginner+caching+FastAPI", site: "https://redis.io/docs/latest/develop/", siteLabel: "Redis Docs" },
-      celery: { youtube: "https://www.youtube.com/results?search_query=Celery+Redis+background+tasks+Python+tutorial", site: "https://docs.celeryq.dev/en/stable/getting-started/introduction.html", siteLabel: "Celery Docs" },
-      docker: { youtube: "https://www.youtube.com/results?search_query=Docker+tutorial+beginner+freeCodeCamp", site: "https://docs.docker.com/get-started/", siteLabel: "Docker Docs" },
-      cicd: { youtube: "https://www.youtube.com/results?search_query=GitHub+Actions+CI+CD+tutorial+beginner", site: "https://docs.github.com/en/actions", siteLabel: "GitHub Actions" },
+      http: { youtube: "https://www.youtube.com/watch?v=iYM2zFP3Zn0", site: "https://developer.mozilla.org/en-US/docs/Web/HTTP", siteLabel: "MDN HTTP" },
+      git: { youtube: "https://www.youtube.com/watch?v=RGOj5yH7evk", site: "https://git-scm.com/book/en/v2", siteLabel: "Pro Git" },
+      fastapi: { youtube: "https://www.youtube.com/watch?v=0sOvCWFmrtA", site: "https://fastapi.tiangolo.com/tutorial/", siteLabel: "FastAPI Docs" },
+      postgres: { youtube: "https://www.youtube.com/watch?v=qw--VYLpxG4", site: "https://www.postgresql.org/docs/current/tutorial.html", siteLabel: "PostgreSQL" },
+      sqlalchemy: { youtube: "https://www.youtube.com/watch?v=Uym2DHnUEno", site: "https://docs.sqlalchemy.org/en/20/tutorial/", siteLabel: "SQLAlchemy" },
+      auth: { youtube: "https://www.youtube.com/watch?v=KxqlJblhzfI", site: "https://fastapi.tiangolo.com/tutorial/security/", siteLabel: "FastAPI Security" },
+      api: { youtube: "https://www.youtube.com/watch?v=7YcW25PHnAA", site: "https://www.rfc-editor.org/rfc/rfc9110", siteLabel: "HTTP Semantics" },
+      testing: { youtube: "https://www.youtube.com/watch?v=6tNS--WetLI", site: "https://docs.pytest.org/en/stable/", siteLabel: "pytest Docs" },
+      redis: { youtube: "https://www.youtube.com/watch?v=jgpVdJB2sKQ", site: "https://redis.io/docs/latest/develop/", siteLabel: "Redis Docs" },
+      celery: { youtube: "https://www.youtube.com/watch?v=I0VqD2v6m8A", site: "https://docs.celeryq.dev/en/stable/getting-started/introduction.html", siteLabel: "Celery Docs" },
+      docker: { youtube: "https://www.youtube.com/watch?v=3c-iBn73dDE", site: "https://docs.docker.com/get-started/", siteLabel: "Docker Docs" },
+      cicd: { youtube: "https://www.youtube.com/watch?v=R8_veQiYBjI", site: "https://docs.github.com/en/actions", siteLabel: "GitHub Actions" },
     };
     return resources[d.topicId] || resources.http;
   };
