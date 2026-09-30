@@ -306,7 +306,7 @@ export default function Home(){
  },[solvedAt,todayKey]);
 
  function setDsaDone(s:DailyCommitmentStatus){if(todayKey)setDailyCommitment(x=>({...x,[todayKey]:s}))}
- function setDevDone(s:DailyCommitmentStatus){if(!todayKey)return;setDailyCommitment(x=>({...x,[todayKey+"-dev"]:s}));if(s==="done")setDevDay(d=>Math.min(DEV_DAILY.length,d+1))}
+ function setDevDone(s:DailyCommitmentStatus){if(!todayKey)return;const key=todayKey+"-dev";const wasDone=dailyCommitment[key]==="done";setDailyCommitment(x=>({...x,[key]:s}));if(s==="done"&&!wasDone)setDevDay(d=>Math.min(DEV_DAILY.length,d+1))}
  function regenerateToday(){
   if(!todayKey)return;
   setDaily(x=>{const y={...x};delete y[todayKey];return y});
