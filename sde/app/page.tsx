@@ -433,7 +433,7 @@ function CodingCalendar({solvedAt,setView,setHistoryDate}:{solvedAt:Record<numbe
  // Sunday-first calendar padding keeps the same GitHub-style 7-row week layout.
  for(let i=0;i<start.getDay();i++)raw.push("");
  for(let i=0;i<366;i++){
-  const d=new Date(year,0,1);
+  const d:Date=new Date(year,0,1);
   d.setDate(i+1);
   if(d.getFullYear()!==year)break;
   raw.push(dateKey(d));
@@ -461,11 +461,11 @@ function CodingCalendar({solvedAt,setView,setHistoryDate}:{solvedAt:Record<numbe
    </div>
 
    <div className="flex items-center gap-1.5 rounded-xl border border-[#273447] bg-[#080d16]/80 p-1">
-    <button type="button" onClick={()=>setYear(y=>y-1)} className="w-8 h-8 rounded-lg hover:bg-white/10 text-[#8d9ab2]" aria-label={`Previous year: ${year-1}`}>‹</button>
+    <button type="button" onClick={()=>setYear(y=>(y??new Date().getFullYear())-1)} className="w-8 h-8 rounded-lg hover:bg-white/10 text-[#8d9ab2]" aria-label={`Previous year: ${year-1}`}>‹</button>
     <div className="flex items-center gap-0.5 px-1">
      {[year-1,year,year+1].map(y=><button key={y} type="button" onClick={()=>setYear(y)} className={`min-w-14 px-2 py-1.5 rounded-lg text-[11px] transition ${y===year?"bg-violet-500/20 text-violet-200 border border-violet-300/20":"text-[#657387] hover:text-white"}`}>{y}</button>)}
     </div>
-    <button type="button" onClick={()=>setYear(y=>y+1)} className="w-8 h-8 rounded-lg hover:bg-white/10 text-[#8d9ab2]" aria-label={`Next year: ${year+1}`}>›</button>
+    <button type="button" onClick={()=>setYear(y=>(y??new Date().getFullYear())+1)} className="w-8 h-8 rounded-lg hover:bg-white/10 text-[#8d9ab2]" aria-label={`Next year: ${year+1}`}>›</button>
    </div>
 
    <div className="text-right"><div className="text-2xl font-black">{totalSolved}</div><div className="text-[10px] uppercase tracking-wider text-[#657387]">solved in {year}</div></div>
