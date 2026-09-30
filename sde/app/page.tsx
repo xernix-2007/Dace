@@ -142,7 +142,7 @@ export default function Home(){
   const t=setInterval(tick,250);
   return()=>clearInterval(t);
  },[running]);
- useEffect(()=>{const routes:Record<string,string>={backend:"/backend",dbms:"DBMS",os:"OS",cn:"CN",oop:"OOP",sql:"SQL",dsa:"DSA%20Fundamentals"};if(routes[view])window.location.href="/knowledge?subject="+routes[view]},[view]);
+ useEffect(()=>{if(view==="backend"){window.location.href="/backend";return;}const routes:Record<string,string>={dbms:"DBMS",os:"OS",cn:"CN",oop:"OOP",sql:"SQL",dsa:"DSA%20Fundamentals"};if(routes[view])window.location.href="/knowledge?subject="+routes[view]},[view]);
 
  const topicStats=useMemo(()=>{
   const all:Record<string,{solved:number;total:number}>= {};
