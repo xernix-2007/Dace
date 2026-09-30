@@ -444,13 +444,13 @@ function DailyCard({p,index,solved,status,openTimer,mark}:{p:Problem;index:numbe
  return <article className={`report-card rounded-2xl p-4 md:p-5 transition hover:-translate-y-0.5 ${solved?"border-green-400/25":""}`}>
   <div className="flex gap-4 items-center">
    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500/15 to-violet-500/15 border border-pink-300/10 flex items-center justify-center text-xs text-[#aab3c0]">{String(index+1).padStart(2,"0")}</div>
-   <div className="flex-1 min-w-0"><div className="flex items-center gap-2 flex-wrap"><h2 className="font-semibold truncate">{p.leetcodeNumber ? `${p.leetcodeNumber}. ` : ""}{p.title}</h2>{solved&&<CheckCircle2 size={15} className="text-green-400"/>}</div><div className="text-xs text-[#728198] mt-1">{p.topics.slice(0,3).join(" · ")} · {p.companies.slice(0,2).join(" · ")} · ~{p.estimate}m</div></div>
+   <div className="flex-1 min-w-0"><div className="flex items-center gap-2 flex-wrap"><a href={p.url} target="_blank" rel="noreferrer" title="Open this question on LeetCode" className="font-semibold truncate hover:text-cyan-200 hover:underline decoration-cyan-300/40 underline-offset-4 transition">{p.leetcodeNumber ? `${p.leetcodeNumber}. ` : ""}{p.title}</a>{solved&&<CheckCircle2 size={15} className="text-green-400"/>}</div><div className="text-xs text-[#728198] mt-1">{p.topics.slice(0,3).join(" · ")} · {p.companies.slice(0,2).join(" · ")} · ~{p.estimate}m</div></div>
    <span className={`text-[10px] px-2.5 py-1.5 rounded-full border ${diffClass(p.difficulty)}`}>{p.difficulty}</span>
    <button onClick={()=>openTimer(p)} className="hidden sm:flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-pink-500 to-violet-500 text-white text-xs font-semibold hover:brightness-110"><Icon name="clock" size={14}/> Timer</button>
   </div>
   <div className="mt-3 pt-3 border-t border-white/[.06] flex flex-wrap items-center gap-2">
    <select value={status} onChange={e=>mark(p,e.target.value as Status)} className="bg-[#0b0e13] border border-[#253245] rounded-lg px-2.5 py-2 text-[11px]"><option value="unsolved">Unsolved</option><option value="solved">Solved</option><option value="revision">Need revision</option><option value="failed">Couldn't solve</option></select>
-   <a href={p.url} target="_blank" rel="noreferrer" className="ml-auto text-[11px] px-3 py-2 rounded-lg border border-[#253245] text-[#9aa8ba] hover:text-white flex items-center gap-1">LeetCode <Icon name="arrow" size={12}/></a>
+   <a href={p.url} target="_blank" rel="noreferrer" className="ml-auto text-[11px] px-3 py-2 rounded-lg border border-cyan-300/20 bg-cyan-300/[.05] text-cyan-100 hover:bg-cyan-300/10 hover:border-cyan-300/35 flex items-center gap-1.5 transition"><Icon name="code" size={12}/> Open on LeetCode <Icon name="arrow" size={12}/></a>
    <button onClick={()=>openTimer(p)} className="sm:hidden text-[11px] px-3 py-2 rounded-lg bg-white text-black font-semibold">Timer</button>
   </div>
  </article>
