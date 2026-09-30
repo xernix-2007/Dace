@@ -176,15 +176,12 @@ export default function Home(){
   return weak*4+revision+failed+fresh+companyBoost+jitter;
  };
 
- const previousDayKey=useMemo(()=>{if(!todayKey)return "";const d=new Date(todayKey+"T00:00:00");d.setDate(d.getDate()-1);return dateKey(d)},[todayKey]);
- const dsaCarryover=useMemo(()=>{if(!todayKey||!previousDayKey||dailyCommitment[previousDayKey]==="done")return [];return (daily[previousDayKey]||[]).filter(id=>!solved.includes(id))},[daily,todayKey,previousDayKey,dailyCommitment,solved]);
  const todayIds=useMemo(()=>{
   if(!hydrated||!todayKey)return [];
   if(daily[todayKey])return daily[todayKey];
 
   const totalTarget=target.Easy+target.Medium+target.Hard;
   const available=problems.filter(p=>!solved.includes(p.id)&&(company==="All"||p.companies.includes(company)));
-  if(dsaCarryover.length){const carry=dsaCarryover.map(id=>problems.find(q=>q.id===id)).filter(Boolean) as Problem[];const ids=new Set(carry.map(q=>q.id));const fill=shuffle(available.filter(q=>!ids.has(q.id)),todayKey+"-carry").slice(0,Math.max(0,totalTarget-carry.length));return [...carry,...fill].slice(0,totalTarget).map(q=>q.id);}
   if(!available.length)return [];
 
   // DACE daily structure:
@@ -270,7 +267,7 @@ export default function Home(){
 
   // Final deterministic shuffle is NOT used: the pedagogical order is intentional.
   return selected.slice(0,totalTarget).map(p=>p.id);
- },[daily,todayKey,solved,company,target,topicStats,recentIds,hydrated,dsaCarryover]);
+ },[daily,todayKey,solved,company,target,topicStats,recentIds,hydrated]);
  useEffect(()=>{
   if(!hydrated||!todayKey||daily[todayKey])return;
   const ids=todayIds;
@@ -305,7 +302,6 @@ export default function Home(){
   return n;
  },[solvedAt,todayKey]);
 
- function setDsaDone(s:DailyCommitmentStatus){if(todayKey)setDailyCommitment(x=>({...x,[todayKey]:s}))}
  function setDevDone(s:DailyCommitmentStatus){if(!todayKey)return;const key=todayKey+"-dev";const wasDone=dailyCommitment[key]==="done";setDailyCommitment(x=>({...x,[key]:s}));if(s==="done"&&!wasDone)setDevDay(d=>Math.min(DEV_DAILY.length,d+1))}
  function regenerateToday(){
   if(!todayKey)return;
@@ -427,7 +423,7 @@ export default function Home(){
 
    <section className="flex-1 min-w-0">
     {view==="overview"&&<Overview today={today} solvedToday={solvedToday} streak={streak} weeklySolved={weeklySolved} completion={completion} totalTime={totalTime} solvedAt={solvedAt} setView={setView} setHistoryDate={setHistoryDate} openTimer={openTimer}/>}
-    {view==="today"&&<TodayPage today={today} solved={solved} status={status} solvedToday={solvedToday} target={target} company={company} companies={companies} setCompany={updateCompany} openTimer={openTimer} mark={mark} regenerate={regenerateToday} todayKey={todayKey} dsaState={dailyCommitment[todayKey]} devState={dailyCommitment[todayKey+"-dev"]} devDay={devDay} devTitle={DEV_DAILY[devDay-1]} setDsaDone={setDsaDone} setDevDone={setDevDone}/>}    {view==="history"&&<QuestionHistoryPage daily={daily} solved={solved} status={status} openTimer={openTimer} selectedDate={historyDate} today={today} target={target} company={company}/>}
+    {view==="today"&&<TodayPage today={today} solved={solved} status={status} solvedToday={solvedToday} target={target} company={company} companies={companies} setCompany={updateCompany} openTimer={openTimer} mark={mark} regenerate={regenerateToday} todayKey={todayKey} devState={dailyCommitment[todayKey+"-dev"]} devDay={devDay} devTitle={DEV_DAILY[devDay-1]} setDevDone={setDevDone}/>}    {view==="history"&&<QuestionHistoryPage daily={daily} solved={solved} status={status} openTimer={openTimer} selectedDate={historyDate} today={today} target={target} company={company}/>}
     {view==="problems"&&<ProblemsPage problems={filtered} solved={solved} status={status} search={search} setSearch={setSearch} difficulty={difficulty} setDifficulty={setDifficulty} topic={topic} setTopic={setTopic} openTimer={openTimer} mark={mark}/>}
     {view==="companies"&&<CompaniesPage company={company} companies={companies} setCompany={updateCompany} problems={problems} solved={solved} status={status} openTimer={openTimer} mark={mark}/>}
     {view==="analytics"&&<AnalyticsPage problems={problems} solved={solved} status={status} timeSpent={timeSpent} topicStats={topicStats} streak={streak} totalTime={totalTime}/>}
@@ -579,18 +575,28 @@ function CodingCalendar({solvedAt,setView,setHistoryDate}:{solvedAt:Record<numbe
  </div>
 }
 
-function TodayPage({today,solved,solvedToday,target,openTimer,regenerate,todayKey,dsaState,devState,devDay,devTitle,setDsaDone,setDevDone}:{today:Problem[];solved:number[];solvedToday:number;target:{Easy:number;Medium:number;Hard:number};openTimer:(p:Problem)=>void;regenerate:()=>void;todayKey:string;dsaState?:DailyCommitmentStatus;devState?:DailyCommitmentStatus;devDay:number;devTitle:string;setDsaDone:(s:DailyCommitmentStatus)=>void;setDevDone:(s:DailyCommitmentStatus)=>void}){
+function TodayPage({today,solved,status,solvedToday,target,company,companies,setCompany,openTimer,mark,regenerate,todayKey,devState,devDay,devTitle,setDevDone}:{today:Problem[];solved:number[];status:Record<number,Status>;solvedToday:number;target:{Easy:number;Medium:number;Hard:number};company:string;companies:string[];setCompany:(c:string)=>void;openTimer:(p:Problem)=>void;mark:(p:Problem,s:Status)=>void;regenerate:()=>void;todayKey:string;devState?:DailyCommitmentStatus;devDay:number;devTitle:string;setDevDone:(s:DailyCommitmentStatus)=>void}){
  const totalTarget=target.Easy+target.Medium+target.Hard;
  const completion=totalTarget?Math.round(solvedToday/totalTarget*100):0;
- const buttons=(state:DailyCommitmentStatus|undefined,setter:(s:DailyCommitmentStatus)=>void)=><div className="flex gap-2 mt-4"><button onClick={()=>setter("done")} className={state==="done"?"px-4 py-2.5 rounded-xl text-xs font-bold bg-green-300 text-black":"px-4 py-2.5 rounded-xl text-xs font-bold bg-white text-black"}>✓ Done today</button><button onClick={()=>setter("not-done")} className={state==="not-done"?"px-4 py-2.5 rounded-xl text-xs border border-amber-300/40 bg-amber-300/10 text-amber-200":"px-4 py-2.5 rounded-xl text-xs border border-[#2b384b] text-[#8b98aa]"}>Not done today</button></div>;
  return <div className="max-w-7xl mx-auto p-5 md:p-8">
-  <div className="mb-6"><div className="text-[10px] tracking-[.24em] text-cyan-200">DACE / DAILY SET · {todayKey}</div><h1 className="text-3xl md:text-5xl font-black mt-2">Today: DSA + Dev</h1><p className="text-sm text-[#7f8da0] mt-2">Two separate commitments. If one is not finished today, it stays with you tomorrow.</p></div>
-  <div className="grid xl:grid-cols-2 gap-5">
-   <section className="panel rounded-3xl p-5 md:p-6 border border-pink-300/10"><div className="flex justify-between gap-3"><div><div className="text-[10px] tracking-widest text-pink-200">01 · DSA</div><h2 className="text-2xl font-black mt-2">Today’s Questions</h2><p className="text-xs text-[#718096] mt-1">{today.length} questions · {target.Easy}E · {target.Medium}M · {target.Hard}H</p></div><button onClick={regenerate} className="p-2 rounded-xl border border-[#273447]">↻</button></div><div className="mt-5 space-y-2">{today.map((p,i)=><div key={p.id} className="p-3 rounded-xl bg-[#0a1017] border border-white/5 flex items-center gap-3"><span className="text-[10px] text-[#59687c]">{String(i+1).padStart(2,"0")}</span><a href={p.url} target="_blank" rel="noreferrer" className="text-sm flex-1 truncate hover:text-cyan-200">{p.title}</a><span className="text-[10px]">{p.difficulty}</span><button onClick={()=>openTimer(p)} className="text-[10px] px-2.5 py-1.5 rounded-lg border border-cyan-300/20">Open</button></div>)}</div><div className="mt-4 text-xs text-[#718096]">{solvedToday}/{totalTarget} solved · {completion}%</div>{buttons(dsaState,setDsaDone)}</section>
-   <section className="panel rounded-3xl p-5 md:p-6 border border-cyan-300/10"><div className="text-[10px] tracking-widest text-cyan-200">02 · DEV</div><h2 className="text-2xl font-black mt-2">Backend / SDE</h2><p className="text-xs text-[#718096] mt-1">Day {devDay} of {DEV_DAILY.length}</p><div className="mt-5 rounded-2xl bg-[#0a1017] border border-white/5 p-5"><div className="text-[10px] tracking-widest text-cyan-200">TODAY’S DEV TARGET</div><div className="text-xl font-black mt-2">{devTitle}</div><p className="text-xs text-[#718096] mt-2">Learn → practice → add it to the cumulative Task API → checkpoint.</p><a href="/backend" className="inline-flex mt-4 px-4 py-2.5 rounded-xl border border-cyan-300/20 text-xs">Open Backend track →</a></div>{buttons(devState,setDevDone)}</section>
+  <div className="fade-up grid xl:grid-cols-[1fr_460px] gap-7 items-stretch mb-7">
+   <div className="min-h-[330px] rounded-[30px] report-card relative overflow-hidden p-7 md:p-9 flex flex-col justify-between">
+    <div className="report-orb w-64 h-48 -right-10 -top-10 opacity-90"/><div className="report-orb two w-52 h-32 -left-16 bottom-2 opacity-80"/>
+    <div className="relative z-10 flex items-center justify-between"><div><div className="text-[10px] tracking-[.24em] text-pink-200">DACE / DAILY CHAPTER</div><div className="text-xs text-[#778398] mt-2">{dateKey()} · adaptive set</div></div><button onClick={regenerate} className="p-2.5 rounded-xl border border-white/10 bg-black/20 hover:bg-white/10" title="Regenerate"><Icon name="reset" size={15}/></button></div>
+    <div className="relative z-10"><h1 className="text-4xl md:text-6xl font-black tracking-tight leading-[.92]">Today's<br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-200 via-fuchsia-300 to-violet-300">Problems.</span></h1><p className="text-sm text-[#9aa5b5] mt-5 max-w-xl">Your daily target follows the Easy / Medium / Hard mix you set in Settings.</p></div>
+    <div className="relative z-10 grid grid-cols-3 gap-3 mt-7"><MiniMetric label="Complete" value={`${solvedToday}/${totalTarget}`} sub={`${completion}% today`}/><MiniMetric label="Target" value={`${target.Easy}E · ${target.Medium}M · ${target.Hard}H`} sub="daily mix"/><MiniMetric label="Focus" value={company==="All"?"All":company} sub="company bias"/></div>
+   </div>
+   <div className="rounded-[30px] bg-[#0a0d12] border border-white/8 p-6 md:p-7 flex flex-col justify-between">
+    <div><div className="text-[10px] tracking-[.24em] text-[#78869a]">CHAPTER INDEX</div><div className="text-2xl font-black mt-3">Today's set</div><p className="text-xs text-[#68778c] mt-2">{target.Easy} Easy · {target.Medium} Medium · {target.Hard} Hard</p></div>
+    <div className="space-y-3 my-6">{today.map((p,i)=><div key={p.id} className="flex items-center gap-3"><span className="text-[10px] text-[#5e6b7d] w-5">0{i+1}</span><div className="h-px flex-1 bg-white/10"/><a href={p.url} target="_blank" rel="noreferrer" title="Open this question on LeetCode" className="text-xs truncate max-w-[190px] hover:text-cyan-200 hover:underline underline-offset-4 transition cursor-pointer">{p.leetcodeNumber ? `${p.leetcodeNumber}. ` : ""}{p.title}</a><span className={`text-[10px] ${p.difficulty==="Easy"?"text-emerald-300":p.difficulty==="Medium"?"text-amber-300":"text-pink-300"}`}>{p.difficulty}</span></div>)}</div>
+    <select value={company} onChange={e=>{setCompany(e.target.value);regenerate()}} className="w-full bg-[#11151c] border border-white/10 rounded-xl px-3 py-3 text-xs"><option value="All">All companies</option>{companies.filter(c=>c!=="All").map(c=><option key={c}>{c}</option>)}</select>
+   </div>
   </div>
-  <div className="mt-5 panel rounded-2xl p-4 text-xs text-[#718096]"><b className="text-[#aeb8c6]">Rule:</b> Done = move forward. Not done = carry forward tomorrow. Nothing gets silently lost.</div>
- </div>;
+  <div className="flex items-center justify-between mb-3"><div><div className="text-[10px] tracking-[.22em] text-pink-200">CHAPTERS / 05</div><h2 className="text-xl font-black mt-1">Solve today's set</h2></div><div className="text-xs text-[#657387]">{solvedToday}/{totalTarget} complete</div></div>
+  <div className="space-y-3">{today.map((p,i)=><DailyCard key={p.id} p={p} index={i} solved={solved.includes(p.id)} status={status[p.id]||"unsolved"} openTimer={openTimer} mark={mark}/>)}</div>
+  {today.length<totalTarget&&<div className="mt-5 panel rounded-xl p-4 text-xs text-amber-300">Not enough problems matched the current company/difficulty filter. DACE is using the available pool.</div>}
+ <div className="mt-10 mb-3"><div className="text-[10px] tracking-[.22em] text-cyan-200">CHAPTERS / DEV</div><h2 className="text-xl font-black mt-1">Backend / SDE</h2><p className="text-xs text-[#657387] mt-1">Only Dev uses the Done / Not done carry-forward system.</p></div>
+ <div className="panel rounded-2xl p-5 md:p-6 border border-cyan-300/10"><div className="flex flex-col md:flex-row md:items-center justify-between gap-4"><div><div className="text-[10px] tracking-widest text-cyan-200">DEV · DAY {devDay} / 84</div><div className="text-2xl font-black mt-2">{devTitle}</div><p className="text-xs text-[#718096] mt-2">Learn → practice → add it to the cumulative backend project.</p></div><a href="/backend" className="px-4 py-2.5 rounded-xl border border-cyan-300/20 text-xs text-cyan-100 whitespace-nowrap">Open Backend track →</a></div><div className="flex gap-2 mt-5"><button onClick={()=>setDevDone("done")} className={devState==="done"?"px-4 py-2.5 rounded-xl text-xs font-bold bg-green-300 text-black":"px-4 py-2.5 rounded-xl text-xs font-bold bg-white text-black"}>✓ Done today</button><button onClick={()=>setDevDone("not-done")} className={devState==="not-done"?"px-4 py-2.5 rounded-xl text-xs border border-amber-300/40 bg-amber-300/10 text-amber-200":"px-4 py-2.5 rounded-xl text-xs border border-[#2b384b] text-[#8b98aa]"}>Not done today</button></div></div> </div>
 }
 function DailyCard({p,index,solved,status,openTimer,mark}:{p:Problem;index:number;solved:boolean;status:Status;openTimer:(p:Problem)=>void;mark:(p:Problem,s:Status)=>void}){
  return <article className={`report-card rounded-2xl p-4 md:p-5 transition hover:-translate-y-0.5 ${solved?"border-green-400/25":""}`}>
