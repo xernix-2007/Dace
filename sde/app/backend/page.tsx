@@ -244,36 +244,11 @@ export default function BackendSDEPage() {
         <div className="ml-auto text-xs text-[#9aa8ba]">{completedDays}/{days.length} days · {progress}%</div>
       </header>
 
-      <div className="max-w-[1500px] mx-auto p-4 md:p-7 grid lg:grid-cols-[270px_1fr] gap-5">
-        <aside className="panel rounded-2xl p-3 h-fit lg:sticky lg:top-20">
-          <div className="px-3 py-2 text-[10px] tracking-[.2em] text-[#657387]">LEARNING TRACK</div>
-          {topics.map((t, i) => (
-            <button key={t.id} onClick={() => selectTopic(t.id)}
-              className={`w-full text-left px-3 py-3 rounded-xl mb-1 transition ${selectedTopic===t.id ? "bg-cyan-300/10 border border-cyan-300/20" : "hover:bg-white/5 border border-transparent"}`}>
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] text-[#657387]">{String(i+1).padStart(2,"0")}</span>
-                <span className="text-xs font-semibold">{t.title}</span>
-              </div>
-              <div className="flex justify-between text-[9px] text-[#66758a] mt-1 ml-7">
-                <span>{t.days} days</span><span>{topicProgressFor(t.id, done, days)}/{t.days}</span>
-              </div>
-            </button>
-          ))}
-          <div className="mt-3 p-3 rounded-xl bg-white/[.025] border border-white/5">
-            <div className="text-[10px] tracking-widest text-violet-200">RULE</div>
-            <p className="text-[10px] leading-4 text-[#718096] mt-1">Learn → recall old concepts → code → update project → checkpoint. No handbook reading marathon.</p>
-          </div>
-          <button onClick={resetWorkspace} className="mt-3 w-full text-[10px] text-rose-300 border border-rose-400/20 rounded-xl py-2">Reset Backend Track</button>
-        </aside>
+      <div className="max-w-[1100px] mx-auto p-4 md:p-7">
+        
 
         <section className="min-w-0">
-          <div className="grid md:grid-cols-3 gap-3">
-            <Metric label="Track" value="12 weeks" sub="84 daily targets" />
-            <Metric label="Current topic" value={`${topicProgress}/${topic.days}`} sub={topic.title} />
-            <Metric label="Overall" value={`${progress}%`} sub="days completed" />
-          </div>
-
-          <div className="panel rounded-2xl p-5 mt-4">
+          <div className="panel rounded-2xl p-6"><div className="text-[10px] tracking-[.2em] text-cyan-200">TODAY</div><div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-2"><div><div className="text-xs text-[#657387]">DAY {day.day} OF 84 · {topic.title}</div><h1 className="text-3xl font-black mt-2">{day.target}</h1><p className="text-sm text-[#8391a4] mt-2">~45–90 minutes. Learn one thing, practice it, add it to the project, then check yourself.</p></div><div className="text-xs text-[#9aa8ba]">{completedDays}/84 complete · {progress}%</div></div></div><details className="mt-4"><summary className="cursor-pointer list-none panel rounded-2xl p-4 text-xs text-[#9aa8ba] hover:text-white">Roadmap, topic details and all daily targets <span className="float-right text-cyan-200">▾</span></summary><div className="mt-3"><div className="panel rounded-2xl p-5 mt-4">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
               <div>
                 <div className="text-[10px] tracking-[.2em] text-cyan-200">STAGE {String(currentTopicIndex+1).padStart(2,"0")}</div>
@@ -407,6 +382,7 @@ export default function BackendSDEPage() {
               </div>
             </div>
           </div>
+</div></details>
         </section>
       </div>
     </main>
