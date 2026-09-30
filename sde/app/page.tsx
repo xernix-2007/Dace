@@ -422,7 +422,7 @@ export default function Home(){
    </aside>
 
    <section className="flex-1 min-w-0">
-    {view==="overview"&&<Overview today={today} solvedToday={solvedToday} streak={streak} weeklySolved={weeklySolved} completion={completion} totalTime={totalTime} solvedAt={solvedAt} setView={setView} setHistoryDate={setHistoryDate} openTimer={openTimer}/>}
+    {view==="overview"&&<Overview today={today} solvedToday={solvedToday} streak={streak} weeklySolved={weeklySolved} completion={completion} totalTime={totalTime} solvedAt={solvedAt} setView={setView} setHistoryDate={setHistoryDate} openTimer={openTimer} devDay={devDay} devTitle={DEV_DAILY[devDay-1]} devState={dailyCommitment[todayKey+"-dev"]} setDevDone={setDevDone}/>}
     {view==="today"&&<TodayPage today={today} solved={solved} status={status} solvedToday={solvedToday} target={target} company={company} companies={companies} setCompany={updateCompany} openTimer={openTimer} mark={mark} regenerate={regenerateToday} todayKey={todayKey} devState={dailyCommitment[todayKey+"-dev"]} devDay={devDay} devTitle={DEV_DAILY[devDay-1]} setDevDone={setDevDone}/>}    {view==="history"&&<QuestionHistoryPage daily={daily} solved={solved} status={status} openTimer={openTimer} selectedDate={historyDate} today={today} target={target} company={company}/>}
     {view==="problems"&&<ProblemsPage problems={filtered} solved={solved} status={status} search={search} setSearch={setSearch} difficulty={difficulty} setDifficulty={setDifficulty} topic={topic} setTopic={setTopic} openTimer={openTimer} mark={mark}/>}
     {view==="companies"&&<CompaniesPage company={company} companies={companies} setCompany={updateCompany} problems={problems} solved={solved} status={status} openTimer={openTimer} mark={mark}/>}
@@ -441,7 +441,7 @@ function NavButton({active,label,icon,onClick}:{active:boolean;label:string;icon
  return <button onClick={onClick} className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm mb-1.5 transition ${active?"bg-gradient-to-r from-cyan-300/10 to-violet-400/10 border border-cyan-300/10 text-white":"text-[#8391a5] hover:text-white hover:bg-white/[.035]"}`}><Icon name={icon} size={17}/><span>{label}</span>{active&&<span className="ml-auto w-1.5 h-1.5 rounded-full bg-cyan-300"/>}</button>
 }
 
-function Overview({today,solvedToday,streak,weeklySolved,completion,totalTime,solvedAt,setView,setHistoryDate,openTimer}:{today:Problem[];solvedToday:number;streak:number;weeklySolved:number;completion:number;totalTime:number;solvedAt:Record<number,string>;setView:(v:View)=>void;setHistoryDate:(d:string)=>void;openTimer:(p:Problem)=>void}){
+function Overview({today,solvedToday,streak,weeklySolved,completion,totalTime,solvedAt,setView,setHistoryDate,openTimer,devDay,devTitle,devState,setDevDone}:{today:Problem[];solvedToday:number;streak:number;weeklySolved:number;completion:number;totalTime:number;solvedAt:Record<number,string>;setView:(v:View)=>void;setHistoryDate:(d:string)=>void;openTimer:(p:Problem)=>void;devDay:number;devTitle:string;devState?:DailyCommitmentStatus;setDevDone:(s:DailyCommitmentStatus)=>void}){
  const focus=today.filter(p=>p.difficulty!=="Easy").slice(0,3);
  return <div className="max-w-7xl mx-auto p-5 md:p-8">
   <div className="fade-up panel rounded-3xl p-6 md:p-9 relative overflow-hidden glow-cyan">
@@ -480,6 +480,20 @@ function Overview({today,solvedToday,streak,weeklySolved,completion,totalTime,so
   </div>
 
   <CodingCalendar solvedAt={solvedAt} setView={setView} setHistoryDate={setHistoryDate}/>
+
+  <div className="mt-5 panel rounded-2xl p-5 border border-cyan-300/10 fade-up-2">
+   <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="flex items-start gap-4">
+     <div className="w-11 h-11 rounded-xl bg-cyan-300/10 border border-cyan-300/20 flex items-center justify-center text-cyan-200 font-black">DEV</div>
+     <div><div className="text-[10px] tracking-[.2em] text-cyan-200">BACKEND / SDE · TODAY</div><div className="text-xl font-black mt-1">Day {devDay} · {devTitle}</div><div className="text-xs text-[#718096] mt-1">Learn → practice → build → checkpoint.</div></div>
+    </div>
+    <div className="flex flex-wrap gap-2">
+      <button onClick={()=>setDevDone("done")} className={devState==="done"?"px-4 py-2.5 rounded-xl text-xs font-bold bg-green-300 text-black":"px-4 py-2.5 rounded-xl text-xs font-bold bg-white text-black"}>✓ Done today</button>
+      <button onClick={()=>setDevDone("not-done")} className={devState==="not-done"?"px-4 py-2.5 rounded-xl text-xs border border-amber-300/40 bg-amber-300/10 text-amber-200":"px-4 py-2.5 rounded-xl text-xs border border-[#2b384b] text-[#8b98aa]"}>Not done</button>
+      <button onClick={()=>setView("backend")} className="px-4 py-2.5 rounded-xl border border-cyan-300/20 text-xs text-cyan-100">Open Dev →</button>
+    </div>
+   </div>
+  </div>
 
   <div className="mt-5 grid md:grid-cols-3 gap-4">
    <FeatureCard icon="timer" title="Solve with intent" text="Track actual time, expected time, attempts and hints." onClick={()=>setView("today")}/>
