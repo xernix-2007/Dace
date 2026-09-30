@@ -271,12 +271,16 @@ export default function BackendSDEPage() {
         "Build and review Task API v1",
       ],
       postgres: [
-        "Tables, rows, columns and relationships",
-        "SELECT and filtering with WHERE",
-        "INSERT, UPDATE and DELETE",
-        "ORDER BY, GROUP BY and HAVING",
-        "INNER JOIN and LEFT JOIN",
-        "Subqueries and CTEs",
+        "Relational database mental model",
+        "SELECT",
+        "WHERE",
+        "INSERT/UPDATE/DELETE",
+        "ORDER BY",
+        "GROUP BY/HAVING",
+        "INNER JOIN",
+        "LEFT JOIN",
+        "Subqueries",
+        "CTEs",
         "CASE and window functions",
         "Primary keys, foreign keys and constraints",
         "One-to-one, one-to-many and many-to-many",
@@ -313,8 +317,8 @@ export default function BackendSDEPage() {
         "Idempotency, logging and production API rules",
       ],
       testing: [
-        "pytest setup and assertions",
-        "Fixtures and reusable test setup",
+        "pytest setup",
+        "Assertions/fixtures",
         "Unit tests for business logic",
         "API tests with TestClient/httpx",
         "Database/integration tests",
@@ -353,19 +357,18 @@ export default function BackendSDEPage() {
         "HTTPS, rollback and final production checklist",
       ],
     };
-    const list = maps[d.topicId] || [];
-    if (list.length) {
-      const idx = days.filter(x => x.topicId === d.topicId).findIndex(x => x.day === d.day);
-      const focus = list[idx % list.length];
-      return [
-        focus,
-        "Simple explanation + real backend example",
-        "Write or run a tiny example yourself",
-        d.project,
-        d.checkpoint,
-      ];
-    }
-    return [d.target, "Simple explanation + real backend example", "Build a tiny example", d.project, d.checkpoint];
+
+    const list = maps[d.topicId] || [d.target];
+    const idx = days.filter(x => x.topicId === d.topicId).findIndex(x => x.day === d.day);
+    const focus = list[idx] || d.target;
+
+    return [
+      `1. Understand: ${focus}`,
+      `2. Trace: ${focus} through a real backend request`,
+      `3. Implement: ${focus} in code`,
+      `4. Integrate: ${focus} into TaskFlow`,
+      `5. Debug + explain: ${focus}`,
+    ];
   };
 
   const subtopicKey = (dayNumber: number, lesson: string) => `${dayNumber}::${lesson}`;
