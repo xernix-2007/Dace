@@ -1,7 +1,7 @@
 "use client";
 
 import problemsData from "../data/problems.json";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Activity, ArrowUpRight, BarChart3, BookOpen, BriefcaseBusiness, CalendarDays,
   Check, CheckCircle2, ChevronRight, CircleHelp, Clock3, Code2, Download,
@@ -62,7 +62,7 @@ function diffClass(d:Difficulty){return d==="Easy"?"diff-easy":d==="Medium"?"dif
 
 function Icon({name,size=17}:{name:string;size?:number}){
  const common={size,strokeWidth:1.8};
- const icons:any={dashboard:LayoutDashboard,calendar:CalendarDays,list:ListChecks,company:BriefcaseBusiness,analytics:BarChart3,interview:Target,settings:Settings,search:Search,clock:Clock3,play:Play,check:Check,code:Code2,spark:Sparkles,flame:Flame,trophy:Trophy,book:BookOpen,github:GitBranch,upload:Upload,download:Download,menu:Menu,x:X,arrow:ArrowUpRight,reset:RotateCcw,gauge:Gauge,shield:ShieldCheck,user:UserRound,help:CircleHelp,zap:Zap,activity:Activity};
+ const icons:any={dashboard:LayoutDashboard,calendar:CalendarDays,list:ListChecks,company:BriefcaseBusiness,analytics:BarChart3,interview:Target,settings:Settings,search:Search,clock:Clock3,play:Play,check:Check,code:Code2,spark:Sparkles,flame:Flame,trophy:Trophy,book:BookOpen,github:GitBranch,upload:Upload,download:Download,menu:Menu,x:X,arrow:ArrowUpRight,reset:RotateCcw,gauge:Gauge,shield:ShieldCheck,user:UserRound,help:CircleHelp,zap:Zap,activity:Activity,timer:Timer};
  const C=icons[name]||Code2;return <C {...common}/>;
 }
 
@@ -81,6 +81,8 @@ export default function Home(){
  const [active,setActive]=useState<Problem|null>(null);
  const [seconds,setSeconds]=useState(0);
  const [running,setRunning]=useState(false);
+ const timerStartedAt=useRef<number|null>(null);
+ const timerBaseSeconds=useRef(0);
  const [search,setSearch]=useState("");
  const [difficulty,setDifficulty]=useState<"All"|Difficulty>("All");
  const [topic,setTopic]=useState("All");
@@ -91,11 +93,12 @@ export default function Home(){
  const [historyDate,setHistoryDate]=useState<string|null>(null);
  const todayKey=dateKey();
  function updateTarget(next:React.SetStateAction<{Easy:number;Medium:number;Hard:number}>){
-  setTarget(prev=>{
-   const value=typeof next==="function"?next(prev):next;
-   if(hydrated){setDaily({});localStorage.removeItem("dace-daily");}
-   return value;
-  });
+  setTarget(next);
+  if(hydrated){setDaily({});localStorage.removeItem("dace-daily");}
+ }
+ function updateCompany(next:string){
+  setCompany(next);
+  if(hydrated){setDaily({});localStorage.removeItem("dace-daily");}
  }
 
  useEffect(()=>{
@@ -121,7 +124,17 @@ export default function Home(){
  useEffect(()=>{if(hydrated)localStorage.setItem("dace-hints",JSON.stringify(hints))},[hints,hydrated]);
  useEffect(()=>{if(hydrated)localStorage.setItem("dace-target",JSON.stringify(target))},[target,hydrated]);
  useEffect(()=>{if(hydrated)localStorage.setItem("dace-company",company)},[company,hydrated]);
- useEffect(()=>{if(!running)return;const t=setInterval(()=>setSeconds(s=>s+1),1000);return()=>clearInterval(t)},[running]);
+ useEffect(()=>{
+  if(!running)return;
+  const tick=()=>{
+   const started=timerStartedAt.current;
+   if(started===null)return;
+   setSeconds(timerBaseSeconds.current+Math.floor((Date.now()-started)/1000));
+  };
+  tick();
+  const t=setInterval(tick,250);
+  return()=>clearInterval(t);
+ },[running]);
  useEffect(()=>{const routes:Record<string,string>={dbms:"DBMS",os:"OS",cn:"CN",oop:"OOP",sql:"SQL",dsa:"DSA%20Fundamentals"};if(routes[view])window.location.href="/knowledge?subject="+routes[view]},[view]);
 
  const topicStats=useMemo(()=>{
@@ -209,21 +222,48 @@ export default function Home(){
   }
  }
  function openTimer(p:Problem){
+  timerStartedAt.current=null;
+  timerBaseSeconds.current=0;
   setActive(p);setSeconds(0);setRunning(false);
   setAttempts(x=>({...x,[p.id]:(x[p.id]||0)+1}));
  }
+ function toggleTimer(){
+  if(running){
+   const started=timerStartedAt.current;
+   if(started!==null)setSeconds(timerBaseSeconds.current+Math.floor((Date.now()-started)/1000));
+   timerStartedAt.current=null;
+   setRunning(false);
+  }else{
+   timerBaseSeconds.current=seconds;
+   timerStartedAt.current=Date.now();
+   setRunning(true);
+  }
+ }
+ function resetTimer(){
+  timerStartedAt.current=null;
+  timerBaseSeconds.current=0;
+  setRunning(false);
+  setSeconds(0);
+ }
+ function getTimerSeconds(){
+  const started=timerStartedAt.current;
+  return started===null?seconds:timerBaseSeconds.current+Math.floor((Date.now()-started)/1000);
+ }
  function closeTimer(save=true){
   if(!active)return;
-  if(save)setTimeSpent(x=>({...x,[active.id]:(x[active.id]||0)+seconds}));
+  const elapsed=getTimerSeconds();
+  if(save&&elapsed>0)setTimeSpent(x=>({...x,[active.id]:(x[active.id]||0)+elapsed}));
+  timerStartedAt.current=null;
+  timerBaseSeconds.current=0;
   setRunning(false);setActive(null);setSeconds(0);
  }
  function exportData(){
-  const blob=new Blob([JSON.stringify({solved,status,daily,timeSpent,attempts,hints,target,company,exportedAt:new Date().toISOString()},null,2)],{type:"application/json"});
+  const blob=new Blob([JSON.stringify({version:2,solved,solvedAt,status,daily,timeSpent,attempts,hints,target,company,exportedAt:new Date().toISOString()},null,2)],{type:"application/json"});
   const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="dace-progress.json";a.click();URL.revokeObjectURL(url);
  }
  function importData(e:React.ChangeEvent<HTMLInputElement>){
   const file=e.target.files?.[0];if(!file)return;const r=new FileReader();
-  r.onload=()=>{try{const d=JSON.parse(String(r.result));if(d.solved)setSolved(d.solved);if(d.status)setStatus(d.status);if(d.daily)setDaily(d.daily);if(d.timeSpent)setTimeSpent(d.timeSpent);if(d.attempts)setAttempts(d.attempts);if(d.hints)setHints(d.hints);if(d.target)setTarget(d.target);if(d.company)setCompany(d.company)}catch{alert("Invalid DACE backup file.")}};
+  r.onload=()=>{try{const d=JSON.parse(String(r.result));if(Array.isArray(d.solved))setSolved(d.solved);if(d.solvedAt&&typeof d.solvedAt==="object")setSolvedAt(d.solvedAt);if(d.status&&typeof d.status==="object")setStatus(d.status);if(d.daily)setDaily(d.daily);if(d.timeSpent)setTimeSpent(d.timeSpent);if(d.attempts)setAttempts(d.attempts);if(d.hints)setHints(d.hints);if(d.target)setTarget(d.target);if(d.company)setCompany(d.company)}catch{alert("Invalid DACE backup file.")}};
   r.readAsText(file);
  }
  function resetAll(){if(confirm("Reset all DACE local progress? This cannot be undone unless you have exported a backup.")){localStorage.clear();location.reload()}}
@@ -267,17 +307,17 @@ export default function Home(){
 
    <section className="flex-1 min-w-0">
     {view==="overview"&&<Overview today={today} solvedToday={solvedToday} streak={streak} weeklySolved={weeklySolved} completion={completion} totalTime={totalTime} solvedAt={solvedAt} setView={setView} setHistoryDate={setHistoryDate} openTimer={openTimer}/>}
-    {view==="today"&&<TodayPage today={today} solved={solved} status={status} solvedToday={solvedToday} target={target} company={company} companies={companies} setCompany={setCompany} openTimer={openTimer} mark={mark} regenerate={regenerateToday}/>}    {view==="history"&&<QuestionHistoryPage daily={daily} solved={solved} status={status} openTimer={openTimer} selectedDate={historyDate} today={today} target={target} company={company}/>}
+    {view==="today"&&<TodayPage today={today} solved={solved} status={status} solvedToday={solvedToday} target={target} company={company} companies={companies} setCompany={updateCompany} openTimer={openTimer} mark={mark} regenerate={regenerateToday}/>}    {view==="history"&&<QuestionHistoryPage daily={daily} solved={solved} status={status} openTimer={openTimer} selectedDate={historyDate} today={today} target={target} company={company}/>}
     {view==="problems"&&<ProblemsPage problems={filtered} solved={solved} status={status} search={search} setSearch={setSearch} difficulty={difficulty} setDifficulty={setDifficulty} topic={topic} setTopic={setTopic} openTimer={openTimer} mark={mark}/>}
-    {view==="companies"&&<CompaniesPage company={company} companies={companies} setCompany={setCompany} problems={problems} solved={solved} status={status} openTimer={openTimer} mark={mark}/>}
+    {view==="companies"&&<CompaniesPage company={company} companies={companies} setCompany={updateCompany} problems={problems} solved={solved} status={status} openTimer={openTimer} mark={mark}/>}
     {view==="analytics"&&<AnalyticsPage problems={problems} solved={solved} status={status} timeSpent={timeSpent} topicStats={topicStats} streak={streak} totalTime={totalTime}/>}
     {view==="interview"&&<InterviewPage problems={problems} interviewTime={interviewTime} setInterviewTime={setInterviewTime} openTimer={openTimer} mark={mark} attempts={attempts} hints={hints} timeSpent={timeSpent}/>}
     {view==="prep"&&<PrepPage problems={problems} solved={solved} status={status} company={prepCompany} setCompany={setPrepCompany} days={prepDays} setDays={setPrepDays} topicStats={topicStats} openTimer={openTimer}/>}
-    {view==="settings"&&<SettingsPage target={target} setTarget={updateTarget} company={company} setCompany={setCompany} companies={companies} exportData={exportData} importData={importData} resetAll={resetAll}/>}
+    {view==="settings"&&<SettingsPage target={target} setTarget={updateTarget} company={company} setCompany={updateCompany} companies={companies} exportData={exportData} importData={importData} resetAll={resetAll}/>}
    </section>
   </div>
 
-  {active&&<TimerModal active={active} seconds={seconds} running={running} hints={hints[active.id]||0} onToggle={()=>setRunning(!running)} onReset={()=>setSeconds(0)} onHint={()=>setHints(x=>({...x,[active.id]:(x[active.id]||0)+1}))} onClose={()=>closeTimer(true)} onSolved={()=>{mark(active,"solved");closeTimer(true)}}/>}
+  {active&&<TimerModal active={active} seconds={seconds} running={running} hints={hints[active.id]||0} onToggle={toggleTimer} onReset={resetTimer} onHint={()=>setHints(x=>({...x,[active.id]:(x[active.id]||0)+1}))} onClose={()=>closeTimer(true)} onSolved={()=>{mark(active,"solved");closeTimer(true)}}/>}
  </main>;
 }
 
@@ -486,7 +526,7 @@ function ProblemsPage({problems,solved,status,search,setSearch,difficulty,setDif
    <div className="text-xs text-[#657387]">{filteredProblems.length.toLocaleString()} matching</div>
   </div>
   <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-6">
-   <Stat label="Loaded" value={counts.all.toLocaleString()} icon="list"/><Stat label="Solved" value={String(counts.solved)} icon="check"/><Stat label="Revision" value={String(counts.revision)} icon="reset"/><Stat label="Couldn't solve" value={String(counts.failed)} icon="help"/>
+   <Stat label="Matching" value={counts.all.toLocaleString()} icon="list"/><Stat label="Solved" value={String(counts.solved)} icon="check"/><Stat label="Revision" value={String(counts.revision)} icon="reset"/><Stat label="Couldn't solve" value={String(counts.failed)} icon="help"/>
   </div>
   <div className="panel rounded-2xl p-3 mt-5">
    <div className="grid lg:grid-cols-[1.5fr_repeat(3,1fr)] gap-2">
@@ -731,7 +771,7 @@ function PrepPage({problems,solved,status,company,setCompany,days,setDays,topicS
    </div>
    <div className="panel rounded-2xl p-5">
     <div className="flex items-end justify-between gap-3"><div><div className="text-[10px] tracking-widest text-cyan-200">MUST PREPARE</div><h2 className="text-2xl font-black mt-2">{shortlist.length} questions for {days} days</h2><p className="text-xs text-[#718096] mt-1">Daily target: about {Math.ceil(shortlist.length/days)} focused questions.</p></div></div>
-    <div className="mt-4 space-y-2">{shortlist.slice(0,18).map((p,i)=><div key={p.id} className="p-3 rounded-xl border border-[#202a38]"><div className="flex gap-2 items-center"><span className="text-[10px] text-[#627188]">#{i+1}</span><span className="text-sm flex-1">{p.title}</span><span className="text-[10px]">{p.difficulty}</span></div><div className="text-[10px] text-[#69788d] mt-1">{topicFamily(p)} · {p.topics.join(" · ")}</div><div className="flex gap-2 mt-2"><button onClick={()=>openTimer(p)} className="px-3 py-1.5 rounded-lg bg-white text-black text-[11px] font-semibold">Practice</button><a href={p.url} target="_blank" rel="noreferrer" className="px-3 py-1.5 rounded-lg border border-[#273447] text-[11px]">Source ↗</a></div></div>)}</div>
+    <div className="mt-4 space-y-2">{shortlist.slice(0,18).map((p,i)=><div key={p.id} className="p-3 rounded-xl border border-[#202a38]"><div className="flex gap-2 items-center"><span className="text-[10px] text-[#627188]">#{i+1}</span><a href={p.url} target="_blank" rel="noreferrer" title="Open this question on LeetCode" className="text-sm flex-1 hover:text-cyan-200 hover:underline underline-offset-4 transition">{p.leetcodeNumber ? `${p.leetcodeNumber}. ` : ""}{p.title}</a><span className="text-[10px]">{p.difficulty}</span></div><div className="text-[10px] text-[#69788d] mt-1">{topicFamily(p)} · {p.topics.join(" · ")}</div><div className="flex gap-2 mt-2"><button onClick={()=>openTimer(p)} className="px-3 py-1.5 rounded-lg bg-white text-black text-[11px] font-semibold">Practice</button><a href={p.url} target="_blank" rel="noreferrer" className="px-3 py-1.5 rounded-lg border border-[#273447] text-[11px]">Source ↗</a></div></div>)}</div>
    </div>
   </div>
 
@@ -744,7 +784,7 @@ function PrepPage({problems,solved,status,company,setCompany,days,setDays,topicS
   <div className="panel rounded-2xl p-5 mt-5">
    <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-3"><div><div className="text-[10px] tracking-widest text-violet-200">FULL COMPANY BANK</div><h2 className="text-2xl font-black mt-2">{company}: {companyQuestions.length} questions</h2><p className="text-xs text-[#718096] mt-1">The bank keeps all available company-tagged questions first, then adds relevant broader DSA questions until it reaches 500; large banks are capped at 1,000. Company-tagged questions are prioritized for prep.</p></div></div>
    <div className="grid md:grid-cols-[1fr_160px_auto] gap-2 mt-4"><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search Two Sum, graph, DP, tree..." className="bg-[#0b1119] border border-[#253245] rounded-xl px-4 py-3 text-sm outline-none"/><select value={difficulty} onChange={e=>setDifficulty(e.target.value)} className="bg-[#0b1119] border border-[#253245] rounded-xl px-3 py-3 text-sm"><option>All</option><option>Easy</option><option>Medium</option><option>Hard</option></select><button onClick={()=>setOnlyUnsolved(x=>!x)} className={"px-4 py-3 rounded-xl border text-xs "+(onlyUnsolved?"border-cyan-300/30 bg-cyan-300/10 text-cyan-100":"border-[#253245] text-[#8290a3]")}>{onlyUnsolved?"Showing unsolved":"Show unsolved only"}</button></div>
-   <div className="mt-4 grid md:grid-cols-2 xl:grid-cols-3 gap-2 max-h-[760px] overflow-auto pr-1">{companyQuestions.map((p,i)=><div key={p.id} className="p-4 rounded-2xl border border-white/5 hover:border-cyan-300/20"><div className="flex gap-2 items-center"><span className="text-[10px] text-[#627188]">#{i+1}</span><span className={"text-[10px] "+(p.difficulty==="Easy"?"text-green-300":p.difficulty==="Medium"?"text-amber-300":"text-rose-300")}>{p.difficulty}</span><span className="text-[9px] text-[#68778c]">· {topicFamily(p)}</span>{solved.includes(p.id)&&<span className="ml-auto text-[9px] text-green-300">✓ solved</span>}</div><div className="text-sm leading-5 mt-2">{p.title}</div><div className="text-[10px] text-[#657387] mt-2">{p.topics.join(" · ")}</div><div className="flex gap-2 mt-3"><button onClick={()=>openTimer(p)} className="px-3 py-2 rounded-lg bg-white text-black text-[11px] font-semibold">Practice</button><a href={p.url} target="_blank" rel="noreferrer" className="px-3 py-2 rounded-lg border border-[#273447] text-[11px]">Open source ↗</a></div></div>)}</div>
+   <div className="mt-4 grid md:grid-cols-2 xl:grid-cols-3 gap-2 max-h-[760px] overflow-auto pr-1">{companyQuestions.map((p,i)=><div key={p.id} className="p-4 rounded-2xl border border-white/5 hover:border-cyan-300/20"><div className="flex gap-2 items-center"><span className="text-[10px] text-[#627188]">#{i+1}</span><span className={"text-[10px] "+(p.difficulty==="Easy"?"text-green-300":p.difficulty==="Medium"?"text-amber-300":"text-rose-300")}>{p.difficulty}</span><span className="text-[9px] text-[#68778c]">· {topicFamily(p)}</span>{solved.includes(p.id)&&<span className="ml-auto text-[9px] text-green-300">✓ solved</span>}</div><a href={p.url} target="_blank" rel="noreferrer" title="Open this question on LeetCode" className="block text-sm leading-5 mt-2 hover:text-cyan-200 hover:underline underline-offset-4 transition">{p.leetcodeNumber ? `${p.leetcodeNumber}. ` : ""}{p.title}</a><div className="text-[10px] text-[#657387] mt-2">{p.topics.join(" · ")}</div><div className="flex gap-2 mt-3"><button onClick={()=>openTimer(p)} className="px-3 py-2 rounded-lg bg-white text-black text-[11px] font-semibold">Practice</button><a href={p.url} target="_blank" rel="noreferrer" className="px-3 py-2 rounded-lg border border-[#273447] text-[11px]">Open source ↗</a></div></div>)}</div>
   </div>
  </div>
 }
@@ -770,7 +810,7 @@ function QuestionHistoryPage({daily,solved,status,openTimer,selectedDate,today,t
    const d=new Date(key+"T00:00:00");
    return {key,label:d.toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"short",year:"numeric"}),ids:reconstruct(key)};
   });
- },[daily,today,target,company]);
+ },[daily,today,target,company,selectedDate]);
 
  const totalQuestions=days.reduce((n,d)=>n+d.ids.length,0);
  const uniqueIds=new Set(days.flatMap(d=>d.ids));
@@ -781,7 +821,7 @@ function QuestionHistoryPage({daily,solved,status,openTimer,selectedDate,today,t
    <div><h1 className="text-3xl md:text-4xl font-black">{selectedDate?"Questions · "+selectedDate:"All Question History"}</h1><p className="text-sm text-[#748398] mt-2">Nothing is removed after 7 days. Every saved daily set stays available in your local DACE data.</p></div>
    <div className="grid grid-cols-3 gap-2">
     <MiniMetric label="Days" value={String(days.length)} sub="saved days"/>
-    <MiniMetric label="Questions" value={String(totalQuestions)} sub="shown in 7 days"/>
+    <MiniMetric label="Questions" value={String(totalQuestions)} sub="saved history"/>
     <MiniMetric label="Unique" value={String(uniqueIds.size)} sub="different questions"/>
    </div>
   </div>
@@ -789,7 +829,7 @@ function QuestionHistoryPage({daily,solved,status,openTimer,selectedDate,today,t
   <div className="panel rounded-2xl p-5 mt-6">
    <div className="flex items-center justify-between gap-3">
     <div><h2 className="font-semibold">Daily question log</h2><p className="text-xs text-[#718096] mt-1">Your daily sets are saved locally in this browser.</p></div>
-    <span className="text-[10px] text-[#64748b]">7 DAYS</span>
+    <span className="text-[10px] text-[#64748b]">SAVED HISTORY</span>
    </div>
 
    <div className="mt-5 space-y-5">
