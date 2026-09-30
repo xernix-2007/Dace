@@ -91,7 +91,13 @@ export default function Home(){
  const [prepCompany,setPrepCompany]=useState("Amazon");
  const [hydrated,setHydrated]=useState(false);
  const [historyDate,setHistoryDate]=useState<string|null>(null);
- const todayKey=dateKey();
+ const [todayKey,setTodayKey]=useState("");
+ useEffect(()=>{
+  const syncDay=()=>setTodayKey(dateKey());
+  syncDay();
+  const id=window.setInterval(syncDay,60000);
+  return()=>window.clearInterval(id);
+ },[]);
  function updateTarget(next:React.SetStateAction<{Easy:number;Medium:number;Hard:number}>){
   setTarget(next);
   if(hydrated){setDaily({});localStorage.removeItem("dace-daily");}
@@ -160,7 +166,7 @@ export default function Home(){
  };
 
  const todayIds=useMemo(()=>{
-  if(!hydrated)return [];
+  if(!hydrated||!todayKey)return [];
   if(daily[todayKey])return daily[todayKey];
   const available=problems.filter(p=>!solved.includes(p.id));
   const picked:number[]=[];
@@ -182,9 +188,14 @@ export default function Home(){
    const fallback=shuffle(available.filter(p=>!picked.includes(p.id)&&(company==="All"||p.companies.includes(company))),todayKey+"fallback");
    for(const p of fallback){if(picked.length>=totalTarget)break;picked.push(p.id)}
   }
-  setDaily(x=>({...x,[todayKey]:picked}));
   return picked;
  },[daily,todayKey,solved,company,target,topicStats,recentIds,hydrated]);
+
+ useEffect(()=>{
+  if(!hydrated||!todayKey||daily[todayKey])return;
+  const ids=todayIds;
+  setDaily(x=>x[todayKey]?x:{...x,[todayKey]:ids});
+ },[hydrated,todayKey,daily,todayIds]);
 
  const today=todayIds.map(id=>problems.find(p=>p.id===id)).filter(Boolean) as Problem[];
  const solvedToday=today.filter(p=>solved.includes(p.id)).length;
@@ -209,13 +220,14 @@ export default function Home(){
  },[solvedAt]);
 
  function regenerateToday(){
+  if(!todayKey)return;
   setDaily(x=>{const y={...x};delete y[todayKey];return y});
  }
  function mark(p:Problem,s:Status){
   setStatus(x=>({...x,[p.id]:s}));
   if(s==="solved"){
    setSolved(x=>x.includes(p.id)?x:[...x,p.id]);
-   setSolvedAt(x=>({...x,[p.id]:x[p.id]||dateKey()}));
+   setSolvedAt(x=>({...x,[p.id]:dateKey()}));
   }else{
    setSolved(x=>x.filter(id=>id!==p.id));
    setSolvedAt(x=>{const y={...x};delete y[p.id];return y});
