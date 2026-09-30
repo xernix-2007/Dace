@@ -234,19 +234,6 @@ export default function BackendSDEPage() {
     location.reload();
   };
 
-  const subtopicKey = (dayNumber: number, lesson: string) => `${dayNumber}::${lesson}`;
-  const currentLessons = lessonsFor(day);
-  const currentChecked = currentLessons.filter(lesson => subtopicDone[subtopicKey(day.day, lesson)]).length;
-  const toggleSubtopic = (lesson: string) => {
-    const key = subtopicKey(day.day, lesson);
-    setSubtopicDone(prev => {
-      const next = { ...prev, [key]: !prev[key] };
-      const allDone = currentLessons.length > 0 && currentLessons.every(item => next[subtopicKey(day.day, item)]);
-      setDone(prevDone => ({ ...prevDone, [day.day]: allDone }));
-      return next;
-    });
-  };
-
   const sprintMinutes = topicDays.length * 65;
   const sprintHours = Math.floor(sprintMinutes / 60);
   const sprintMins = sprintMinutes % 60;
@@ -378,6 +365,19 @@ export default function BackendSDEPage() {
       ];
     }
     return [d.target, "Simple explanation + real backend example", "Build a tiny example", d.project, d.checkpoint];
+  };
+
+  const subtopicKey = (dayNumber: number, lesson: string) => `${dayNumber}::${lesson}`;
+  const currentLessons = lessonsFor(day);
+  const currentChecked = currentLessons.filter(lesson => subtopicDone[subtopicKey(day.day, lesson)]).length;
+  const toggleSubtopic = (lesson: string) => {
+    const key = subtopicKey(day.day, lesson);
+    setSubtopicDone(prev => {
+      const next = { ...prev, [key]: !prev[key] };
+      const allDone = currentLessons.length > 0 && currentLessons.every(item => next[subtopicKey(day.day, item)]);
+      setDone(prevDone => ({ ...prevDone, [day.day]: allDone }));
+      return next;
+    });
   };
 
   return (
