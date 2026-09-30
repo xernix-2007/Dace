@@ -368,217 +368,6 @@ export default function BackendSDEPage() {
     return [d.target, "Simple explanation + real backend example", "Build a tiny example", d.project, d.checkpoint];
   };
 
-  const resourceFor = (d: Day, lesson: string) => {
-    const base: Record<string, { video: string; site: string; siteLabel: string }> = {
-      http: { video: "https://www.youtube.com/watch?v=iYM2zFP3Zn0", site: "https://developer.mozilla.org/en-US/docs/Web/HTTP", siteLabel: "MDN HTTP" },
-      git: { video: "https://www.youtube.com/watch?v=mAFoROnOfHs", site: "https://git-scm.com/book/en/v2", siteLabel: "Pro Git" },
-      fastapi: { video: "https://www.youtube.com/watch?v=tLKKmouUams", site: "https://fastapi.tiangolo.com/tutorial/", siteLabel: "FastAPI Docs" },
-      postgres: { video: "https://www.youtube.com/watch?v=qw--VYLpxG4", site: "https://www.postgresql.org/docs/current/tutorial.html", siteLabel: "PostgreSQL" },
-      sqlalchemy: { video: "https://www.youtube.com/watch?v=Uym2DHnUEno", site: "https://docs.sqlalchemy.org/en/20/tutorial/", siteLabel: "SQLAlchemy" },
-      auth: { video: "https://www.youtube.com/watch?v=0A_GCXBCNUQ", site: "https://fastapi.tiangolo.com/tutorial/security/", siteLabel: "FastAPI Security" },
-      api: { video: "https://www.youtube.com/watch?v=7YcW25PHnAA", site: "https://www.rfc-editor.org/rfc/rfc9110", siteLabel: "HTTP Semantics" },
-      testing: { video: "https://www.youtube.com/watch?v=6tNS--WetLI", site: "https://docs.pytest.org/en/stable/", siteLabel: "pytest Docs" },
-      redis: { video: "https://www.youtube.com/watch?v=jgpVdJB2sKQ", site: "https://redis.io/docs/latest/develop/", siteLabel: "Redis Docs" },
-      celery: { video: "https://www.youtube.com/watch?v=I0VqD2v6m8A", site: "https://docs.celeryq.dev/en/stable/getting-started/introduction.html", siteLabel: "Celery Docs" },
-      docker: { video: "https://www.youtube.com/watch?v=rjjES5IsPdg", site: "https://docs.docker.com/get-started/", siteLabel: "Docker Docs" },
-      cicd: { video: "https://www.youtube.com/watch?v=hbeLqL6sjKA", site: "https://docs.github.com/en/actions", siteLabel: "GitHub Actions" },
-    };
-
-    const timestamps: Record<string, Record<string, number>> = {
-      git: {
-        "Repository, working tree and staging area": 1121,
-        "Small commits and useful commit messages": 1800,
-        "Branches, merge and conflict resolution": 2458,
-        "Pull request workflow and code review": 4608,
-        "Rebase basics and clean project history": 4338,
-      },
-      fastapi: {
-        "FastAPI app, route and Uvicorn": 70,
-        "Path/query parameters and request bodies": 750,
-        "Pydantic validation and schemas": 900,
-        "Response models and HTTP status codes": 1500,
-        "CRUD routes and error handling": 2300,
-        "Routers, dependencies and project structure": 2700,
-        "Configuration and environment variables": 3000,
-        "Middleware and CORS": 3300,
-        "Async vs sync endpoint work": 3600,
-        "Request → validation → service → response flow": 3900,
-        "Test the API manually with /docs": 4200,
-        "Build and review Task API v1": 4500,
-      },
-      postgres: {
-        "Tables, rows, columns and relationships": 1800,
-        "SELECT and filtering with WHERE": 4320,
-        "INSERT, UPDATE and DELETE": 3540,
-        "ORDER BY, GROUP BY and HAVING": 4500,
-        "INNER JOIN and LEFT JOIN": 11900,
-        "Subqueries and CTEs": 0,
-        "CASE and window functions": 0,
-        "Primary keys, foreign keys and constraints": 8950,
-        "One-to-one, one-to-many and many-to-many": 11800,
-        "Normalization and avoiding duplicated data": 0,
-        "Indexes and why they speed reads": 0,
-        "Transactions and ACID": 0,
-        "Isolation and concurrent database work": 0,
-        "Design the Task API database": 0,
-      },
-      docker: {
-        "Linux CLI, files and processes": 0,
-        "Permissions and SSH basics": 0,
-        "Image vs container": 1420,
-        "Dockerfile and reproducible builds": 2280,
-        "Volumes, networks and ports": 900,
-        "Environment variables and service configuration": 0,
-        "Docker Compose for API + PostgreSQL + Redis": 12200,
-        "Run and debug the complete stack": 0,
-      },
-      cicd: {
-        "What CI/CD actually solves": 0,
-        "GitHub Actions and automated tests": 363,
-        "Secrets and environment configuration": 1358,
-        "Build the application image": 736,
-        "Deploy, health checks and logs": 2660,
-        "HTTPS, rollback and final production checklist": 0,
-      },
-    };
-
-    const item = base[d.topicId] || base.http;
-    const seconds = timestamps[d.topicId]?.[lesson];
-    return {
-      youtube: seconds && seconds > 0 ? item.video + "&t=" + seconds + "s" : item.video,
-      site: item.site,
-      siteLabel: item.siteLabel,
-    };
-  };
-
-  const lessonContent = (d: Day, lesson: string) => {
-    const focus = lessonsFor(d)[0];
-    const topic = d.topicId;
-    const shared: Record<string, { why: string; code: string; project: string; practice: string; mistakes: string }> = {
-      http: {
-        why: "Every backend starts with the request/response cycle. The client sends a request, the server processes it, and the server returns a response.",
-        code: "GET /tasks/42 HTTP/1.1\nHost: api.example.com\nAccept: application/json\n\nHTTP/1.1 200 OK\nContent-Type: application/json\n\n{\\"id\\":42,\\"title\\":\\"Learn HTTP\\"}",
-        project: "Add the first Task API endpoint and trace client → HTTP → FastAPI → response.",
-        practice: "Use curl or browser DevTools. Change the method, path, query and headers and observe the response.",
-        mistakes: "Confusing URL, method, headers and body; using 200 for every situation; thinking HTTP is only a URL."
-      },
-      git: {
-        why: "Git records backend changes so you can collaborate, inspect mistakes and roll back safely.",
-        code: "git status\ngit diff\ngit add .\ngit commit -m \\"feat: add task endpoint\\"",
-        project: "Create the backend repository and commit each working feature in small, understandable steps.",
-        practice: "Make a small change, inspect git diff, stage only what you need, then commit it.",
-        mistakes: "Huge commits, meaningless messages, committing secrets, and working directly on main."
-      },
-      fastapi: {
-        why: "FastAPI turns Python functions into HTTP endpoints and gives you validation, documentation and dependency injection.",
-        code: "from fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\\"/tasks/{task_id}\\")\ndef get_task(task_id: int):\n    return {\\"id\\": task_id, \\"title\\": \\"Learn backend\\"}",
-        project: "Build the Task API endpoint-by-endpoint with validation, predictable responses and clear errors.",
-        practice: "Run the server, open /docs, send valid and invalid input, and explain what FastAPI did.",
-        mistakes: "Putting all logic inside routes, skipping validation, mixing database code into every route, and hiding configuration in source code."
-      },
-      postgres: {
-        why: "PostgreSQL gives the API durable, relational data storage with constraints and powerful queries.",
-        code: "CREATE TABLE tasks (\n  id SERIAL PRIMARY KEY,\n  title TEXT NOT NULL,\n  completed BOOLEAN NOT NULL DEFAULT FALSE\n);\n\nSELECT id, title FROM tasks\nWHERE completed = FALSE\nORDER BY id DESC;",
-        project: "Design the Task API database and enforce important rules at the database boundary.",
-        practice: "Write SQL by hand first. Predict the result before running SELECT, JOIN or UPDATE.",
-        mistakes: "Missing keys or constraints, duplicated data, SELECT *, and writing queries without understanding their result set."
-      },
-      sqlalchemy: {
-        why: "SQLAlchemy connects Python application code to relational data while keeping database access structured and testable.",
-        code: "from sqlalchemy import create_engine\nfrom sqlalchemy.orm import DeclarativeBase\n\nengine = create_engine(DATABASE_URL)\n\nclass Base(DeclarativeBase):\n    pass",
-        project: "Move the Task API from database experiments to models, sessions and migrations without changing its public behavior.",
-        practice: "For every ORM operation ask: what SQL would the database actually execute?",
-        mistakes: "Long-lived sessions, committing everywhere, hiding transactions, and forgetting SQL fundamentals."
-      },
-      auth: {
-        why: "Authentication answers who the user is. Authorization answers what that user is allowed to do.",
-        code: "from fastapi import Depends\nfrom fastapi.security import HTTPBearer\n\nsecurity = HTTPBearer()\n\n@app.get(\\"/me\\")\ndef me(credentials = Depends(security)):\n    return {\\"authenticated\\": True}",
-        project: "Add users, password hashing, login, access tokens and ownership checks to the Task API.",
-        practice: "Trace login → token → Authorization header → dependency → current user → database query.",
-        mistakes: "Plain-text passwords, trusting client user IDs, committing secrets, and confusing authentication with authorization."
-      },
-      api: {
-        why: "A production API must stay predictable when clients, data and traffic grow.",
-        code: "@app.get(\\"/tasks\\")\ndef list_tasks(limit: int = 20, offset: int = 0):\n    return {\\"limit\\": limit, \\"offset\\": offset, \\"items\\": []}",
-        project: "Add pagination, filtering, stable errors, logging and predictable API behavior to the Task API.",
-        practice: "Write example requests and responses before implementing an endpoint.",
-        mistakes: "Unbounded lists, inconsistent errors, leaked internal exceptions and casual response-shape changes."
-      },
-      testing: {
-        why: "Tests make backend behavior repeatable and catch regressions automatically.",
-        code: "def test_health(client):\n    response = client.get(\\"/health\\")\n    assert response.status_code == 200",
-        project: "Test Task API behavior, business logic, database behavior and authentication edge cases.",
-        practice: "Write the test, make it fail for the right reason, then implement the smallest fix.",
-        mistakes: "Testing implementation details, shared mutable state, and only testing the happy path."
-      },
-      redis: {
-        why: "Redis provides very fast temporary storage for caching, rate limits and other short-lived state.",
-        code: "import redis\n\nr = redis.Redis(host=\\"localhost\\", port=6379, decode_responses=True)\nr.setex(\\"task:42\\", 60, \\"cached-task\\")\nvalue = r.get(\\"task:42\\")",
-        project: "Cache a read-heavy Task endpoint while keeping PostgreSQL as the source of truth.",
-        practice: "Compare a cache hit with a database fallback and explain what happens after TTL expiry.",
-        mistakes: "Caching everything, never expiring data, ignoring invalidation, and treating Redis as PostgreSQL."
-      },
-      celery: {
-        why: "Queues let slow work happen outside the HTTP request so the user does not wait for it.",
-        code: "from celery import Celery\n\ncelery_app = Celery(\\"worker\\", broker=\\"redis://localhost:6379/0\\")\n\n@celery_app.task\ndef send_task_report(task_id: int):\n    return f\\"processed {task_id}\\"",
-        project: "Move genuinely slow work to a worker and add retries and scheduled processing where needed.",
-        practice: "Compare synchronous work with queued work and identify exactly when the worker runs.",
-        mistakes: "Putting every function into Celery, ignoring retries/idempotency, and assuming queues remove failures."
-      },
-      docker: {
-        why: "Docker makes the backend environment reproducible so the API, PostgreSQL and Redis can run together consistently.",
-        code: "FROM python:3.12-slim\nWORKDIR /app\nCOPY requirements.txt .\nRUN pip install --no-cache-dir -r requirements.txt\nCOPY . .\nCMD [\\"uvicorn\\", \\"app.main:app\\", \\"--host\\", \\"0.0.0.0\\", \\"--port\\", \\"8000\\"]",
-        project: "Containerize the Task API and run API + PostgreSQL + Redis with Docker Compose.",
-        practice: "Build, start, inspect logs, stop and restart the complete stack.",
-        mistakes: "Baking secrets into images, ignoring volumes, and confusing an image with a running container."
-      },
-      cicd: {
-        why: "CI/CD makes every change pass the same automated checks before deployment.",
-        code: "name: backend-ci\n\non: [push, pull_request]\n\njobs:\n  test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-python@v5\n        with:\n          python-version: \\"3.12\\"\n      - run: pip install -r requirements.txt\n      - run: pytest",
-        project: "Finish the Task API pipeline: test → build → deploy → health check → logs → rollback.",
-        practice: "Push a small change and follow it from commit to deployment. Break a test intentionally and inspect the failure.",
-        mistakes: "Secrets in YAML, deploying without tests, no health check, and no rollback procedure."
-      }
-    };
-
-    const base = shared[topic] || shared.http;
-    const specific: Record<string, string> = {
-      "Client vs server and the request/response pipeline": "curl -i http://localhost:8000/tasks/1",
-      "HTTP method + URL + headers + body": "POST /tasks HTTP/1.1\nContent-Type: application/json\n\n{\\"title\\":\\"Learn HTTP\\"}",
-      "Status codes: 2xx, 3xx, 4xx, 5xx": "200 OK → success\n201 Created → resource created\n400 Bad Request → invalid request\n401 Unauthorized → authentication required\n403 Forbidden → not allowed\n404 Not Found → resource missing\n500 Internal Server Error → server failure",
-      "JSON, path parameters and query parameters": "GET /tasks/42?completed=false\n\n42 = path parameter\ncompleted=false = query parameter",
-      "Repository, working tree and staging area": "git status\ngit diff\ngit add app/main.py\ngit diff --staged",
-      "Small commits and useful commit messages": "git add .\ngit commit -m \\"feat: add task creation endpoint\\"",
-      "Branches, merge and conflict resolution": "git switch -c feature/tasks\ngit add .\ngit commit -m \\"feat: add tasks\\"\ngit switch main\ngit merge feature/tasks",
-      "FastAPI app, route and Uvicorn": "from fastapi import FastAPI\n\napp = FastAPI()\n\n@app.get(\\"/\\")\ndef root():\n    return {\\"message\\": \\"API is running\\"}\n\n# uvicorn app.main:app --reload",
-      "Path/query parameters and request bodies": "from pydantic import BaseModel\n\nclass TaskCreate(BaseModel):\n    title: str\n\n@app.post(\\"/tasks/{task_id}\\")\ndef update_task(task_id: int, task: TaskCreate):\n    return {\\"id\\": task_id, \\"title\\": task.title}",
-      "Pydantic validation and schemas": "class TaskCreate(BaseModel):\n    title: str\n    priority: int = 1\n\n# FastAPI validates the incoming JSON before the route runs.",
-      "CRUD routes and error handling": "from fastapi import HTTPException\n\nif task is None:\n    raise HTTPException(status_code=404, detail=\\"Task not found\\")",
-      "SELECT and filtering with WHERE": "SELECT id, title FROM tasks WHERE completed = FALSE;",
-      "INNER JOIN and LEFT JOIN": "SELECT users.email, tasks.title\nFROM users\nLEFT JOIN tasks ON tasks.user_id = users.id;",
-      "Indexes and why they speed reads": "CREATE INDEX idx_tasks_user_id ON tasks(user_id);",
-      "Transactions and ACID": "BEGIN;\nUPDATE accounts SET balance = balance - 100 WHERE id = 1;\nUPDATE accounts SET balance = balance + 100 WHERE id = 2;\nCOMMIT;",
-      "Authentication vs authorization": "Authentication = Who are you?\nAuthorization = What are you allowed to do?",
-      "Never store plain passwords: hashing": "from pwdlib import PasswordHash\npassword_hash = PasswordHash.recommended()\nhashed = password_hash.hash(\\"secret\\")\npassword_hash.verify(\\"secret\\", hashed)",
-      "JWT structure and signed access tokens": "header.payload.signature\n\nThe signature lets the server detect token tampering.",
-      "Pagination for large result sets": "GET /tasks?limit=20&offset=40",
-      "pytest setup and assertions": "def test_health(client):\n    response = client.get(\\"/health\\")\n    assert response.status_code == 200",
-      "Redis keys, values and fast temporary state": "SET task:42 \\"cached task\\"\nGET task:42",
-      "Why queues and workers exist": "request → queue → worker → result",
-      "Image vs container": "docker build -t task-api .\ndocker run -p 8000:8000 task-api",
-      "GitHub Actions and automated tests": "- run: pytest"
-    };
-    return {
-      why: base.why,
-      explanation: "# WHAT\n" + focus + "\n\n# HOW TO THINK\nStart with the input. Follow the backend flow step by step. Then identify the output. Understand the flow before memorising syntax.",
-      code: specific[focus] || base.code,
-      project: base.project,
-      practice: base.practice,
-      mistakes: base.mistakes,
-      summary: "You should be able to explain " + focus.toLowerCase() + " without notes, write the small example yourself, and point to where this idea is used in the Task API."
-    };
-  };
-
   const subtopicKey = (dayNumber: number, lesson: string) => `${dayNumber}::${lesson}`;
   const currentLessons = lessonsFor(day);
   const currentChecked = currentLessons.filter(lesson => subtopicDone[subtopicKey(day.day, lesson)]).length;
@@ -701,7 +490,6 @@ export default function BackendSDEPage() {
                               </div>
                               {lessonList.map((lesson) => {
                                 const checked = !!subtopicDone[subtopicKey(d.day, lesson)];
-                                const resource = resourceFor(d, lesson);
                                 return (
                                   <div
                                     key={lesson}
@@ -715,18 +503,18 @@ export default function BackendSDEPage() {
                                       {checked ? "✓" : ""}
                                     </button>
                                     <button
-                                      onClick={() => setExpandedLesson(expandedLesson === subtopicKey(d.day, lesson) ? null : subtopicKey(d.day, lesson))}
-                                      className="text-left flex-1 min-w-0"
+                                      onClick={() => setExpandedLesson(
+                                        expandedLesson === subtopicKey(d.day, lesson) ? null : subtopicKey(d.day, lesson)
+                                      )}
+                                      className="text-left flex-1 min-w-0 group/lesson"
                                       aria-expanded={expandedLesson === subtopicKey(d.day, lesson)}
                                     >
-                                      <span className={`text-xs hover:text-cyan-200 transition ${checked ? "text-[#64748b] line-through" : "text-[#aeb8c6]"}`}>{lesson}</span>
+                                      <span className={`text-xs group-hover/lesson:text-cyan-200 transition ${checked ? "text-[#64748b] line-through" : "text-[#aeb8c6]"}`}>
+                                        {lesson}
+                                      </span>
                                     </button>
-                                    <span className="text-[#657387] text-xs">{expandedLesson === subtopicKey(d.day, lesson) ? "⌃" : "⌄"}</span>
-                                    <div className="flex items-center gap-1.5 shrink-0">
-                                      <a href={resource.youtube} target="_blank" rel="noreferrer" title="YouTube" className="w-7 h-7 rounded-lg border border-red-300/15 bg-red-300/5 flex items-center justify-center text-[10px] text-red-200 hover:bg-red-300/10">▶</a>
-                                      <a href={resource.site} target="_blank" rel="noreferrer" title={resource.siteLabel} className="w-7 h-7 rounded-lg border border-blue-300/15 bg-blue-300/5 flex items-center justify-center text-[10px] text-blue-200 hover:bg-blue-300/10">↗</a>
-                                      <span className="hidden sm:inline text-[10px] text-[#78869a] ml-1">Est. {lessonMinutes} min</span>
-                                    </div>
+                                    <span className={`text-[#657387] text-sm transition-transform ${expandedLesson === subtopicKey(d.day, lesson) ? "rotate-180" : ""}`}>⌄</span>
+                                    <span className="hidden sm:inline text-[10px] text-[#78869a] ml-1">Est. {lessonMinutes} min</span>
                                     {expandedLesson === subtopicKey(d.day, lesson) && (() => {
                                       const content = lessonContent(d, lesson);
                                       return (
