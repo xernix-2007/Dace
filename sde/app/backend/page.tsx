@@ -367,6 +367,24 @@ export default function BackendSDEPage() {
     return [d.target, "Simple explanation + real backend example", "Build a tiny example", d.project, d.checkpoint];
   };
 
+  const resourceFor = (d: Day) => {
+    const resources: Record<string, { youtube: string; site: string; siteLabel: string }> = {
+      http: { youtube: "https://www.youtube.com/results?search_query=HTTP+REST+API+tutorial+beginner+Traversy+Media", site: "https://developer.mozilla.org/en-US/docs/Web/HTTP", siteLabel: "MDN HTTP" },
+      git: { youtube: "https://www.youtube.com/results?search_query=Git+GitHub+tutorial+beginner+freeCodeCamp", site: "https://git-scm.com/book/en/v2", siteLabel: "Pro Git" },
+      fastapi: { youtube: "https://www.youtube.com/results?search_query=FastAPI+tutorial+beginner+Hitesh+Choudhary", site: "https://fastapi.tiangolo.com/tutorial/", siteLabel: "FastAPI Docs" },
+      postgres: { youtube: "https://www.youtube.com/results?search_query=PostgreSQL+SQL+tutorial+beginner+freeCodeCamp", site: "https://www.postgresql.org/docs/current/tutorial.html", siteLabel: "PostgreSQL" },
+      sqlalchemy: { youtube: "https://www.youtube.com/results?search_query=SQLAlchemy+2.0+tutorial+beginner+Python", site: "https://docs.sqlalchemy.org/en/20/tutorial/", siteLabel: "SQLAlchemy" },
+      auth: { youtube: "https://www.youtube.com/results?search_query=FastAPI+JWT+authentication+tutorial+beginner", site: "https://fastapi.tiangolo.com/tutorial/security/", siteLabel: "FastAPI Security" },
+      api: { youtube: "https://www.youtube.com/results?search_query=REST+API+best+practices+pagination+versioning+tutorial", site: "https://www.rfc-editor.org/rfc/rfc9110", siteLabel: "HTTP Semantics" },
+      testing: { youtube: "https://www.youtube.com/results?search_query=pytest+FastAPI+testing+tutorial+beginner", site: "https://docs.pytest.org/en/stable/", siteLabel: "pytest Docs" },
+      redis: { youtube: "https://www.youtube.com/results?search_query=Redis+tutorial+beginner+caching+FastAPI", site: "https://redis.io/docs/latest/develop/", siteLabel: "Redis Docs" },
+      celery: { youtube: "https://www.youtube.com/results?search_query=Celery+Redis+background+tasks+Python+tutorial", site: "https://docs.celeryq.dev/en/stable/getting-started/introduction.html", siteLabel: "Celery Docs" },
+      docker: { youtube: "https://www.youtube.com/results?search_query=Docker+tutorial+beginner+freeCodeCamp", site: "https://docs.docker.com/get-started/", siteLabel: "Docker Docs" },
+      cicd: { youtube: "https://www.youtube.com/results?search_query=GitHub+Actions+CI+CD+tutorial+beginner", site: "https://docs.github.com/en/actions", siteLabel: "GitHub Actions" },
+    };
+    return resources[d.topicId] || resources.http;
+  };
+
   const subtopicKey = (dayNumber: number, lesson: string) => `${dayNumber}::${lesson}`;
   const currentLessons = lessonsFor(day);
   const currentChecked = currentLessons.filter(lesson => subtopicDone[subtopicKey(day.day, lesson)]).length;
@@ -487,23 +505,38 @@ export default function BackendSDEPage() {
                                   <div className="h-full bg-cyan-300 rounded-full transition-all" style={{width:`${lessonList.length ? currentChecked / lessonList.length * 100 : 0}%`}} />
                                 </div>
                               </div>
-                              {lessonList.map((lesson, li) => {
+                              {lessonList.map((lesson) => {
                                 const checked = !!subtopicDone[subtopicKey(d.day, lesson)];
+                                const resource = resourceFor(d);
                                 return (
-                                  <button
+                                  <div
                                     key={lesson}
-                                    onClick={() => toggleSubtopic(lesson)}
                                     className="w-full flex items-center gap-3 px-4 py-3.5 text-left border-b border-white/[.035] last:border-b-0 hover:bg-white/[.025]"
                                   >
-                                    <span className={`w-5 h-5 rounded-md border flex items-center justify-center shrink-0 transition ${checked ? "bg-cyan-300 border-cyan-300 text-black" : "border-[#46546a] text-transparent"}`}>
+                                    <button
+                                      onClick={() => toggleSubtopic(lesson)}
+                                      aria-label={checked ? `Mark ${lesson} incomplete` : `Mark ${lesson} complete`}
+                                      className={`w-5 h-5 rounded-md border flex items-center justify-center shrink-0 transition ${checked ? "bg-cyan-300 border-cyan-300 text-black" : "border-[#46546a] text-transparent"}`}
+                                    >
                                       {checked ? "✓" : ""}
-                                    </span>
-                                    <span className={`text-xs flex-1 ${checked ? "text-[#64748b] line-through" : "text-[#aeb8c6]"}`}>{lesson}</span>
-                                    <span className="text-[10px] text-[#78869a]">Est. {lessonMinutes} min</span>
-                                  </button>
+                                    </button>
+                                    <a
+                                      href={resource.youtube}
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      title="Learn on YouTube"
+                                      className={`text-xs flex-1 hover:text-cyan-200 transition ${checked ? "text-[#64748b] line-through" : "text-[#aeb8c6]"}`}
+                                    >
+                                      {lesson}
+                                    </a>
+                                    <div className="flex items-center gap-1.5 shrink-0">
+                                      <a href={resource.youtube} target="_blank" rel="noreferrer" title="YouTube" className="w-7 h-7 rounded-lg border border-red-300/15 bg-red-300/5 flex items-center justify-center text-[10px] text-red-200 hover:bg-red-300/10">▶</a>
+                                      <a href={resource.site} target="_blank" rel="noreferrer" title={resource.siteLabel} className="w-7 h-7 rounded-lg border border-blue-300/15 bg-blue-300/5 flex items-center justify-center text-[10px] text-blue-200 hover:bg-blue-300/10">↗</a>
+                                      <span className="hidden sm:inline text-[10px] text-[#78869a] ml-1">Est. {lessonMinutes} min</span>
+                                    </div>
+                                  </div>
                                 );
-                              })}
-                            </div>
+                              })}                          </div>
 
                             <div className="ml-10 mt-3 flex flex-col sm:flex-row gap-3">
                               <div className="flex-1 rounded-xl border border-violet-300/10 bg-violet-300/[.025] px-4 py-3">
