@@ -415,11 +415,12 @@ function Overview({today,solvedToday,streak,weeklySolved,completion,totalTime,so
 
 
 function CodingCalendar({solvedAt,setView,setHistoryDate}:{solvedAt:Record<number,string>;setView:(v:View)=>void;setHistoryDate:(d:string)=>void}){
- const currentYear=new Date().getFullYear();
- const [year,setYear]=useState(currentYear);
+ const [year,setYear]=useState<number|null>(null);
 
- // The selected year is independent of the current year, but a fresh page load always starts on the real current year.
+ // Read the browser's real local year after hydration so SSR and client output cannot disagree at a year boundary.
  useEffect(()=>{setYear(new Date().getFullYear())},[]);
+
+ if(year===null)return <div className="panel rounded-2xl p-5 mt-5"><div className="text-[10px] tracking-[.2em] text-pink-200">CODING HEATMAP</div><div className="h-7 w-48 rounded-lg bg-white/[.03] mt-2 animate-pulse"/></div>;
 
  const counts:Record<string,number>={};
  for(const d of Object.values(solvedAt)){
