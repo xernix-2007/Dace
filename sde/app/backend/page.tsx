@@ -248,141 +248,36 @@ export default function BackendSDEPage() {
         
 
         <section className="min-w-0">
-          <div className="panel rounded-2xl p-6"><div className="text-[10px] tracking-[.2em] text-cyan-200">TODAY</div><div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-2"><div><div className="text-xs text-[#657387]">DAY {day.day} OF 84 · {topic.title}</div><h1 className="text-3xl font-black mt-2">{day.target}</h1><p className="text-sm text-[#8391a4] mt-2">~45–90 minutes. Learn one thing, practice it, add it to the project, then check yourself.</p></div><div className="text-xs text-[#9aa8ba]">{completedDays}/84 complete · {progress}%</div></div></div><details className="mt-4"><summary className="cursor-pointer list-none panel rounded-2xl p-4 text-xs text-[#9aa8ba] hover:text-white">Roadmap, topic details and all daily targets <span className="float-right text-cyan-200">▾</span></summary><div className="mt-3"><div className="panel rounded-2xl p-5 mt-4">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-              <div>
-                <div className="text-[10px] tracking-[.2em] text-cyan-200">STAGE {String(currentTopicIndex+1).padStart(2,"0")}</div>
-                <h1 className="text-2xl md:text-3xl font-black mt-2">{topic.title}</h1>
-                <p className="text-sm text-[#8391a4] mt-2 max-w-3xl">{topic.goal}</p>
-              </div>
-              <div className="text-right">
-                <div className="text-xs text-[#7d8b9f]">{topicProgress}/{topic.days} complete</div>
-                <div className="w-44 h-2 bg-[#18212d] rounded-full mt-2 overflow-hidden"><div className="h-full bg-gradient-to-r from-cyan-300 to-violet-400 rounded-full" style={{width:`${(topicProgress/topic.days)*100}%`}} /></div>
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-3 mt-5">
-              <InfoBox title="BEFORE YOU START" items={topic.prerequisites} />
-              <InfoBox title="TOPIC CHECKLIST" items={topic.checklist} />
-            </div>
-
-            <div className="mt-5 p-4 rounded-xl border border-violet-300/10 bg-violet-300/[.03]">
-              <div className="text-[10px] tracking-widest text-violet-200">MINI PROJECT · CUMULATIVE</div>
-              <div className="font-semibold mt-1">{topic.miniProject}</div>
-              <div className="text-[11px] text-[#718096] mt-1">Every stage adds to the same engineering progression. You do not throw away previous work.</div>
-            </div>
-          </div>
-
-          <div className="panel rounded-2xl p-5 mt-4">
-            <div className="flex items-center justify-between gap-3">
-              <div><div className="text-[10px] tracking-widest text-cyan-200">DAILY TARGETS</div><h2 className="text-xl font-black mt-1">Small enough for college days</h2></div>
-              <div className="text-[10px] text-[#657387]">~45–90 min/day</div>
-            </div>
-            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-2 mt-4">
-              {topicDays.map(d => (
-                <button key={d.day} onClick={() => setSelectedDay(d.day)}
-                  className={`text-left p-4 rounded-xl border transition ${selectedDay===d.day ? "border-cyan-300/25 bg-cyan-300/[.05]" : "border-white/5 bg-[#0a1017] hover:border-white/10"}`}>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] tracking-widest text-[#657387]">DAY {d.day}</span>
-                    <span className={done[d.day] ? "text-green-300 text-[10px]" : "text-[#657387] text-[10px]"}>{done[d.day] ? "DONE" : "OPEN"}</span>
-                  </div>
-                  <div className="font-semibold text-sm mt-2">{d.target}</div>
-                  <div className="text-[10px] text-[#68778c] mt-2">{d.practice}</div>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid xl:grid-cols-[1.15fr_.85fr] gap-4 mt-4">
-            <div className="panel rounded-2xl p-5">
-              <div className="text-[10px] tracking-widest text-cyan-200">DAY {day.day} WORKSPACE</div>
-              <h2 className="text-2xl font-black mt-1">{day.target}</h2>
-
-              <div className="mt-5 p-4 rounded-xl border border-white/5 bg-white/[.02]">
-                <div className="text-[10px] tracking-widest text-[#718096]">2-MINUTE REVISION</div>
-                <p className="text-xs text-[#a1adbd] mt-2">Before coding today, write what you already know from the previous topics. Do not open the answer first.</p>
-                <textarea value={notes[`revision-${day.day}`] || ""} onChange={e => setText(setNotes,`revision-${day.day}`,e.target.value)}
-                  placeholder="What do I remember? What connects to today's target?"
-                  className="w-full mt-3 min-h-24 bg-[#090f16] border border-[#253245] rounded-xl p-3 text-xs outline-none focus:border-cyan-300/30" />
-              </div>
-
-              <div className="mt-4">
-                <label className="text-[10px] tracking-widest text-cyan-200">MY NOTES / UNDERSTANDING</label>
-                <textarea value={notes[topic.id] || ""} onChange={e => setText(setNotes,topic.id,e.target.value)}
-                  placeholder="Explain the concept in your own words. Keep it short."
-                  className="w-full mt-2 min-h-32 bg-[#090f16] border border-[#253245] rounded-xl p-3 text-xs outline-none focus:border-cyan-300/30" />
-              </div>
-
-              <div className="mt-4">
-                <label className="text-[10px] tracking-widest text-violet-200">MY CODE / COMMANDS</label>
-                <textarea value={code[topic.id] || ""} onChange={e => setText(setCode,topic.id,e.target.value)}
-                  placeholder="Paste your code, SQL, Docker commands, curl examples, etc."
-                  className="w-full mt-2 min-h-44 bg-[#090f16] border border-[#253245] rounded-xl p-3 text-xs font-mono outline-none focus:border-violet-300/30" />
-              </div>
-
-              <div className="mt-4">
-                <label className="text-[10px] tracking-widest text-rose-200">MY MISTAKES</label>
-                <textarea value={mistakes[topic.id] || ""} onChange={e => setText(setMistakes,topic.id,e.target.value)}
-                  placeholder="What confused me? What did I implement wrong? What is the correct mental model?"
-                  className="w-full mt-2 min-h-28 bg-[#090f16] border border-[#253245] rounded-xl p-3 text-xs outline-none focus:border-rose-300/30" />
-              </div>
-
-              <div className="mt-4 p-4 rounded-xl border border-white/5">
-                <div className="text-[10px] tracking-widest text-[#718096]">ATTACHMENTS</div>
-                <p className="text-[10px] text-[#657387] mt-1">Attach reference PDFs, screenshots, .py, .sql, .md or other study material. DACE keeps the attachment list locally.</p>
-                <label className="inline-flex mt-3 px-3 py-2 rounded-lg border border-[#273447] text-xs cursor-pointer hover:bg-white/5">
-                  + Attach file
-                  <input type="file" multiple onChange={handleFiles} className="hidden" />
-                </label>
-                <div className="mt-3 space-y-1">
-                  {(attachments[topic.id] || []).map((f,i) => (
-                    <div key={i} className="flex justify-between gap-3 text-[10px] bg-[#0a1017] rounded-lg px-3 py-2">
-                      <span className="truncate">{f.name}</span><span className="text-[#657387]">{Math.max(1,Math.round(f.size/1024))} KB</span>
+          <div className="panel rounded-2xl p-6"><div className="text-[10px] tracking-[.2em] text-cyan-200">TODAY</div><div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-2"><div><div className="text-xs text-[#657387]">DAY {day.day} OF 84 · {topic.title}</div><h1 className="text-3xl font-black mt-2">{day.target}</h1><p className="text-sm text-[#8391a4] mt-2">~45–90 minutes. Learn one thing, practice it, add it to the project, then check yourself.</p></div><div className="text-xs text-[#9aa8ba]">{completedDays}/84 complete · {progress}%</div></div></div><details className="mt-4"><summary className="cursor-pointer list-none panel rounded-2xl p-4 text-xs text-[#9aa8ba] hover:text-white">Roadmap, topic details and all daily targets <span className="float-right text-cyan-200">▾</span></summary><div className="mt-3"><div className="space-y-3">
+            {topics.map((t, ti) => {
+              const stageDays = days.filter(d => d.topicId === t.id);
+              const stageDone = stageDays.filter(d => done[d.day]).length;
+              const isCurrent = t.id === topic.id;
+              return (
+                <details key={t.id} open={isCurrent} className="group rounded-2xl border border-[#202a38] bg-[#0a0f16] overflow-hidden">
+                  <summary className="list-none cursor-pointer px-4 md:px-5 py-4 flex items-center gap-3 hover:bg-white/[.025]">
+                    <span className="w-7 h-7 rounded-full border border-[#2b3a4f] flex items-center justify-center text-[9px] text-[#718096]">{String(ti+1).padStart(2,"0")}</span>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-2"><span className="text-[10px] tracking-[.16em] text-cyan-200">STAGE {ti+1}</span><span className="text-xs text-[#5f6d80]">·</span><span className="font-bold text-sm">{t.title}</span></div>
+                      <div className="text-[10px] text-[#68778c] mt-1">{t.goal}</div>
                     </div>
-                  ))}
-                  {!attachments[topic.id]?.length && <div className="text-[10px] text-[#566477]">No files attached yet.</div>}
-                </div>
-              </div>
-
-              <div className="mt-5 flex flex-wrap gap-2">
-                <button onClick={() => setDone(x => ({...x,[day.day]:!x[day.day]}))}
-                  className={`px-4 py-2.5 rounded-xl text-xs font-semibold ${done[day.day] ? "bg-green-300 text-black" : "bg-white text-black"}`}>
-                  {done[day.day] ? "✓ Day completed" : "Mark day complete"}
-                </button>
-                {day.day < days.length && <button onClick={() => {
-                  const next = days[day.day];
-                  setSelectedDay(next.day);
-                  setSelectedTopic(next.topicId);
-                }} className="px-4 py-2.5 rounded-xl border border-[#273447] text-xs">Next target →</button>}
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="panel rounded-2xl p-5">
-                <div className="text-[10px] tracking-widest text-violet-200">CHECKPOINT</div>
-                <h3 className="font-bold mt-2">Don't move on just because the checkbox looks nice.</h3>
-                <p className="text-xs text-[#8391a4] mt-2">{day.checkpoint}</p>
-                <div className="mt-4 text-[11px] text-[#657387]">If you cannot explain it, mark the day incomplete and revise.</div>
-              </div>
-
-              <div className="panel rounded-2xl p-5">
-                <div className="text-[10px] tracking-widest text-cyan-200">PROJECT PROGRESSION</div>
-                <h3 className="font-bold mt-2">{topic.miniProject}</h3>
-                <p className="text-xs text-[#8391a4] mt-2">{day.project}</p>
-                <div className="mt-4 h-2 bg-[#18212d] rounded-full overflow-hidden"><div className="h-full bg-gradient-to-r from-cyan-300 to-violet-400 rounded-full" style={{width:`${((currentTopicIndex+1)/topics.length)*100}%`}} /></div>
-                <div className="text-[10px] text-[#657387] mt-2">Stage {currentTopicIndex+1} of {topics.length}</div>
-              </div>
-
-              <div className="panel rounded-2xl p-5">
-                <div className="text-[10px] tracking-widest text-[#718096]">NEXT / PREVIOUS</div>
-                <div className="grid grid-cols-2 gap-2 mt-3">
-                  <button disabled={currentTopicIndex===0} onClick={() => selectTopic(topics[currentTopicIndex-1]?.id)} className="px-3 py-3 rounded-xl border border-[#273447] text-xs disabled:opacity-30">← Previous</button>
-                  <button disabled={currentTopicIndex===topics.length-1} onClick={() => selectTopic(topics[currentTopicIndex+1]?.id)} className="px-3 py-3 rounded-xl border border-[#273447] text-xs disabled:opacity-30">Next →</button>
-                </div>
-              </div>
-            </div>
-          </div>
-</div></details>
+                    <div className="hidden sm:block text-right mr-2"><div className="text-[10px] text-[#9aa8ba]">{stageDone}/{stageDays.length} days</div><div className="w-20 h-1.5 bg-[#18212d] rounded-full mt-1 overflow-hidden"><div className="h-full bg-cyan-300 rounded-full" style={{width: `${stageDone/stageDays.length*100}%`}} /></div></div>
+                    <span className="text-[#657387] transition group-open:rotate-90">›</span>
+                  </summary>
+                  <div className="border-t border-[#202a38]">
+                    {stageDays.map((d, di) => (
+                      <button key={d.day} onClick={() => setSelectedDay(d.day)} className={`w-full text-left px-4 md:px-5 py-3.5 flex items-center gap-3 border-b border-white/[.035] last:border-b-0 transition ${selectedDay===d.day ? "bg-cyan-300/[.045]" : "hover:bg-white/[.02]"}`}>
+                        <span className={`w-7 h-7 shrink-0 rounded-full flex items-center justify-center text-[9px] border ${done[d.day] ? "border-green-300/30 bg-green-300/10 text-green-300" : "border-[#2b384b] text-[#68778c]"}`}>{done[d.day] ? "✓" : String(di+1).padStart(2,"0")}</span>
+                        <div className="min-w-0 flex-1"><div className={`text-xs md:text-sm font-semibold ${done[d.day] ? "text-[#7f8b9b]" : "text-[#c0c8d3]"}`}>{d.target}</div><div className="text-[10px] text-[#5f6d80] mt-1 truncate">{d.practice}</div></div>
+                        <span className="hidden sm:block text-[10px] text-[#78869a]">~45–90 min</span><span className="text-[#657387]">›</span>
+                      </button>
+                    ))}
+                    <div className="px-4 md:px-5 py-3 bg-white/[.018] flex flex-wrap items-center gap-2"><span className="text-[9px] tracking-[.14em] text-violet-200">PROJECT</span><span className="text-[10px] text-[#758296]">{t.miniProject}</span></div>
+                  </div>
+                </details>
+              );
+            })}
+          </div></div></details>
         </section>
       </div>
     </main>
