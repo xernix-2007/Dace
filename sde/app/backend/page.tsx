@@ -676,24 +676,24 @@ function lessonContent(d: Day, lesson: string): LessonContent {
   };
 
   const code: Record<string,string> = {
-    http: \`curl -i http://localhost:8000/tasks?limit=10
+    http: `curl -i http://localhost:8000/tasks?limit=10
 
 HTTP/1.1 200 OK
 Content-Type: application/json
 
-{"items":[{"id":1,"title":"Learn HTTP"}]}\`,
-    git: \`git status
+{"items":[{"id":1,"title":"Learn HTTP"}]}`,
+    git: `git status
 git add .
 git commit -m "Add task endpoint"
-git log --oneline -5\`,
-    fastapi: \`from fastapi import FastAPI
+git log --oneline -5`,
+    fastapi: `from fastapi import FastAPI
 
 app = FastAPI()
 
 @app.get("/tasks/{task_id}")
 def get_task(task_id: int):
-    return {"id": task_id, "title": "Learn backend"}\`,
-    postgres: \`CREATE TABLE tasks (
+    return {"id": task_id, "title": "Learn backend"}`,
+    postgres: `CREATE TABLE tasks (
     id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
     completed BOOLEAN NOT NULL DEFAULT FALSE
@@ -702,8 +702,8 @@ def get_task(task_id: int):
 SELECT id, title
 FROM tasks
 WHERE completed = FALSE
-ORDER BY id;\`,
-    sqlalchemy: \`from sqlalchemy import create_engine
+ORDER BY id;`,
+    sqlalchemy: `from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, Session
 
 class Base(DeclarativeBase):
@@ -712,46 +712,46 @@ class Base(DeclarativeBase):
 engine = create_engine("postgresql+psycopg://user:pass@localhost/db")
 
 with Session(engine) as session:
-    pass\`,
-    auth: \`from fastapi import Depends
+    pass`,
+    auth: `from fastapi import Depends
 from fastapi.security import HTTPBearer
 
 bearer = HTTPBearer()
 
 @app.get("/me")
 def me(credentials=Depends(bearer)):
-    return {"authenticated": True}\`,
-    api: \`@app.get("/tasks")
+    return {"authenticated": True}`,
+    api: `@app.get("/tasks")
 def list_tasks(limit: int = 20, offset: int = 0):
     return {
         "items": load_tasks(limit=limit, offset=offset),
         "limit": limit,
         "offset": offset
-    }\`,
-    testing: \`def test_task_title():
+    }`,
+    testing: `def test_task_title():
     response = client.get("/tasks/1")
     assert response.status_code == 200
-    assert response.json()["title"] == "Learn backend"\`,
-    redis: \`import redis
+    assert response.json()["title"] == "Learn backend"`,
+    redis: `import redis
 
 r = redis.Redis(host="localhost", port=6379, decode_responses=True)
 r.setex("task:1", 60, '{"id":1,"title":"Learn Redis"}')
-cached = r.get("task:1")\`,
-    celery: \`from celery import Celery
+cached = r.get("task:1")`,
+    celery: `from celery import Celery
 
 celery_app = Celery("worker", broker="redis://localhost:6379/0")
 
 @celery_app.task
 def send_notification(user_id: int):
-    print("send notification to", user_id)\`,
-    docker: \`FROM python:3.12-slim
+    print("send notification to", user_id)`,
+    docker: `FROM python:3.12-slim
 
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]\`,
-    cicd: \`name: Backend CI
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]`,
+    cicd: `name: Backend CI
 
 on: [push, pull_request]
 
@@ -764,19 +764,19 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
-      - run: pytest\`
+      - run: pytest`
   };
 
   const logic: Record<string,string> = {
-    "Client vs server and the request/response pipeline": \`CLIENT
+    "Client vs server and the request/response pipeline": `CLIENT
 The client starts the request.
 
 SERVER
 The server receives it, runs backend logic and sends a response.
 
 FLOW
-client → HTTP request → router → validation → business logic → database/cache → HTTP response → client\`,
-    "HTTP method + URL + headers + body": \`METHOD = ACTION
+client → HTTP request → router → validation → business logic → database/cache → HTTP response → client`,
+    "HTTP method + URL + headers + body": `METHOD = ACTION
 GET reads, POST creates, PUT/PATCH changes, DELETE removes.
 
 URL = RESOURCE
@@ -786,14 +786,14 @@ HEADERS = METADATA
 Content-Type and Authorization are common examples.
 
 BODY = INPUT DATA
-Usually JSON for structured API input.\`,
-    "Status codes: 2xx, 3xx, 4xx, 5xx": \`2xx = success
+Usually JSON for structured API input.`,
+    "Status codes: 2xx, 3xx, 4xx, 5xx": `2xx = success
 3xx = redirect/another location or cached response behavior
 4xx = client/request problem
 5xx = server-side failure
 
-Use the status code to communicate the result before the client reads the body.\`,
-    "JSON, path parameters and query parameters": \`PATH
+Use the status code to communicate the result before the client reads the body.`,
+    "JSON, path parameters and query parameters": `PATH
 GET /tasks/42
 
 QUERY
@@ -802,45 +802,45 @@ GET /tasks?completed=false&limit=20
 JSON BODY
 {"title":"Learn FastAPI"}
 
-Path identifies a resource; query parameters control a collection; JSON usually carries structured input.\`,
-    "Repository, working tree and staging area": \`WORKING TREE = files you are editing
+Path identifies a resource; query parameters control a collection; JSON usually carries structured input.`,
+    "Repository, working tree and staging area": `WORKING TREE = files you are editing
 STAGING AREA = changes selected for the next commit
 REPOSITORY = committed history
 
 Flow:
-edit → git diff → git add → git diff --staged → git commit\`,
-    "FastAPI app, route and Uvicorn": \`A route connects an HTTP method and URL to Python code.
+edit → git diff → git add → git diff --staged → git commit`,
+    "FastAPI app, route and Uvicorn": `A route connects an HTTP method and URL to Python code.
 
 Uvicorn runs the ASGI application.
 
 GET /tasks/1
 → FastAPI matches the route
 → Python function runs
-→ return value becomes the HTTP response.\`,
-    "Pydantic validation and schemas": \`Client input is untrusted.
+→ return value becomes the HTTP response.`,
+    "Pydantic validation and schemas": `Client input is untrusted.
 
 Pydantic creates a boundary:
 request data → validation → typed Python data → application logic
 
-Invalid data should be rejected before it reaches business logic.\`,
-    "Tables, rows, columns and relationships": \`TABLE = entity collection
+Invalid data should be rejected before it reaches business logic.`,
+    "Tables, rows, columns and relationships": `TABLE = entity collection
 ROW = one record
 COLUMN = one property
 FOREIGN KEY = connection between related records
 
 Example:
-users.id ← tasks.user_id\`,
-    "INNER JOIN and LEFT JOIN": \`INNER JOIN keeps only matching rows.
+users.id ← tasks.user_id`,
+    "INNER JOIN and LEFT JOIN": `INNER JOIN keeps only matching rows.
 
 LEFT JOIN keeps every row from the left table, even when there is no matching row on the right.
 
-users LEFT JOIN tasks can therefore show users who have zero tasks.\`,
-    "Indexes and why they speed reads": \`Without a useful index, the database may inspect many rows.
+users LEFT JOIN tasks can therefore show users who have zero tasks.`,
+    "Indexes and why they speed reads": `Without a useful index, the database may inspect many rows.
 
 An index creates a lookup structure that can find matching values faster.
 
-Trade-off: indexes use storage and can make INSERT/UPDATE operations more expensive.\`,
-    "Transactions and ACID": \`A transaction groups related database operations.
+Trade-off: indexes use storage and can make INSERT/UPDATE operations more expensive.`,
+    "Transactions and ACID": `A transaction groups related database operations.
 
 BEGIN
 → operation A
@@ -850,14 +850,14 @@ BEGIN
 If something fails:
 ROLLBACK
 
-ACID = atomicity, consistency, isolation, durability.\`,
-    "Authentication vs authorization": \`AUTHENTICATION = Who are you?
+ACID = atomicity, consistency, isolation, durability.`,
+    "Authentication vs authorization": `AUTHENTICATION = Who are you?
 
 AUTHORIZATION = Are you allowed to do this?
 
 Login proves Alice is Alice.
-Authorization decides whether Alice may delete task 42.\`,
-    "Never store plain passwords: hashing": \`Never save the original password.
+Authorization decides whether Alice may delete task 42.`,
+    "Never store plain passwords: hashing": `Never save the original password.
 
 Registration:
 password → password hash → database
@@ -865,53 +865,53 @@ password → password hash → database
 Login:
 entered password → verify against stored hash → accept/reject
 
-Hashing is intentionally one-way; encryption is a different concept.\`,
-    "JWT structure and signed access tokens": \`A JWT commonly has:
+Hashing is intentionally one-way; encryption is a different concept.`,
+    "JWT structure and signed access tokens": `A JWT commonly has:
 header.payload.signature
 
 The signature lets the server detect tampering.
 
-Claims can contain identity and expiry information, but the server must still enforce authorization.\`,
-    "Pagination for large result sets": \`Large result:
+Claims can contain identity and expiry information, but the server must still enforce authorization.`,
+    "Pagination for large result sets": `Large result:
 100,000 rows
 
 Paginated request:
 GET /tasks?limit=20&offset=40
 
-The API returns a small page instead of the whole collection. Cursor/keyset pagination is another option for large changing datasets.\`,
-    "pytest setup and assertions": \`Use:
+The API returns a small page instead of the whole collection. Cursor/keyset pagination is another option for large changing datasets.`,
+    "pytest setup and assertions": `Use:
 ARRANGE → ACT → ASSERT
 
 Arrange the input.
 Act by calling the code.
 Assert the expected behavior.
 
-A useful test should fail when the intended behavior breaks.\`,
-    "Redis keys, values and fast temporary state": \`KEY = "task:42"
+A useful test should fail when the intended behavior breaks.`,
+    "Redis keys, values and fast temporary state": `KEY = "task:42"
 VALUE = temporary cached data
 
-Redis is commonly used for cache entries, counters, locks and short-lived state.\`,
-    "Why queues and workers exist": \`HTTP request:
+Redis is commonly used for cache entries, counters, locks and short-lived state.`,
+    "Why queues and workers exist": `HTTP request:
 validate → enqueue job → return response
 
 Worker:
 take job → perform slow work → record success/failure
 
-The user does not have to keep an HTTP connection open while slow work runs.\`,
-    "Image vs container": \`IMAGE = packaged application/runtime blueprint
+The user does not have to keep an HTTP connection open while slow work runs.`,
+    "Image vs container": `IMAGE = packaged application/runtime blueprint
 CONTAINER = running instance of an image
 
 Think:
 image = package
-container = running copy\`,
-    "What CI/CD actually solves": \`push code
+container = running copy`,
+    "What CI/CD actually solves": `push code
 → automated checks
 → tests
 → build
 → deploy when configured
 → health/log checks
 
-The goal is repeatability and fast feedback.\`
+The goal is repeatability and fast feedback.`
   };
 
   const project: Record<string,string> = {
@@ -930,7 +930,7 @@ The goal is repeatability and fast feedback.\`
   };
 
   const explanation = logic[focus] ||
-    \`# HOW TO THINK
+    `# HOW TO THINK
 
 Start with the input.
 1. Identify what enters the system.
@@ -940,7 +940,7 @@ Start with the input.
 5. Produce a predictable output.
 6. Handle failure paths.
 
-Do not memorise syntax before understanding this flow.\`;
+Do not memorise syntax before understanding this flow.`;
 
   const practice = "Explain \"" + focus + "\" in your own words, then write the smallest working example without copying it. Finally connect that example to today's cumulative Task API.";
   const mistakes = "Do not memorise commands without understanding the flow. Do not skip validation or failure cases. Do not paste the project solution unchanged. Be able to explain why your example works.";
