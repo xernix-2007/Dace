@@ -367,22 +367,87 @@ export default function BackendSDEPage() {
     return [d.target, "Simple explanation + real backend example", "Build a tiny example", d.project, d.checkpoint];
   };
 
-  const resourceFor = (d: Day) => {
-    const resources: Record<string, { youtube: string; site: string; siteLabel: string }> = {
-      http: { youtube: "https://www.youtube.com/watch?v=iYM2zFP3Zn0", site: "https://developer.mozilla.org/en-US/docs/Web/HTTP", siteLabel: "MDN HTTP" },
-      git: { youtube: "https://www.youtube.com/watch?v=RGOj5yH7evk", site: "https://git-scm.com/book/en/v2", siteLabel: "Pro Git" },
-      fastapi: { youtube: "https://www.youtube.com/watch?v=0sOvCWFmrtA", site: "https://fastapi.tiangolo.com/tutorial/", siteLabel: "FastAPI Docs" },
-      postgres: { youtube: "https://www.youtube.com/watch?v=qw--VYLpxG4", site: "https://www.postgresql.org/docs/current/tutorial.html", siteLabel: "PostgreSQL" },
-      sqlalchemy: { youtube: "https://www.youtube.com/watch?v=Uym2DHnUEno", site: "https://docs.sqlalchemy.org/en/20/tutorial/", siteLabel: "SQLAlchemy" },
-      auth: { youtube: "https://www.youtube.com/watch?v=KxqlJblhzfI", site: "https://fastapi.tiangolo.com/tutorial/security/", siteLabel: "FastAPI Security" },
-      api: { youtube: "https://www.youtube.com/watch?v=7YcW25PHnAA", site: "https://www.rfc-editor.org/rfc/rfc9110", siteLabel: "HTTP Semantics" },
-      testing: { youtube: "https://www.youtube.com/watch?v=6tNS--WetLI", site: "https://docs.pytest.org/en/stable/", siteLabel: "pytest Docs" },
-      redis: { youtube: "https://www.youtube.com/watch?v=jgpVdJB2sKQ", site: "https://redis.io/docs/latest/develop/", siteLabel: "Redis Docs" },
-      celery: { youtube: "https://www.youtube.com/watch?v=I0VqD2v6m8A", site: "https://docs.celeryq.dev/en/stable/getting-started/introduction.html", siteLabel: "Celery Docs" },
-      docker: { youtube: "https://www.youtube.com/watch?v=3c-iBn73dDE", site: "https://docs.docker.com/get-started/", siteLabel: "Docker Docs" },
-      cicd: { youtube: "https://www.youtube.com/watch?v=R8_veQiYBjI", site: "https://docs.github.com/en/actions", siteLabel: "GitHub Actions" },
+  const resourceFor = (d: Day, lesson: string) => {
+    const base: Record<string, { video: string; site: string; siteLabel: string }> = {
+      http: { video: "https://www.youtube.com/watch?v=iYM2zFP3Zn0", site: "https://developer.mozilla.org/en-US/docs/Web/HTTP", siteLabel: "MDN HTTP" },
+      git: { video: "https://www.youtube.com/watch?v=mAFoROnOfHs", site: "https://git-scm.com/book/en/v2", siteLabel: "Pro Git" },
+      fastapi: { video: "https://www.youtube.com/watch?v=tLKKmouUams", site: "https://fastapi.tiangolo.com/tutorial/", siteLabel: "FastAPI Docs" },
+      postgres: { video: "https://www.youtube.com/watch?v=qw--VYLpxG4", site: "https://www.postgresql.org/docs/current/tutorial.html", siteLabel: "PostgreSQL" },
+      sqlalchemy: { video: "https://www.youtube.com/watch?v=Uym2DHnUEno", site: "https://docs.sqlalchemy.org/en/20/tutorial/", siteLabel: "SQLAlchemy" },
+      auth: { video: "https://www.youtube.com/watch?v=0A_GCXBCNUQ", site: "https://fastapi.tiangolo.com/tutorial/security/", siteLabel: "FastAPI Security" },
+      api: { video: "https://www.youtube.com/watch?v=7YcW25PHnAA", site: "https://www.rfc-editor.org/rfc/rfc9110", siteLabel: "HTTP Semantics" },
+      testing: { video: "https://www.youtube.com/watch?v=6tNS--WetLI", site: "https://docs.pytest.org/en/stable/", siteLabel: "pytest Docs" },
+      redis: { video: "https://www.youtube.com/watch?v=jgpVdJB2sKQ", site: "https://redis.io/docs/latest/develop/", siteLabel: "Redis Docs" },
+      celery: { video: "https://www.youtube.com/watch?v=I0VqD2v6m8A", site: "https://docs.celeryq.dev/en/stable/getting-started/introduction.html", siteLabel: "Celery Docs" },
+      docker: { video: "https://www.youtube.com/watch?v=rjjES5IsPdg", site: "https://docs.docker.com/get-started/", siteLabel: "Docker Docs" },
+      cicd: { video: "https://www.youtube.com/watch?v=hbeLqL6sjKA", site: "https://docs.github.com/en/actions", siteLabel: "GitHub Actions" },
     };
-    return resources[d.topicId] || resources.http;
+
+    const timestamps: Record<string, Record<string, number>> = {
+      git: {
+        "Repository, working tree and staging area": 1121,
+        "Small commits and useful commit messages": 1800,
+        "Branches, merge and conflict resolution": 2458,
+        "Pull request workflow and code review": 4608,
+        "Rebase basics and clean project history": 4338,
+      },
+      fastapi: {
+        "FastAPI app, route and Uvicorn": 70,
+        "Path/query parameters and request bodies": 750,
+        "Pydantic validation and schemas": 900,
+        "Response models and HTTP status codes": 1500,
+        "CRUD routes and error handling": 2300,
+        "Routers, dependencies and project structure": 2700,
+        "Configuration and environment variables": 3000,
+        "Middleware and CORS": 3300,
+        "Async vs sync endpoint work": 3600,
+        "Request → validation → service → response flow": 3900,
+        "Test the API manually with /docs": 4200,
+        "Build and review Task API v1": 4500,
+      },
+      postgres: {
+        "Tables, rows, columns and relationships": 1800,
+        "SELECT and filtering with WHERE": 4320,
+        "INSERT, UPDATE and DELETE": 3540,
+        "ORDER BY, GROUP BY and HAVING": 4500,
+        "INNER JOIN and LEFT JOIN": 11900,
+        "Subqueries and CTEs": 0,
+        "CASE and window functions": 0,
+        "Primary keys, foreign keys and constraints": 8950,
+        "One-to-one, one-to-many and many-to-many": 11800,
+        "Normalization and avoiding duplicated data": 0,
+        "Indexes and why they speed reads": 0,
+        "Transactions and ACID": 0,
+        "Isolation and concurrent database work": 0,
+        "Design the Task API database": 0,
+      },
+      docker: {
+        "Linux CLI, files and processes": 0,
+        "Permissions and SSH basics": 0,
+        "Image vs container": 1420,
+        "Dockerfile and reproducible builds": 2280,
+        "Volumes, networks and ports": 900,
+        "Environment variables and service configuration": 0,
+        "Docker Compose for API + PostgreSQL + Redis": 12200,
+        "Run and debug the complete stack": 0,
+      },
+      cicd: {
+        "What CI/CD actually solves": 0,
+        "GitHub Actions and automated tests": 363,
+        "Secrets and environment configuration": 1358,
+        "Build the application image": 736,
+        "Deploy, health checks and logs": 2660,
+        "HTTPS, rollback and final production checklist": 0,
+      },
+    };
+
+    const item = base[d.topicId] || base.http;
+    const seconds = timestamps[d.topicId]?.[lesson];
+    return {
+      youtube: seconds && seconds > 0 ? item.video + "&t=" + seconds + "s" : item.video,
+      site: item.site,
+      siteLabel: item.siteLabel,
+    };
   };
 
   const subtopicKey = (dayNumber: number, lesson: string) => `${dayNumber}::${lesson}`;
@@ -507,7 +572,7 @@ export default function BackendSDEPage() {
                               </div>
                               {lessonList.map((lesson) => {
                                 const checked = !!subtopicDone[subtopicKey(d.day, lesson)];
-                                const resource = resourceFor(d);
+                                const resource = resourceFor(d, lesson);
                                 return (
                                   <div
                                     key={lesson}
