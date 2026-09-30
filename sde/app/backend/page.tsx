@@ -235,22 +235,133 @@ export default function BackendSDEPage() {
   const sprintHours = Math.floor(sprintMinutes / 60);
   const sprintMins = sprintMinutes % 60;
   const lessonsFor = (d: Day) => {
-    const special: Record<number,string[]> = {
-      1: ["Client vs Server", "What an HTTP request contains", "Backend flow: route → validation → logic → data", "What an HTTP response contains", "Real-life browser → API example"],
-      2: ["GET — read data", "POST — create data", "PUT vs PATCH — update data", "DELETE — remove data", "Safe and idempotent operations"],
-      3: ["2xx — success", "3xx — redirects", "4xx — client mistakes", "5xx — server mistakes", "Headers and why they matter"],
-      4: ["JSON request and response", "URL structure", "Path parameters", "Query parameters", "Small API example"],
-      5: ["Cookies", "Sessions", "CORS", "Authentication vs a normal request", "Common browser/API mistake"],
-      6: ["What makes an API RESTful", "Resource-based URLs", "Consistent responses", "Idempotency in real APIs", "Design the Notes API"],
+    const maps: Record<string, string[]> = {
+      http: [
+        "Client vs server and the request/response pipeline",
+        "HTTP method + URL + headers + body",
+        "Status codes: 2xx, 3xx, 4xx, 5xx",
+        "JSON, path parameters and query parameters",
+        "REST resources, CORS, cookies and sessions",
+        "Design the first version of the Task/Notes API",
+      ],
+      git: [
+        "Repository, working tree and staging area",
+        "Small commits and useful commit messages",
+        "Branches, merge and conflict resolution",
+        "Pull request workflow and code review",
+        "Rebase basics and clean project history",
+        "README, issues and engineering hygiene",
+      ],
+      fastapi: [
+        "FastAPI app, route and Uvicorn",
+        "Path/query parameters and request bodies",
+        "Pydantic validation and schemas",
+        "Response models and HTTP status codes",
+        "CRUD routes and error handling",
+        "Routers, dependencies and project structure",
+        "Configuration and environment variables",
+        "Middleware and CORS",
+        "Async vs sync endpoint work",
+        "Request → validation → service → response flow",
+        "Test the API manually with /docs",
+        "Build and review Task API v1",
+      ],
+      postgres: [
+        "Tables, rows, columns and relationships",
+        "SELECT and filtering with WHERE",
+        "INSERT, UPDATE and DELETE",
+        "ORDER BY, GROUP BY and HAVING",
+        "INNER JOIN and LEFT JOIN",
+        "Subqueries and CTEs",
+        "CASE and window functions",
+        "Primary keys, foreign keys and constraints",
+        "One-to-one, one-to-many and many-to-many",
+        "Normalization and avoiding duplicated data",
+        "Indexes and why they speed reads",
+        "Transactions and ACID",
+        "Isolation and concurrent database work",
+        "Design the Task API database",
+      ],
+      sqlalchemy: [
+        "Why an ORM exists and what SQL it hides",
+        "Engine and database connection",
+        "Sessions and transaction boundaries",
+        "SQLAlchemy models and mapped columns",
+        "CRUD with select/add/commit/refresh",
+        "Relationships and loading related data",
+        "Queries, transactions and service/repository separation",
+        "Alembic migrations and schema versioning",
+      ],
+      auth: [
+        "Authentication vs authorization",
+        "Never store plain passwords: hashing",
+        "JWT structure and signed access tokens",
+        "Login → token → Authorization: Bearer flow",
+        "Protected routes with dependencies",
+        "Current user and user-owned resources",
+        "Roles, permissions and authorization checks",
+      ],
+      api: [
+        "Pagination for large result sets",
+        "Filtering and search",
+        "Sorting and stable API responses",
+        "API versioning and consistent error contracts",
+        "Idempotency, logging and production API rules",
+      ],
+      testing: [
+        "pytest setup and assertions",
+        "Fixtures and reusable test setup",
+        "Unit tests for business logic",
+        "API tests with TestClient/httpx",
+        "Database/integration tests",
+        "Authentication, authorization, edge cases and coverage",
+      ],
+      redis: [
+        "Redis keys, values and fast temporary state",
+        "TTL and automatic expiration",
+        "Cache-aside: read cache → fallback to DB",
+        "Connect Redis to FastAPI safely",
+        "Cache invalidation and basic rate limiting",
+      ],
+      celery: [
+        "Why queues and workers exist",
+        "Celery app, task and worker",
+        "Redis as broker and result backend",
+        "Retries and failure handling",
+        "Scheduled jobs and Celery Beat",
+      ],
+      docker: [
+        "Linux CLI, files and processes",
+        "Permissions and SSH basics",
+        "Image vs container",
+        "Dockerfile and reproducible builds",
+        "Volumes, networks and ports",
+        "Environment variables and service configuration",
+        "Docker Compose for API + PostgreSQL + Redis",
+        "Run and debug the complete stack",
+      ],
+      cicd: [
+        "What CI/CD actually solves",
+        "GitHub Actions and automated tests",
+        "Secrets and environment configuration",
+        "Build the application image",
+        "Deploy, health checks and logs",
+        "HTTPS, rollback and final production checklist",
+      ],
     };
-    if (special[d.day]) return special[d.day];
-    return [
-      `Understand: ${d.target}`,
-      `See it in a real backend`,
-      `Build a small example`,
-      `Add it to the project`,
-      `Checkpoint: ${d.checkpoint}`,
-    ];
+    const list = maps[d.topicId] || [];
+    if (list.length) {
+      const idx = days.filter(x => x.topicId === d.topicId).findIndex(x => x.day === d.day);
+      const focus = list[idx % list.length];
+      return [
+        focus,
+        "Simple explanation + real backend example",
+        "Write or run a tiny example yourself",
+        d.project,
+        d.checkpoint,
+      ];
+    }
+    return [d.target, "Simple explanation + real backend example", "Build a tiny example", d.project, d.checkpoint];
   };
 
   return (
