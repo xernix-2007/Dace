@@ -809,606 +809,550 @@ jobs:
       - run: pytest`
   };
 
-  const focusDetail: Record<string,string> = {
-    "Client vs server and the request/response pipeline": `# CORE IDEA
-Client starts the request. Server owns the application logic and returns a response.
+  const beginnerDefinition: Record<string,string> = {
+    "Client vs server and the request/response pipeline": String.raw\`# WHAT IS A CLIENT?
+A client is the program that asks another computer or service to do something.
 
-# FLOW
-client → HTTP request → router → validation → business logic → database/cache → HTTP response → client
+Examples:
+• Chrome or another browser
+• A mobile app
+• A React frontend
+• Postman
+• curl
+• Another backend service
 
-# IMPORTANT
-FastAPI does not replace this flow. It gives Python tools for implementing the server side.`,
-    "HTTP method + URL + headers + body": `# METHOD
-GET reads, POST creates, PUT/PATCH changes, DELETE removes.
+If you open your browser and request https://example.com, your browser is acting as the client.
 
-# URL
-/tasks/42 identifies a resource.
+# WHAT IS A SERVER?
+A server is a program running on a computer that waits for requests and sends responses.
 
-# HEADERS
-Metadata such as Content-Type and Authorization.
+The computer can be your laptop during development or a cloud machine in production.
 
-# BODY
-Structured input such as {"title":"Learn HTTP"}.
+For our backend:
+Uvicorn runs the FastAPI server.
+FastAPI contains our API routes and backend logic.
+PostgreSQL stores persistent data.
 
-Each part has a different job.`,
-    "Status codes: 2xx, 3xx, 4xx, 5xx": `200 success read
-201 resource created
-204 success with no body
-400 invalid request
-401 missing/invalid authentication
-403 authenticated but not allowed
-404 resource missing
-409 state conflict
-422 validation failure
-429 rate limited
-500 unexpected server failure
+# CLIENT VS SERVER
+Client = asks for something.
+Server = receives the request, does the work, and responds.
 
-The status code is part of the API contract.`,
-    "JSON, path parameters and query parameters": `PATH: /tasks/42 → which resource?
-QUERY: /tasks?completed=false&limit=20 → how should the collection be returned?
-BODY: {"title":"Learn FastAPI"} → what data should be created?
+They are roles in communication. The same computer can run both roles.
 
-Keep identity in the path, collection controls in query parameters and structured input in the body.`,
-    "REST resources, CORS, cookies and sessions": `REST uses resource-oriented URLs:
+# WHAT IS A REQUEST?
+A request is the message sent by the client.
+
+Example:
+GET /tasks/42
+
+It can contain:
+• method
+• URL/path
+• headers
+• query parameters
+• body
+
+# WHAT IS A RESPONSE?
+A response is the message sent back by the server.
+
+It contains:
+• status code
+• headers
+• response body
+
+# COMPLETE FLOW
+Browser
+→ sends HTTP request
+→ server receives request
+→ router finds endpoint
+→ validation checks input
+→ business logic runs
+→ database/cache may be used
+→ server creates response
+→ browser receives response
+
+# REAL EXAMPLE
+When you open a website:
+1. Browser is the client.
+2. It sends a request.
+3. A server receives it.
+4. Server may query a database.
+5. Server sends HTML/JSON/data.
+6. Browser displays the result.
+
+Only after understanding this flow should you learn FastAPI routes.\`,
+    "HTTP method + URL + headers + body": String.raw\`# WHAT IS HTTP?
+HTTP is a protocol: a set of rules for communication between clients and web servers.
+
+Think of HTTP as the format both sides agree to use.
+
+# WHAT IS A METHOD?
+A method tells the server what kind of operation the client wants.
+
+GET → read
+POST → create/send data
+PUT → replace
+PATCH → partially update
+DELETE → remove
+
+# WHAT IS A URL?
+A URL tells the client where the resource/service is.
+
+Example:
+http://localhost:8000/tasks/42
+
+localhost = this computer
+8000 = server port
+/tasks/42 = requested resource
+
+# WHAT ARE HEADERS?
+Headers are extra metadata about the request or response.
+
+Examples:
+Content-Type: application/json
+Authorization: Bearer <token>
+
+# WHAT IS A BODY?
+The body carries data.
+
+Example:
+{"title":"Learn FastAPI"}
+
+GET requests commonly do not need a body; POST/PATCH commonly carry one.
+
+# PUTTING IT TOGETHER
+POST /tasks
+Content-Type: application/json
+
+{"title":"Learn backend"}
+
+Method = POST
+Path = /tasks
+Header = Content-Type
+Body = JSON data\`,
+    "Status codes: 2xx, 3xx, 4xx, 5xx": String.raw\`# WHAT IS A STATUS CODE?
+A status code is a number in the HTTP response that tells the client what happened.
+
+# MAIN GROUPS
+2xx = request succeeded
+3xx = redirection/another response location
+4xx = problem with the request or client's access
+5xx = server failed while handling the request
+
+# IMPORTANT CODES
+200 OK → successful request
+201 Created → new resource created
+204 No Content → successful operation with no response body
+400 Bad Request → invalid request
+401 Unauthorized → authentication is missing/invalid
+403 Forbidden → caller is known but not allowed
+404 Not Found → resource does not exist
+409 Conflict → request conflicts with current state
+422 Unprocessable Content → validation failed
+429 Too Many Requests → rate limit reached
+500 Internal Server Error → unexpected server failure
+
+# WHY IT MATTERS
+The frontend should not have to guess whether an operation worked.
+
+Status code + response body form part of the API contract.\`,
+    "JSON, path parameters and query parameters": String.raw\`# WHAT IS JSON?
+JSON is a text format commonly used to exchange structured data.
+
+Example:
+{"title":"Learn FastAPI","completed":false}
+
+It has objects, arrays, strings, numbers, booleans and null.
+
+# WHAT IS A PATH PARAMETER?
+A path parameter identifies a specific resource.
+
+GET /tasks/42
+
+42 is the task_id.
+
+# WHAT IS A QUERY PARAMETER?
+Query parameters modify how a collection is returned.
+
+GET /tasks?completed=false&limit=20
+
+completed=false and limit=20 are query parameters.
+
+# SIMPLE RULE
+Path → WHICH resource?
+Query → HOW should I get/filter the resource?
+Body → WHAT data am I sending?\`,
+    "REST resources, CORS, cookies and sessions": String.raw\`# WHAT IS REST?
+REST is a style for designing network APIs around resources.
+
+For tasks:
 GET /tasks
 GET /tasks/42
 POST /tasks
 PATCH /tasks/42
 DELETE /tasks/42
 
-CORS controls which browser origins may read cross-origin responses.
-Cookies are automatically sent by browsers.
-Sessions associate requests with server-side state.`,
-    "Design the first version of the Task/Notes API": `Resources: users, tasks, notes.
-
-Start with:
-POST /tasks
-GET /tasks
-GET /tasks/{id}
-PATCH /tasks/{id}
-DELETE /tasks/{id}
-
-Define request bodies, response bodies, errors and ownership before writing framework code.`,
-    "Repository, working tree and staging area": `Working tree = files being edited.
-Staging area = changes selected for the next commit.
-Repository = committed history.
-
-Flow:
-edit → diff → add → staged diff → commit.
-
-Stage intentionally so every commit tells one clear story.`,
-    "Small commits and useful commit messages": `One commit should represent one logical change.
-
-Good:
-Add task creation endpoint
-Validate task titles
-Add PostgreSQL task repository
-
-Bad:
-stuff
-changes
-final final
-
-A useful commit helps future debugging and review.`,
-    "Branches, merge and conflict resolution": `A branch is a separate line of development.
-
-main → feature/task-api → commits → merge
-
-A conflict means Git cannot safely combine changes. Inspect both versions, choose the correct result, run tests, then commit the resolution.`,
-    "Pull request workflow and code review": `Create branch → push → PR → review → fix → tests → merge.
-
-Review questions:
-Does it work?
-Is the contract clear?
-Are errors handled?
-Are tests present?
-Is complexity justified?`,
-    "Rebase basics and clean project history": `Rebase replays your commits on a new base.
-
-It can create a cleaner linear history, but rewriting shared history can disrupt teammates. Use it deliberately and understand which commits are being rewritten.`,
-    "FastAPI app, route and Uvicorn": `FastAPI = application framework.
-Route = method + path → Python function.
-Uvicorn = ASGI server.
-
-GET /tasks/7
-→ route matches
-→ function runs
-→ Python data is serialized into the response.`,
-    "Path/query parameters and request bodies": `Path parameter identifies a resource.
-Query parameter controls a collection.
-Request body carries structured input.
-
-FastAPI parses typed values for you, giving the endpoint a clear input contract.`,
-    "Pydantic validation and schemas": `Incoming data is untrusted.
-
-Pydantic creates a boundary:
-JSON → validation → typed Python data → business logic.
-
-Invalid input should fail at this boundary rather than causing a deeper application error.`,
-    "Response models and HTTP status codes": `A response model is the public contract of the endpoint.
-
-Do not blindly return a database object containing fields the client should not see.
-
-Use explicit success/error status codes so clients can reliably react.`,
-    "CRUD routes and error handling": `CRUD:
-Create → POST
-Read → GET
-Update → PATCH/PUT
-Delete → DELETE
-
-Lookup missing resource → 404.
-Invalid input → validation error.
-Unexpected failure → 500 and a useful server log.
-
-Do not turn every error into 500.`,
-    "Routers, dependencies and project structure": `Separate responsibilities:
-routes = HTTP
-schemas = contracts
-services = business rules
-repositories = persistence
-models = database mapping
-
-Dependencies provide reusable objects such as database sessions and current users.`,
-    "Configuration and environment variables": `Secrets and environment-specific values belong outside source code.
-
-Examples:
-DATABASE_URL
-JWT_SECRET
-REDIS_URL
-
-The same application code can then run with different configuration in development and production.`,
-    "Middleware and CORS": `Middleware wraps many requests.
-
-request → middleware before → endpoint → middleware after → response
-
-Good middleware concerns:
-request IDs, timing, logging, CORS.
-
-Do not put route-specific business rules into global middleware.`,
-    "async/await in APIs": `Async helps when code spends time waiting for I/O.
-
-Network/database wait → async can help.
-Heavy CPU calculation → async alone does not make it faster.
-
-Use async consistently with async-compatible libraries and do not mix blocking work carelessly into the event loop.`,
-    "Request → validation → service → response flow": `Clean backend flow:
-HTTP request
-→ router
-→ schema validation
-→ service/business rule
-→ repository/database
-→ response schema
-→ HTTP response
-
-Each layer should have a clear responsibility.`,
-    "Test the API manually with /docs": `Use /docs to explore the API:
-1. Start the server.
-2. Open /docs.
-3. Try valid input.
-4. Try invalid input.
-5. Try a missing resource.
-6. Inspect status, headers and JSON.
-
-Manual testing is useful for exploration; automated tests provide repeatability.`,
-    "Build and review Task API v1": `Milestone checklist:
-create task
-list tasks
-read one
-update one
-delete one
-validate bad input
-return 404 for missing data
-keep project structure understandable
-
-This is a usable milestone, not the end of the backend.`,
-    "Relational database mental model": `Tables hold related entities.
-Rows are records.
-Columns are attributes.
-Foreign keys connect records.
+# WHAT IS CORS?
+CORS is a browser security mechanism controlling whether JavaScript from one origin can access another origin.
 
 Example:
-users.id ← tasks.user_id
+Frontend: http://localhost:3000
+Backend: http://localhost:8000
 
-The database should help prevent invalid states, not merely store whatever Python sends.`,
-    "SELECT": `SELECT chooses columns.
+Different origins may require CORS configuration.
 
+# WHAT IS A COOKIE?
+A cookie is small data stored by the browser and associated with a website. Browsers can automatically send matching cookies with requests.
+
+# WHAT IS A SESSION?
+A session is a way to associate multiple requests with the same user/state.
+
+Do not confuse:
+cookie = storage/transport mechanism
+session = application concept for maintaining state\`,
+    "FastAPI app, route and Uvicorn": String.raw\`# WHAT IS FASTAPI?
+FastAPI is a Python framework for building APIs.
+
+It helps us define routes, validate input, serialize output and handle HTTP requests.
+
+# WHAT IS A ROUTE?
+A route connects an HTTP method + URL path to Python code.
+
+@app.get("/tasks/42")
+means:
+"When a GET request arrives at /tasks/42, run this function."
+
+# WHAT IS UVICORN?
+Uvicorn is an ASGI server. It runs the Python web application and handles the network/server side of receiving requests.
+
+Flow:
+browser/curl
+→ Uvicorn
+→ FastAPI
+→ route function
+→ response
+
+# CODE
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/tasks/{task_id}")
+def get_task(task_id: int):
+    return {"id": task_id}
+
+Run:
+uvicorn main:app --reload\`,
+    "Path/query parameters and request bodies": String.raw\`# THREE INPUT LOCATIONS
+
+PATH:
+GET /tasks/42
+→ task_id = 42
+
+QUERY:
+GET /tasks?limit=20
+→ limit = 20
+
+BODY:
+POST /tasks
+{"title":"Learn FastAPI"}
+→ structured input
+
+# WHY SEPARATE THEM?
+They answer different questions.
+
+Path = which resource?
+Query = how should the collection be returned?
+Body = what data should be created/changed?
+
+FastAPI uses Python type hints to parse and validate these values.\`,
+    "Pydantic validation and schemas": String.raw\`# WHAT IS VALIDATION?
+Validation checks whether incoming data has the shape and values your application expects.
+
+Clients cannot be trusted.
+
+Example expected:
+title = string
+completed = boolean
+
+Bad input:
+{"title":123}
+
+# WHAT IS PYDANTIC?
+Pydantic is a Python library used by FastAPI for data validation and serialization.
+
+# FLOW
+JSON request
+→ Pydantic schema
+→ validation
+→ typed Python object
+→ business logic
+
+# CODE
+from pydantic import BaseModel
+
+class TaskCreate(BaseModel):
+    title: str
+
+If the client sends invalid data, FastAPI can reject it before business logic runs.\`,
+    "Tables, rows, columns and relationships": String.raw\`# WHAT IS A DATABASE?
+A database is software that stores and retrieves data reliably.
+
+# WHAT IS A TABLE?
+A table stores records of one kind of entity.
+
+tasks table
+
+# WHAT IS A ROW?
+One row = one task.
+
+# WHAT IS A COLUMN?
+A column describes one property.
+
+id | title | completed
+
+# WHAT IS A PRIMARY KEY?
+A primary key uniquely identifies a row.
+
+# WHAT IS A FOREIGN KEY?
+A foreign key connects one table to another.
+
+tasks.user_id → users.id
+
+This is how relational databases represent relationships.\`,
+    "SELECT": String.raw\`# WHAT IS SELECT?
+SELECT reads data from a database.
+
+Example:
 SELECT id, title
 FROM tasks;
 
-Prefer selecting the fields the API actually needs rather than blindly selecting everything.`,
-    "WHERE": `WHERE filters rows inside the database.
+The database finds rows in tasks and returns only the requested columns.
+
+# WHY NOT SELECT *?
+Because APIs often need only a few fields. Selecting what you need can reduce unnecessary data transfer and processing.\`,
+    "WHERE": String.raw\`# WHAT IS WHERE?
+WHERE filters rows.
 
 SELECT id, title
 FROM tasks
-WHERE user_id = 7
-  AND completed = false;
+WHERE user_id = 7;
 
-Database filtering is normally better than loading every row into Python first.`,
-    "INSERT/UPDATE/DELETE": `INSERT creates.
-UPDATE changes.
-DELETE removes.
+Only rows matching the condition are returned.
 
-Always ask which rows are affected. A missing WHERE clause on UPDATE or DELETE can change the entire table.`,
-    "ORDER BY": `SQL does not promise a useful order without ORDER BY.
+# IMPORTANT
+Filtering in the database is usually better than loading every row into Python and filtering afterward.\`,
+    "Indexes and why they speed reads": String.raw\`# WHAT IS AN INDEX?
+An index is an additional data structure maintained by the database to find rows more efficiently for certain queries.
 
-ORDER BY created_at DESC, id DESC
+Think of a book:
+Without an index → scan many pages.
+With an index → jump closer to the answer.
 
-The second field provides a stable tie-breaker, which matters for predictable pagination.`,
-    "GROUP BY/HAVING": `GROUP BY creates groups for aggregation.
+# EXAMPLE
+CREATE INDEX idx_tasks_user_id
+ON tasks(user_id);
 
-WHERE filters individual rows before grouping.
-HAVING filters groups after aggregation.
+Then a query filtering by user_id may become faster.
 
-Example question:
-Which users have more than 10 tasks?`,
-    "INNER JOIN": `INNER JOIN returns matching rows from both sides.
+# TRADE-OFF
+Indexes consume storage and make some writes more expensive because the index must also be updated.
 
-users JOIN tasks
-ON tasks.user_id = users.id
+Never assume every column needs an index.\`,
+    "Transactions and ACID": String.raw\`# WHAT IS A TRANSACTION?
+A transaction groups database operations into one logical unit.
 
-Use it when records without a match should be excluded.`,
-    "LEFT JOIN": `LEFT JOIN keeps every row from the left table.
+Example: transferring money.
 
-Useful question:
-Show every user and their tasks, including users who have zero tasks.
+1. Remove money from account A.
+2. Add money to account B.
+3. Commit both.
 
-That is different from INNER JOIN.`,
-    "Subqueries": `A subquery produces data used by another query.
+If step 2 fails, we do not want step 1 permanently saved.
 
-Use it when the inner calculation has a clear purpose. Prefer the simplest query that communicates the relationship correctly.`,
-    "CTEs": `WITH creates a named intermediate result.
+# ACID
+Atomicity → all or nothing
+Consistency → valid database state
+Isolation → concurrent transactions are controlled
+Durability → committed data survives failures according to the database's guarantees\`,
+    "Authentication vs authorization": String.raw\`# WHAT IS AUTHENTICATION?
+Authentication answers:
+"Who are you?"
 
-WITH active_tasks AS (...)
-SELECT ...
-FROM active_tasks;
+Example:
+You enter email + password.
+The server verifies them.
+It identifies you as user 42.
 
-CTEs can make multi-step SQL much easier to read and debug.`,
-    "CASE and window functions": `CASE creates conditional values.
+# WHAT IS AUTHORIZATION?
+Authorization answers:
+"What are you allowed to do?"
 
-Window functions calculate across related rows without collapsing them.
+User 42 may be allowed to edit their own task but not another user's task.
 
-ROW_NUMBER() OVER (
-  PARTITION BY user_id
-  ORDER BY created_at DESC
-)
+# EASY MEMORY TRICK
+Authentication = identity
+Authorization = permission
 
-This can find the newest task per user.`,
-    "Primary keys, foreign keys and constraints": `Primary key = unique row identity.
-Foreign key = relationship.
-NOT NULL = required value.
-UNIQUE = no duplicates.
-CHECK = allowed values.
+Login is authentication.
+Checking ownership is authorization.\`,
+    "Never store plain passwords: hashing": String.raw\`# WHY NOT STORE PASSWORDS?
+If the database leaks and raw passwords are stored, every password is immediately exposed.
 
-Constraints move important correctness rules into the database.`,
-    "One-to-one, one-to-many and many-to-many": `One-to-one: user → profile.
-One-to-many: user → many tasks.
-Many-to-many: users ↔ projects.
+# WHAT IS HASHING?
+A password hash is a one-way representation designed for password verification.
 
-Many-to-many normally uses a junction table such as project_members(user_id, project_id).`,
-    "Normalization and avoiding duplicated data": `Store each fact in the right place.
-
-If a user's name is copied into thousands of task rows, changing it becomes error-prone.
-
-Normalize first. Denormalize later only when there is a measured reason.`,
-    "Indexes and why they speed reads": `An index is a lookup structure.
-
-Good candidate:
-WHERE user_id = ?
-ORDER BY created_at
-
-Trade-off:
-more storage and slower writes.
-
-Use query plans and measurements rather than indexing everything.`,
-    "Transactions and ACID": `A transaction groups related writes.
-
-BEGIN → operation A → operation B → COMMIT
-
-Failure → ROLLBACK
-
-ACID means atomicity, consistency, isolation and durability.`,
-    "Isolation and concurrent database work": `Two requests can touch the same data concurrently.
-
-Isolation controls what one transaction can observe from another.
-
-Think about dirty reads, non-repeatable reads, lost updates and locking when correctness depends on concurrent writes.`,
-    "Design the Task API database": `Initial schema:
-users
-tasks
-notes
-
-tasks.user_id → users.id
-notes.task_id → tasks.id
-
-Add constraints and indexes based on real API queries.`,
-    "Why an ORM exists and what SQL it hides": `An ORM maps database records to application objects.
-
-It reduces repetitive mapping code, but it does not remove SQL concepts. You still need SELECT, JOIN, transactions, constraints and indexes.`,
-    "Engine and database connection": `The engine manages database connectivity.
-
-engine → connection → SQL → PostgreSQL
-
-Create the engine as application infrastructure, not once per request. Keep the database URL in configuration.`,
-    "Sessions and transaction boundaries": `A Session coordinates ORM work.
-
-request → session → query/change → commit or rollback → close
-
-Keep transaction boundaries explicit and short enough to avoid unnecessary locks.`,
-    "SQLAlchemy models and mapped columns": `A model maps Python attributes to database columns.
-
-The model describes persistence, not the entire API contract. Keep response schemas separate when clients should see a different shape.`,
-    "CRUD with select/add/commit/refresh": `Create:
-session.add(obj)
-session.commit()
-session.refresh(obj)
-
-Read:
-session.execute(select(Task).where(...))
-
-Update:
-change object → commit
-
-Delete:
-session.delete(obj) → commit`,
-    "Relationships and loading related data": `Relationships represent foreign-key connections in Python.
-
-Be deliberate about loading. Accidental lazy loading can create an N+1 query problem when an API loops through many records.`,
-    "Queries, transactions and service/repository separation": `Router handles HTTP.
-Service handles business rules.
-Repository handles persistence.
-
-This separation keeps database details from spreading across every endpoint and makes business logic easier to test.`,
-    "Alembic migrations and schema versioning": `A migration records a schema change over time.
-
-v1 → tasks
-v2 → completed
-v3 → owner_id
-
-Changing a Python model does not safely migrate an existing production database by itself. Migrations make schema evolution explicit and reviewable.`,
-    "Authentication vs authorization": `Authentication asks: who are you?
-Authorization asks: are you allowed?
-
-A valid login does not automatically grant permission to every resource.`,
-    "Never store plain passwords: hashing": `Registration:
-password → slow password hash → database
+Registration:
+password
+→ password hashing algorithm
+→ stored hash
 
 Login:
-password + stored hash → verify → success/failure
+entered password + stored hash
+→ verification
+→ match / reject
 
-Never store raw passwords. Password hashing and encryption solve different problems.`,
-    "JWT structure and signed access tokens": `JWT commonly looks like:
+Use a password-hashing library designed for passwords. Do not invent your own hashing algorithm.\`,
+    "JWT structure and signed access tokens": String.raw\`# WHAT IS A JWT?
+JWT means JSON Web Token.
+
+It is a signed token commonly used to carry claims between a client and server.
+
+Typical shape:
 header.payload.signature
 
-The signature detects tampering.
-Claims can contain identity and expiry.
+# IMPORTANT
+The payload is not a secret by default. Do not put passwords or sensitive secrets inside it.
 
-A valid signature still does not prove the requested action is authorized.`,
-    "Login → token → Authorization: Bearer flow": `Login → verify password → issue token.
+The signature helps detect tampering.
 
-Later:
-Authorization: Bearer <token>
-→ verify token
-→ identify user
-→ apply authorization rules
-→ perform operation
-
-The token proves identity information; the endpoint still decides permission.`,
-    "Protected routes with dependencies": `A dependency can read the Authorization header, validate the token and load the current user.
-
-Then protected routes receive the already-validated user instead of repeating authentication code.`,
-    "Current user and user-owned resources": `Never trust a client-supplied user_id for ownership.
-
-Correct:
-current authenticated user = 7
-→ query task 42 WHERE id=42 AND user_id=7
-
-This prevents one user from modifying another user's resources.`,
-    "Roles, permissions and authorization checks": `Role-based access control maps roles to permissions.
+# ACCESS FLOW
+login
+→ verify credentials
+→ issue access token
+→ client sends token later
+→ server verifies token
+→ server identifies user
+→ authorization check\`,
+    "Pagination for large result sets": String.raw\`# WHAT IS PAGINATION?
+Pagination means returning a manageable portion of a large collection instead of everything at once.
 
 Example:
-admin → manage users
-member → manage own tasks
+GET /tasks?limit=20&offset=40
 
-Authorization must be enforced on the server even if the UI hides a button.`,
-    "Pagination for large result sets": `Returning 100,000 rows is expensive.
+limit = how many
+offset = how far into the collection
 
-limit + offset returns a small page.
-For very large changing datasets, cursor/keyset pagination can be more stable and efficient than large offsets.`,
-    "Filtering and search": `Filters narrow a collection:
-tasks?completed=false
+# WHY?
+If a user has 100,000 tasks, returning all of them wastes memory, bandwidth and time.
 
-Search might use:
-tasks?q=fastapi
-
-Validate values, use parameterized queries and index important search/filter patterns.`,
-    "Sorting and stable API responses": `Allow only known sortable fields.
-
-Use stable ordering:
-created_at DESC, id DESC
-
-Never concatenate an arbitrary client string into raw SQL.`,
-    "API versioning and consistent error contracts": `Version boundaries protect clients:
- /v1/tasks
-
-Use predictable errors:
-{"error":"TASK_NOT_FOUND","message":"Task 42 was not found"}
-
-Clients should not have to parse random server messages.`,
-    "Idempotency, logging and production API rules": `GET is naturally idempotent.
-PUT is designed to be idempotent.
-POST often is not unless an idempotency key is used.
-
-Logs should contain useful request context without leaking passwords, tokens or secrets.`,
-    "pytest setup": `Create a tests/ directory and run pytest.
-
-A test should answer one behavior question and fail clearly when the behavior breaks.`,
-    "Assertions/fixtures": `Assertions express expected behavior.
-Fixtures prepare reusable state such as a test client, database session or authenticated user.
-
-Use fixtures to remove duplication without hiding important test setup.`,
-    "Unit tests for business logic": `Unit tests isolate one business rule.
-
-Arrange → call service → assert result/error.
-
-They should be fast and should not require the entire HTTP stack for every rule.`,
-    "API tests with TestClient/httpx": `API tests call the real application boundary.
-
-POST /tasks
-→ inspect status
-→ inspect JSON
-→ verify the contract
-
-They catch routing, validation and serialization problems.`,
-    "Database/integration tests": `Integration tests exercise:
-API → service → SQLAlchemy → test database
-
-Keep test data isolated and clean so one test does not silently depend on another.`,
-    "Authentication, authorization, edge cases and coverage": `Test failures deliberately:
-no token → 401
-wrong owner → forbidden/not found according to your contract
-missing task → 404
-bad body → validation error
-duplicate unique value → conflict/error
-
-Coverage is a signal, not proof of correctness.`,
-    "Redis keys, values and fast temporary state": `Redis stores values under keys.
-
-Examples:
-task:42
-user:7:rate
-session:abc
-
-Good key naming makes ownership, debugging and invalidation easier.`,
-    "TTL and automatic expiration": `A TTL removes temporary data automatically.
-
-SETEX task:42 60 value
-
-After 60 seconds the key expires.
-
-Useful for cache entries, codes and rate-limit windows.`,
-    "Cache-aside: read cache → fallback to DB": `Read Redis first.
-If hit → return.
-If miss → read PostgreSQL → store result in Redis → return.
-
-PostgreSQL remains the source of truth.`,
-    "Connect Redis to FastAPI safely": `Create Redis as application infrastructure and read REDIS_URL from configuration.
-
-Decide the failure policy. A cache outage should not automatically turn every read request into a 500 if the database can still serve it.`,
-    "Cache invalidation and basic rate limiting": `After changing task 42:
-database update → invalidate task:42 cache.
-
-For rate limiting, use an expiring Redis counter.
-
-Caching is easy to add and hard to invalidate correctly, so design the invalidation path at the same time as the cache.`,
-    "Why queues and workers exist": `HTTP request:
-validate → enqueue → return quickly.
-
-Worker:
-receive job → perform slow work → retry/fail → record outcome.
-
-Use queues for email, notifications, reports and other work that should not block the user request.`,
-    "Celery app, task and worker": `Celery app = configuration.
-Task = unit of background work.
-Worker = process that executes tasks.
-
-FastAPI sends a task message. A separate worker executes it.`,
-    "Redis as broker and result backend": `Broker transports task messages.
-
-A result backend can store task state/results when the application needs them.
-
-Do not confuse the queue with PostgreSQL's durable business data.`,
-    "Retries and failure handling": `Temporary failure → wait/backoff → retry.
-
-Permanent failure → stop retrying and record the failure.
-
-Use limits and backoff. Unlimited immediate retries can create a retry storm.`,
-    "Scheduled jobs and Celery Beat": `Beat decides when a scheduled task should be sent.
-Worker executes it.
+For very large changing datasets, cursor/keyset pagination can provide more stable performance.\`,
+    "pytest setup": String.raw\`# WHAT IS A TEST?
+A test is executable code that checks whether expected behavior still works.
 
 Example:
-every night → cleanup expired data.
+"If I create a task with a valid title, the API should return 201."
 
-Make scheduled jobs safe to run repeatedly where possible.`,
-    "Linux CLI, files and processes": `pwd = current directory
-ls = files
-cd = change directory
-cat = read
-grep = search
-ps = processes
-kill = stop
+# PYTEST
+pytest is a Python testing framework.
 
-Backend deployment requires comfort with the terminal.`,
-    "Permissions and SSH basics": `Linux permissions control owner/group/other access.
+Basic test:
+def test_addition():
+    assert 2 + 2 == 4
 
-SSH gives remote terminal access.
+A backend test should focus on behavior, not merely whether lines were executed.\`,
+    "Redis keys, values and fast temporary state": String.raw\`# WHAT IS REDIS?
+Redis is an in-memory data store designed for very fast operations.
 
-Understand ownership and permission bits before reaching for sudo.`,
-    "Image vs container": `Image = packaged application/runtime artifact.
-Container = running instance of an image.
-
-One image can create multiple containers with different runtime configuration.`,
-    "Dockerfile and reproducible builds": `A Dockerfile describes image construction:
-base image → dependencies → source → runtime command.
-
-Keep builds reproducible and avoid unnecessary files/dependencies in the final image.`,
-    "Volumes, networks and ports": `Volume = persistent data.
-Network = container communication.
-Port = exposed service entry point.
+It stores values under keys.
 
 Example:
-host:8000 → api:8000.`,
-    "Environment variables and service configuration": `Keep DATABASE_URL, REDIS_URL and JWT_SECRET outside source code.
+task:42 → {"id":42,"title":"Learn Redis"}
 
-One image should work across environments by changing configuration, not application code.`,
-    "Docker Compose for API + PostgreSQL + Redis": `Compose can run:
-api
-postgres
-redis
-worker
+# WHY USE IT?
+Common uses:
+• caching
+• counters
+• rate limiting
+• temporary state
+• queues/brokers in some architectures
 
-Inside the Compose network, the API connects to the database using the service name postgres, not localhost.`,
-    "Run and debug the complete stack": `Debug from the failing boundary:
-1. docker compose ps
-2. inspect logs
-3. check health
-4. check environment
-5. check network/ports
-6. test API
-7. test dependencies
+PostgreSQL can remain the durable source of truth while Redis handles fast temporary data.\`,
+    "Why queues and workers exist": String.raw\`# WHAT IS A QUEUE?
+A queue holds work that should be processed asynchronously.
 
-Do not randomly restart everything before finding the failure.`,
-    "What CI/CD actually solves": `push → install → checks → tests → build → deploy → health check
+Imagine an email request.
 
-The value is repeatability and fast feedback, not magic automation.`,
-    "GitHub Actions and automated tests": `A workflow runs on GitHub's runner.
+Without a queue:
+HTTP request → generate email → send email → wait → response
 
-checkout → setup runtime → install → test
+With a queue:
+HTTP request → put job in queue → respond
+worker → takes job → sends email
 
-A trusted deployment path should not release code when required tests fail.`,
-    "Secrets and environment configuration": `Never commit passwords, API keys, JWT secrets or production database URLs.
+# WHAT IS A WORKER?
+A worker is a separate process that consumes jobs and performs the work.
 
-Store secrets in the CI/deployment platform and expose them as environment variables at runtime.`,
-    "Build the application image": `Build an image with an immutable identifier such as the commit SHA.
+This prevents slow background operations from unnecessarily blocking the user request.\`,
+    "Image vs container": String.raw\`# WHAT IS A CONTAINER IMAGE?
+An image is a packaged filesystem and configuration used to create containers.
 
-docker build -t task-api:$GIT_SHA .
+# WHAT IS A CONTAINER?
+A container is a running instance of an image.
 
-Test the exact artifact you intend to deploy.`,
-    "Deploy, health checks and logs": `Deployment:
-new version → start → health check → receive traffic → observe
+Think:
+image = recipe/package
+container = running instance
 
-Logs explain what happened. Health checks tell you whether the service is alive/ready. Both are part of production engineering.`,
-    "HTTPS, rollback and final production checklist": `Production checklist:
-HTTPS
-secure secrets
-database backups
-health checks
-logs
-monitoring
-resource limits
-migration plan
-rollback plan
+One image can create multiple containers.
 
-A deployment is not finished just because the process starts.`
+# WHY?
+It helps make the runtime environment reproducible across machines.\`,
+    "What CI/CD actually solves": String.raw\`# WHAT IS CI?
+Continuous Integration means automatically checking changes as code is pushed or proposed.
+
+Typical:
+push
+→ install dependencies
+→ run tests
+→ report result
+
+# WHAT IS CD?
+Continuous Delivery/Deployment extends the pipeline toward releasing the application.
+
+Typical:
+test
+→ build artifact
+→ deploy
+→ health check
+
+# WHY?
+The goal is repeatability. Humans should not have to remember 20 manual deployment commands every time.\`
+  };
+
+  const focusDetail: Record<string,string> = {
+    "Client vs server and the request/response pipeline": beginnerDefinition["Client vs server and the request/response pipeline"],
+    "HTTP method + URL + headers + body": beginnerDefinition["HTTP method + URL + headers + body"],
+    "Status codes: 2xx, 3xx, 4xx, 5xx": beginnerDefinition["Status codes: 2xx, 3xx, 4xx, 5xx"],
+    "JSON, path parameters and query parameters": beginnerDefinition["JSON, path parameters and query parameters"],
+    "REST resources, CORS, cookies and sessions": beginnerDefinition["REST resources, CORS, cookies and sessions"],
+    "FastAPI app, route and Uvicorn": beginnerDefinition["FastAPI app, route and Uvicorn"],
+    "Path/query parameters and request bodies": beginnerDefinition["Path/query parameters and request bodies"],
+    "Pydantic validation and schemas": beginnerDefinition["Pydantic validation and schemas"],
+    "Tables, rows, columns and relationships": beginnerDefinition["Tables, rows, columns and relationships"],
+    "SELECT": beginnerDefinition["SELECT"],
+    "WHERE": beginnerDefinition["WHERE"],
+    "Indexes and why they speed reads": beginnerDefinition["Indexes and why they speed reads"],
+    "Transactions and ACID": beginnerDefinition["Transactions and ACID"],
+    "Authentication vs authorization": beginnerDefinition["Authentication vs authorization"],
+    "Never store plain passwords: hashing": beginnerDefinition["Never store plain passwords: hashing"],
+    "JWT structure and signed access tokens": beginnerDefinition["JWT structure and signed access tokens"],
+    "Pagination for large result sets": beginnerDefinition["Pagination for large result sets"],
+    "pytest setup": beginnerDefinition["pytest setup"],
+    "Redis keys, values and fast temporary state": beginnerDefinition["Redis keys, values and fast temporary state"],
+    "Why queues and workers exist": beginnerDefinition["Why queues and workers exist"],
+    "Image vs container": beginnerDefinition["Image vs container"],
+    "What CI/CD actually solves": beginnerDefinition["What CI/CD actually solves"],
   };
 
   const stageGuide: Record<number,string> = {
