@@ -480,104 +480,141 @@ export default function BackendSDEPage() {
                         </button>
 
                         {open && (
-                          <div className="px-4 md:px-8 pb-4">
-                            <div className="ml-10 rounded-xl border border-[#202a38] overflow-hidden">
-                              <div className="px-4 py-3 flex items-center justify-between bg-white/[.018] border-b border-white/[.035]">
-                                <div>
-                                  <div className="text-[9px] tracking-[.16em] text-cyan-200">TODAY'S SUBTOPICS</div>
-                                  <div className="text-[10px] text-[#657387] mt-1">{currentChecked}/{lessonList.length} checked</div>
-                                </div>
-                                <div className="w-28 h-1.5 rounded-full bg-white/10 overflow-hidden">
-                                  <div className="h-full bg-cyan-300 rounded-full transition-all" style={{width:`${lessonList.length ? currentChecked / lessonList.length * 100 : 0}%`}} />
-                                </div>
-                              </div>
-                              {lessonList.map((lesson) => {
-                                const checked = !!subtopicDone[subtopicKey(d.day, lesson)];
-                                const lessonKey = subtopicKey(d.day, lesson);
-                                const isExpanded = expandedLesson === lessonKey;
 
-                                return (
-                                  <div key={lesson} className="border-b border-white/[.035] last:border-b-0">
-                                    <div className="w-full flex items-center gap-3 px-4 py-3.5 text-left hover:bg-white/[.025]">
-                                      <button
-                                        onClick={() => toggleSubtopic(lesson)}
-                                        aria-label={checked ? `Mark ${lesson} incomplete` : `Mark ${lesson} complete`}
-                                        className={`w-5 h-5 rounded-md border flex items-center justify-center shrink-0 transition ${checked ? "bg-cyan-300 border-cyan-300 text-black" : "border-[#46546a] text-transparent"}`}
-                                      >
-                                        {checked ? "✓" : ""}
-                                      </button>
-
-                                      <button
-                                        onClick={() => setExpandedLesson(isExpanded ? null : lessonKey)}
-                                        className="text-left flex-1 min-w-0 group/lesson"
-                                        aria-expanded={isExpanded}
-                                      >
-                                        <span className={`text-xs group-hover/lesson:text-cyan-200 transition ${checked ? "text-[#64748b] line-through" : "text-[#aeb8c6]"}`}>
-                                          {lesson}
-                                        </span>
-                                      </button>
-
-                                      <span className={`text-[#657387] text-sm transition-transform ${isExpanded ? "rotate-180" : ""}`}>⌄</span>
-                                      <span className="hidden sm:inline text-[10px] text-[#78869a] ml-1">Est. {lessonMinutes} min</span>
+                          <div className="px-3 md:px-8 pb-6">
+                            <div className="ml-0 md:ml-10">
+                              <div className="rounded-2xl border border-cyan-300/10 bg-[#070c12] overflow-hidden">
+                                <div className="px-5 md:px-7 py-5 md:py-6 border-b border-white/[.05] bg-gradient-to-r from-cyan-300/[.05] to-blue-400/[.02]">
+                                  <div className="flex items-center justify-between gap-4">
+                                    <div>
+                                      <div className="text-[11px] font-semibold tracking-[.14em] text-cyan-200">TODAY'S LESSON</div>
+                                      <h2 className="text-xl md:text-2xl font-bold text-white mt-2 leading-tight">{d.target}</h2>
+                                      <p className="text-sm md:text-[15px] leading-6 text-[#8f9caf] mt-2 max-w-3xl">
+                                        Learn the idea first. Then trace it, write the code, use it in TaskFlow, and test yourself.
+                                      </p>
                                     </div>
-
-                                    {isExpanded && (() => {
-                                      const content = lessonContent(d, lesson);
-                                      return (
-                                        <div className="mx-4 mb-4 rounded-xl border border-cyan-300/10 bg-[#080d14] overflow-hidden">
-                                          <div className="px-4 py-3 border-b border-white/[.04]">
-                                            <div className="text-[9px] tracking-[.16em] text-cyan-200">LESSON SLIDE</div>
-                                            <div className="text-sm font-bold mt-1 text-white">{lesson}</div>
-                                          </div>
-
-                                          <div className="grid gap-4 p-4">
-                                            <section>
-                                              <div className="text-[9px] tracking-[.15em] text-blue-200"># WHY</div>
-                                              <p className="text-xs leading-6 text-[#b5bfcd] mt-1">{content.why}</p>
-                                            </section>
-                                            <section>
-                                              <div className="text-[9px] tracking-[.15em] text-blue-200"># CONCEPT + LOGIC</div>
-                                              <pre className="whitespace-pre-wrap text-[11px] leading-5 text-[#c9d3df] mt-2">{content.explanation}</pre>
-                                            </section>
-                                            <section>
-                                              <div className="text-[9px] tracking-[.15em] text-blue-200"># CODE</div>
-                                              <pre className="overflow-x-auto whitespace-pre text-[11px] leading-5 text-[#d8e1ec] mt-2 p-3 rounded-lg bg-black/40 border border-white/[.04] font-mono">{content.code}</pre>
-                                            </section>
-                                            <section>
-                                              <div className="text-[9px] tracking-[.15em] text-cyan-200"># CODE WALKTHROUGH</div>
-                                              <pre className="whitespace-pre-wrap text-[11px] leading-5 text-[#b9c5d4] mt-2">{content.walkthrough}</pre>
-                                            </section>
-                                            <section>
-                                              <div className="text-[9px] tracking-[.15em] text-indigo-200"># REAL BACKEND EXAMPLE</div>
-                                              <p className="text-xs leading-6 text-[#b5bfcd] mt-1">{content.realExample}</p>
-                                            </section>
-                                            <section>
-                                              <div className="text-[9px] tracking-[.15em] text-violet-200"># PROJECT</div>
-                                              <p className="text-xs leading-6 text-[#b5bfcd] mt-1">{content.project}</p>
-                                            </section>
-                                            <section>
-                                              <div className="text-[9px] tracking-[.15em] text-green-200"># PRACTICE</div>
-                                              <p className="text-xs leading-6 text-[#b5bfcd] mt-1">{content.practice}</p>
-                                            </section>
-                                            <section>
-                                              <div className="text-[9px] tracking-[.15em] text-amber-200"># COMMON MISTAKES</div>
-                                              <p className="text-xs leading-6 text-[#b5bfcd] mt-1">{content.mistakes}</p>
-                                            </section>
-                                            <section>
-                                              <div className="text-[9px] tracking-[.15em] text-amber-200"># INTERVIEW CHECK</div>
-                                              <pre className="whitespace-pre-wrap text-[11px] leading-5 text-[#b9c5d4] mt-2">{content.interview}</pre>
-                                            </section>
-                                            <section className="rounded-lg bg-cyan-300/[.035] border border-cyan-300/10 p-3">
-                                              <div className="text-[9px] tracking-[.15em] text-cyan-200"># CHECK YOURSELF</div>
-                                              <p className="text-xs leading-6 text-[#c8d2df] mt-1">{content.summary}</p>
-                                            </section>
-                                          </div>
-                                        </div>
-                                      );
-                                    })()}
+                                    <div className="hidden sm:block shrink-0 text-right">
+                                      <div className="text-xs text-[#748197]">PROGRESS</div>
+                                      <div className="text-lg font-bold text-cyan-200 mt-1">{currentChecked}/{lessonList.length}</div>
+                                    </div>
                                   </div>
-                                );
-                              })}                          </div>
+                                </div>
+
+                                <div className="px-4 md:px-6 py-4 border-b border-white/[.05] bg-black/10">
+                                  <div className="text-xs font-semibold text-[#aeb9c9] mb-3">LEARNING PATH</div>
+                                  <div className="grid gap-2 sm:grid-cols-5">
+                                    {lessonList.map((lesson, index) => {
+                                      const checked = !!subtopicDone[subtopicKey(d.day, lesson)];
+                                      const lessonKey = subtopicKey(d.day, lesson);
+                                      const isActive = (expandedLesson && expandedLesson.startsWith(d.day + "::"))
+                                        ? expandedLesson === lessonKey
+                                        : index === 0;
+                                      return (
+                                        <button
+                                          key={lesson}
+                                          onClick={() => setExpandedLesson(isActive ? null : lessonKey)}
+                                          className={`text-left rounded-xl border px-3 py-3 min-h-[82px] transition ${isActive ? "border-cyan-300/40 bg-cyan-300/[.07]" : "border-white/[.07] bg-white/[.015] hover:bg-white/[.035]"}`}
+                                        >
+                                          <div className="flex items-center gap-2">
+                                            <span
+                                              onClick={(e) => { e.stopPropagation(); toggleSubtopic(lesson); }}
+                                              className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 text-[11px] ${checked ? "bg-cyan-300 border-cyan-300 text-black" : "border-[#526176] text-transparent"}`}
+                                            >
+                                              {checked ? "✓" : index + 1}
+                                            </span>
+                                            <span className="text-[11px] font-semibold text-[#d4dbe5]">STEP {index + 1}</span>
+                                          </div>
+                                          <div className="text-[12px] leading-5 text-[#aeb8c7] mt-2">
+                                            {lesson.replace(/^\d\.\s*[^:]+:\s*/, "")}
+                                          </div>
+                                        </button>
+                                      );
+                                    })}
+                                  </div>
+                                </div>
+
+                                {(() => {
+                                  const activeKey = (expandedLesson && expandedLesson.startsWith(d.day + "::"))
+                                    ? expandedLesson
+                                    : subtopicKey(d.day, lessonList[0]);
+                                  const activeLesson = activeKey.split("::").slice(1).join("::");
+                                  const content = lessonContent(d, activeLesson);
+                                  return (
+                                    <article className="px-5 md:px-8 py-7 md:py-9">
+                                      <div className="mb-7">
+                                        <div className="text-[11px] font-semibold tracking-[.14em] text-blue-200">STEP {Math.max(1, lessonList.indexOf(activeLesson) + 1)} · CORE TEACHING</div>
+                                        <h3 className="text-xl md:text-2xl font-bold text-white mt-2 leading-tight">{activeLesson}</h3>
+                                      </div>
+
+                                      <div className="space-y-8">
+                                        <section>
+                                          <h4 className="text-sm font-bold text-cyan-200 mb-2">Why this matters</h4>
+                                          <p className="text-[15px] md:text-base leading-7 text-[#c2cad6]">{content.why}</p>
+                                        </section>
+                                        <section>
+                                          <h4 className="text-sm font-bold text-blue-200 mb-2">Concept & logic</h4>
+                                          <pre className="whitespace-pre-wrap text-[14px] md:text-[15px] leading-7 text-[#c4cedb] font-sans">{content.explanation}</pre>
+                                        </section>
+                                        <section>
+                                          <h4 className="text-sm font-bold text-violet-200 mb-2">Code</h4>
+                                          <div className="rounded-xl border border-white/[.07] bg-[#03070b] overflow-x-auto">
+                                            <pre className="whitespace-pre text-[13px] md:text-[14px] leading-6 text-[#e1e7ef] p-5 font-mono">{content.code}</pre>
+                                          </div>
+                                        </section>
+                                        <section>
+                                          <h4 className="text-sm font-bold text-cyan-200 mb-2">Code walkthrough</h4>
+                                          <pre className="whitespace-pre-wrap text-[14px] md:text-[15px] leading-7 text-[#bcc7d5] font-sans">{content.walkthrough}</pre>
+                                        </section>
+                                        <section className="rounded-xl border border-blue-300/10 bg-blue-300/[.025] p-5">
+                                          <h4 className="text-sm font-bold text-blue-200 mb-2">Real backend example</h4>
+                                          <p className="text-[15px] md:text-base leading-7 text-[#c5ceda]">{content.realExample}</p>
+                                        </section>
+                                        <section>
+                                          <h4 className="text-sm font-bold text-violet-200 mb-2">TaskFlow project</h4>
+                                          <p className="text-[15px] leading-7 text-[#c1cbd8] whitespace-pre-wrap">{content.project}</p>
+                                        </section>
+                                        <section>
+                                          <h4 className="text-sm font-bold text-green-200 mb-2">Practice</h4>
+                                          <p className="text-[15px] leading-7 text-[#c1cbd8] whitespace-pre-wrap">{content.practice}</p>
+                                        </section>
+                                        <section>
+                                          <h4 className="text-sm font-bold text-amber-200 mb-2">Common mistakes</h4>
+                                          <p className="text-[15px] leading-7 text-[#c1cbd8] whitespace-pre-wrap">{content.mistakes}</p>
+                                        </section>
+                                        <section>
+                                          <h4 className="text-sm font-bold text-amber-200 mb-2">Interview check</h4>
+                                          <pre className="whitespace-pre-wrap text-[14px] md:text-[15px] leading-7 text-[#bcc7d5] font-sans">{content.interview}</pre>
+                                        </section>
+                                        <section className="rounded-xl border border-cyan-300/15 bg-cyan-300/[.04] p-5">
+                                          <h4 className="text-sm font-bold text-cyan-200 mb-2">Check yourself</h4>
+                                          <p className="text-[15px] leading-7 text-[#d0d8e3]">{content.summary}</p>
+                                        </section>
+                                      </div>
+
+                                      <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                                        <button
+                                          onClick={() => toggleSubtopic(activeLesson)}
+                                          className={`flex-1 rounded-xl px-5 py-3.5 text-sm font-semibold border transition ${subtopicDone[subtopicKey(d.day, activeLesson)] ? "bg-cyan-300 text-black border-cyan-300" : "border-cyan-300/25 bg-cyan-300/[.06] text-cyan-100 hover:bg-cyan-300/[.1]"}`}
+                                        >
+                                          {subtopicDone[subtopicKey(d.day, activeLesson)] ? "✓ Completed" : "Mark this step complete"}
+                                        </button>
+                                        <button
+                                          onClick={() => {
+                                            const idx = lessonList.indexOf(activeLesson);
+                                            const next = lessonList[idx + 1];
+                                            if (next) setExpandedLesson(subtopicKey(d.day, next));
+                                          }}
+                                          disabled={lessonList.indexOf(activeLesson) >= lessonList.length - 1}
+                                          className="rounded-xl px-5 py-3.5 text-sm font-semibold border border-white/10 bg-white/[.025] text-[#c8d1dd] disabled:opacity-30"
+                                        >
+                                          Next step →
+                                        </button>
+                                      </div>
+                                    </article>
+                                  );
+                                })()}
+                              </div>
+                            </div>
 
                             <div className="ml-10 mt-3 flex flex-col sm:flex-row gap-3">
                               <div className="flex-1 rounded-xl border border-violet-300/10 bg-violet-300/[.025] px-4 py-3">
