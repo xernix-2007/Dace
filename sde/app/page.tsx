@@ -13,7 +13,7 @@ import {
 
 type Difficulty="Easy"|"Medium"|"Hard";
 type Status="unsolved"|"solved"|"revision"|"failed";
-type View="overview"|"today"|"history"|"problems"|"companies"|"analytics"|"interview"|"prep"|"backend"|"knowledge"|"dbms"|"os"|"cn"|"oop"|"sql"|"dsa"|"settings";
+type View="overview"|"today"|"history"|"problems"|"companies"|"analytics"|"interview"|"prep"|"backend"|"knowledge"|"core"|"dbms"|"os"|"cn"|"oop"|"sql"|"dsa"|"settings";
 type Problem={
  id:number; title:string; difficulty:Difficulty; topics:string[]; companies:string[];
  url:string; estimate:number; leetcodeNumber?:number|null; frequency?:number; companyFrequency?:Record<string,number>;
@@ -72,6 +72,7 @@ function Icon({name,size=17}:{name:string;size?:number}){
 export default function Home(){
  const [view,setView]=useState<View>("overview");
  const [mobileOpen,setMobileOpen]=useState(false);
+ const [coreOpen,setCoreOpen]=useState(false);
  const [company,setCompany]=useState("All");
  const [target,setTarget]=useState({Easy:1,Medium:2,Hard:2});
  const [solved,setSolved]=useState<number[]>([]);
@@ -386,8 +387,11 @@ export default function Home(){
 
  const nav=[
   ["overview","Overview","dashboard"],["today","Today","calendar"],["history","Question History","calendar"],["problems","Problems","list"],
-  ["companies","Companies","company"],["analytics","Analytics","analytics"],["interview","Interview","interview"],["prep","Prep Plan","target"],["backend","Backend / SDE","code"],["knowledge","Study Centre","book"],["dbms","DBMS","book"],["os","OS","settings"],["cn","CN","github"],["oop","OOP","code"],["sql","SQL","list"],["dsa","DSA Fundamentals","zap"],["settings","Settings","settings"]
+  ["companies","Companies","company"],["analytics","Analytics","analytics"],["interview","Interview","interview"],["prep","Prep Plan","target"],["backend","Backend / SDE","code"],["knowledge","Study Centre","book"],["core","Core CS","book"],["dsa","DSA Fundamentals","zap"],["settings","Settings","settings"]
  ] as [View,string,string][];
+ const coreSubjects:[View,string,string,string]=[[
+  ["dbms","DBMS","database","DBMS"],["os","Operating Systems","settings","OS"],["cn","Computer Networks","github","CN"],["oop","OOP","code","OOP"],["sql","SQL","list","SQL"]
+ ];
 
  return <main className="min-h-screen dace-grid">
   <div className="cosmic-bg cosmic-nebula" aria-hidden="true"/><div className="cosmic-bg cosmic-planet planet-a" aria-hidden="true"/><div className="cosmic-bg cosmic-planet planet-b" aria-hidden="true"/><div className="cosmic-bg cosmic-planet planet-c" aria-hidden="true"/><div className="cosmic-bg cosmic-galaxy galaxy-one" aria-hidden="true"/><div className="cosmic-bg cosmic-galaxy galaxy-two" aria-hidden="true"/><div className="cosmic-bg cosmic-wormhole" aria-hidden="true"/><div className="cosmic-bg cosmic-constellation" aria-hidden="true"/><div className="cosmic-bg cosmic-orbit orbit-one" aria-hidden="true"/><div className="cosmic-bg cosmic-orbit orbit-two" aria-hidden="true"/><div className="cosmic-bg cosmic-spark" aria-hidden="true"/><div className="cosmic-bg cosmic-spark two" aria-hidden="true"/>
@@ -407,12 +411,12 @@ export default function Home(){
    </div>
   </header>
 
-  {mobileOpen&&<div className="fixed inset-0 z-50 md:hidden"><div className="absolute inset-0 bg-black/60" onClick={()=>setMobileOpen(false)}/><aside className="absolute left-0 top-0 bottom-0 w-72 bg-[#0a0f16] border-r border-[#202a38] p-4 float-in">{nav.map(([k,l,i])=><NavButton key={k} active={view===k} label={l} icon={i} onClick={()=>{if(k==="knowledge"){window.location.href="/knowledge";return;}if(k==="dbms"){window.location.href="/knowledge?subject=DBMS";return;}if(k==="os"){window.location.href="/knowledge?subject=OS";return;}if(k==="cn"){window.location.href="/knowledge?subject=CN";return;}if(k==="oop"){window.location.href="/knowledge?subject=OOP";return;}if(k==="sql"){window.location.href="/knowledge?subject=SQL";return;}if(k==="dsa"){window.location.href="/knowledge?subject=DSA%20Fundamentals";return;}setView(k);setMobileOpen(false)}}/>)}</aside></div>}
+  {mobileOpen&&<div className="fixed inset-0 z-50 md:hidden"><div className="absolute inset-0 bg-black/60" onClick={()=>setMobileOpen(false)}/><aside className="absolute left-0 top-0 bottom-0 w-72 bg-[#0a0f16] border-r border-[#202a38] p-4 float-in">{nav.map(([k,l,i])=>k==="core"?<div key={k}><NavButton active={coreSubjects.some(([s])=>view===s)} label={l} icon={i} onClick={()=>setCoreOpen(v=>!v)}/>{coreOpen&&<div className="ml-3 mt-1 mb-2 pl-3 border-l border-cyan-300/15">{coreSubjects.map(([s,label,icon,subject])=><NavButton key={s} active={view===s} label={label} icon={icon} onClick={()=>{window.location.href="/knowledge?subject="+subject;setMobileOpen(false)}}/> )}</div>}</div>:<NavButton key={k} active={view===k} label={l} icon={i} onClick={()=>{if(k==="knowledge"){window.location.href="/knowledge";return;}if(k==="backend"){window.location.href="/backend";return;}if(k==="dsa"){window.location.href="/knowledge?subject=DSA%20Fundamentals";return;}setView(k);setMobileOpen(false)}}/>)}</aside></div>}
 
   <div className="flex min-h-[calc(100vh-64px)]">
    <aside className="hidden sm:block w-60 border-r border-[#202a38] p-4 shrink-0 sticky top-16 h-[calc(100vh-64px)] overflow-y-auto">
     <div className="text-[10px] tracking-[.2em] text-[#59687c] px-3 py-3">WORKSPACE</div>
-    {nav.map(([k,l,i])=><NavButton key={k} active={view===k} label={l} icon={i} onClick={()=>{if(k==="knowledge"){window.location.href="/knowledge";return;}if(k==="backend"){window.location.href="/backend";return;}setView(k)}}/>)}
+    {nav.map(([k,l,i])=>k==="core"?<div key={k}><NavButton active={coreSubjects.some(([s])=>view===s)} label={l} icon={i} onClick={()=>setCoreOpen(v=>!v)}/>{coreOpen&&<div className="ml-3 mt-1 mb-2 pl-3 border-l border-cyan-300/15">{coreSubjects.map(([s,label,icon,subject])=><NavButton key={s} active={view===s} label={label} icon={icon} onClick={()=>{window.location.href="/knowledge?subject="+subject}}/> )}</div>}</div>:<NavButton key={k} active={view===k} label={l} icon={i} onClick={()=>{if(k==="knowledge"){window.location.href="/knowledge";return;}if(k==="backend"){window.location.href="/backend";return;}if(k==="dsa"){window.location.href="/knowledge?subject=DSA%20Fundamentals";return;}setView(k)}}/>)}
     <div className="mt-7 panel rounded-xl p-4 glow-cyan">
      <div className="flex items-center gap-2 text-xs font-semibold"><Icon name="spark" size={14}/> Adaptive engine</div>
      <p className="text-[11px] leading-5 text-[#77869a] mt-2">Selection weighs weakness, revisions, freshness and company preference.</p>
