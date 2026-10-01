@@ -389,7 +389,7 @@ export default function Home(){
   ["overview","Overview","dashboard"],["today","Today","calendar"],["history","Question History","calendar"],["problems","Problems","list"],
   ["companies","Companies","company"],["analytics","Analytics","analytics"],["interview","Interview","interview"],["prep","Prep Plan","target"],["backend","Backend / SDE","code"],["knowledge","Study Centre","book"],["core","Core CS","book"],["dsa","DSA Fundamentals","zap"],["settings","Settings","settings"]
  ] as [View,string,string][];
- const coreSubjects:[View,string,string,string]=[[
+ const coreSubjects:[View,string,string,string][]=[
   ["dbms","DBMS","database","DBMS"],["os","Operating Systems","settings","OS"],["cn","Computer Networks","github","CN"],["oop","OOP","code","OOP"],["sql","SQL","list","SQL"]
  ];
 
