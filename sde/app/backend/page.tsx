@@ -847,7 +847,7 @@ jobs:
   };
 
   const beginnerDefinition: Record<string,string> = {
-    "Client vs server and the request/response pipeline": String.raw\`# WHAT IS A CLIENT?
+    "Client vs server and the request/response pipeline": String.raw`# WHAT IS A CLIENT?
 A client is the program that asks another computer or service to do something.
 
 Examples:
@@ -917,8 +917,8 @@ When you open a website:
 5. Server sends HTML/JSON/data.
 6. Browser displays the result.
 
-Only after understanding this flow should you learn FastAPI routes.\`,
-    "HTTP method + URL + headers + body": String.raw\`# WHAT IS HTTP?
+Only after understanding this flow should you learn FastAPI routes.`,
+    "HTTP method + URL + headers + body": String.raw`# WHAT IS HTTP?
 HTTP is a protocol: a set of rules for communication between clients and web servers.
 
 Think of HTTP as the format both sides agree to use.
@@ -966,8 +966,8 @@ Content-Type: application/json
 Method = POST
 Path = /tasks
 Header = Content-Type
-Body = JSON data\`,
-    "Status codes: 2xx, 3xx, 4xx, 5xx": String.raw\`# WHAT IS A STATUS CODE?
+Body = JSON data`,
+    "Status codes: 2xx, 3xx, 4xx, 5xx": String.raw`# WHAT IS A STATUS CODE?
 A status code is a number in the HTTP response that tells the client what happened.
 
 # MAIN GROUPS
@@ -992,8 +992,8 @@ A status code is a number in the HTTP response that tells the client what happen
 # WHY IT MATTERS
 The frontend should not have to guess whether an operation worked.
 
-Status code + response body form part of the API contract.\`,
-    "JSON, path parameters and query parameters": String.raw\`# WHAT IS JSON?
+Status code + response body form part of the API contract.`,
+    "JSON, path parameters and query parameters": String.raw`# WHAT IS JSON?
 JSON is a text format commonly used to exchange structured data.
 
 Example:
@@ -1018,8 +1018,8 @@ completed=false and limit=20 are query parameters.
 # SIMPLE RULE
 Path → WHICH resource?
 Query → HOW should I get/filter the resource?
-Body → WHAT data am I sending?\`,
-    "REST resources, CORS, cookies and sessions": String.raw\`# WHAT IS REST?
+Body → WHAT data am I sending?`,
+    "REST resources, CORS, cookies and sessions": String.raw`# WHAT IS REST?
 REST is a style for designing network APIs around resources.
 
 For tasks:
@@ -1046,8 +1046,8 @@ A session is a way to associate multiple requests with the same user/state.
 
 Do not confuse:
 cookie = storage/transport mechanism
-session = application concept for maintaining state\`,
-    "FastAPI app, route and Uvicorn": String.raw\`# WHAT IS FASTAPI?
+session = application concept for maintaining state`,
+    "FastAPI app, route and Uvicorn": String.raw`# WHAT IS FASTAPI?
 FastAPI is a Python framework for building APIs.
 
 It helps us define routes, validate input, serialize output and handle HTTP requests.
@@ -1079,8 +1079,8 @@ def get_task(task_id: int):
     return {"id": task_id}
 
 Run:
-uvicorn main:app --reload\`,
-    "Path/query parameters and request bodies": String.raw\`# THREE INPUT LOCATIONS
+uvicorn main:app --reload`,
+    "Path/query parameters and request bodies": String.raw`# THREE INPUT LOCATIONS
 
 PATH:
 GET /tasks/42
@@ -1102,8 +1102,8 @@ Path = which resource?
 Query = how should the collection be returned?
 Body = what data should be created/changed?
 
-FastAPI uses Python type hints to parse and validate these values.\`,
-    "Pydantic validation and schemas": String.raw\`# WHAT IS VALIDATION?
+FastAPI uses Python type hints to parse and validate these values.`,
+    "Pydantic validation and schemas": String.raw`# WHAT IS VALIDATION?
 Validation checks whether incoming data has the shape and values your application expects.
 
 Clients cannot be trusted.
@@ -1131,8 +1131,8 @@ from pydantic import BaseModel
 class TaskCreate(BaseModel):
     title: str
 
-If the client sends invalid data, FastAPI can reject it before business logic runs.\`,
-    "Tables, rows, columns and relationships": String.raw\`# WHAT IS A DATABASE?
+If the client sends invalid data, FastAPI can reject it before business logic runs.`,
+    "Tables, rows, columns and relationships": String.raw`# WHAT IS A DATABASE?
 A database is software that stores and retrieves data reliably.
 
 # WHAT IS A TABLE?
@@ -1156,8 +1156,8 @@ A foreign key connects one table to another.
 
 tasks.user_id → users.id
 
-This is how relational databases represent relationships.\`,
-    "SELECT": String.raw\`# WHAT IS SELECT?
+This is how relational databases represent relationships.`,
+    "SELECT": String.raw`# WHAT IS SELECT?
 SELECT reads data from a database.
 
 Example:
@@ -1167,8 +1167,8 @@ FROM tasks;
 The database finds rows in tasks and returns only the requested columns.
 
 # WHY NOT SELECT *?
-Because APIs often need only a few fields. Selecting what you need can reduce unnecessary data transfer and processing.\`,
-    "WHERE": String.raw\`# WHAT IS WHERE?
+Because APIs often need only a few fields. Selecting what you need can reduce unnecessary data transfer and processing.`,
+    "WHERE": String.raw`# WHAT IS WHERE?
 WHERE filters rows.
 
 SELECT id, title
@@ -1178,8 +1178,8 @@ WHERE user_id = 7;
 Only rows matching the condition are returned.
 
 # IMPORTANT
-Filtering in the database is usually better than loading every row into Python and filtering afterward.\`,
-    "Indexes and why they speed reads": String.raw\`# WHAT IS AN INDEX?
+Filtering in the database is usually better than loading every row into Python and filtering afterward.`,
+    "Indexes and why they speed reads": String.raw`# WHAT IS AN INDEX?
 An index is an additional data structure maintained by the database to find rows more efficiently for certain queries.
 
 Think of a book:
@@ -1195,8 +1195,8 @@ Then a query filtering by user_id may become faster.
 # TRADE-OFF
 Indexes consume storage and make some writes more expensive because the index must also be updated.
 
-Never assume every column needs an index.\`,
-    "Transactions and ACID": String.raw\`# WHAT IS A TRANSACTION?
+Never assume every column needs an index.`,
+    "Transactions and ACID": String.raw`# WHAT IS A TRANSACTION?
 A transaction groups database operations into one logical unit.
 
 Example: transferring money.
@@ -1211,8 +1211,8 @@ If step 2 fails, we do not want step 1 permanently saved.
 Atomicity → all or nothing
 Consistency → valid database state
 Isolation → concurrent transactions are controlled
-Durability → committed data survives failures according to the database's guarantees\`,
-    "Authentication vs authorization": String.raw\`# WHAT IS AUTHENTICATION?
+Durability → committed data survives failures according to the database's guarantees`,
+    "Authentication vs authorization": String.raw`# WHAT IS AUTHENTICATION?
 Authentication answers:
 "Who are you?"
 
@@ -1232,8 +1232,8 @@ Authentication = identity
 Authorization = permission
 
 Login is authentication.
-Checking ownership is authorization.\`,
-    "Never store plain passwords: hashing": String.raw\`# WHY NOT STORE PASSWORDS?
+Checking ownership is authorization.`,
+    "Never store plain passwords: hashing": String.raw`# WHY NOT STORE PASSWORDS?
 If the database leaks and raw passwords are stored, every password is immediately exposed.
 
 # WHAT IS HASHING?
@@ -1249,8 +1249,8 @@ entered password + stored hash
 → verification
 → match / reject
 
-Use a password-hashing library designed for passwords. Do not invent your own hashing algorithm.\`,
-    "JWT structure and signed access tokens": String.raw\`# WHAT IS A JWT?
+Use a password-hashing library designed for passwords. Do not invent your own hashing algorithm.`,
+    "JWT structure and signed access tokens": String.raw`# WHAT IS A JWT?
 JWT means JSON Web Token.
 
 It is a signed token commonly used to carry claims between a client and server.
@@ -1270,8 +1270,8 @@ login
 → client sends token later
 → server verifies token
 → server identifies user
-→ authorization check\`,
-    "Pagination for large result sets": String.raw\`# WHAT IS PAGINATION?
+→ authorization check`,
+    "Pagination for large result sets": String.raw`# WHAT IS PAGINATION?
 Pagination means returning a manageable portion of a large collection instead of everything at once.
 
 Example:
@@ -1283,8 +1283,8 @@ offset = how far into the collection
 # WHY?
 If a user has 100,000 tasks, returning all of them wastes memory, bandwidth and time.
 
-For very large changing datasets, cursor/keyset pagination can provide more stable performance.\`,
-    "pytest setup": String.raw\`# WHAT IS A TEST?
+For very large changing datasets, cursor/keyset pagination can provide more stable performance.`,
+    "pytest setup": String.raw`# WHAT IS A TEST?
 A test is executable code that checks whether expected behavior still works.
 
 Example:
@@ -1297,8 +1297,8 @@ Basic test:
 def test_addition():
     assert 2 + 2 == 4
 
-A backend test should focus on behavior, not merely whether lines were executed.\`,
-    "Redis keys, values and fast temporary state": String.raw\`# WHAT IS REDIS?
+A backend test should focus on behavior, not merely whether lines were executed.`,
+    "Redis keys, values and fast temporary state": String.raw`# WHAT IS REDIS?
 Redis is an in-memory data store designed for very fast operations.
 
 It stores values under keys.
@@ -1314,8 +1314,8 @@ Common uses:
 • temporary state
 • queues/brokers in some architectures
 
-PostgreSQL can remain the durable source of truth while Redis handles fast temporary data.\`,
-    "Why queues and workers exist": String.raw\`# WHAT IS A QUEUE?
+PostgreSQL can remain the durable source of truth while Redis handles fast temporary data.`,
+    "Why queues and workers exist": String.raw`# WHAT IS A QUEUE?
 A queue holds work that should be processed asynchronously.
 
 Imagine an email request.
@@ -1330,8 +1330,8 @@ worker → takes job → sends email
 # WHAT IS A WORKER?
 A worker is a separate process that consumes jobs and performs the work.
 
-This prevents slow background operations from unnecessarily blocking the user request.\`,
-    "Image vs container": String.raw\`# WHAT IS A CONTAINER IMAGE?
+This prevents slow background operations from unnecessarily blocking the user request.`,
+    "Image vs container": String.raw`# WHAT IS A CONTAINER IMAGE?
 An image is a packaged filesystem and configuration used to create containers.
 
 # WHAT IS A CONTAINER?
@@ -1344,8 +1344,8 @@ container = running instance
 One image can create multiple containers.
 
 # WHY?
-It helps make the runtime environment reproducible across machines.\`,
-    "What CI/CD actually solves": String.raw\`# WHAT IS CI?
+It helps make the runtime environment reproducible across machines.`,
+    "What CI/CD actually solves": String.raw`# WHAT IS CI?
 Continuous Integration means automatically checking changes as code is pushed or proposed.
 
 Typical:
@@ -1364,7 +1364,7 @@ test
 → health check
 
 # WHY?
-The goal is repeatability. Humans should not have to remember 20 manual deployment commands every time.\`
+The goal is repeatability. Humans should not have to remember 20 manual deployment commands every time.`
   };
 
   const focusDetail: Record<string,string> = {
