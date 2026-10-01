@@ -1364,8 +1364,20 @@ The goal is repeatability. Humans should not have to remember 20 manual deployme
   };
 
   const detail = (stageGuide[stage] || "") + "\n\n" + (focusDetail[focus] || (
-    "# CORE CONCEPT\n" + target +
-    "\n\n# HOW TO THINK\n1. Identify the input.\n2. Identify the output.\n3. Understand the normal flow.\n4. Identify failure cases.\n5. Implement the smallest example.\n6. Connect it to the TaskFlow backend."
+    "# WHAT IS THIS?\n" +
+    focus +
+    "\n\nStart by defining the thing in plain English. Identify what problem it solves, where it lives in a backend, and what would happen if we did not have it.\n\n" +
+    "# BUILD THE MENTAL MODEL\n" +
+    "1. What enters the system?\n" +
+    "2. What component receives it?\n" +
+    "3. What processing happens?\n" +
+    "4. What state or dependency is used?\n" +
+    "5. What comes out?\n" +
+    "6. What can fail?\n\n" +
+    "# LEARN BY DOING\n" +
+    "Write the smallest working example. Change one input. Run it again. Observe the output. Then connect the same idea to TaskFlow.\n\n" +
+    "# IMPORTANT\n" +
+    "Do not memorise this concept yet. You should be able to explain what it is, why it exists, how it works, and where it belongs before moving on."
   ));
 
   const walkthrough =
