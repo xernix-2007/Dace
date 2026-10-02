@@ -146,6 +146,7 @@ export default function Home(){
  const [todayKey,setTodayKey]=useState("");
  const [dailyCommitment,setDailyCommitment]=useState<Record<string,DailyCommitmentStatus>>({});
  const [devDay,setDevDay]=useState(1);
+ useEffect(()=>{if(hydrated)localStorage.setItem("dace-question-section",questionSection)},[questionSection,hydrated]);
  useEffect(()=>{
   const syncDay=()=>setTodayKey(dateKey());
   syncDay();
