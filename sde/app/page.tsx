@@ -69,6 +69,25 @@ function Icon({name,size=17}:{name:string;size?:number}){
  const C=icons[name]||Code2;return <C {...common}/>;
 }
 
+const QUESTION_SECTIONS = [
+ {id:"oct",label:"October · Q1–300",start:1,end:300},
+ {id:"nov",label:"November · Q301–600",start:301,end:600},
+ {id:"dec",label:"December · Q601–900",start:601,end:900},
+ {id:"jan",label:"January · Q901–1200",start:901,end:1200},
+ {id:"feb",label:"February · Q1201–1500",start:1201,end:1500},
+ {id:"mar",label:"March · Q1501–1800",start:1501,end:1800},
+ {id:"apr",label:"April · Q1801–2100",start:1801,end:2100},
+ {id:"may",label:"May · Q2101–2400",start:2101,end:2400},
+ {id:"jun",label:"June · Q2401–2700",start:2401,end:2700},
+ {id:"jul",label:"July · Q2701–2781",start:2701,end:2781}
+] as const;
+
+function inQuestionSection(p:Problem,sectionId:string){
+ const section=QUESTION_SECTIONS.find(s=>s.id===sectionId);
+ if(!section)return true;
+ const n=p.leetcodeNumber??0;
+ return n>=section.start&&n<=section.end;
+}
 const DSA_CURRICULUM = [
  "Arrays","Strings","Hashing","Sorting","Binary Search","Two Pointers","Sliding Window","Linked List","Stack / Queue","Trees","Heap","Recursion","Backtracking","Greedy","Graphs","Dynamic Programming","Trie","Bit Manipulation","Intervals","Union Find","Math"
 ];
@@ -103,6 +122,7 @@ export default function Home(){
  const [coreOpen,setCoreOpen]=useState(false);
  const [company,setCompany]=useState("All");
  const [target,setTarget]=useState({Easy:3,Medium:2,Hard:0});
+ const [questionSection,setQuestionSection]=useState("oct");
  const [solved,setSolved]=useState<number[]>([]);
  const [solvedAt,setSolvedAt]=useState<Record<number,string>>({});
  const [status,setStatus]=useState<Record<number,Status>>({});
@@ -382,6 +402,7 @@ export default function Home(){
     if(d.attempts&&typeof d.attempts==="object")setAttempts(d.attempts);
     if(d.hints&&typeof d.hints==="object")setHints(d.hints);
     if(d.target&&typeof d.target==="object")setTarget(d.target);
+    if(typeof d.questionSection==="string")setQuestionSection(d.questionSection);
     if(typeof d.company==="string")setCompany(d.company);
    }catch{alert("Invalid DACE backup file.");}
    finally{input.value="";}
