@@ -109,6 +109,17 @@ function curriculumEligible(p:Problem,solvedCount:number){
  return true;
 }
 
+function dailyMatchesTarget(ids:number[],target:{Easy:number;Medium:number;Hard:number}){
+ if(ids.length!==target.Easy+target.Medium+target.Hard)return false;
+ const counts:{Easy:number;Medium:number;Hard:number}={Easy:0,Medium:0,Hard:0};
+ for(const id of ids){
+  const p=problems.find(x=>x.id===id);
+  if(!p)return false;
+  counts[p.difficulty]++;
+ }
+ return counts.Easy===target.Easy&&counts.Medium===target.Medium&&counts.Hard===target.Hard;
+}
+
 function familySolvedCount(family:string,solved:number[]){
  return solved.filter(id=>{
   const p=problems.find(x=>x.id===id);
@@ -228,7 +239,7 @@ export default function Home(){
 
  const todayIds=useMemo(()=>{
   if(!hydrated||!todayKey)return [];
-  if(daily[todayKey])return daily[todayKey];
+  if(daily[todayKey]&&dailyMatchesTarget(daily[todayKey],target))return daily[todayKey];
 
   const totalTarget=target.Easy+target.Medium+target.Hard;
   const stage=curriculumIndexForSolved(solved.length);
@@ -297,24 +308,13 @@ export default function Home(){
     }
   }
 
-  // Only if the requested difficulty genuinely does not exist in the
-  // curriculum-safe pool do we fill the missing total with another difficulty.
-  if(selected.length<totalTarget){
-    const fallback=curriculumPool
-      .filter(p=>!used.has(p.id))
-      .sort((a,b)=>rank(b,"fallback")-rank(a,"fallback"));
-    for(const p of fallback.slice(0,totalTarget-selected.length)){
-      selected.push(p);
-      used.add(p.id);
-    }
-  }
-
-  return selected.slice(0,totalTarget).map(p=>p.id); },[daily,todayKey,solved,company,target,questionSection,topicStats,recentIds,hydrated]);
+  // Never silently change the requested difficulty mix.\n  return selected.slice(0,totalTarget).map(p=>p.id); },[daily,todayKey,solved,company,target,questionSection,topicStats,recentIds,hydrated]);
  useEffect(()=>{
-  if(!hydrated||!todayKey||daily[todayKey])return;
-  const ids=todayIds;
-  setDaily(x=>x[todayKey]?x:{...x,[todayKey]:ids});
- },[hydrated,todayKey,daily,todayIds]);
+  if(!hydrated||!todayKey)return;
+  const cached=daily[todayKey];
+  if(cached&&dailyMatchesTarget(cached,target))return;
+  setDaily(x=>({...x,[todayKey]:todayIds}));
+ },[hydrated,todayKey,daily,todayIds,target]);
 
  const today=todayIds.map(id=>problems.find(p=>p.id===id)).filter(Boolean) as Problem[];
  const solvedToday=today.filter(p=>solved.includes(p.id)).length;
