@@ -105,7 +105,6 @@ function curriculumEligible(p:Problem,solvedCount:number){
  const stage=curriculumIndexForSolved(solvedCount);
  const allowed=new Set(DSA_CURRICULUM.slice(0,Math.min(DSA_CURRICULUM.length,stage+2)));
  if(!allowed.has(family))return false;
- if(p.difficulty==="Hard")return false;
  if(!p.leetcodeNumber)return false;
  return true;
 }
