@@ -8,7 +8,7 @@ import {
   Check, CheckCircle2, ChevronRight, CircleHelp, Clock3, Code2, Download,
   Flame, Gauge, GitBranch, GraduationCap, LayoutDashboard, ListChecks, Menu,
   Play, RotateCcw, Search, Settings, ShieldCheck, Sparkles, Target, Timer,
-  Trophy, Upload, UserRound, X, Zap
+  Trophy, Upload, UserRound, X, Zap, Youtube
 } from "lucide-react";
 
 type Difficulty="Easy"|"Medium"|"Hard";
@@ -69,12 +69,40 @@ function Icon({name,size=17}:{name:string;size?:number}){
  const C=icons[name]||Code2;return <C {...common}/>;
 }
 
+const DSA_CURRICULUM = [
+ "Arrays","Strings","Hashing","Sorting","Binary Search","Two Pointers","Sliding Window","Linked List","Stack / Queue","Trees","Heap","Recursion","Backtracking","Greedy","Graphs","Dynamic Programming","Trie","Bit Manipulation","Intervals","Union Find","Math"
+];
+
+function striverYoutubeUrl(p:Problem){
+ return "https://www.youtube.com/results?search_query="+encodeURIComponent("Striver "+p.title+" solution");
+}
+
+function curriculumIndexForSolved(solvedCount:number){
+ return Math.min(DSA_CURRICULUM.length-1,Math.floor(solvedCount/12));
+}
+
+function curriculumEligible(p:Problem,solvedCount:number){
+ const family=topicFamily(p);
+ const stage=curriculumIndexForSolved(solvedCount);
+ const allowed=new Set(DSA_CURRICULUM.slice(0,Math.min(DSA_CURRICULUM.length,stage+2)));
+ if(!allowed.has(family))return false;
+ if(p.difficulty==="Hard")return false;
+ if(!p.leetcodeNumber)return false;
+ return true;
+}
+
+function familySolvedCount(family:string,solved:number[]){
+ return solved.filter(id=>{
+  const p=problems.find(x=>x.id===id);
+  return p?topicFamily(p)===family:false;
+ }).length;
+}
 export default function Home(){
  const [view,setView]=useState<View>("overview");
  const [mobileOpen,setMobileOpen]=useState(false);
  const [coreOpen,setCoreOpen]=useState(false);
  const [company,setCompany]=useState("All");
- const [target,setTarget]=useState({Easy:1,Medium:2,Hard:2});
+ const [target,setTarget]=useState({Easy:3,Medium:2,Hard:0});
  const [solved,setSolved]=useState<number[]>([]);
  const [solvedAt,setSolvedAt]=useState<Record<number,string>>({});
  const [status,setStatus]=useState<Record<number,Status>>({});
@@ -182,91 +210,72 @@ export default function Home(){
   if(daily[todayKey])return daily[todayKey];
 
   const totalTarget=target.Easy+target.Medium+target.Hard;
-  const available=problems.filter(p=>!solved.includes(p.id)&&(company==="All"||p.companies.includes(company)));
+  const stage=curriculumIndexForSolved(solved.length);
+  const currentFamily=DSA_CURRICULUM[stage];
+  const nextFamily=DSA_CURRICULUM[Math.min(stage+1,DSA_CURRICULUM.length-1)];
+
+  const available=problems.filter(p=>
+    !solved.includes(p.id) &&
+    (company==="All"||p.companies.includes(company)) &&
+    curriculumEligible(p,solved.length)
+  );
   if(!available.length)return [];
 
-  // DACE daily structure:
-  // 1) choose only 1–2 topic families for the whole day;
-  // 2) teach fundamentals first;
-  // 3) move into core interview problems;
-  // 4) finish with 1–2 application-style problems;
-  // Randomness is only used between similarly suitable candidates.
-  const familyCounts:Record<string,number>={};
-  for(const p of available){const f=topicFamily(p);familyCounts[f]=(familyCounts[f]||0)+1;}
-  const familyPool=Object.keys(familyCounts).filter(f=>familyCounts[f]>=2);
-  const rankedFamilies=shuffle(familyPool.length?familyPool:Object.keys(familyCounts),todayKey+"-families")
-    .sort((a,b)=>{
-      const weakness=(f:string)=>1-(Object.entries(topicStats).filter(([t])=>topicFamily({topics:[t]} as Problem)===f).reduce((s,[,v])=>s+v.solved,0)/Math.max(1,Object.entries(topicStats).filter(([t])=>topicFamily({topics:[t]} as Problem)===f).reduce((s,[,v])=>s+v.total,0)));
-      return weakness(b)-weakness(a);
-    });
-  const selectedFamilies=rankedFamilies.slice(0,Math.min(2,rankedFamilies.length));
-  const focused=available.filter(p=>selectedFamilies.includes(topicFamily(p)));
-  const pool=focused.length>=totalTarget?focused:available;
-  const familyOf=(p:Problem)=>topicFamily(p);
-  const applicationWords=["cache","schedule","meeting","network","server","database","stream","traffic","route","flight","calendar","log","rate","event","design","system","service","store","delivery","message","task","time","order","queue"];
-  const isApplication=(p:Problem)=>{
-    const text=(p.title+" "+p.topics.join(" ")).toLowerCase();
-    return applicationWords.some(w=>text.includes(w));
-  };
-  const rank=(p:Problem,seed:string,stage:"foundation"|"core"|"application")=>{
+  const focusedFamilies=new Set([currentFamily,nextFamily]);
+  let pool=available.filter(p=>focusedFamilies.has(topicFamily(p)));
+  if(pool.length<totalTarget)pool=available.filter(p=>topicFamily(p)===currentFamily);
+  if(pool.length<totalTarget)pool=available;
+
+  const currentSolved=familySolvedCount(currentFamily,solved);
+  const allowMedium=currentSolved>=5 || (stage===0 && solved.length>=10);
+
+  const easy=pool.filter(p=>p.difficulty==="Easy");
+  const medium=pool.filter(p=>p.difficulty==="Medium");
+
+  const rank=(p:Problem,seed:string)=>{
+    const family=topicFamily(p);
+    const familyDistance=family===currentFamily?4:family===nextFamily?1:0;
+    const difficultyFit=p.difficulty==="Easy"?(allowMedium?2:5):(allowMedium?3:-8);
     const weak=p.topics.reduce((best,t)=>Math.max(best,1-(topicStats[t]?.solved||0)/Math.max(1,topicStats[t]?.total||1)),.25);
-    const revision=status[p.id]==="revision"?1.5:0;
-    const failed=status[p.id]==="failed"?1.2:0;
-    const fresh=recentIds.has(p.id)?-3:1;
-    const frequency=Math.min(2,(p.companyFrequency?.[company]??p.frequency??0)/50);
-    const stageFit=stage==="foundation"?(p.difficulty==="Easy"?5:p.difficulty==="Medium"?1:-4):stage==="core"?(p.difficulty==="Medium"?5:p.difficulty==="Easy"?2:3):(isApplication(p)?5:0);
+    const revision=status[p.id]==="revision"?2:0;
+    const failed=status[p.id]==="failed"?1.5:0;
+    const fresh=recentIds.has(p.id)?-4:1;
     const jitter=(hashSeed(seed+p.id)*0.000001)%1;
-    return weak*4+revision+failed+fresh+frequency+stageFit+jitter;
+    return familyDistance+difficultyFit+weak*3+revision+failed+fresh+jitter;
   };
-  const choose=(candidates:Problem[],count:number,stage:string)=>{
-    const chosen:Problem[]=[];
+
+  const choose=(candidates:Problem[],count:number,seed:string)=>{
     const remaining=[...candidates];
+    const chosen:Problem[]=[];
     while(chosen.length<count&&remaining.length){
-      remaining.sort((a,b)=>rank(b,todayKey+stage+chosen.length,stage as "foundation"|"core"|"application")-rank(a,todayKey+stage+chosen.length,stage as "foundation"|"core"|"application"));
-      const top=remaining.slice(0,Math.min(5,remaining.length));
-      const pick=shuffle(top,todayKey+stage+chosen.length)[0];
+      remaining.sort((a,b)=>rank(b,seed+chosen.length)-rank(a,seed+chosen.length));
+      const top=remaining.slice(0,Math.min(8,remaining.length));
+      const pick=shuffle(top,todayKey+seed+chosen.length)[0];
       chosen.push(pick);
       remaining.splice(remaining.indexOf(pick),1);
     }
     return chosen;
   };
 
-  // Reserve the daily difficulty counts first, then order the selected questions pedagogically.
   const selected:Problem[]=[];
   const used=new Set<number>();
-  const take=(list:Problem[],count:number,stage:"foundation"|"core"|"application")=>{
-    const candidates=list.filter(p=>!used.has(p.id));
-    const chosen=choose(candidates,count,stage);
-    chosen.forEach(p=>{used.add(p.id);selected.push(p)});
-  };
 
-  // Fundamentals first: consume Easy first, then the first Medium.
-  take(pool.filter(p=>p.difficulty==="Easy"),Math.min(target.Easy,Math.max(1,totalTarget>1?1:target.Easy)),"foundation");
-  if(selected.length<target.Easy)take(pool.filter(p=>p.difficulty==="Easy"),target.Easy-selected.length,"foundation");
+  for(const p of choose(easy,Math.min(target.Easy,easy.length),"foundation")){
+    if(!used.has(p.id)){selected.push(p);used.add(p.id);}
+  }
 
-  // Core progression: remaining Easy, then Medium, then Hard as requested by the target.
-  if(selected.length<totalTarget)take(pool.filter(p=>p.difficulty==="Medium"),target.Medium,"core");
-  if(selected.length<totalTarget)take(pool.filter(p=>p.difficulty==="Hard"),target.Hard,"core");
-  if(selected.length<totalTarget)take(pool.filter(p=>p.difficulty==="Easy"),target.Easy-selected.filter(p=>p.difficulty==="Easy").length,"core");
-
-  // Finish with 1–2 application-style questions whenever the pool contains suitable ones.
-  const applicationCount=Math.min(2,Math.max(1,totalTarget>=4?2:1));
-  const applications=pool.filter(p=>isApplication(p)&&!used.has(p.id));
-  if(applications.length){
-    const replacements=choose(applications,Math.min(applicationCount,applications.length),"application");
-    for(const p of replacements){
-      const replaceIndex=[...selected].reverse().findIndex(x=>x.difficulty===p.difficulty);
-      const idx=replaceIndex<0?-1:selected.length-1-replaceIndex;
-      if(idx>=0){used.delete(selected[idx].id);selected[idx]=p;used.add(p.id);}
-      else if(selected.length<totalTarget){selected.push(p);used.add(p.id);}
+  if(allowMedium&&selected.length<totalTarget){
+    for(const p of choose(medium,Math.min(target.Medium,totalTarget-selected.length),"core")){
+      if(!used.has(p.id)){selected.push(p);used.add(p.id);}
     }
   }
 
-  // If a requested difficulty has too few questions, fill without breaking the 1–2 topic focus.
-  const fallback=shuffle(pool.filter(p=>!used.has(p.id)),todayKey+"-fallback");
-  for(const p of fallback){if(selected.length>=totalTarget)break;selected.push(p);used.add(p.id);}
+  if(selected.length<totalTarget){
+    for(const p of choose(easy.filter(x=>!used.has(x.id)),totalTarget-selected.length,"reinforce")){
+      if(!used.has(p.id)){selected.push(p);used.add(p.id);}
+    }
+  }
 
-  // Final deterministic shuffle is NOT used: the pedagogical order is intentional.
   return selected.slice(0,totalTarget).map(p=>p.id);
  },[daily,todayKey,solved,company,target,topicStats,recentIds,hydrated]);
  useEffect(()=>{
@@ -626,6 +635,7 @@ function DailyCard({p,index,solved,status,openTimer,mark}:{p:Problem;index:numbe
   </div>
   <div className="mt-3 pt-3 border-t border-white/[.06] flex flex-wrap items-center gap-2">
    <select value={status} onChange={e=>mark(p,e.target.value as Status)} className="bg-[#0b0e13] border border-[#253245] rounded-lg px-2.5 py-2 text-[11px]"><option value="unsolved">Unsolved</option><option value="solved">Solved</option><option value="revision">Need revision</option><option value="failed">Couldn't solve</option></select>
+   <a href={striverYoutubeUrl(p)} target="_blank" rel="noreferrer" title="Find Striver's solution on YouTube" className="text-[11px] px-3 py-2 rounded-lg border border-red-400/20 bg-red-400/[.05] text-red-200 hover:bg-red-400/10 hover:border-red-400/35 flex items-center gap-1.5 transition"><Youtube size={13}/> Striver</a>
    <a href={p.url} target="_blank" rel="noreferrer" className="ml-auto text-[11px] px-3 py-2 rounded-lg border border-cyan-300/20 bg-cyan-300/[.05] text-cyan-100 hover:bg-cyan-300/10 hover:border-cyan-300/35 flex items-center gap-1.5 transition"><Icon name="code" size={12}/> Open on LeetCode <Icon name="arrow" size={12}/></a>
    <button onClick={()=>openTimer(p)} className="sm:hidden text-[11px] px-3 py-2 rounded-lg bg-white text-black font-semibold">Timer</button>
   </div>
