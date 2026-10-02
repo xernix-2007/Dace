@@ -308,7 +308,8 @@ export default function Home(){
     }
   }
 
-  // Never silently change the requested difficulty mix.\n  return selected.slice(0,totalTarget).map(p=>p.id); },[daily,todayKey,solved,company,target,questionSection,topicStats,recentIds,hydrated]);
+  // Never silently change the requested difficulty mix.
+  return selected.slice(0,totalTarget).map(p=>p.id); },[daily,todayKey,solved,company,target,questionSection,topicStats,recentIds,hydrated]);
  useEffect(()=>{
   if(!hydrated||!todayKey)return;
   const cached=daily[todayKey];
