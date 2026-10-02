@@ -237,6 +237,7 @@ export default function Home(){
   const available=problems.filter(p=>
     !solved.includes(p.id) &&
     (company==="All"||p.companies.includes(company)) &&
+    inQuestionSection(p,questionSection) &&
     curriculumEligible(p,solved.length)
   );
   if(!available.length)return [];
@@ -297,7 +298,7 @@ export default function Home(){
   }
 
   return selected.slice(0,totalTarget).map(p=>p.id);
- },[daily,todayKey,solved,company,target,topicStats,recentIds,hydrated]);
+ },[daily,todayKey,solved,company,target,questionSection,topicStats,recentIds,hydrated]);
  useEffect(()=>{
   if(!hydrated||!todayKey||daily[todayKey])return;
   const ids=todayIds;
@@ -662,7 +663,7 @@ function DailyCard({p,index,solved,status,openTimer,mark}:{p:Problem;index:numbe
   </div>
  </article>
 }
-function ProblemsPage({problems,solved,status,search,setSearch,difficulty,setDifficulty,topic,setTopic,openTimer,mark}:{problems:Problem[];solved:number[];status:Record<number,Status>;search:string;setSearch:(s:string)=>void;difficulty:"All"|Difficulty;setDifficulty:(d:"All"|Difficulty)=>void;topic:string;setTopic:(t:string)=>void;openTimer:(p:Problem)=>void;mark:(p:Problem,s:Status)=>void}){
+function ProblemsPage({problems,solved,status,search,setSearch,difficulty,setDifficulty,topic,setTopic,questionSection,setQuestionSection,questionSections,openTimer,mark}:{problems:Problem[];solved:number[];status:Record<number,Status>;search:string;setSearch:(s:string)=>void;difficulty:"All"|Difficulty;setDifficulty:(d:"All"|Difficulty)=>void;topic:string;setTopic:(t:string)=>void;questionSection:string;setQuestionSection:(s:string)=>void;questionSections:readonly {id:string;label:string;start:number;end:number}[];openTimer:(p:Problem)=>void;mark:(p:Problem,s:Status)=>void}){
  const [problemCompany,setProblemCompany]=useState("All");
  const [problemStatus,setProblemStatus]=useState<"All"|Status>("All");
  const [problemSort,setProblemSort]=useState<"number"|"title"|"difficulty"|"frequency">("number");
@@ -673,6 +674,7 @@ function ProblemsPage({problems,solved,status,search,setSearch,difficulty,setDif
    matchesTopic(p,topic)&&
    (problemCompany==="All"||p.companies.includes(problemCompany))&&
    (problemStatus==="All"||statusFor(p)===problemStatus)&&
+   inQuestionSection(p,questionSection)&&
    p.title.toLowerCase().includes(search.toLowerCase().trim())
   );
   return [...result].sort((a,b)=>{
@@ -698,6 +700,7 @@ function ProblemsPage({problems,solved,status,search,setSearch,difficulty,setDif
   <div className="panel rounded-2xl p-3 mt-5">
    <div className="grid lg:grid-cols-[1.5fr_repeat(3,1fr)] gap-2">
     <div className="flex items-center gap-2 bg-[#0b1119] border border-[#243145] rounded-xl px-3"><Icon name="search" size={15}/><input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search problems..." className="bg-transparent outline-none py-2.5 text-sm w-full"/></div>
+    <select value={questionSection} onChange={e=>setQuestionSection(e.target.value)} className="bg-[#0b1119] border border-[#253245] rounded-xl px-3 py-2.5 text-xs">{questionSections.map(s=><option key={s.id} value={s.id}>{s.label}</option>)}</select>
     <select value={topic==="All"?"All topics":topic} onChange={e=>setTopic(e.target.value==="All topics"?"All":e.target.value)} className="bg-[#0b1119] border border-[#253245] rounded-xl px-3 py-2.5 text-xs"><option>All topics</option>{topicList.filter(t=>t!=="All").map(t=><option key={t}>{t}</option>)}</select>
     <select value={problemCompany} onChange={e=>setProblemCompany(e.target.value)} className="bg-[#0b1119] border border-[#253245] rounded-xl px-3 py-2.5 text-xs"><option value="All">All companies</option>{companies.filter(c=>c!=="All").map(c=><option key={c}>{c}</option>)}</select>
     <select value={problemStatus} onChange={e=>setProblemStatus(e.target.value as "All"|Status)} className="bg-[#0b1119] border border-[#253245] rounded-xl px-3 py-2.5 text-xs"><option value="All">All status</option><option value="unsolved">Unsolved</option><option value="solved">Solved</option><option value="revision">Need revision</option><option value="failed">Couldn't solve</option></select>
