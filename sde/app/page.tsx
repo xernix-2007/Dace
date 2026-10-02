@@ -261,7 +261,7 @@ export default function Home(){
   const rank=(p:Problem,seed:string)=>{
     const family=topicFamily(p);
     const familyDistance=family===currentFamily?4:family===nextFamily?1:0;
-    const difficultyFit=p.difficulty==="Easy"?(allowMedium?2:5):(allowMedium?3:-8);
+    const difficultyFit=p.difficulty==="Easy"?2:p.difficulty==="Medium"?3:-8;
     const weak=p.topics.reduce((best,t)=>Math.max(best,1-(topicStats[t]?.solved||0)/Math.max(1,topicStats[t]?.total||1)),.25);
     const revision=status[p.id]==="revision"?2:0;
     const failed=status[p.id]==="failed"?1.5:0;
