@@ -249,10 +249,13 @@ export default function Home(){
   if(pool.length<totalTarget)pool=available;
 
   const currentSolved=familySolvedCount(currentFamily,solved);
-  const allowMedium=currentSolved>=5 || (stage===0 && solved.length>=10);
+  // Difficulty counts chosen in Settings are respected. Curriculum controls
+  // the topic pool; it must not silently convert Medium into Easy.
+  const allowHard=stage>=12 && currentSolved>=8;
 
   const easy=pool.filter(p=>p.difficulty==="Easy");
   const medium=pool.filter(p=>p.difficulty==="Medium");
+  const hard=allowHard?pool.filter(p=>p.difficulty==="Hard"):[];
 
   const rank=(p:Problem,seed:string)=>{
     const family=topicFamily(p);
@@ -286,12 +289,18 @@ export default function Home(){
     if(!used.has(p.id)){selected.push(p);used.add(p.id);}
   }
 
-  if(allowMedium&&selected.length<totalTarget){
-    for(const p of choose(medium,Math.min(target.Medium,totalTarget-selected.length),"core")){
-      if(!used.has(p.id)){selected.push(p);used.add(p.id);}
-    }
+  // Respect the exact Easy / Medium / Hard counts from Settings.
+  // Hard stays curriculum-gated so the learner cannot jump into advanced material.
+  for(const p of choose(medium,Math.min(target.Medium,medium.length),"medium")){
+    if(!used.has(p.id)){selected.push(p);used.add(p.id);}
   }
 
+  for(const p of choose(hard,Math.min(target.Hard,hard.length),"hard")){
+    if(!used.has(p.id)){selected.push(p);used.add(p.id);}
+  }
+
+  // Only fill a missing slot with Easy when the requested difficulty does not
+  // have enough eligible questions in the current curriculum stage.
   if(selected.length<totalTarget){
     for(const p of choose(easy.filter(x=>!used.has(x.id)),totalTarget-selected.length,"reinforce")){
       if(!used.has(p.id)){selected.push(p);used.add(p.id);}
