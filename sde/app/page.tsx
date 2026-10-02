@@ -8,7 +8,7 @@ import {
   Check, CheckCircle2, ChevronRight, CircleHelp, Clock3, Code2, Download,
   Flame, Gauge, GitBranch, GraduationCap, LayoutDashboard, ListChecks, Menu,
   Play, RotateCcw, Search, Settings, ShieldCheck, Sparkles, Target, Timer,
-  Trophy, Upload, UserRound, X, Zap, Youtube
+  Trophy, Upload, UserRound, X, Zap
 } from "lucide-react";
 
 type Difficulty="Easy"|"Medium"|"Hard";
@@ -635,7 +635,7 @@ function DailyCard({p,index,solved,status,openTimer,mark}:{p:Problem;index:numbe
   </div>
   <div className="mt-3 pt-3 border-t border-white/[.06] flex flex-wrap items-center gap-2">
    <select value={status} onChange={e=>mark(p,e.target.value as Status)} className="bg-[#0b0e13] border border-[#253245] rounded-lg px-2.5 py-2 text-[11px]"><option value="unsolved">Unsolved</option><option value="solved">Solved</option><option value="revision">Need revision</option><option value="failed">Couldn't solve</option></select>
-   <a href={striverYoutubeUrl(p)} target="_blank" rel="noreferrer" title="Find Striver's solution on YouTube" className="text-[11px] px-3 py-2 rounded-lg border border-red-400/20 bg-red-400/[.05] text-red-200 hover:bg-red-400/10 hover:border-red-400/35 flex items-center gap-1.5 transition"><Youtube size={13}/> Striver</a>
+   <a href={striverYoutubeUrl(p)} target="_blank" rel="noreferrer" title="Find Striver's solution on YouTube" className="text-[11px] px-3 py-2 rounded-lg border border-red-400/20 bg-red-400/[.05] text-red-200 hover:bg-red-400/10 hover:border-red-400/35 flex items-center gap-1.5 transition"><svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></svg> Striver</a>
    <a href={p.url} target="_blank" rel="noreferrer" className="ml-auto text-[11px] px-3 py-2 rounded-lg border border-cyan-300/20 bg-cyan-300/[.05] text-cyan-100 hover:bg-cyan-300/10 hover:border-cyan-300/35 flex items-center gap-1.5 transition"><Icon name="code" size={12}/> Open on LeetCode <Icon name="arrow" size={12}/></a>
    <button onClick={()=>openTimer(p)} className="sm:hidden text-[11px] px-3 py-2 rounded-lg bg-white text-black font-semibold">Timer</button>
   </div>
