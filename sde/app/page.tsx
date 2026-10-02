@@ -155,7 +155,8 @@ export default function Home(){
  },[]);
  function updateTarget(next:React.SetStateAction<{Easy:number;Medium:number;Hard:number}>){
   setTarget(next);
-  if(hydrated){setDaily({});localStorage.removeItem("dace-daily");}
+  setDaily({});
+  if(typeof window!=="undefined")localStorage.removeItem("dace-daily");
  }
  function updateCompany(next:string){
   setCompany(next);
