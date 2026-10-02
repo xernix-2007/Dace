@@ -236,38 +236,31 @@ export default function Home(){
   const currentFamily=DSA_CURRICULUM[stage];
   const nextFamily=DSA_CURRICULUM[Math.min(stage+1,DSA_CURRICULUM.length-1)];
 
-  const available=problems.filter(p=>
+  // First build a curriculum-safe universe. The question-section is only a
+  // preference; it must never destroy the requested difficulty mix.
+  const curriculumPool=problems.filter(p=>
     !solved.includes(p.id) &&
     (company==="All"||p.companies.includes(company)) &&
-    inQuestionSection(p,questionSection) &&
     curriculumEligible(p,solved.length)
   );
-  if(!available.length)return [];
+
+  if(!curriculumPool.length)return [];
 
   const focusedFamilies=new Set([currentFamily,nextFamily]);
-  let pool=available.filter(p=>focusedFamilies.has(topicFamily(p)));
-  if(pool.length<totalTarget)pool=available.filter(p=>topicFamily(p)===currentFamily);
-  if(pool.length<totalTarget)pool=available;
+  const focused=curriculumPool.filter(p=>focusedFamilies.has(topicFamily(p)));
 
-  const currentSolved=familySolvedCount(currentFamily,solved);
-  // Difficulty counts chosen in Settings are respected. Curriculum controls
-  // the topic pool; it must not silently convert Medium into Easy.
-  const allowHard=stage>=12 && currentSolved>=8;
-
-  const easy=pool.filter(p=>p.difficulty==="Easy");
-  const medium=pool.filter(p=>p.difficulty==="Medium");
-  const hard=allowHard?pool.filter(p=>p.difficulty==="Hard"):[];
-
+  // Prefer the current/next concept, then widen to the complete curriculum
+  // when a requested difficulty is missing.
   const rank=(p:Problem,seed:string)=>{
     const family=topicFamily(p);
-    const familyDistance=family===currentFamily?4:family===nextFamily?1:0;
-    const difficultyFit=p.difficulty==="Easy"?2:p.difficulty==="Medium"?3:-8;
+    const familyDistance=family===currentFamily?4:family===nextFamily?2:0;
+    const sectionBoost=inQuestionSection(p,questionSection)?1.5:0;
     const weak=p.topics.reduce((best,t)=>Math.max(best,1-(topicStats[t]?.solved||0)/Math.max(1,topicStats[t]?.total||1)),.25);
     const revision=status[p.id]==="revision"?2:0;
     const failed=status[p.id]==="failed"?1.5:0;
     const fresh=recentIds.has(p.id)?-4:1;
     const jitter=(hashSeed(seed+p.id)*0.000001)%1;
-    return familyDistance+difficultyFit+weak*3+revision+failed+fresh+jitter;
+    return familyDistance+sectionBoost+weak*3+revision+failed+fresh+jitter;
   };
 
   const choose=(candidates:Problem[],count:number,seed:string)=>{
@@ -275,7 +268,7 @@ export default function Home(){
     const chosen:Problem[]=[];
     while(chosen.length<count&&remaining.length){
       remaining.sort((a,b)=>rank(b,seed+chosen.length)-rank(a,seed+chosen.length));
-      const top=remaining.slice(0,Math.min(8,remaining.length));
+      const top=remaining.slice(0,Math.min(10,remaining.length));
       const pick=shuffle(top,todayKey+seed+chosen.length)[0];
       chosen.push(pick);
       remaining.splice(remaining.indexOf(pick),1);
@@ -286,30 +279,38 @@ export default function Home(){
   const selected:Problem[]=[];
   const used=new Set<number>();
 
-  for(const p of choose(easy,Math.min(target.Easy,easy.length),"foundation")){
-    if(!used.has(p.id)){selected.push(p);used.add(p.id);}
-  }
+  const candidatesFor=(difficulty:Difficulty)=>{
+    const focusedDifficulty=focused.filter(p=>p.difficulty===difficulty);
+    const sectionDifficulty=curriculumPool.filter(p=>p.difficulty===difficulty&&inQuestionSection(p,questionSection));
+    const allDifficulty=curriculumPool.filter(p=>p.difficulty===difficulty);
 
-  // Respect the exact Easy / Medium / Hard counts from Settings.
-  // Hard stays curriculum-gated so the learner cannot jump into advanced material.
-  for(const p of choose(medium,Math.min(target.Medium,medium.length),"medium")){
-    if(!used.has(p.id)){selected.push(p);used.add(p.id);}
-  }
+    // Current/next concept → selected question section → full curriculum.
+    const merged=[...focusedDifficulty,...sectionDifficulty,...allDifficulty];
+    const seen=new Set<number>();
+    return merged.filter(p=>!seen.has(p.id)&&!used.has(p.id)&&seen.add(p.id));
+  };
 
-  for(const p of choose(hard,Math.min(target.Hard,hard.length),"hard")){
-    if(!used.has(p.id)){selected.push(p);used.add(p.id);}
-  }
-
-  // Only fill a missing slot with Easy when the requested difficulty does not
-  // have enough eligible questions in the current curriculum stage.
-  if(selected.length<totalTarget){
-    for(const p of choose(easy.filter(x=>!used.has(x.id)),totalTarget-selected.length,"reinforce")){
+  // The Settings target is authoritative for difficulty counts.
+  for(const difficulty of ["Easy","Medium","Hard"] as Difficulty[]){
+    const count=target[difficulty];
+    for(const p of choose(candidatesFor(difficulty),count,difficulty.toLowerCase())){
       if(!used.has(p.id)){selected.push(p);used.add(p.id);}
     }
   }
 
-  return selected.slice(0,totalTarget).map(p=>p.id);
- },[daily,todayKey,solved,company,target,questionSection,topicStats,recentIds,hydrated]);
+  // Only if the requested difficulty genuinely does not exist in the
+  // curriculum-safe pool do we fill the missing total with another difficulty.
+  if(selected.length<totalTarget){
+    const fallback=curriculumPool
+      .filter(p=>!used.has(p.id))
+      .sort((a,b)=>rank(b,"fallback")-rank(a,"fallback"));
+    for(const p of fallback.slice(0,totalTarget-selected.length)){
+      selected.push(p);
+      used.add(p.id);
+    }
+  }
+
+  return selected.slice(0,totalTarget).map(p=>p.id); },[daily,todayKey,solved,company,target,questionSection,topicStats,recentIds,hydrated]);
  useEffect(()=>{
   if(!hydrated||!todayKey||daily[todayKey])return;
   const ids=todayIds;
