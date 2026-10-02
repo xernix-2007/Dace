@@ -625,7 +625,7 @@ function CodingCalendar({solvedAt,setView,setHistoryDate}:{solvedAt:Record<numbe
  </div>
 }
 
-function TodayPage({today,solved,status,solvedToday,target,questionSection,questionSections,setQuestionSection,company,companies,setCompany,openTimer,mark,regenerate,todayKey,devState,devDay,devTitle,setDevDone}:{today:Problem[];solved:number[];status:Record<number,Status>;solvedToday:number;target:{Easy:number;Medium:number;Hard:number};company:string;companies:string[];setCompany:(c:string)=>void;openTimer:(p:Problem)=>void;mark:(p:Problem,s:Status)=>void;regenerate:()=>void;todayKey:string;devState?:DailyCommitmentStatus;devDay:number;devTitle:string;setDevDone:(s:DailyCommitmentStatus)=>void}){
+function TodayPage({today,solved,status,solvedToday,target,questionSection,questionSections,setQuestionSection,company,companies,setCompany,openTimer,mark,regenerate,todayKey,devState,devDay,devTitle,setDevDone}:{today:Problem[];solved:number[];status:Record<number,Status>;solvedToday:number;target:{Easy:number;Medium:number;Hard:number};questionSection:string;questionSections:readonly {id:string;label:string;start:number;end:number}[];setQuestionSection:(s:string)=>void;company:string;companies:string[];setCompany:(c:string)=>void;openTimer:(p:Problem)=>void;mark:(p:Problem,s:Status)=>void;regenerate:()=>void;todayKey:string;devState?:DailyCommitmentStatus;devDay:number;devTitle:string;setDevDone:(s:DailyCommitmentStatus)=>void}){
  const totalTarget=target.Easy+target.Medium+target.Hard;
  const completion=totalTarget?Math.round(solvedToday/totalTarget*100):0;
  return <div className="max-w-7xl mx-auto p-5 md:p-8">
