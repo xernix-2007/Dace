@@ -109,7 +109,8 @@ function curriculumEligible(p:Problem,solvedCount:number){
  return true;
 }
 
-function dailyMatchesTarget(ids:number[],target:{Easy:number;Medium:number;Hard:number}){
+function dailyMatchesSection(ids:number[],sectionId:string){return ids.every(id=>{const p=problems.find(x=>x.id===id);return !!p&&inQuestionSection(p,sectionId);});}
+ function dailyMatchesTarget(ids:number[],target:{Easy:number;Medium:number;Hard:number}){
  if(ids.length!==target.Easy+target.Medium+target.Hard)return false;
  const counts:{Easy:number;Medium:number;Hard:number}={Easy:0,Medium:0,Hard:0};
  for(const id of ids){
@@ -184,6 +185,7 @@ export default function Home(){
    if(load("dace-attempts"))setAttempts(JSON.parse(load("dace-attempts")!));
    if(load("dace-hints"))setHints(JSON.parse(load("dace-hints")!));
    if(load("dace-target"))setTarget(JSON.parse(load("dace-target")!));
+    if(load("dace-question-section"))setQuestionSection(load("dace-question-section")!);
    if(load("dace-company"))setCompany(load("dace-company")!);
    if(load("dace-daily-commitment"))setDailyCommitment(JSON.parse(load("dace-daily-commitment")!));
    if(load("dace-dev-day"))setDevDay(Math.max(1,Math.min(DEV_DAILY.length,Number(load("dace-dev-day"))||1)));
@@ -239,7 +241,7 @@ export default function Home(){
 
  const todayIds=useMemo(()=>{
   if(!hydrated||!todayKey)return [];
-  if(daily[todayKey]&&dailyMatchesTarget(daily[todayKey],target))return daily[todayKey];
+  if(daily[todayKey]&&dailyMatchesTarget(daily[todayKey],target)&&dailyMatchesSection(daily[todayKey],questionSection))return daily[todayKey];
 
   const totalTarget=target.Easy+target.Medium+target.Hard;
   const stage=curriculumIndexForSolved(solved.length);
@@ -250,6 +252,7 @@ export default function Home(){
   // preference; it must never destroy the requested difficulty mix.
   const curriculumPool=problems.filter(p=>
     !solved.includes(p.id) &&
+    inQuestionSection(p,questionSection) &&
     (company==="All"||p.companies.includes(company)) &&
     curriculumEligible(p,solved.length)
   );
@@ -313,7 +316,7 @@ export default function Home(){
  useEffect(()=>{
   if(!hydrated||!todayKey)return;
   const cached=daily[todayKey];
-  if(cached&&dailyMatchesTarget(cached,target))return;
+  if(cached&&dailyMatchesTarget(cached,target)&&dailyMatchesSection(cached,questionSection))return;
   setDaily(x=>({...x,[todayKey]:todayIds}));
  },[hydrated,todayKey,daily,todayIds,target]);
 
