@@ -244,74 +244,68 @@ export default function Home(){
   if(daily[todayKey]&&dailyMatchesTarget(daily[todayKey],target)&&dailyMatchesSection(daily[todayKey],questionSection))return daily[todayKey];
 
   const totalTarget=target.Easy+target.Medium+target.Hard;
-  const stage=curriculumIndexForSolved(solved.length);
-  const currentFamily=DSA_CURRICULUM[stage];
-  const nextFamily=DSA_CURRICULUM[Math.min(stage+1,DSA_CURRICULUM.length-1)];
+  if(totalTarget===0)return [];
 
-  // First build a curriculum-safe universe. The question-section is only a
-  // preference; it must never destroy the requested difficulty mix.
-  const curriculumPool=problems.filter(p=>
+  // October remains Q1–300, November Q301–600, etc. The selected block is
+  // the hard boundary; topic selection happens inside that block.
+  const pool=problems.filter(p=>
     !solved.includes(p.id) &&
     inQuestionSection(p,questionSection) &&
-    (company==="All"||p.companies.includes(company)) &&
-    curriculumEligible(p,solved.length)
+    (company==="All"||p.companies.includes(company))
   );
+  if(!pool.length)return [];
 
-  if(!curriculumPool.length)return [];
+  // Rotate topics across days. Questions solved in the last 14 days are used
+  // to avoid repeating the same topic too often, while the question-number
+  // block still controls exactly which part of the bank is used.
+  const recentFamilies=new Set<string>();
+  recentIds.forEach(id=>{
+    const p=problems.find(x=>x.id===id);
+    if(p)recentFamilies.add(topicFamily(p));
+  });
 
-  const focusedFamilies=new Set([currentFamily,nextFamily]);
-  const focused=curriculumPool.filter(p=>focusedFamilies.has(topicFamily(p)));
+  const familyUse=new Map<string,number>();
+  const selected:Problem[]=[];
+  const used=new Set<number>();
+  const difficultyOrder:[Difficulty,number][]=[
+    ["Easy",target.Easy],
+    ["Medium",target.Medium],
+    ["Hard",target.Hard]
+  ];
 
-  // Prefer the current/next concept, then widen to the complete curriculum
-  // when a requested difficulty is missing.
   const rank=(p:Problem,seed:string)=>{
     const family=topicFamily(p);
-    const familyDistance=family===currentFamily?4:family===nextFamily?2:0;
-    const sectionBoost=inQuestionSection(p,questionSection)?1.5:0;
+    const recentFamily=recentFamilies.has(family);
+    const usedCount=familyUse.get(family)||0;
     const weak=p.topics.reduce((best,t)=>Math.max(best,1-(topicStats[t]?.solved||0)/Math.max(1,topicStats[t]?.total||1)),.25);
     const revision=status[p.id]==="revision"?2:0;
     const failed=status[p.id]==="failed"?1.5:0;
-    const fresh=recentIds.has(p.id)?-4:1;
+    const fresh=recentIds.has(p.id)?-5:1;
+    const topicRotation=(recentFamily?-1:3)-usedCount*6;
     const jitter=(hashSeed(seed+p.id)*0.000001)%1;
-    return familyDistance+sectionBoost+weak*3+revision+failed+fresh+jitter;
+    return topicRotation+weak*2+revision+failed+fresh+jitter;
   };
 
-  const choose=(candidates:Problem[],count:number,seed:string)=>{
-    const remaining=[...candidates];
-    const chosen:Problem[]=[];
-    while(chosen.length<count&&remaining.length){
-      remaining.sort((a,b)=>rank(b,seed+chosen.length)-rank(a,seed+chosen.length));
-      const top=remaining.slice(0,Math.min(10,remaining.length));
-      const pick=shuffle(top,todayKey+seed+chosen.length)[0];
-      chosen.push(pick);
-      remaining.splice(remaining.indexOf(pick),1);
-    }
-    return chosen;
-  };
-
-  const selected:Problem[]=[];
-  const used=new Set<number>();
-
-  const candidatesFor=(difficulty:Difficulty)=>{
-    const focusedDifficulty=focused.filter(p=>p.difficulty===difficulty);
-    const sectionDifficulty=curriculumPool.filter(p=>p.difficulty===difficulty&&inQuestionSection(p,questionSection));
-    const allDifficulty=curriculumPool.filter(p=>p.difficulty===difficulty);
-
-    // Current/next concept → selected question section → full curriculum.
-    const merged=[...focusedDifficulty,...sectionDifficulty,...allDifficulty];
-    const seen=new Set<number>();
-    return merged.filter(p=>!seen.has(p.id)&&!used.has(p.id)&&seen.add(p.id));
-  };
-
-  // The Settings target is authoritative for difficulty counts.
-  for(const difficulty of ["Easy","Medium","Hard"] as Difficulty[]){
-    const count=target[difficulty];
-    for(const p of choose(candidatesFor(difficulty),count,difficulty.toLowerCase())){
-      if(!used.has(p.id)){selected.push(p);used.add(p.id);}
+  // Fill each requested difficulty, but choose the least-used topic first.
+  // This means a 5-question day will normally span 5 different topic
+  // families instead of becoming a single-topic set.
+  for(const [difficulty,count] of difficultyOrder){
+    const candidates=pool.filter(p=>p.difficulty===difficulty&&!used.has(p.id));
+    for(let i=0;i<count&&candidates.length;i++){
+      const ranked=[...candidates].sort((a,b)=>rank(b,`${difficulty}-${todayKey}-${i}`)-rank(a,`${difficulty}-${todayKey}-${i}`));
+      const top=ranked.slice(0,Math.min(20,ranked.length));
+      const pick=shuffle(top,`${todayKey}-${difficulty}-${i}`).find(p=>!used.has(p.id))||ranked[0];
+      if(!pick)break;
+      selected.push(pick);
+      used.add(pick.id);
+      const family=topicFamily(pick);
+      familyUse.set(family,(familyUse.get(family)||0)+1);
+      const index=candidates.findIndex(p=>p.id===pick.id);
+      if(index>=0)candidates.splice(index,1);
     }
   }
 
-  // Never silently change the requested difficulty mix.
+  // Never silently change the user's Easy/Medium/Hard target.
   return selected.slice(0,totalTarget).map(p=>p.id); },[daily,todayKey,solved,company,target,questionSection,topicStats,recentIds,hydrated]);
  useEffect(()=>{
   if(!hydrated||!todayKey)return;
