@@ -496,7 +496,7 @@ function exportData(){
    </section>
   </div>
 
-  {active&&<TimerModal active={active} seconds={seconds} running={running} hints={hints[active.id]||0} onToggle={toggleTimer} onReset={resetTimer} onHint={()=>setHints(x=>({...x,[active.id]:(x[active.id]||0)+1}))} onClose={()=>closeTimer(true)} onSolved={()=>{mark(active,"solved");closeTimer(true)}} onOpenExternal={openExternalProblem}/>
+  {active&&<TimerModal active={active} seconds={seconds} running={running} hints={hints[active.id]||0} onToggle={toggleTimer} onReset={resetTimer} onHint={()=>setHints(x=>({...x,[active.id]:(x[active.id]||0)+1}))} onClose={()=>closeTimer(true)} onSolved={()=>{mark(active,"solved");closeTimer(true)}} onOpenExternal={openExternalProblem}/>} 
  </main>;
 }
 
