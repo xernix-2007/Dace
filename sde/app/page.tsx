@@ -13,7 +13,7 @@ import {
 
 type Difficulty="Easy"|"Medium"|"Hard";
 type Status="unsolved"|"solved"|"revision"|"failed";
-type View="overview"|"today"|"history"|"problems"|"companies"|"analytics"|"interview"|"prep"|"backend"|"knowledge"|"core"|"dbms"|"os"|"cn"|"oop"|"sql"|"dsa"|"settings";
+type View="overview"|"today"|"history"|"problems"|"companies"|"analytics"|"interview"|"prep"|"backend"|"knowledge"|"core"|"dbms"|"os"|"cn"|"oop"|"sql"|"dsa"|"challenge"|"settings";
 type Problem={
  id:number; title:string; difficulty:Difficulty; topics:string[]; companies:string[];
  url:string; estimate:number; leetcodeNumber?:number|null; frequency?:number; companyFrequency?:Record<string,number>;
@@ -445,7 +445,7 @@ function exportData(){
  }
 
  const nav=[
-  ["overview","Overview","dashboard"],["today","Today","calendar"],["history","Question History","calendar"],["problems","Problems","list"],
+  ["overview","Overview","dashboard"],["today","Today","calendar"],["challenge","Challenge","trophy"],["history","Question History","calendar"],["problems","Problems","list"],
   ["companies","Companies","company"],["analytics","Analytics","analytics"],["interview","Interview","interview"],["prep","Prep Plan","target"],["backend","Backend / SDE","code"],["knowledge","Study Centre","book"],["core","Core CS","book"],["dsa","DSA Fundamentals","zap"],["settings","Settings","settings"]
  ] as [View,string,string][];
  const coreSubjects:[View,string,string,string][]=[
@@ -486,7 +486,8 @@ function exportData(){
 
    <section className="flex-1 min-w-0">
     {view==="overview"&&<Overview today={today} solved={solved} status={status} solvedToday={solvedToday} streak={streak} weeklySolved={weeklySolved} completion={completion} totalTime={totalTime} solvedAt={solvedAt} setView={setView} setHistoryDate={setHistoryDate} openTimer={openTimer} devDay={devDay} devTitle={DEV_DAILY[devDay-1]} devState={dailyCommitment[todayKey+"-dev"]} setDevDone={setDevDone}/>}
-    {view==="today"&&<TodayPage today={today} solved={solved} status={status} solvedToday={solvedToday} target={target} questionSection={questionSection} questionSections={QUESTION_SECTIONS} setQuestionSection={setQuestionSection} company={company} companies={companies} setCompany={updateCompany} openTimer={openTimer} mark={mark} regenerate={regenerateToday} todayKey={todayKey} devState={dailyCommitment[todayKey+"-dev"]} devDay={devDay} devTitle={DEV_DAILY[devDay-1]} setDevDone={setDevDone}/>}    {view==="history"&&<QuestionHistoryPage daily={daily} solved={solved} status={status} openTimer={openTimer} selectedDate={historyDate} today={today} target={target} company={company}/>}
+    {view==="today"&&<TodayPage today={today} solved={solved} status={status} solvedToday={solvedToday} target={target} questionSection={questionSection} questionSections={QUESTION_SECTIONS} setQuestionSection={setQuestionSection} company={company} companies={companies} setCompany={updateCompany} openTimer={openTimer} mark={mark} regenerate={regenerateToday} todayKey={todayKey} devState={dailyCommitment[todayKey+"-dev"]} devDay={devDay} devTitle={DEV_DAILY[devDay-1]} setDevDone={setDevDone}/>}    {view==="challenge"&&<ChallengePage problems={problems} solved={solved} status={status} mark={mark}/>}
+    {view==="history"&&<QuestionHistoryPage daily={daily} solved={solved} status={status} openTimer={openTimer} selectedDate={historyDate} today={today} target={target} company={company}/>}
     {view==="problems"&&<ProblemsPage problems={filtered} solved={solved} questionSection={questionSection} setQuestionSection={setQuestionSection} questionSections={QUESTION_SECTIONS} status={status} search={search} setSearch={setSearch} difficulty={difficulty} setDifficulty={setDifficulty} topic={topic} setTopic={setTopic} openTimer={openTimer} mark={mark}/>}
     {view==="companies"&&<CompaniesPage company={company} companies={companies} setCompany={updateCompany} problems={problems} solved={solved} status={status} openTimer={openTimer} mark={mark}/>}
     {view==="analytics"&&<AnalyticsPage problems={problems} solved={solved} status={status} timeSpent={timeSpent} topicStats={topicStats} streak={streak} totalTime={totalTime}/>}
@@ -498,6 +499,54 @@ function exportData(){
 
   {active&&<TimerModal active={active} seconds={seconds} running={running} hints={hints[active.id]||0} onToggle={toggleTimer} onReset={resetTimer} onHint={()=>setHints(x=>({...x,[active.id]:(x[active.id]||0)+1}))} onClose={()=>closeTimer(true)} onSolved={()=>{mark(active,"solved");closeTimer(true)}} onOpenExternal={openExternalProblem}/>} 
  </main>;
+}
+
+
+function ChallengePage({problems,solved,status,mark}:{problems:Problem[];solved:number[];status:Record<number,Status>;mark:(p:Problem,s:Status)=>void}){
+ const [day,setDay]=useState(1);
+ const [search,setSearch]=useState("");
+ const ordered=useMemo(()=>[...problems].filter(p=>p.leetcodeNumber&&p.url).sort((a,b)=>(a.leetcodeNumber??Infinity)-(b.leetcodeNumber??Infinity)),[problems]);
+ const dayCount=Math.max(1,Math.ceil(ordered.length/4));
+ const query=search.trim().toLowerCase();
+ const visible=useMemo(()=>query?ordered.filter(p=>p.title.toLowerCase().includes(query)||(p.leetcodeNumber!==null&&String(p.leetcodeNumber).includes(query))).slice(0,100):ordered.slice((day-1)*4,day*4),[ordered,day,query]);
+ const doneCount=ordered.filter(p=>solved.includes(p.id)).length;
+ const dayDone=visible.filter(p=>solved.includes(p.id)).length;
+ return <div className="max-w-7xl mx-auto p-5 md:p-8">
+  <div className="fade-up panel rounded-3xl p-6 md:p-8 relative overflow-hidden glow-cyan">
+   <div className="absolute -right-10 -top-16 w-64 h-64 rounded-full bg-violet-400/10 blur-3xl"/>
+   <div className="relative">
+    <div className="text-[10px] tracking-[.22em] text-violet-200">DACE / CHALLENGE TRACKER</div>
+    <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-5 mt-3">
+     <div><h1 className="text-3xl md:text-5xl font-black tracking-tight">One problem at a time.</h1><p className="text-sm text-[#8998ac] mt-3 max-w-2xl leading-6">Four problems per challenge day, pulled from DACE's existing LeetCode bank. Tick a problem when you solve it; your progress uses the same browser-saved status as the rest of DACE.</p></div>
+     <div className="panel rounded-2xl p-4 min-w-[180px]"><div className="text-[10px] tracking-widest text-[#7f8da1]">TOTAL PROGRESS</div><div className="text-3xl font-black mt-1">{doneCount}<span className="text-sm text-[#718096] font-medium"> / {ordered.length}</span></div><div className="h-1.5 rounded-full bg-white/10 mt-3 overflow-hidden"><div className="h-full rounded-full bg-gradient-to-r from-cyan-300 to-violet-400" style={{width:(ordered.length?doneCount/ordered.length*100:0)+"%"}}/></div></div>
+    </div>
+   </div>
+  </div>
+  <div className="panel rounded-2xl p-4 mt-5">
+   <div className="grid md:grid-cols-[1fr_auto_auto] gap-3 items-end">
+    <label className="block"><span className="text-[10px] tracking-widest text-[#7f8da1]">FIND A PROBLEM</span><div className="flex items-center gap-2 bg-[#0b1119] border border-[#243145] rounded-xl px-3 mt-2"><Icon name="search" size={15}/><input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search title or LeetCode number..." className="bg-transparent outline-none py-3 text-sm w-full"/></div></label>
+    {!query&&<label className="block"><span className="text-[10px] tracking-widest text-[#7f8da1]">CHALLENGE DAY</span><select value={day} onChange={e=>setDay(Number(e.target.value))} className="block w-full bg-[#0b1119] border border-[#253245] rounded-xl px-3 py-3 mt-2 text-sm">{Array.from({length:dayCount},(_,i)=><option key={i+1} value={i+1}>Day {i+1} · Q{(i*4)+1}–{Math.min((i+1)*4,ordered.length)}</option>)}</select></label>}
+    {!query&&<div className="flex gap-2"><button disabled={day<=1} onClick={()=>setDay(d=>Math.max(1,d-1))} className="px-4 py-3 rounded-xl border border-[#2b384a] text-xs disabled:opacity-30 hover:bg-white/5">← Previous</button><button disabled={day>=dayCount} onClick={()=>setDay(d=>Math.min(dayCount,d+1))} className="px-4 py-3 rounded-xl border border-[#2b384a] text-xs disabled:opacity-30 hover:bg-white/5">Next →</button></div>}
+   </div>
+   <div className="flex flex-wrap items-center justify-between gap-2 mt-4 text-xs text-[#7f8da1]"><span>{query?("Search results · showing up to 100 matches"):("Day "+day+" · "+dayDone+"/"+visible.length+" completed")}</span><span>{query?"Clear search to return to the daily challenge":"4 questions per day · progress is saved locally"}</span></div>
+  </div>
+  <div className="space-y-3 mt-4">
+   {visible.map((p,i)=>{const isDone=solved.includes(p.id);const s=status[p.id]||"unsolved";return <article key={p.id} className={"panel rounded-2xl p-4 md:p-5 transition "+(isDone?"border-green-400/30":"")}>
+    <div className="flex gap-3 md:gap-4 items-start">
+     <label className="flex items-center justify-center pt-1 shrink-0 cursor-pointer" title={isDone?"Mark incomplete":"Mark completed"}><input type="checkbox" checked={isDone} onChange={()=>mark(p,isDone?"unsolved":"solved")} className="w-5 h-5 accent-emerald-400 cursor-pointer" aria-label={"Mark "+p.title+" completed"}/></label>
+     <div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><a href={p.url} target="_blank" rel="noreferrer" className={"font-semibold hover:text-cyan-200 hover:underline underline-offset-4 "+(isDone?"text-green-200":"")}>{p.leetcodeNumber?("#"+p.leetcodeNumber+" · "):""}{p.title}</a>{isDone&&<span className="text-[9px] tracking-widest text-green-300">COMPLETED</span>}</div><div className="text-xs text-[#718096] mt-2">{p.topics.slice(0,3).join(" · ")||"Problem practice"} · ~{p.estimate} min</div></div>
+     <span className={"text-[10px] px-2.5 py-1 rounded-full border shrink-0 "+diffClass(p.difficulty)}>{p.difficulty}</span>
+    </div>
+    <div className="flex flex-wrap gap-2 mt-4 pt-3 border-t border-white/[.06]">
+     <a href={p.url} target="_blank" rel="noreferrer" className="text-[11px] px-3 py-2 rounded-lg border border-cyan-300/20 bg-cyan-300/[.05] text-cyan-100 hover:bg-cyan-300/10 flex items-center gap-1.5"><Icon name="code" size={12}/> LeetCode <Icon name="arrow" size={12}/></a>
+     <a href={striverYoutubeUrl(p)} target="_blank" rel="noreferrer" className="text-[11px] px-3 py-2 rounded-lg border border-red-400/20 bg-red-400/[.05] text-red-200 hover:bg-red-400/10 flex items-center gap-1.5"><Icon name="play" size={12}/> Striver solution <Icon name="arrow" size={12}/></a>
+     <label className="flex items-center gap-2 ml-auto text-[11px] text-[#8391a5]"><span>Status</span><select value={s} onChange={e=>mark(p,e.target.value as Status)} className="bg-[#0b0e13] border border-[#253245] rounded-lg px-2 py-2 text-[11px]"><option value="unsolved">Unsolved</option><option value="solved">Solved</option><option value="revision">Need revision</option><option value="failed">Couldn't solve</option></select></label>
+    </div>
+   </article>})}
+   {visible.length===0&&<div className="panel rounded-2xl p-8 text-center text-sm text-[#8391a5]">No matching LeetCode problems found. Try a shorter search.</div>}
+  </div>
+  <p className="text-[11px] text-[#657387] mt-5 leading-5">Progress is stored in this browser, not in your GitHub account. Export a backup from Settings before clearing browser data or switching devices.</p>
+ </div>;
 }
 
 function NavButton({active,label,icon,onClick}:{active:boolean;label:string;icon:string;onClick:()=>void}){
