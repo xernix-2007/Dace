@@ -1,6 +1,7 @@
 "use client";
 
 import problemsData from "../data/problems.json";
+import CoreCSPage from "./core-cs-page";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import {
@@ -448,9 +449,7 @@ function exportData(){
   ["overview","Overview","dashboard"],["today","Today","calendar"],["challenge","Challenge","trophy"],["history","Question History","calendar"],["problems","Problems","list"],
   ["companies","Companies","company"],["analytics","Analytics","analytics"],["interview","Interview","interview"],["prep","Prep Plan","target"],["backend","Backend / SDE","code"],["knowledge","Study Centre","book"],["core","Core CS","book"],["dsa","DSA Fundamentals","zap"],["settings","Settings","settings"]
  ] as [View,string,string][];
- const coreSubjects:[View,string,string,string][]=[
-  ["dbms","DBMS","database","DBMS"],["os","Operating Systems","settings","OS"],["cn","Computer Networks","github","CN"],["oop","OOP","code","OOP"],["sql","SQL","list","SQL"]
- ];
+
 
  return <main className="min-h-screen dace-grid">
   <div className="cosmic-bg cosmic-nebula" aria-hidden="true"/><div className="cosmic-bg cosmic-planet planet-a" aria-hidden="true"/><div className="cosmic-bg cosmic-planet planet-b" aria-hidden="true"/><div className="cosmic-bg cosmic-planet planet-c" aria-hidden="true"/><div className="cosmic-bg cosmic-galaxy galaxy-one" aria-hidden="true"/><div className="cosmic-bg cosmic-galaxy galaxy-two" aria-hidden="true"/><div className="cosmic-bg cosmic-wormhole" aria-hidden="true"/><div className="cosmic-bg cosmic-constellation" aria-hidden="true"/><div className="cosmic-bg cosmic-orbit orbit-one" aria-hidden="true"/><div className="cosmic-bg cosmic-orbit orbit-two" aria-hidden="true"/><div className="cosmic-bg cosmic-spark" aria-hidden="true"/><div className="cosmic-bg cosmic-spark two" aria-hidden="true"/>
@@ -470,12 +469,12 @@ function exportData(){
    </div>
   </header>
 
-  {mobileOpen&&<div className="fixed inset-0 z-50 md:hidden"><div className="absolute inset-0 bg-black/60" onClick={()=>setMobileOpen(false)}/><aside className="absolute left-0 top-0 bottom-0 w-72 bg-[#0a0f16] border-r border-[#202a38] p-4 float-in">{nav.map(([k,l,i])=>k==="core"?<div key={k}><NavButton active={coreSubjects.some(([s])=>view===s)} label={l} icon={i} onClick={()=>setCoreOpen(v=>!v)}/>{coreOpen&&<div className="ml-3 mt-1 mb-2 pl-3 border-l border-cyan-300/15">{coreSubjects.map(([s,label,icon,subject])=><NavButton key={s} active={view===s} label={label} icon={icon} onClick={()=>{window.location.href="/knowledge?subject="+subject;setMobileOpen(false)}}/> )}</div>}</div>:<NavButton key={k} active={view===k} label={l} icon={i} onClick={()=>{if(k==="knowledge"){window.location.href="/knowledge";return;}if(k==="backend"){window.location.href="/backend";return;}if(k==="dsa"){window.location.href="/knowledge?subject=DSA%20Fundamentals";return;}setView(k);setMobileOpen(false)}}/>)}</aside></div>}
+  {mobileOpen&&<div className="fixed inset-0 z-50 md:hidden"><div className="absolute inset-0 bg-black/60" onClick={()=>setMobileOpen(false)}/><aside className="absolute left-0 top-0 bottom-0 w-72 bg-[#0a0f16] border-r border-[#202a38] p-4 float-in">{nav.map(([k,l,i])=><NavButton key={k} active={view===k} label={l} icon={i} onClick={()=>{if(k==="knowledge"){window.location.href="/knowledge";return;}if(k==="backend"){window.location.href="/backend";return;}if(k==="dsa"){window.location.href="/knowledge?subject=DSA%20Fundamentals";return;}setView(k);setMobileOpen(false)}}/>)}</aside></div>}
 
   <div className="flex min-h-[calc(100vh-64px)]">
    <aside className="hidden sm:block w-60 border-r border-[#202a38] p-4 shrink-0 sticky top-16 h-[calc(100vh-64px)] overflow-y-auto">
     <div className="text-[10px] tracking-[.2em] text-[#59687c] px-3 py-3">WORKSPACE</div>
-    {nav.map(([k,l,i])=>k==="core"?<div key={k}><NavButton active={coreSubjects.some(([s])=>view===s)} label={l} icon={i} onClick={()=>setCoreOpen(v=>!v)}/>{coreOpen&&<div className="ml-3 mt-1 mb-2 pl-3 border-l border-cyan-300/15">{coreSubjects.map(([s,label,icon,subject])=><NavButton key={s} active={view===s} label={label} icon={icon} onClick={()=>{window.location.href="/knowledge?subject="+subject}}/> )}</div>}</div>:<NavButton key={k} active={view===k} label={l} icon={i} onClick={()=>{if(k==="knowledge"){window.location.href="/knowledge";return;}if(k==="backend"){window.location.href="/backend";return;}if(k==="dsa"){window.location.href="/knowledge?subject=DSA%20Fundamentals";return;}setView(k)}}/>)}
+    {nav.map(([k,l,i])=><NavButton key={k} active={view===k} label={l} icon={i} onClick={()=>{if(k==="knowledge"){window.location.href="/knowledge";return;}if(k==="backend"){window.location.href="/backend";return;}if(k==="dsa"){window.location.href="/knowledge?subject=DSA%20Fundamentals";return;}setView(k)}}/>)}
     <div className="mt-7 panel rounded-xl p-4 glow-cyan">
      <div className="flex items-center gap-2 text-xs font-semibold"><Icon name="spark" size={14}/> Adaptive engine</div>
      <p className="text-[11px] leading-5 text-[#77869a] mt-2">Selection weighs weakness, revisions, freshness and company preference.</p>
@@ -486,7 +485,7 @@ function exportData(){
 
    <section className="flex-1 min-w-0">
     {view==="overview"&&<Overview today={today} solved={solved} status={status} solvedToday={solvedToday} streak={streak} weeklySolved={weeklySolved} completion={completion} totalTime={totalTime} solvedAt={solvedAt} setView={setView} setHistoryDate={setHistoryDate} openTimer={openTimer} devDay={devDay} devTitle={DEV_DAILY[devDay-1]} devState={dailyCommitment[todayKey+"-dev"]} setDevDone={setDevDone}/>}
-    {view==="today"&&<TodayPage today={today} solved={solved} status={status} solvedToday={solvedToday} target={target} questionSection={questionSection} questionSections={QUESTION_SECTIONS} setQuestionSection={setQuestionSection} company={company} companies={companies} setCompany={updateCompany} openTimer={openTimer} mark={mark} regenerate={regenerateToday} todayKey={todayKey} devState={dailyCommitment[todayKey+"-dev"]} devDay={devDay} devTitle={DEV_DAILY[devDay-1]} setDevDone={setDevDone}/>}    {view==="challenge"&&<ChallengePage problems={problems} solved={solved} status={status} mark={mark}/>}
+    {view==="today"&&<TodayPage today={today} solved={solved} status={status} solvedToday={solvedToday} target={target} questionSection={questionSection} questionSections={QUESTION_SECTIONS} setQuestionSection={setQuestionSection} company={company} companies={companies} setCompany={updateCompany} openTimer={openTimer} mark={mark} regenerate={regenerateToday} todayKey={todayKey} devState={dailyCommitment[todayKey+"-dev"]} devDay={devDay} devTitle={DEV_DAILY[devDay-1]} setDevDone={setDevDone}/>}    {view==="challenge"&&<ChallengePage problems={problems} solved={solved} status={status} mark={mark}/>}{view==="core"&&<CoreCSPage/>}
     {view==="history"&&<QuestionHistoryPage daily={daily} solved={solved} status={status} openTimer={openTimer} selectedDate={historyDate} today={today} target={target} company={company}/>}
     {view==="problems"&&<ProblemsPage problems={filtered} solved={solved} questionSection={questionSection} setQuestionSection={setQuestionSection} questionSections={QUESTION_SECTIONS} status={status} search={search} setSearch={setSearch} difficulty={difficulty} setDifficulty={setDifficulty} topic={topic} setTopic={setTopic} openTimer={openTimer} mark={mark}/>}
     {view==="companies"&&<CompaniesPage company={company} companies={companies} setCompany={updateCompany} problems={problems} solved={solved} status={status} openTimer={openTimer} mark={mark}/>}
