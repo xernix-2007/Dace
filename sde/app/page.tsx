@@ -2,6 +2,7 @@
 
 import problemsData from "../data/problems.json";
 import CoreCSPage from "./core-cs-page";
+import ChallengeCalendar from "./challenge-calendar";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import {
@@ -485,7 +486,7 @@ function exportData(){
 
    <section className="flex-1 min-w-0">
     {view==="overview"&&<Overview today={today} solved={solved} status={status} solvedToday={solvedToday} streak={streak} weeklySolved={weeklySolved} completion={completion} totalTime={totalTime} solvedAt={solvedAt} setView={setView} setHistoryDate={setHistoryDate} openTimer={openTimer} devDay={devDay} devTitle={DEV_DAILY[devDay-1]} devState={dailyCommitment[todayKey+"-dev"]} setDevDone={setDevDone}/>}
-    {view==="today"&&<TodayPage today={today} solved={solved} status={status} solvedToday={solvedToday} target={target} questionSection={questionSection} questionSections={QUESTION_SECTIONS} setQuestionSection={setQuestionSection} company={company} companies={companies} setCompany={updateCompany} openTimer={openTimer} mark={mark} regenerate={regenerateToday} todayKey={todayKey} devState={dailyCommitment[todayKey+"-dev"]} devDay={devDay} devTitle={DEV_DAILY[devDay-1]} setDevDone={setDevDone}/>}    {view==="challenge"&&<ChallengePage problems={problems} solved={solved} status={status} mark={mark}/>}{view==="core"&&<CoreCSPage/>}
+    {view==="today"&&<TodayPage today={today} solved={solved} status={status} solvedToday={solvedToday} target={target} questionSection={questionSection} questionSections={QUESTION_SECTIONS} setQuestionSection={setQuestionSection} company={company} companies={companies} setCompany={updateCompany} openTimer={openTimer} mark={mark} regenerate={regenerateToday} todayKey={todayKey} devState={dailyCommitment[todayKey+"-dev"]} devDay={devDay} devTitle={DEV_DAILY[devDay-1]} setDevDone={setDevDone}/>}    {view==="challenge"&&<ChallengeCalendar problems={problems}/>}{view==="core"&&<CoreCSPage/>}
     {view==="history"&&<QuestionHistoryPage daily={daily} solved={solved} status={status} openTimer={openTimer} selectedDate={historyDate} today={today} target={target} company={company}/>}
     {view==="problems"&&<ProblemsPage problems={filtered} solved={solved} questionSection={questionSection} setQuestionSection={setQuestionSection} questionSections={QUESTION_SECTIONS} status={status} search={search} setSearch={setSearch} difficulty={difficulty} setDifficulty={setDifficulty} topic={topic} setTopic={setTopic} openTimer={openTimer} mark={mark}/>}
     {view==="companies"&&<CompaniesPage company={company} companies={companies} setCompany={updateCompany} problems={problems} solved={solved} status={status} openTimer={openTimer} mark={mark}/>}
